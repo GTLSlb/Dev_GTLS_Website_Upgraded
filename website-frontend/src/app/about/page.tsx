@@ -3,6 +3,11 @@ import CommonHero from "@/lib/components/Common/CommonHero";
 import History from "@/lib/pages/about/sections/History";
 import BannerSection from "@/lib/pages/about/sections/BannerSection";
 import OurStory from "@/lib/pages/about/sections/OurStory";
+import Mission from "@/lib/pages/about/sections/Mission";
+import WhyLogistics from "@/lib/pages/about/sections/WhyLogistics";
+import CoreValues from "@/lib/pages/about/sections/CoreValues";
+import Vision from "@/lib/pages/about/sections/Vision";
+import MessageBanner from "@/lib/pages/about/sections/MessageBanner";
 
 const Page = () => {
   return (
@@ -14,9 +19,14 @@ const Page = () => {
         imageSrc="/webp/3movers.webp"
         cornerText="Talk with an expert"
       />
-      <History />
+      {/* <History /> */}
       <OurStory />
+      <Mission />
+      <Vision />
+      <CoreValues />
       <BannerSection />
+      <WhyLogistics />
+      <MessageBanner />
     </Container>
   );
 };

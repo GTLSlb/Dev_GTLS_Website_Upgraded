@@ -11,6 +11,7 @@ export interface GridCardProps {
 
 export interface CenterTitleProps {
   title: string;
+  className?: string;
   subtitle?: string;
   description?: string; // The `?` makes this property optional
   button?: React.ReactNode; // `React.ReactNode` is a great type for optional elements like a button
@@ -29,7 +30,7 @@ export interface CenterTitleProps {
     | "ghost"
     | null
     | undefined; // new prop
-    listItems?: { icon?: React.ReactNode; title: string }[];
+  listItems?: { icon?: React.ReactNode; title: string }[];
 }
 
 export interface MenuItem {
@@ -117,11 +118,17 @@ export interface HeroProps {
   className?: string;
   cornerText?: string;
   color?: "gold" | "green";
-};
+}
+
+export interface BannerPropsItem {
+  title: string;
+  subtitle: string;
+}
 
 export interface BannerProps {
   title: string;
   description: string;
+  items: BannerPropsItem[];
   imageSrc: string;
   imageAlt?: string;
 }
@@ -153,14 +160,14 @@ export interface HorizontalCardProps {
 }
 
 type Branch = {
-  name: string
-  phone: string
-  address: string
-  mail: string
-}
+  name: string;
+  phone: string;
+  address: string;
+  mail: string;
+};
 
 export interface BranchesProps {
-  data: Branch[]
+  data: Branch[];
 }
 
 export interface IntegratedSolutionsItem {
@@ -195,4 +202,19 @@ export interface RecentPostsCardProps {
 
 export interface RecentPostsProps {
   items: RecentPostsCardProps[];
+}
+
+export interface BorderedGridItemProps {
+  title: string;
+  description: string;
+}
+
+export interface BorderedGridProps {
+  data: BorderedGridItemProps[];
+}
+
+export interface CoreValue {
+  icon: React.ReactNode; // Placeholder for the icon name (e.g., 'Heart', 'Users', 'Leaf')
+  title: string;
+  description: string;
 }

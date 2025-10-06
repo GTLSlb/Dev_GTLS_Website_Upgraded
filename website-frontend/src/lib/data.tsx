@@ -1,4 +1,4 @@
-import { Check, CheckCircle, MapPin } from "lucide-react";
+import { Check, CheckCircle, Eye, HandHeart, HeartHandshake, Leaf, MapPin, MessageSquare, ShieldCheck, Users } from "lucide-react";
 import {
   GridCardProps,
   IntegratedSolutionsItem,
@@ -6,7 +6,6 @@ import {
   MenuSection,
   WhyGtlsItem,
 } from "./types";
-import { subtle } from "crypto";
 
 export const serviceData: GridCardProps[] = [
   {
@@ -270,7 +269,13 @@ export const HistoryData = [
 ];
 
 export const BannerAboutData = {
-  title: "Our Integrated Model",
+  title: "Integrated Model",
+  items: [
+    { title: "Freight Solutions",subtitle:"Flexible FTL and LTL options, interstate transport, and real-time tracking for complete visibility and peace of mind." },
+    { title: "Workshop Services" , subtitle:"In-house fleet maintenance and repairs to ensure reliability and minimise delays."},
+    { title: "Warehousing" , subtitle:"Secure storage, inventory management, and streamlined distribution to keep your goods moving efficiently."},
+    { title: "Corporate Services" , subtitle:"Financial management, customer support, sales and marketing, and IT enablement to optimise supply chain operations."},
+  ],
   description:
     "Gold Tiger offers seamless transport, warehousing, and distribution services tailored to each client’s operations. With a nationwide fleet of Volvo trucks, strategic warehousing, and an all-employee driving team, we move over 250,000 tonnes of freight annually for 40+ major clients including Unilever, General Mills, and Sigma Healthcare. Our proactive, tech-driven approach ensures smooth integration, custom solutions, and dependable service that solves problems before they arise—making us a true extension of your business.",
   imageSrc: "/svgs/aboutbanner.svg",
@@ -337,6 +342,13 @@ export const StoryData = {
         "Gold Tiger invests in fuel-efficient Volvo trucks, optimizes delivery routes to reduce emissions, and uses sustainable practices across our operations. Our goal is to minimize our environmental footprint while supporting a cleaner, greener future for logistics in Australia.",
     },
   ],
+};
+
+export const OurStoryData = {
+  title: "Our Story",
+  content:
+    "Founded in 2006, Gold Tiger Logistics Solutions (Gold Tiger) has grown into one of Australia’s leading transport and logistics companies.\n\n Over the years, we have expanded our capabilities to provide efficient, reliable, and nationwide logistics solutions, combining industry expertise with advanced technology. We operate a fully owned fleet supported by a skilled workforce of drivers and logistics professionals. Our operations leverage state-of-the-art fleet management systems, GPS tracking, and advanced scheduling technologies to ensure every shipment is monitored, optimized, and delivered safely and on time. Our commitment to excellence is strengthened by our gold partner extended warranty with Volvo, which includes a rigorous maintenance schedule to manufacturer standards using OEM parts, 24-hour nationwide breakdown support, and replacement vehicles if trucks are off the road. All vehicles are serviced regularly by qualified mechanics in our on-site workshops. At Gold Tiger, customer satisfaction is at the heart of everything we do. From proactive communication and tracking to responsive support. We ensure our clients have complete visibility and confidence in their logistics solutions. Combining technology, experience, and a dedication to operational reliability, we deliver transport solutions that are safe, efficient, and dependable.",
+  imgSrc: "/webp/contactus.webp",
 };
 
 export const IndustriesData = [
@@ -638,4 +650,98 @@ export const news = [
     href: "/posts/depot-opening",
   },
   // Add more posts here
+];
+
+export const MissionGridData = [
+  {
+    title: "Customer Focus",
+    description:
+      "Provide tailored solutions that adapt to diverse industries and evolving supply chain needs.",
+  },
+  {
+    title: "Excellence",
+    description:
+      "Uphold the highest standards in safety, efficiency, and service delivery.",
+  },
+  {
+    title: "Innovation",
+    description:
+      "Leverage technology, data, and integrated operations to optimise performance and create value.",
+  },
+  {
+    title: "Sustainability",
+    description:
+      "Operate responsibly with a focus on reducing environmental impact and building long-term partnerships.",
+  },
+  {
+    title: "People",
+    description:
+      "Foster a culture of integrity, accountability, and continuous improvement for our team and stakeholders.",
+  },
+];
+
+export const WhyLogisticsGridData = [
+  {
+    title: "End-to-End Operational Efficiency",
+    description:
+      "A single logistics partner reduces handovers, minimises errors, & accelerates turnaround times.",
+  },
+  {
+    title: "Scalability",
+    description:
+      "Our integrated services grow with your business, from startups to large enterprises.",
+  },
+  {
+    title: "Enhanced Visibility",
+    description:
+      "Unified systems provide real-time tracking and data-driven insights for better logistics performance.",
+  },
+  {
+    title: "Cost Savings",
+    description:
+      "Owning our fleet allows us to cut third-party costs, delivering more competitive pricing for our customers.",
+  },
+  {
+    title: "Sustainability",
+    description:
+      "Optimised routing, efficient transport solutions like our B-Triple system, and regular fleet maintenance lower fuel consumption and emissions.",
+  },
+];
+
+export const CoreValuesData = [
+  {
+    icon: <HandHeart/>, // Represents Commitment & Dedication
+    title: 'Commitment & Dedication',
+    description: 'We are committed to delivering exceptional service, building lasting relationships, and holding ourselves accountable in everything we do.',
+  },
+  {
+    icon: <Users/>, // Represents Collaboration
+    title: 'Collaboration',
+    description: 'We foster positive, cohesive relationships across all teams, and customers working together to achieve common goals.',
+  },
+  {
+    icon: <MessageSquare/>, // Represents Communication
+    title: 'Communication',
+    description: 'We prioritise transparency and open dialogue, ensuring we understand and address our customers’ challenges.',
+  },
+  {
+    icon: <HeartHandshake/>, // Represents a second instance of Commitment & Dedication with a focus on improvement
+    title: 'Commitment & Dedication',
+    description: "We continually improve by seeking better ways to work, think, learn, and deliver value, driving progress in everything we do. In today's fast-moving supply chain environment, businesses need more than a transport provider, they need a partner that delivers seamless, efficient, and cost-effective solutions with end-to-end visibility.",
+  },
+  {
+    icon: <Eye/>, // Represents Customer Focus
+    title: 'Customer Focus',
+    description: 'Our customers are at the heart of our business. We aim to create meaningful relationships that make a real difference in their success.',
+  },
+  {
+    icon: <Leaf/>, // Represents Sustainability
+    title: 'Sustainability',
+    description: 'We take responsibility for protecting the environment and our resources by embracing sustainable business practices.',
+  },
+  {
+    icon: <ShieldCheck/>, // Represents Integrity & Respect
+    title: 'Integrity & Respect',
+    description: 'We act with honesty, fairness, and mutual respect, valuing the unique skills and perspectives each team member and customer brings.',
+  },
 ];

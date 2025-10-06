@@ -15,11 +15,11 @@ const CommonHero = ({
 }: HeroProps) => {
   return (
     <SectionContainer
-      className={`flex flex-col gap-14 mt-10 ${className ?? ""}`}
+      className={`flex flex-col gap-10 !pt-28 mt-10 ${className ?? ""}`}
     >
       <div className="flex flex-col md:flex-row gap-10">
         {/* Left Title/Subtitle */}
-        <div className="flex md:flex-col md:w-7/12 gap-4">
+        <div className="flex md:flex-col md:w-7/12 gap-2">
           <TextWrapper
             text={title}
             fontFamily="funnel"
@@ -35,7 +35,7 @@ const CommonHero = ({
         </div>
 
         {/* Divider */}
-        <div className={`w-10 h-0.5 hidden md:block ${color === "gold" ? "bg-dark-gold" : "bg-green"} mt-6`}></div>
+        <div className={`w-10 h-0.5 hidden md:block ${color === "gold" ? "bg-dark-gold" : "bg-green"} mt-4`}></div>
 
         {/* Description */}
         <div className="md:w-5/12">

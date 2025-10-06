@@ -8,6 +8,7 @@ import { Button } from "@/lib/ui/button";
 const CenterTitle: React.FC<CenterTitleProps> = ({
   title,
   subtitle,
+  className,
   description,
   dark = false,
   buttonText,
@@ -29,7 +30,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
     right: "items-end text-right",
   };
   return (
-    <div className={`flex flex-col gap-4 my-10 ${alignmentClasses[placement]}`}>
+    <div className={`flex flex-col gap-4 my-10 ${alignmentClasses[placement] } ${className}`}>
       <TextWrapper
         text={title}
         fontFamily="funnel"
