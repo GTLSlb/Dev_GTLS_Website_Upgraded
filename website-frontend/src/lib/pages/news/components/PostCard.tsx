@@ -2,7 +2,7 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import { RecentPostsCardProps } from "@/lib/types";
 import { Button } from "@/lib/ui/button";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Share } from "lucide-react";
 import Image from "next/image";
 
 export default function PostCard({
@@ -12,16 +12,26 @@ export default function PostCard({
   image,
   href,
 }: RecentPostsCardProps) {
-  const encodedHref = encodeURIComponent(href);
+  const postUrl =
+  "https://www.linkedin.com/posts/gold-tiger-logistics-solutions_goldtigerlogistics-sqfcertified-logisticsstandards-activity-7379630095738675200-ZSIT";
 
-  const shareLinks = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedHref}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedHref}`,
+const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Check out this post!",
+          text: "Thought you might find this LinkedIn post interesting:",
+          url: href,
+        });
+      } catch (error) {
+        console.error("Share cancelled or failed:", error);
+      }
+    } else {
+      // Fallback for unsupported browsers
+      alert("Sharing is not supported in this browser. Please copy the link manually.");
+    }
   };
 
-  const handleShare = (url: string) => {
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
   return (
     <div className="flex flex-row gap-4 bg-white">
       {/* Image */}
@@ -50,20 +60,13 @@ export default function PostCard({
           className="text-gray-600 line-clamp-2"
         />
         <div className="flex flex-row items-center gap-0">
-          <a href={href}>
-            <TextWrapper
-              text="Share:"
+          <Button className="hover:cursor-pointer" variant={"ghost"} onClick={handleShare}>
+            <Share className="text-gold size-4" /> <TextWrapper
+              text="Share"
               fontFamily="dmSans"
               styleType="linkSmall"
               className="text-gold"
             />
-          </a>
-          <Button className="hover:cursor-pointer" variant={"ghost"} onClick={() => handleShare(shareLinks.facebook)}>
-            <Facebook className="text-gold size-4" />
-          </Button>
-
-          <Button className="hover:cursor-pointer" variant={"ghost"} onClick={() => handleShare(shareLinks.linkedin)}>
-            <Linkedin className="text-gold size-4" />
           </Button>
         </div>
       </div>

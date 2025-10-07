@@ -27,16 +27,15 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
                 gridRowEnd: `span ${rowSpan}`,
               }}
             >
-              <CardHeader className="relative h-44">
-                <Image
-                  src={item?.picture}
-                  alt={item.title}
-                  fill
-                  className="object-cover rounded-2xl"
-                />
-              </CardHeader>
-
-              <CardContent className="h-10 flex items-center justify-center text-center">
+              <CardContent className="h-56 flex flex-col gap-10 items-center justify-center text-center">
+                <div className="relative h-20 w-20 ">
+                  <Image
+                    src={item?.picture}
+                    alt={item.title}
+                    fill
+                    className="rounded-2xl"
+                  />
+                </div>
                 <TextWrapper
                   text={item.title}
                   fontFamily="dmSans"
@@ -53,10 +52,19 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
         {items?.map((item, index) => (
           <Card key={index} className="rounded-4xl">
             <CardHeader className="relative h-44">
-              <Image src={item?.picture} alt={item.title} fill className="object-cover" />
+              <Image
+                src={item?.picture}
+                alt={item.title}
+                fill
+                className="object-cover"
+              />
             </CardHeader>
             <CardContent className="h-10 flex items-center justify-center text-center">
-              <TextWrapper text={item.title} fontFamily="dmSans" styleType="subtitle" />
+              <TextWrapper
+                text={item.title}
+                fontFamily="dmSans"
+                styleType="subtitle"
+              />
             </CardContent>
           </Card>
         ))}

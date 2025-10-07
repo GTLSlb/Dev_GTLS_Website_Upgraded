@@ -15,6 +15,7 @@ const CustomerHub = () => {
             description="Your one-stop destination for support, resources, and self-service tools."
             buttonText={"Get a Custom Solution"}
             buttonVariant={"default"}
+            className="!mt-0"
           />
         </div>
         <div className="flex flex-col md:w-7/12 gap-6">

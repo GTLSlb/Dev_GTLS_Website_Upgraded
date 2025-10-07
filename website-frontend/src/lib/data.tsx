@@ -1,11 +1,67 @@
-import { Check, CheckCircle, Eye, HandHeart, HeartHandshake, Leaf, MapPin, MessageSquare, ShieldCheck, Users } from "lucide-react";
+import {
+  Check,
+  CheckCircle,
+  Eye,
+  HandHeart,
+  HeartHandshake,
+  Leaf,
+  MapPin,
+  MessageSquare,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
 import {
   GridCardProps,
   IntegratedSolutionsItem,
   Location,
   MenuSection,
+  NavigationConfig,
   WhyGtlsItem,
 } from "./types";
+
+export const navigationConfig: NavigationConfig = {
+  logo: {
+    src: "/Logos/logo-transparent.svg",
+    alt: "Gold Tiger",
+    width: 120,
+    height: 50,
+  },
+  links: [
+    {
+      label: "Transport",
+      href: "/transport",
+    },
+    {
+      label: "Warehousing",
+      href: "/warehousing",
+    },
+    {
+      label: "Industries",
+      href: "/industries",
+    },
+    {
+      label: "About Us",
+      href: "/about",
+    },
+    {
+      label: "News",
+      href: "/news",
+    },
+    {
+      label: "Safety & Environment",
+      href: "/environment&compliance",
+    },
+
+    {
+      label: "Customer Hub",
+      href: "/customer-hub",
+    },
+    {
+      label: "Contact Us",
+      href: "/contactus",
+    },
+  ],
+};
 
 export const serviceData: GridCardProps[] = [
   {
@@ -98,36 +154,36 @@ export const locations: Location[] = [
 
 export const WhyGtlsData: WhyGtlsItem[] = [
   {
-    title: "Sydney",
-    picture: "/svgs/ftl.svg",
+    title: "Integrated Model",
+    picture: "/svgs/whygtls/integration.svg",
   },
   {
-    title: "Melbourne",
-    picture: "/svgs/ftl.svg",
+    title: "Technology",
+    picture: "/svgs/whygtls/cpu.svg",
   },
   {
-    title: "Melbourne2",
-    picture: "/svgs/ftl.svg",
+    title: "Safety & Compliance",
+    picture: "/svgs/whygtls/safety.svg",
   },
   {
-    title: "Sydney",
-    picture: "/svgs/ftl.svg",
+    title: "Partners",
+    picture: "/svgs/whygtls/partners.svg",
   },
   {
-    title: "Melbourne",
-    picture: "/svgs/ftl.svg",
+    title: "Accreditations",
+    picture: "/svgs/whygtls/accreditations.svg",
   },
   {
-    title: "Melbourne2",
-    picture: "/svgs/ftl.svg",
+    title: "Environment & Sustainability",
+    picture: "/svgs/whygtls/eco-friendly.svg",
   },
   {
-    title: "Melbourne2",
-    picture: "/svgs/ftl.svg",
+    title: "B-Triple",
+    picture: "/svgs/whygtls/lorry.svg",
   },
   {
-    title: "Melbourne2",
-    picture: "/svgs/ftl.svg",
+    title: "Workshops",
+    picture: "/svgs/whygtls/workshops.svg",
   },
 ];
 
@@ -271,10 +327,26 @@ export const HistoryData = [
 export const BannerAboutData = {
   title: "Integrated Model",
   items: [
-    { title: "Freight Solutions",subtitle:"Flexible FTL and LTL options, interstate transport, and real-time tracking for complete visibility and peace of mind." },
-    { title: "Workshop Services" , subtitle:"In-house fleet maintenance and repairs to ensure reliability and minimise delays."},
-    { title: "Warehousing" , subtitle:"Secure storage, inventory management, and streamlined distribution to keep your goods moving efficiently."},
-    { title: "Corporate Services" , subtitle:"Financial management, customer support, sales and marketing, and IT enablement to optimise supply chain operations."},
+    {
+      title: "Freight Solutions",
+      subtitle:
+        "Flexible FTL and LTL options, interstate transport, and real-time tracking for complete visibility and peace of mind.",
+    },
+    {
+      title: "Workshop Services",
+      subtitle:
+        "In-house fleet maintenance and repairs to ensure reliability and minimise delays.",
+    },
+    {
+      title: "Warehousing",
+      subtitle:
+        "Secure storage, inventory management, and streamlined distribution to keep your goods moving efficiently.",
+    },
+    {
+      title: "Corporate Services",
+      subtitle:
+        "Financial management, customer support, sales and marketing, and IT enablement to optimise supply chain operations.",
+    },
   ],
   description:
     "Gold Tiger offers seamless transport, warehousing, and distribution services tailored to each client’s operations. With a nationwide fleet of Volvo trucks, strategic warehousing, and an all-employee driving team, we move over 250,000 tonnes of freight annually for 40+ major clients including Unilever, General Mills, and Sigma Healthcare. Our proactive, tech-driven approach ensures smooth integration, custom solutions, and dependable service that solves problems before they arise—making us a true extension of your business.",
@@ -710,38 +782,45 @@ export const WhyLogisticsGridData = [
 
 export const CoreValuesData = [
   {
-    icon: <HandHeart/>, // Represents Commitment & Dedication
-    title: 'Commitment & Dedication',
-    description: 'We are committed to delivering exceptional service, building lasting relationships, and holding ourselves accountable in everything we do.',
+    icon: <HandHeart />, // Represents Commitment & Dedication
+    title: "Commitment & Dedication",
+    description:
+      "We are committed to delivering exceptional service, building lasting relationships, and holding ourselves accountable in everything we do.",
   },
   {
-    icon: <Users/>, // Represents Collaboration
-    title: 'Collaboration',
-    description: 'We foster positive, cohesive relationships across all teams, and customers working together to achieve common goals.',
+    icon: <Users />, // Represents Collaboration
+    title: "Collaboration",
+    description:
+      "We foster positive, cohesive relationships across all teams, and customers working together to achieve common goals.",
   },
   {
-    icon: <MessageSquare/>, // Represents Communication
-    title: 'Communication',
-    description: 'We prioritise transparency and open dialogue, ensuring we understand and address our customers’ challenges.',
+    icon: <MessageSquare />, // Represents Communication
+    title: "Communication",
+    description:
+      "We prioritise transparency and open dialogue, ensuring we understand and address our customers’ challenges.",
   },
   {
-    icon: <HeartHandshake/>, // Represents a second instance of Commitment & Dedication with a focus on improvement
-    title: 'Commitment & Dedication',
-    description: "We continually improve by seeking better ways to work, think, learn, and deliver value, driving progress in everything we do. In today's fast-moving supply chain environment, businesses need more than a transport provider, they need a partner that delivers seamless, efficient, and cost-effective solutions with end-to-end visibility.",
+    icon: <HeartHandshake />, // Represents a second instance of Commitment & Dedication with a focus on improvement
+    title: "Commitment & Dedication",
+    description:
+      "We continually improve by seeking better ways to work, think, learn, and deliver value, driving progress in everything we do. In today's fast-moving supply chain environment, businesses need more than a transport provider, they need a partner that delivers seamless, efficient, and cost-effective solutions with end-to-end visibility.",
   },
   {
-    icon: <Eye/>, // Represents Customer Focus
-    title: 'Customer Focus',
-    description: 'Our customers are at the heart of our business. We aim to create meaningful relationships that make a real difference in their success.',
+    icon: <Eye />, // Represents Customer Focus
+    title: "Customer Focus",
+    description:
+      "Our customers are at the heart of our business. We aim to create meaningful relationships that make a real difference in their success.",
   },
   {
-    icon: <Leaf/>, // Represents Sustainability
-    title: 'Sustainability',
-    description: 'We take responsibility for protecting the environment and our resources by embracing sustainable business practices.',
+    icon: <Leaf />, // Represents Sustainability
+    title: "Sustainability",
+    description:
+      "We take responsibility for protecting the environment and our resources by embracing sustainable business practices.",
   },
   {
-    icon: <ShieldCheck/>, // Represents Integrity & Respect
-    title: 'Integrity & Respect',
-    description: 'We act with honesty, fairness, and mutual respect, valuing the unique skills and perspectives each team member and customer brings.',
+    icon: <ShieldCheck />, // Represents Integrity & Respect
+    title: "Integrity & Respect",
+    description:
+      "We act with honesty, fairness, and mutual respect, valuing the unique skills and perspectives each team member and customer brings.",
   },
 ];

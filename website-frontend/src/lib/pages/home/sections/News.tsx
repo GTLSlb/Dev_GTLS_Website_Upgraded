@@ -18,6 +18,7 @@ const News = () => {
         description="Stay updated with the latest news, industry trends, and behind the scenes stories from Gold Tiger. From expert tips to company milestones — our blog keeps you in the loop."
         buttonText={"Read More News"}
         buttonVariant={"default"}
+        className="!mt-0"
       />
       <NewsSlider news={NewsData} />
     </SectionContainer>

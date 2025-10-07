@@ -218,3 +218,19 @@ export interface CoreValue {
   title: string;
   description: string;
 }
+
+export interface NavLink {
+  label: string;
+  href?: string;
+  children?: NavLink[];
+};
+
+export interface NavigationConfig {
+  logo: {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+  };
+  links: NavLink[];
+};
