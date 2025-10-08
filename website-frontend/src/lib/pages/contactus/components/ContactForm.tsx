@@ -64,7 +64,7 @@ const ContactForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 max-w-md mx-auto border border-gray-200 rounded-4xl p-6 shadow-xs"
+        className="space-y-6  border border-gray-200 rounded-4xl p-6 shadow-xs"
       >
         <div>
           <TextWrapper

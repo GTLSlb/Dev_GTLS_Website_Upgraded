@@ -28,20 +28,25 @@ export const navigationConfig: NavigationConfig = {
   },
   links: [
     {
-      label: "Transport",
-      href: "/transport",
-    },
-    {
-      label: "Warehousing",
-      href: "/warehousing",
-    },
-    {
-      label: "Industries",
-      href: "/industries",
-    },
-    {
       label: "About Us",
       href: "/about",
+    },
+    {
+      label: "Business",
+      children: [
+        {
+          label: "Transport",
+          href: "/transport",
+        },
+        {
+          label: "Warehousing",
+          href: "/warehousing",
+        },
+        {
+          label: "Industries",
+          href: "/industries",
+        },
+      ],
     },
     {
       label: "News",
@@ -52,10 +57,10 @@ export const navigationConfig: NavigationConfig = {
       href: "/environment&compliance",
     },
 
-    {
-      label: "Customer Hub",
-      href: "/customer-hub",
-    },
+    // {
+    //   label: "Customer Hub",
+    //   href: "/customer-hub",
+    // },
     {
       label: "Contact Us",
       href: "/contactus",

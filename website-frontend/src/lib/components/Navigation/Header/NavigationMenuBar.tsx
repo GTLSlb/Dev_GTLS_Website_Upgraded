@@ -30,7 +30,7 @@ export function NavigationMenuBar() {
   const { logo, links } = navigationConfig;
 
   return (
-    <nav className="flex items-center justify-between w-full p-4 border-b">
+    <nav className="flex items-center justify-between gap-6 w-full p-4 border-b">
       {/* Logo */}
       <Link href="/" className="flex items-center space-x-2">
         <Image
@@ -38,16 +38,15 @@ export function NavigationMenuBar() {
           alt={logo.alt}
           width={logo.width ?? 100}
           height={logo.height ?? 50}
-          priority
         />
       </Link>
 
       {/* Desktop Menu */}
-      <div className="hidden md:flex">
-        <NavigationMenu>
+      <div className="hidden lg:flex">
+       <NavigationMenu viewport={false}>
           <NavigationMenuList>
             {links.map((link) => (
-              <NavigationMenuItem key={link.label}>
+              <NavigationMenuItem key={link.label} className="">
                 {link.children ? (
                   <>
                     <NavigationMenuTrigger>{link.label}</NavigationMenuTrigger>
@@ -80,7 +79,7 @@ export function NavigationMenuBar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <button>
@@ -123,7 +122,7 @@ export function NavigationMenuBar() {
         </Sheet>
       </div>
 
-      <div className="hidden md:flex items-center space-x-4">
+      <div className="hidden lg:flex items-center space-x-4">
         <Link href="/about" className="text-sm font-medium">
           <Button
             size="sm"

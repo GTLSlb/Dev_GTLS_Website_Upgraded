@@ -11,7 +11,7 @@ const MessageBanner = () => {
         alt="Director"
         width={500}
         height={300}
-        className="object-cover absolute -bottom-15 -right-21"
+        className="object-cover absolute -bottom-28 -right-28 xl:-bottom-15 xl:-right-21"
       />
       <div className="bg-gold rounded-t-4xl flex gap-10 flex-col  rounded-br-4xl p-15 py-20">
         <div className="flex flex-col md:flex-row gap-15">

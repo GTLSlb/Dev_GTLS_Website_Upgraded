@@ -8,7 +8,7 @@ import TextWrapper from "@/lib/components/Common/TextWrapper";
 const ContactUs = () => {
   return (
     <SectionContainer>
-      <div className="flex flex-col md:flex-row w-full gap-8">
+      <div className="flex flex-col md:flex-row w-full gap-20">
         <div className="w-full md:w-1/2 flex flex-col gap-4">
           <div className="relative w-full h-96 rounded-4xl overflow-hidden">
             <Image
