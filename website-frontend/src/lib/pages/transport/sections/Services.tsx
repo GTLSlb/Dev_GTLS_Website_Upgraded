@@ -28,7 +28,7 @@ const Services = () => {
             </div>
             <div className="relative flex-1 w-full h-[450px] rounded-4xl overflow-hidden">
               <Image
-                src={service.image}
+                src={service?.image? service.image : "/images/placeholder.png"}
                 alt={service.title}
                 fill
                 className="rounded-lg shadow-md object-cover"

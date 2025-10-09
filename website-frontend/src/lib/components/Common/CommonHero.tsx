@@ -6,7 +6,7 @@ import { MoveUpRight } from "lucide-react";
 
 const CommonHero = ({
   title = "Global Transport & Logistics Solutions",
-  subtitle = "Move More. Spend Less. Reduce Emissions.",
+  subtitle = "",
   description = "We provide end-to-end logistics solutions across Australia, with a focus on efficiency, safety, and sustainability. From local freight to long-haul BTriple operations, GTLS keeps your business moving.",
   imageSrc = "/webp/3movers.webp", // ✅ fallback image
   cornerText = "Talk with an expert",

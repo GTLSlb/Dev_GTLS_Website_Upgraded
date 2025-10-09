@@ -52,12 +52,14 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
         {items?.map((item, index) => (
           <Card key={index} className="rounded-4xl">
             <CardHeader className="relative h-44">
-              <Image
-                src={item?.picture}
-                alt={item.title}
-                fill
-                className="object-cover"
-              />
+              <div className="relative h-20 w-20 ">
+                <Image
+                  src={item?.picture}
+                  alt={item.title}
+                  fill
+                  className="rounded-2xl"
+                />
+              </div>
             </CardHeader>
             <CardContent className="h-10 flex items-center justify-center text-center">
               <TextWrapper

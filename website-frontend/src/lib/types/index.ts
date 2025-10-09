@@ -1,4 +1,5 @@
 import { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 export interface GridCardProps {
   id: number;
@@ -234,3 +235,49 @@ export interface NavigationConfig {
   };
   links: NavLink[];
 };
+
+export interface FacilitiesItem {
+  title: string;
+  description: string;
+  picture: string;
+}
+
+export interface FacilitiesProps {
+  title: string;
+  description: string;
+  buttonText?: string;
+  items: FacilitiesItem[];
+}
+
+export interface ServiceListItem {
+  icon: ReactNode;
+  title: string;
+}
+
+export interface ServiceData {
+  title: string;
+  subtitle: string;
+  description: string;
+  listItems: ServiceListItem[];
+  buttonText: string;
+  image?: string;
+}
+
+export interface InfoListItem {
+  icon?: ReactNode;
+  title: string;
+}
+
+export interface InfoItem {
+  icon: ReactNode;
+  title: string;
+  subtitle: string;
+  description: string;
+  listItems: InfoListItem[];
+}
+
+export interface InfoSection {
+  title: string;
+  description: string;
+  items: InfoItem[];
+}

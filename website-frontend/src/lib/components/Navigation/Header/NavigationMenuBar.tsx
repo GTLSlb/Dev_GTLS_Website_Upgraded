@@ -43,7 +43,7 @@ export function NavigationMenuBar() {
 
       {/* Desktop Menu */}
       <div className="hidden lg:flex">
-       <NavigationMenu viewport={false}>
+        <NavigationMenu viewport={false}>
           <NavigationMenuList>
             {links.map((link) => (
               <NavigationMenuItem key={link.label} className="">
@@ -77,7 +77,26 @@ export function NavigationMenuBar() {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-
+      <div className="flex items-center space-x-4">
+        <Link href="/about" className="text-sm font-medium">
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
+          >
+            <Search className="size-4" /><TextWrapper text="Search" fontFamily="dmSans" styleType="body" className="block lg:hidden" />
+          </Button>
+        </Link>
+        <Link href="/contact" className="text-sm hidden lg:block font-medium">
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
+          >
+            <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
+          </Button>
+        </Link>
+      </div>
       {/* Mobile Menu */}
       <div className="lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
@@ -90,57 +109,61 @@ export function NavigationMenuBar() {
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
-            <div className="flex flex-col space-y-4 mt-4">
-              {links.map((link) =>
-                link.children ? (
-                  <div key={link.label}>
-                    <p className="font-semibold">{link.label}</p>
-                    <div className="ml-3 flex flex-col space-y-2">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.label}
-                          href={child.href ?? "#"}
-                          onClick={() => setOpen(false)}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+            <div className="flex flex-col gap-4 p-4 justify-between h-full">
+              <div className="flex flex-col space-y-4 mt-4">
+                {links.map((link) =>
+                  link.children ? (
+                    <div key={link.label}>
+                      <TextWrapper
+                        text={link.label}
+                        fontFamily="dmSans"
+                        styleType="body"
+                      />
+                      <div className="ml-3 flex flex-col space-y-2">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.label}
+                            href={child.href ?? "#"}
+                            onClick={() => setOpen(false)}
+                          >
+                            <TextWrapper
+                              text={child.label}
+                              fontFamily="dmSans"
+                              styleType="link"
+                            />
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <Link
-                    key={link.label}
-                    href={link.href ?? "#"}
-                    onClick={() => setOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
+                  ) : (
+                    <Link
+                      key={link.label}
+                      href={link.href ?? "#"}
+                      onClick={() => setOpen(false)}
+                    >
+                      <TextWrapper
+                        text={link.label}
+                        fontFamily="dmSans"
+                        styleType="link"
+                      />
+                    </Link>
+                  )
+                )}
+              </div>
+              <Button
+                variant="outline"
+                className="w-full mt-6 border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5"
+                // onClick={() => setOpen(false)}
+              >
+                <TextWrapper
+                  text="Login"
+                  fontFamily="dmSans"
+                  styleType="body"
+                />
+              </Button>
             </div>
           </SheetContent>
         </Sheet>
-      </div>
-
-      <div className="hidden lg:flex items-center space-x-4">
-        <Link href="/about" className="text-sm font-medium">
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 w-11"
-          >
-            <Search className="size-4" />
-          </Button>
-        </Link>
-        <Link href="/contact" className="text-sm font-medium">
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
-          >
-            <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
-          </Button>
-        </Link>
       </div>
     </nav>
   );

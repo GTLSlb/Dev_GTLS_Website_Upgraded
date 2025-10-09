@@ -38,7 +38,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
         className={titleColor}
       />
       {subtitle && (
-        <TextWrapper text={title} fontFamily="dmSans" styleType="title4" />
+        <TextWrapper text={subtitle} fontFamily="dmSans" styleType="title4" />
       )}
       {/* Conditionally render the description if it exists */}
       {description && (

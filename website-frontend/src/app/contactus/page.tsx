@@ -2,6 +2,8 @@ import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import BookMeeting from "@/lib/pages/contactus/sections/BookMeeting";
 import ContactUs from "@/lib/pages/contactus/sections/ContactUs";
+import SmarterLogistics from "@/lib/pages/contactus/sections/SmarterLogistics";
+import { SmartLogisticsInfo } from "@/lib/data";
 
 const Page = () => {
   return (
@@ -15,6 +17,7 @@ const Page = () => {
       />
       <BookMeeting />
       <ContactUs />
+      <SmarterLogistics {...SmartLogisticsInfo} />
     </Container>
   );
 };

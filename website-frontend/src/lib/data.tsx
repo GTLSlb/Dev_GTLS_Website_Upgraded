@@ -1,21 +1,28 @@
 import {
+  BarChart3,
   Check,
   CheckCircle,
   Eye,
+  FileText,
   HandHeart,
   HeartHandshake,
+  HelpCircle,
   Leaf,
+  Lock,
   MapPin,
   MessageSquare,
   ShieldCheck,
   Users,
 } from "lucide-react";
 import {
+  FacilitiesItem,
   GridCardProps,
+  InfoSection,
   IntegratedSolutionsItem,
   Location,
   MenuSection,
   NavigationConfig,
+  ServiceData,
   WhyGtlsItem,
 } from "./types";
 
@@ -590,7 +597,7 @@ export const IntegratedSolutionsData: IntegratedSolutionsItem[] = [
   },
 ];
 
-export const ServicesData = [
+export const ServicesData: ServiceData[] = [
   {
     title: "Distribution Services",
     subtitle: "From Warehousing to Delivery",
@@ -829,3 +836,146 @@ export const CoreValuesData = [
       "We act with honesty, fairness, and mutual respect, valuing the unique skills and perspectives each team member and customer brings.",
   },
 ];
+
+export const FacilitiesGridData = {
+  title: "Warehousing Facilities",
+  description: "Designed for Efficiency and Security",
+  buttonText: "Get a Custom Solution",
+  items: [
+    {
+      title: "8000+ Racked Pallet Spaces",
+      description: "Euro, US, and AU standard, up to 1500kg",
+      picture: "/svgs/whygtls/integration.svg",
+    },
+    {
+      title: "24/7 Monitored Security",
+      description: "Fully secured, restricted access",
+      picture: "/svgs/whygtls/cpu.svg",
+    },
+    {
+      title: "All-Weather Staging Areas",
+      description: "Efficient loading/unloading year-round",
+      picture: "/svgs/whygtls/safety.svg",
+    },
+    {
+      title: "Ambient Storage",
+      description: "Ideal for non-temp-controlled goods",
+      picture: "/svgs/whygtls/partners.svg",
+    },
+    {
+      title: "DG & Biosecurity Compliant",
+      description: "HACCP, SQF, AA Biosecurity Approved",
+      picture: "/svgs/whygtls/accreditations.svg",
+    },
+    {
+      title: "On-Site Weighbridge",
+      description: "Convenience and compliance",
+      picture: "/svgs/whygtls/eco-friendly.svg",
+    },
+  ],
+};
+
+export const LocationsData: ServiceData = {
+  title: "Warehousing Locations",
+  subtitle: "Strategically Located to Serve You Better.",
+  description:
+    "Gold Tiger Logistics Solutions operates from major Australian logistics corridors to provide faster, more efficient coverage across states.",
+  listItems: [
+    {
+      icon: <MapPin className="text-yellow-600" />,
+      title: "Dandenong, VIC",
+    },
+    {
+      icon: <MapPin className="text-yellow-600" />,
+      title: "NSW Expansion – Coming Soon",
+    },
+    {
+      icon: <MapPin className="text-yellow-600" />,
+      title: "Adelaide, SA",
+    },
+  ],
+  buttonText: "Talk to Our Team",
+};
+
+export const SmartLogisticsInfo: InfoSection = {
+  title: "Your Gateway to Smarter Logistics",
+  description: "Everything You Need, All in One Place.",
+  items: [
+    {
+      icon: <BarChart3 className="text-gold size-15" />,
+      title: "GTRS",
+      subtitle: "Gold Tiger Reporting System",
+      description:
+        "Your ultimate control tower for logistics insights and performance.",
+      listItems: [
+        {
+          icon: <Check className="text-gold" />,
+          title: "Real-time dashboard for shipment visibility",
+        },
+        {
+          icon: <Check className="text-gold" />,
+          title: "Access KPI, transport, and RDD reports",
+        },
+        {
+          icon: <Check className="text-gold" />,
+          title: "Analyze delivery trends and performance",
+        },
+      ],
+    },
+    {
+      icon: <FileText className="text-gold size-15" />,
+      title: "Terms & Conditions",
+      subtitle: "Know Your Ground Rules",
+      description: "Transparency is key. Here’s what guides our service:",
+      listItems: [
+        {
+          icon: <Check className="text-gold" />,
+          title: "Shipping liability terms",
+        },
+        {
+          icon: <Check className="text-gold" />,
+          title: "Handling & delivery policies",
+        },
+        {
+          icon: <Check className="text-gold" />,
+          title: "Dispute resolution protocols",
+        },
+      ],
+    },
+    {
+      icon: <HelpCircle className="text-gold size-15" />,
+      title: "FAQ",
+      subtitle: "Quick Answers to Common Questions",
+      description: "Save time with our comprehensive help center.",
+      listItems: [
+        { icon: <Check className="text-gold" />, title: "Delivery & tracking" },
+        { icon: <Check className="text-gold" />, title: "Account access" },
+        {
+          icon: <Check className="text-gold" />,
+          title: "Documentation & POD retrieval",
+        },
+      ],
+    },
+    {
+      icon: <Lock className="text-gold size-15" />,
+      title: "Self-Service Portal",
+      subtitle: "Independence Made Easy",
+      description:
+        "Do it yourself with a platform that’s built for speed and control.",
+      listItems: [
+        {
+          icon: <Check className="text-gold" />,
+          title: "Update account information",
+        },
+        {
+          icon: <Check className="text-gold" />,
+          title: "Submit support tickets",
+        },
+        {
+          icon: <Check className="text-gold" />,
+          title: "Retrieve documents anytime",
+        },
+      ],
+    },
+  ],
+};
