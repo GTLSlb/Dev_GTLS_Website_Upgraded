@@ -85,7 +85,19 @@ export interface NewsCardProps {
   imageSrc: string;
 }
 
+export interface ProfileCardProps {
+  title: string;
+  description: string;
+  imageSrc: string;
+}
+
 interface NewsItem {
+  title: string;
+  description: string;
+  imageSrc: string;
+}
+
+export interface ProfileItem {
   title: string;
   description: string;
   imageSrc: string;
@@ -99,6 +111,9 @@ export interface SliderItem {
 
 export interface NewsSliderProps {
   news: NewsItem[];
+}
+export interface ProfileSliderProps {
+  items: ProfileItem[];
 }
 
 export interface SliderProps {
@@ -280,4 +295,18 @@ export interface InfoSection {
   title: string;
   description: string;
   items: InfoItem[];
+}
+
+export interface MessageBannerData {
+  title: string;
+  titleColor?: string;
+  quote: string;
+  directorName: string;
+  directorPosition: string;
+  directorImage: string;
+}
+
+// Props for the component
+export interface MessageBannerProps {
+  data: MessageBannerData;
 }

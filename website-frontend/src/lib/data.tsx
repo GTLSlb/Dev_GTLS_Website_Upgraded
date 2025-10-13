@@ -21,7 +21,9 @@ import {
   IntegratedSolutionsItem,
   Location,
   MenuSection,
+  MessageBannerData,
   NavigationConfig,
+  ProfileItem,
   ServiceData,
   WhyGtlsItem,
 } from "./types";
@@ -979,3 +981,40 @@ export const SmartLogisticsInfo: InfoSection = {
     },
   ],
 };
+
+export const MessageBannerdata: MessageBannerData = {
+  title: "Message From The Director",
+  titleColor: "text-gold",
+  quote:
+    "At Gold Tiger Logistics Solutions, our mission has always been simple: to provide reliable, efficient, and innovative logistics solutions that our clients can depend on. Over the years, we have grown from a single truck operation into a fully integrated logistics company, delivering freight, warehousing, and supply chain services across Australia. Our success is built on the dedication of our people, the strength of our fleet, and our commitment to leveraging technology to create smarter, more transparent logistics solutions. Every decision we make is guided by a focus on safety, operational excellence, and customer satisfaction. We understand that logistics is more than moving goods it’s about building lasting partnerships, solving challenges proactively, and supporting the growth of our clients’ businesses. At Gold Tiger, we take pride in being more than a service provider; we are a trusted partner in every journey. Thank you for choosing Gold Tiger. We look forward to driving your business forward safely, efficiently, and reliably.",
+  directorName: "Imad El Masri",
+  directorPosition: "Director, Gold Tiger Logistics Solutions",
+  directorImage: "/svgs/imadVertical.svg",
+};
+
+export const ProfileData: ProfileItem[] = [
+  {
+    title: "Imad El Masri",
+    description:
+      "Director at Gold Tiger Logistics Solutions. Leading operations and innovation in freight, warehousing, and supply chain management across Australia.",
+    imageSrc: "/webp/imad.webp",
+  },
+  {
+    title: "Sarah Johnson",
+    description:
+      "Head of Operations with over 10 years of experience in logistics strategy and process optimization. Passionate about building efficient and scalable systems.",
+    imageSrc: "/webp/imad.webp",
+  },
+  {
+    title: "Michael Tan",
+    description:
+      "Technology Lead responsible for integrating advanced tracking systems and automation to enhance supply chain transparency and performance.",
+    imageSrc: "/webp/imad.webp",
+  },
+  {
+    title: "Laura Smith",
+    description:
+      "Customer Relations Manager focused on providing clients with seamless communication, personalized service, and logistics solutions tailored to their needs.",
+    imageSrc: "/webp/imad.webp",
+  },
+];

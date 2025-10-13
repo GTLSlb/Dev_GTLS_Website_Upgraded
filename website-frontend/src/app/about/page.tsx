@@ -8,6 +8,8 @@ import WhyLogistics from "@/lib/pages/about/sections/WhyLogistics";
 import CoreValues from "@/lib/pages/about/sections/CoreValues";
 import Vision from "@/lib/pages/about/sections/Vision";
 import MessageBanner from "@/lib/pages/about/sections/MessageBanner";
+import { MessageBannerdata } from "@/lib/data";
+import OurTeam from "@/lib/pages/about/sections/OurTeam";
 
 const Page = () => {
   return (
@@ -26,7 +28,8 @@ const Page = () => {
       <CoreValues />
       <BannerSection />
       <WhyLogistics />
-      <MessageBanner />
+      <MessageBanner data={MessageBannerdata} />
+      <OurTeam />
     </Container>
   );
 };
