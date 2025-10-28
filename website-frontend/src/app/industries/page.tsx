@@ -8,7 +8,7 @@ const Page = () => {
       <CommonHero
         title="Industries We Serve"
         subtitle="Tailored Logistics for Every Sector."
-        description="At Gold Tiger Logistics Solutions, we understand that every industry moves differently. That’s why we deliver industry-specific solutions — built for speed, precision, and growth."
+        description="At Gold Tiger Logistics Solutions, we recognize that no two industries are the same. Each sector comes with its own supply chain requirements, compliance needs, and customer expectations."
         imageSrc="/webp/3movers.webp"
         cornerText="Talk with an expert"
       />

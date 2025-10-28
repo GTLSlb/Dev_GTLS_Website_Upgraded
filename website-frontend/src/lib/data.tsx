@@ -440,31 +440,31 @@ export const OurStoryData = {
 export const IndustriesData = [
   {
     imgSrc: "/globe.svg",
-    title: "Printing",
+    title: "Printing and Packaging",
     subtitle: "Fast, Flexible, Everywhere.",
     description:
-      "From high-street to online retail, we help you stay ahead with rapid distribution, scalable warehousing, and real-time tracking to meet changing customer demand.",
+      "At Gold Tiger Logistics Solutions, we understand the fast-paced and detail-driven nature of the printing and packaging industry. From raw materials to finished products, timing and precision are everything. Our specialized logistics services ensure that your paper and packaging materials, and finished goods move seamlessly through every stage of the supply chain. With our advanced fleet, and high-security warehouses, and extensive distribution network, we provide reliable transport solutions that minimize delays and prevent damage to sensitive materials. By combining operational excellence with deep industry expertise, Gold Tiger Logistics supports printing and packaging businesses in maintaining continuous production, meeting tight deadlines, and achieving sustainable growth.",
   },
   {
     imgSrc: "/globe.svg",
-    title: "Food & Beverage",
+    title: "Food & Beverage (F&B)",
     subtitle: "Fresh. Safe. On Time.",
     description:
-      "We support food producers with temperature-controlled options, efficient B-Triple transport, and compliance-ready solutions across the supply chain.",
+      "At Gold Tiger Logistics Solutions, we provide reliable logistics support tailored to the Food & Beverage industry where quality, safety, and efficiency are key. We specialize in the storage and transport of room-temperature food and beverage products, ensuring they are handled with care and delivered on time. Our operations meet the highest international food safety standards, backed by our SQF (Safe Quality Food) certification. From warehousing to nationwide distribution, every process is designed to maintain product integrity and regulatory compliance throughout the supply chain. With strategically located facilities, a modern fleet, and a dedicated team, Gold Tiger Logistics Solutions helps F&B brands move their goods seamlessly from production to market ensuring safety, consistency, and customer satisfaction at every step.",
   },
   {
     imgSrc: "/globe.svg",
     title: "Health & Beauty",
     subtitle: "Care That Delivers.",
     description:
-      "From cosmetics to medical-grade products, our secure handling and precise inventory systems protect your brand — and your customers.",
+      "Health and beauty products require careful handling, secure storage, and fast distribution to protect product integrity and meet consumer demand. At Gold Tiger Logistics Solutions. From cosmetics and skincare to personal wellness, pharmaceuticals, and baby products, we handle every shipment with precision and care. Our secure warehouses and modern fleet ensure the safe storage and transport of sensitive items, maintaining optimal conditions from pickup to delivery. We adhere to strict hygiene and handling protocols to protect product quality and comply with industry standards. With our experience and commitment to reliability, Gold Tiger Logistics Solutions supports leading health, beauty, and baby care brands in delivering their products safely and efficiently building trust with every shipment.",
   },
   {
     imgSrc: "/globe.svg",
     title: "Fast-Moving Consumer Goods (FMCG)",
     subtitle: "High Volume. High Velocity.",
     description:
-      "GTLS is built for the pace of FMCG. We handle large-volume SKU movement with intelligent pallet management, automation, and corridor-optimized distribution.",
+      "The FMCG sector thrives on speed, availability, and scalability. To keep up with consumer demand, we provide: High-volume warehousing with flexible storage options. Nationwide transport coverage for quick replenishment. Scalable distribution solutions that adapt to seasonal demand spikes. With Gold Tiger, FMCG businesses gain a logistics partner that supports growth, agility, and uninterrupted supply in a highly dynamic market.",
   },
 ];
 
