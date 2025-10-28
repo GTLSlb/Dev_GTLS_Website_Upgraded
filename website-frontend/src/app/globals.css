@@ -140,3 +140,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+.profile-swiper .swiper-slide {
+  margin-top: 40px;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.profile-swiper .swiper-slide-active {
+  margin-top: 0;
+  transform: scale(1.05);
+  opacity: 1;
+  z-index: 10;
+}
+
+.profile-swiper .swiper-slide-active .profile-card {
+  background-color: #b98c25; /* light gold / whatever color you want */
+  color: white !important;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}

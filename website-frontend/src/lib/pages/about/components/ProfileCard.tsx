@@ -9,7 +9,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   imageSrc,
 }) => {
   return (
-    <Card className="p-5 pb-15 rounded-3xl">
+    <Card className="p-5 pb-15 rounded-3xl profile-card">
       <div className="relative h-64 w-full rounded-t-2xl overflow-hidden">
         <Image src={imageSrc} alt={title} fill className="object-cover" />
       </div>

@@ -35,12 +35,14 @@ const ProfileSlider: React.FC<ProfileSliderProps> = ({ items }) => {
           swiperRef.current = swiper;
         }}
         spaceBetween={20}
-        slidesPerView={1}
+        slidesPerView={3}
+         loop={true}  // 👈 centers the active slide
         breakpoints={{
           640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
+          768: { slidesPerView: 2, centeredSlides: false },
+          1024: { slidesPerView: 3, centeredSlides: true },
         }}
+        className="profile-swiper"
       >
         {items.map((item, index) => (
           <SwiperSlide key={index} className="py-5 px-1">
