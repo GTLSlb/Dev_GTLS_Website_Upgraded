@@ -49,7 +49,7 @@ const Industries = () => {
                   />
                 </div>
               </div>
-              <div className="h-0.5 bg-gray-200 w-full mt-20"></div>
+              <div className="h-0.5 bg-gray-100 w-full mt-20"></div>
             </div>
           );
         })}
