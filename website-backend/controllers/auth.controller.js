@@ -1,65 +1,88 @@
 require("dotenv").config({ path: "./.env" });
-const { validationResult, destroy_session } = require("express-validator");
+const { validationResult } = require("express-validator");
 const connection = require("../database/connection");
 const axios = require("axios");
 
 const STATUS = require("../shared-utils/status-code");
 const logger = require("../shared-utils/logging");
 
-const Employee = require("../models/Employee");
-const Customer = require("../models/Customer");
-const Driver = require("../models/Driver");
+const {
+  destroy_session,
+  generate_token,
+  is_token_valid,
+  get_user_info,
+  fill_user_model,
+} = require("../utils/auth.utils");
 
 class AuthController {
   async login(req, res) {
-    const parameters = req.headers;
-    const userObject = JSON.parse(parameters.userobject);
-    const token = parameters.token;
+    const parameters = req.body;
+    const userObject = parameters.UserObject;
+    const token = parameters.Token;
     const db_table = process.env.DB_TABLE || "custom_sessions";
- 
+
     if (userObject && token) {
       // Generate Session using user id and owner id
       const userId = userObject.UserId;
 
-      req.session.token = token;
-      req.session.user = userObject;
-      req.session.userId = userId;
-      req.session.newRoute = "/loginapi";
-
-      const sessionId = req.session.id;
-      const user = JSON.stringify(userObject);
+      // Generate JWT token
+      const jwt_token = generate_token(userObject, token);
 
       const lastActivity = Date.now() / 1000;
-      const query = `INSERT INTO ${db_table} (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`;
+
+      const query = `INSERT INTO ${db_table} (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
       connection.query(
         query,
-        [sessionId, userId, token, user, lastActivity],
+        [
+          token,
+          userId,
+          token,
+          Array.isArray(userObject)
+            ? JSON.stringify(userObject[0])
+            : JSON.stringify(userObject),
+          lastActivity,
+          new Date().getTime(),
+          new Date().getTime(),
+        ],
         (err, results) => {
           if (err) {
-            console.log("Error running query:", err);
-            logger.error('Error running query: ' + err);
-            return res.status(STATUS.CONFLICT).json({
-              user: null,
-              token: null,
-              status: STATUS.CONFLICT,
-              message: errorMessage,
+            console.error("❌ Database error:", err);
+            logger.error("Database INSERT failed: " + err.message);
+            return res.status(500).send({
+              status: STATUS.INTERNAL_SERVER_ERROR,
+              message: "Database error",
+              error: err.message,
             });
           }
-          req.session.save();
-          if (req.session.newRoute && req.session.user) {
-            return res.status(STATUS.OK).json({
-              user: user,
-              token: token,
-              status: STATUS.OK,
-              message: "Login successful",
-            });
-          }
+
+          const cookieConfig = {
+            httpOnly: false,
+            domain: process.env.COOKIE_DOMAIN || ".gtls.com.lb", // ✅ Must match frontend
+            sameSite: process.env.COOKIE_SAMESITE || "lax", // ⚠️ "none" requires secure: true
+            secure: process.env.COOKIE_SECURE === "true",
+            maxAge: parseInt(process.env.COOKIE_MAX_AGE || "86400000"),
+            path: "/",
+          };
+
+          res.cookie("jwt_token", jwt_token, cookieConfig);
+          
+          const expiresIn = 24 * 60 * 60;
+  
+          res.send({
+            status: STATUS.OK,
+            message: "Login successful",
+            access_token: token,
+            token_type: "Bearer",
+            jwt_token: jwt_token,
+            expires_in: expiresIn,
+            user: Array.isArray(userObject) ? userObject[0] : userObject,
+          });
         }
       );
     } else {
       const errorMessage = "Something went wrong, try again later";
-      logger.error('Internal Server Error');
+      logger.error("Internal Server Error");
       return res.status(STATUS.INTERNAL_SERVER_ERROR).json({
         user: null,
         token: null,
@@ -93,10 +116,10 @@ class AuthController {
       connection.query(
         query,
         [sessionId, userId, token, user, lastActivity],
-        (err, results) => {
+        (err, results) => async () => {
           if (err) {
             console.error("Error running query:", err);
-            logger.error('Error running query: ' + err);
+            logger.error("Error running query: " + err);
             return res.status(STATUS.CONFLICT).json({
               user: null,
               token: null,
@@ -104,7 +127,7 @@ class AuthController {
               message: errorMessage,
             });
           }
-          req.session.save();
+          await req.session.save();
           if (req.session.newRoute && req.session.user) {
             res.status(STATUS.OK).json({
               user: user,
@@ -117,7 +140,7 @@ class AuthController {
       );
     } else {
       const errorMessage = "Something went wrong, try again later";
-      logger.error('Internal Server Error');
+      logger.error("Internal Server Error");
       return res.status(STATUS.INTERNAL_SERVER_ERROR).json({
         user: null,
         token: null,
@@ -128,282 +151,275 @@ class AuthController {
   }
 
   async logout(req, res) {
-    const parameters = req.headers;
+    const parameters = req.body;
 
-    const session_domain = parameters.sessiondomain || "/";
-    const user = parameters.user;
-    const root = parameters.url;
+    const session_domain = parameters.SessionDomain || "";
+    const user = parameters.CurrentUser;
+    const root = parameters.URL;
 
+    const returnObj = {
+      status: STATUS.OK,
+      message: "Logout successful",
+    };
+
+    // 1. Initial Missing User Check
     if (!user) {
-      return res.status(STATUS.OK).json({
-        message: "Logout successful",
+      // Send and return immediately
+      return res.status(STATUS.INTERNAL_SERVER_ERROR).json({
+        status: STATUS.INTERNAL_SERVER_ERROR,
+        message: "Missing user information",
       });
     }
 
-    await axios
-      .get(
-        `${root}Logout`,
-        {},
-        {
-          headers: { UserId: user.UserId, Token: user.Token },
-        }
-      )
-      .then(async (response) => {
-        await destroy_session(session_domain);
+    const headers = {
+      UserId: user.UserId,
+    };
+
+    try {
+      // 2. Call the external logout API
+      await axios.get(`${root}logout`, { headers: headers });
+
+      // 3. If API succeeds, destroy the session and send success response
+      await destroy_session(req, res, session_domain);
+      return res.status(STATUS.OK).json({
+        message: "Logout successful",
+      });
+    } catch (error) {
+      // 4. Handle API error (e.g., already logged out)
+      if (
+        error.response &&
+        error.response.status === STATUS.BAD_REQUEST &&
+        error.response.data.Message === "User already logged out"
+      ) {
+        logger.warn("User already logged out: " + user.UserId);
+
+        // Clear cookie and send success response immediately
+        res.clearCookie("gtls_session");
         return res.status(STATUS.OK).json({
+          status: STATUS.OK,
           message: "Logout successful",
         });
-      })
-      .catch((error) => {
-        logger.error('Internal Server Error: ' + error.message);
+      } else {
+        // 5. Handle all other errors (e.g., Network, Server Error)
+        logger.error("Internal Server Error: " + error.message);
         return res.status(STATUS.INTERNAL_SERVER_ERROR).json({
+          status: STATUS.INTERNAL_SERVER_ERROR,
           message: "Internal Server Error",
           error: error.message,
         });
-      });
+      }
+    }
   }
 
   async microsoftToken(req, res) {
-    const parameters = req.headers;
-    const access_token = parameters.socialiteuser.accessToken;
+    const parameters = req.body;
+    const access_token = parameters.socialiteUser.accessToken;
 
     const root = parameters.URL;
     const headers = {
       Authorization: access_token,
     };
 
-    axios
+    await axios
       .post(`${root}validate/MicrosoftToken`, {}, { headers })
-      .then((response) => {
+      .then(async (response) => {
         if (response.status == STATUS.OK) {
           const responseJson = response.data;
           const userObject = responseJson.user;
           const token = responseJson.access_token;
           const userId = userObject.UserId;
 
-          req.session.regenerate();
-          req.session.token = token;
-          req.session.user = Array.isArray(userObject)
-            ? JSON.stringify(userObject)
-            : userObject;
-          req.session.userId = userId;
-          req.session.newRoute = "/azure/login";
+          // Generate JWT token
+          const jwt_token = generate_token(userObject, token);
 
-          const sessionId = req.session.id;
+          // ✅ Cookie configuration with try-catch
+          try {
+            const cookieConfig = {
+              httpOnly: false,
+              domain: process.env.COOKIE_DOMAIN || ".gtls.com.lb", // ✅ Must match frontend
+              sameSite: process.env.COOKIE_SAMESITE || "lax", // ⚠️ "none" requires secure: true
+              secure: process.env.COOKIE_SECURE === "true",
+              maxAge: parseInt(process.env.COOKIE_MAX_AGE || "86400000"),
+              path: "/",
+            };
+
+            res.cookie("jwt_token", jwt_token, cookieConfig);
+          } catch (cookieError) {
+            console.error("❌ Failed to set cookie!");
+            console.error("Cookie Error:", cookieError);
+            logger.error("Cookie setting failed: " + cookieError.message);
+
+            // Don't fail the entire request, just log it
+            // The JWT token will still be in the response body
+          }
+
           const lastActivity = Date.now() / 1000;
 
-          const query = `INSERT INTO custom_sessions (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`;
+          const query = `INSERT INTO custom_sessions (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
           connection.query(
             query,
             [
-              sessionId,
+              token,
               userId,
               token,
               Array.isArray(userObject)
-                ? JSON.stringify(userObject)
-                : userObject,
+                ? JSON.stringify(userObject[0])
+                : JSON.stringify(userObject),
               lastActivity,
+              new Date().getTime(),
+              new Date().getTime(),
             ],
             (err, results) => {
               if (err) {
-                console.error("error running query:", err);
-                return;
+                console.error("❌ Database error:", err);
+                logger.error("Database INSERT failed: " + err.message);
+                return res.status(500).send({
+                  status: STATUS.INTERNAL_SERVER_ERROR,
+                  message: "Database error",
+                  error: err.message,
+                });
               }
-              req.session.save();
-              return res.status(STATUS.OK).json({
+
+              const expiresIn = 24 * 60 * 60;
+              res.send({
+                status: STATUS.OK,
                 message: "Login successful",
-                access_token: accessToken,
+                access_token: token,
+                token_type: "Bearer",
+                jwt_token: jwt_token,
                 expires_in: expiresIn,
-                user: Array.isArray(userObject)
-                  ? JSON.stringify(userObject)
-                  : userObject,
+                user: Array.isArray(userObject) ? userObject[0] : userObject,
               });
             }
           );
         } else {
-          if (
-            response.data.Message.includes(
-              "Error while validating token: Code: InvalidAuthenticationToken"
-            )
-          ) {
-            return res.status(STATUS.UNAUTHORIZED).json(
-              {
-                Message:
-                  "Error while validating token: Invalid Authentication Token",
-                error: response.data,
-              },
-              STATUS.UNAUTHORIZED
-            );
+          // Handle error cases...
+          const errorMessage = response.data.Message || "Authentication error";
+
+          console.error("❌ Authentication failed:", errorMessage);
+
+          if (errorMessage.includes("InvalidAuthenticationToken")) {
+            res.send({
+              status: STATUS.UNAUTHORIZED,
+              message:
+                "Error while validating token: Invalid Authentication Token",
+            });
           } else {
-            return res.status(STATUS.INTERNAL_SERVER_ERROR).json(
-              {
-                Message: response.data.Message || "Authentication error",
-                error: response.data,
-              },
-              STATUS.INTERNAL_SERVER_ERROR
-            );
+            res.send({
+              status: STATUS.INTERNAL_SERVER_ERROR,
+              message: errorMessage,
+            });
           }
         }
       })
       .catch((error) => {
-        console.error(error);
-        logger.error('Internal Server Error: ' + error.message);
-        return res.status(STATUS.INTERNAL_SERVER_ERROR).json(
-          {
-            Message: "Authentication error",
-            error: error,
-          },
-          STATUS.INTERNAL_SERVER_ERROR
-        );
+        console.error("❌ Authentication error:", error);
+        console.error("Error details:", {
+          message: error.message,
+          code: error.code,
+          response: error.response?.data,
+        });
+        logger.error("Internal Server Error: " + error.message);
+
+        res.status(500).send({
+          status: STATUS.INTERNAL_SERVER_ERROR,
+          message: error.message || "Authentication error",
+        });
       });
   }
 
   async logoutWithoutRequest(req, res) {
     try {
-      // Check if user is found in session
-      if (req.session.user) {
-        // Remove user from session
-        delete req.session.user;
-      }
+      const session_domain = req.body.SessionDomain || "";
 
-      // Check if token is found in session
-      if (req.session.token) {
-        // Remove token from session
-        delete req.session.token;
-      }
+      // Destroy the session token
+      await destroy_session(req, res, session_domain);
 
-      // Invalidate and flush the session
-      req.session.invalidate();
-      req.session.flush();
-
-      // Regenerate the session token
-      req.session.regenerate((err) => {
-        if (err) {
-          throw err;
-        }
+      return res.send({
+        status: STATUS.OK,
+        message: "Logout Successfully",
       });
-
-      return res.status(STATUS.OK).json(
-        {
-          message: "Logout Successfully",
-        },
-        STATUS.OK
-      );
     } catch (err) {
-      logger.error('Internal Server Error: ' + err.message);
-      return res.status(STATUS.INTERNAL_SERVER_ERROR).json(
-        {
-          message: "Logout failed. Please try again. " + err.message,
-        },
-        STATUS.INTERNAL_SERVER_ERROR
-      );
+      logger.error("Internal Server Error: " + err.message);
+      return res.send({
+        status: STATUS.INTERNAL_SERVER_ERROR,
+        message: "Logout failed. Please try again. " + err.message,
+      });
     }
   }
 
   async getCurrentUser(req, res) {
     const errors = validationResult(req);
     const table_name = process.env.DB_TABLE || "custom_sessions";
+
     if (!errors.isEmpty()) {
-      logger.error('Bad Request: ' + errors.array());
+      logger.error("Bad Request: " + errors.array());
       return res.status(STATUS.BAD_REQUEST).json({ errors: errors.array() });
     }
-    if (req.session.user) {
-      const session_id = req.session.id;
-      const user = connection.query(
-        "SELECT * FROM " + table_name + " WHERE id = ?",
-        [session_id],
-        (error, results) => {
-          if (error) {
+
+    if (is_token_valid(req.body.jwt_token) === false)
+      return res
+        .status(STATUS.UNAUTHORIZED)
+        .json({ status: STATUS.UNAUTHORIZED, message: "Unauthorized" });
+
+    let user_info = get_user_info(req.body.jwt_token)
+      ? get_user_info(req.body.jwt_token)
+      : {};
+
+    if (user_info.user) {
+      // Use parameterized query to prevent SQL injection
+      const query = `SELECT * FROM ?? WHERE payload=? AND user_id=?`;
+      const params = [table_name, user_info.token, user_info.user.UserId];
+
+      connection.query(query, params, (error, results) => {
+        if (error) {
+          logger.error("Database error: ", error);
+          return res.status(STATUS.INTERNAL_SERVER_ERROR).json({
+            status: STATUS.INTERNAL_SERVER_ERROR,
+            message: "Internal Server Error",
+            data: null,
+          });
+        }
+
+        if (results.length > 0) {
+          const user = results[0];
+
+          // Parse the JSON string from the database
+          let parsedUser;
+          try {
+            parsedUser =
+              typeof user.user === "string" ? JSON.parse(user.user) : user.user;
+          } catch (parseError) {
+            logger.error("Error parsing user JSON:", parseError);
             return res.status(STATUS.INTERNAL_SERVER_ERROR).json({
-              message: "Internal Server Error",
-              error: error.message,
+              message: "Error parsing user data",
             });
           }
-          if (results.length > 0) {
+
+          const logged_in_user = fill_user_model(parsedUser);
+
+          if (logged_in_user) {
             return res.status(STATUS.OK).json({
-              message: "Success",
-              data: results[0],
+              token: user_info.token,
+              user: logged_in_user,
+              jwt_token: req.body.jwt_token,
             });
           } else {
-            return res.status(STATUS.NOT_FOUND).json({
+            return res.status(STATUS.NOTFOUND).json({
               message: "User not found",
             });
           }
-        }
-      );
-      if (user) {
-        // Decode the user since it is a string
-        const decoded_user = JSON.parse(user);
-        let logged_in_user = null;
-        if (user.TypeId == 1) {
-          // The user is a customer
-          logged_in_user = new Customer(
-            decoded_user.UserId,
-            decoded_user.TypeId,
-            decoded_user.TypeName,
-            decoded_user.OwnerId,
-            decoded_user.PhoneNumber,
-            decoded_user.CustomerName,
-            decoded_user.Picture,
-            decoded_user.Username,
-            decoded_user.Email
-          );
-        } else if (user.TypeId == 2) {
-          // The user is an employee
-          logged_in_user = new Employee(
-            decoded_user.UserId,
-            decoded_user.TypeId,
-            decoded_user.TypeName,
-            decoded_user.OwnerId,
-            decoded_user.PhoneNo,
-            decoded_user.FirstName,
-            decoded_user.LastName,
-            decoded_user.Picture,
-            decoded_user.Username,
-            decoded_user.Email,
-            decoded_user.Address,
-            decoded_user.Dob,
-            decoded_user.NationalityId,
-            decoded_user.NationalityName,
-            decoded_user.BranchId,
-            decoded_user.RoleId,
-            decoded_user.RoleName,
-            decoded_user.ReportToId,
-            decoded_user.ReportToName,
-            decoded_user.HiringDate,
-            decoded_user.StateId,
-            decoded_user.StateName
-          );
-        } else if (user.TypeId == 3) {
-          // The user is a driver
-          logged_in_user = new Driver(
-            decoded_user.UserId,
-            decoded_user.TypeId,
-            decoded_user.TypeName,
-            decoded_user.truckNbr,
-            decoded_user.location,
-            decoded_user.driverNbr,
-            decoded_user.Username,
-            decoded_user.Email,
-            decoded_user.phoneNbr
-          );
         } else {
-          return res
-            .status(STATUS.INTERNAL_SERVER_ERROR)
-            .json({ message: "Internal Server Error" });
-        }
-
-        if (logged_in_user) {
-          return res.status(STATUS.OK).json({
-            token: req.session.token,
-            user: logged_in_user,
+          return res.status(STATUS.NOTFOUND).json({
+            message: "User not found",
           });
         }
-      } else {
-        return res.status(STATUS.NOTFOUND).json({ message: "User not found" });
-      }
+      });
     } else {
-      return res.status(STATUS.UNAUTHORIZED).json({ message: "Unauthorized" });
+      return res.status(STATUS.UNAUTHORIZED).json({
+        message: "Unauthorized",
+      });
     }
   }
 }

@@ -9,8 +9,8 @@ router.post(
 );
 
 // Azure Callback
-router.post(
-  "/azure/callback",
+router.get(
+  "/auth/azure/callback",
   AuthController.azureCallback.bind(AuthController)
 );
 
@@ -33,7 +33,7 @@ router.post(
 );
 
 // User Retrieve
-router.get(
+router.post(
   "/users",
   AuthController.getCurrentUser.bind(AuthController)
 );
