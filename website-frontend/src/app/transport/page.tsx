@@ -8,11 +8,12 @@ const Page = () => {
   return (
     <Container>
       <CommonHero
-        title="B-Triple Transport Solutions"
+        title="Transport Solutions"
         subtitle="Move More. Spend Less. Reduce Emissions."
         description="Our expanding B-Triple fleet offers high-volume, long-haul transport that delivers greater efficiency, fewer road trips, and lower environmental impact."
         imageSrc="/webp/transporthero.webp"
-        cornerText="Talk with an expert"
+        cornerText="B-Triple"
+        link="/b-triple"
       />
       <IntegratedSolutions items={IntegratedSolutionsData} />
       <Services />

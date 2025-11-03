@@ -1,8 +1,10 @@
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
-import EnvironmentList from "@/lib/pages/environment&compliance/sections/EnvironmentList";
 import Recycling from "@/lib/pages/environment&compliance/sections/Recycling";
 import GreenPractices from "@/lib/pages/environment&compliance/sections/GreenPractices";
+import SafetyAndCompliance from "@/lib/pages/environment&compliance/sections/SafetyAndCompliance";
+import Partners from "@/lib/pages/environment&compliance/sections/Partners";
+import Fatigue from "@/lib/pages/environment&compliance/sections/Fatigue";
 
 const Page = () => {
   return (
@@ -16,7 +18,10 @@ const Page = () => {
       />
       <Recycling />
       <GreenPractices />
-      <EnvironmentList />
+      <SafetyAndCompliance />
+      <Partners />
+      <Fatigue/>
+      {/* <EnvironmentList /> */}
     </Container>
   );
 };

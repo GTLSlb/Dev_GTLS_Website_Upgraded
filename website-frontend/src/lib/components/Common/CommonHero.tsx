@@ -3,6 +3,7 @@ import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import { HeroProps } from "@/lib/types";
 import { MoveUpRight } from "lucide-react";
+import Link from "next/link";
 
 const CommonHero = ({
   title = "Global Transport & Logistics Solutions",
@@ -11,6 +12,8 @@ const CommonHero = ({
   imageSrc = "/webp/3movers.webp", // ✅ fallback image
   cornerText = "Talk with an expert",
   className,
+  contain = false,
+  link,
   color = "gold",
 }: HeroProps) => {
   return (
@@ -24,7 +27,9 @@ const CommonHero = ({
             text={title}
             fontFamily="funnel"
             styleType="title2"
-            className={`${color === "gold" ? "text-dark-gold" : "text-green"} min-w-xs`}
+            className={`${
+              color === "gold" ? "text-dark-gold" : "text-green"
+            } min-w-xs`}
           />
           <TextWrapper
             text={subtitle}
@@ -35,7 +40,11 @@ const CommonHero = ({
         </div>
 
         {/* Divider */}
-        <div className={`w-10 h-0.5 hidden md:block ${color === "gold" ? "bg-dark-gold" : "bg-green"} mt-4`}></div>
+        <div
+          className={`w-10 h-0.5 hidden md:block ${
+            color === "gold" ? "bg-dark-gold" : "bg-green"
+          } mt-4`}
+        ></div>
 
         {/* Description */}
         <div className="md:w-5/12">
@@ -55,19 +64,28 @@ const CommonHero = ({
           alt={title}
           fill
           priority
-          className="object-cover rounded-4xl"
+          className={`rounded-4xl ${contain ? "object-contain" : "object-cover"}`}
         />
-        <div className={`${color === "gold" ? "bg-light-gold" : "bg-green"} h-16 w-auto p-4 min-w-[250px] absolute bottom-0 right-0 rounded-tl-3xl hover:cursor-pointer`}>
-          <div className="flex gap-2 justify-between items-center">
-            <TextWrapper
-              text={cornerText}
-              fontFamily="dmSans"
-              styleType="title4Reg"
-              className="text-white"
-            />
-            <MoveUpRight className="size-5 text-white" />
+        {link && cornerText && (
+          <div
+            className={`${
+              color === "gold" ? "bg-light-gold" : "bg-green"
+            } h-16 w-auto p-4 min-w-[250px] absolute bottom-0 right-0 rounded-tl-3xl hover:cursor-pointer`}
+          >
+            <Link
+              href={link}
+              className="flex gap-2 justify-between items-center"
+            >
+              <TextWrapper
+                text={cornerText}
+                fontFamily="dmSans"
+                styleType="title4Reg"
+                className="text-white"
+              />
+              <MoveUpRight className="size-5 text-white" />
+            </Link>
           </div>
-        </div>
+        )}
       </div>
     </SectionContainer>
   );

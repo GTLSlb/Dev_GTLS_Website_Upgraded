@@ -1,5 +1,6 @@
 import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
+import * as LucideIcons from "lucide-react";
 
 export interface GridCardProps {
   id: number;
@@ -133,6 +134,8 @@ export interface HeroProps {
   imageSrc?: string;
   className?: string;
   cornerText?: string;
+  contain?: boolean;
+  link?: string;
   color?: "gold" | "green";
 }
 
@@ -309,4 +312,38 @@ export interface MessageBannerData {
 // Props for the component
 export interface MessageBannerProps {
   data: MessageBannerData;
+}
+
+export interface SafetyComplianceSection {
+  /** The name of the icon (to map to an icon component) */
+  icon: keyof typeof LucideIcons; 
+  /** The title for the section */
+  title: string;
+  /** Paragraphs or bullet points for the section */
+  content: string[];
+}
+
+export interface SafetyComplianceIntro {
+  /** Short introductory description text */
+  description: string;
+}
+
+export interface SafetyComplianceData {
+  /** Main title for the page or section */
+  title: string;
+  /** Introductory section */
+  intro: SafetyComplianceIntro;
+  /** Array of safety/compliance topics */
+  sections: SafetyComplianceSection[];
+}
+
+export interface BTripleSection {
+  icon: keyof typeof LucideIcons;
+  title: string;
+  description: string;
+}
+
+export interface BTriplesDataType {
+  title: string;
+  sections: BTripleSection[];
 }
