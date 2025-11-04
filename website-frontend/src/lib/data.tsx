@@ -840,60 +840,52 @@ export const CoreValuesData = [
 ];
 
 export const FacilitiesGridData = {
-  title: "Warehousing Facilities",
-  description: "Designed for Efficiency and Security",
-  buttonText: "Get a Custom Solution",
+  title: "Why Choose Our Warehousing Solutions?",
+  description:
+    "With Gold Tiger Logistics Solutions, warehousing is not just about storing products it’s about protecting your investment, empowering your supply chain, and enabling your business to grow with confidence.",
   items: [
     {
-      title: "8000+ Racked Pallet Spaces",
-      description: "Euro, US, and AU standard, up to 1500kg",
+      title: "Strategic Locations",
+      description: "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
       picture: "/svgs/whygtls/integration.svg",
     },
     {
-      title: "24/7 Monitored Security",
-      description: "Fully secured, restricted access",
+      title: "Flexible Storage Options",
+      description: "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
+      picture: "/svgs/distribution.svg",
+    },
+    {
+      title: "Technology-Driven Management",
+      description: "Real-time visibility, smart inventory tracking, and reporting with our advanced Warehouse Management Systems (WMS).",
       picture: "/svgs/whygtls/cpu.svg",
     },
     {
-      title: "All-Weather Staging Areas",
-      description: "Efficient loading/unloading year-round",
-      picture: "/svgs/whygtls/safety.svg",
-    },
-    {
-      title: "Ambient Storage",
-      description: "Ideal for non-temp-controlled goods",
+      title: "Safety & Security",
+      description: "24/7 surveillance, controlled access, and strict compliance to keep your goods protected.",
       picture: "/svgs/whygtls/partners.svg",
     },
     {
-      title: "DG & Biosecurity Compliant",
-      description: "HACCP, SQF, AA Biosecurity Approved",
+      title: "Value-Added Services",
+      description: "Cross-docking, pick & pack, labelling, distribution, and reverse logistics to streamline your operations.",
       picture: "/svgs/whygtls/accreditations.svg",
-    },
-    {
-      title: "On-Site Weighbridge",
-      description: "Convenience and compliance",
-      picture: "/svgs/whygtls/eco-friendly.svg",
     },
   ],
 };
 
 export const LocationsData: ServiceData = {
   title: "Warehousing Locations",
-  subtitle: "Strategically Located to Serve You Better.",
-  description:
-    "Gold Tiger Logistics Solutions operates from major Australian logistics corridors to provide faster, more efficient coverage across states.",
   listItems: [
     {
       icon: <MapPin className="text-yellow-600" />,
-      title: "Dandenong, VIC",
+      title: "Sydney, NSW",
     },
     {
       icon: <MapPin className="text-yellow-600" />,
-      title: "NSW Expansion – Coming Soon",
+      title: "Brisbane, QLD – Coming Soon",
     },
     {
       icon: <MapPin className="text-yellow-600" />,
-      title: "Adelaide, SA",
+      title: "Melbourne, VIC",
     },
   ],
   buttonText: "Talk to Our Team",
@@ -1018,3 +1010,40 @@ export const ProfileData: ProfileItem[] = [
     imageSrc: "/webp/imad.webp",
   },
 ];
+
+export const ExpansionValues = {
+  title: "Why This Expansion Matters",
+  points: [
+    {
+      heading: "Meeting Growth Demand",
+      description:
+        "Driven by customer growth and evolving freight requirements, our expanded and doubled B-Triple fleet enhances capacity, reduces turnaround times, and supports greater freight efficiency.",
+    },
+    {
+      heading: "Enhanced Reliability",
+      description:
+        "The fleet expansion allows for optimized payloads, fewer trips, and faster, more sustainable deliveries across Australia’s busiest transport corridors.",
+    },
+    {
+      heading: "Sustainability Commitment",
+      description:
+        "By maximizing load capacity and minimizing total trips, our B-Triple operations help lower fuel usage and CO₂ emissions, aligning with Gold Tiger’s dedication to a greener supply chain.",
+    },
+    {
+      heading: "Cost-Effective Operations",
+      description:
+        "With a company-owned fleet and integrated logistics model, we maintain control over costs while ensuring exceptional service quality and dependability.",
+    },
+    {
+      heading: "Seamless End-to-End Service",
+      description:
+        "Our extended network ensures customers receive consistent, on-time deliveries — reinforcing Gold Tiger’s reputation for reliability and excellence.",
+    },
+    {
+      heading:
+        "Our B-Triple fleet expansion represents a major milestone in our growth journey",
+      description:
+        "A reflection of our customers’ trust and our ongoing commitment to innovation, sustainability, and operational excellence.",
+    },
+  ],
+};

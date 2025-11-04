@@ -9,15 +9,13 @@ const Page = () => {
   return (
     <Container>
       <CommonHero
-        title="Smart, Scalable Warehousing Built for Your Business"
-        // subtitle="Move More. Spend Less. Reduce Emissions."
-        description="From secure pallet storage to integrated inventory management, our warehousing solutions are tailored to meet your unique logistics needs."
+        title="Warehousing Facilities"
+        description="Our warehousing services are designed to be more than just storage, they are a strategic extension of your supply chain. With flexible, secure, and technology-driven facilities, we make sure your goods are always in the right place, at the right time."
         imageSrc="/webp/transporthero.webp"
         cornerText="Talk with an expert"
       />
       <Facilities {...FacilitiesGridData} />
       <Locations {...LocationsData} />
-      <Cards />
     </Container>
   );
 };

@@ -238,6 +238,11 @@ export interface CoreValue {
   description: string;
 }
 
+export interface Expansion {
+  heading: string;
+  description: string;
+}
+
 export interface NavLink {
   label: string;
   href?: string;
@@ -274,8 +279,8 @@ export interface ServiceListItem {
 
 export interface ServiceData {
   title: string;
-  subtitle: string;
-  description: string;
+  subtitle?: string;
+  description?: string;
   listItems: ServiceListItem[];
   buttonText: string;
   image?: string;

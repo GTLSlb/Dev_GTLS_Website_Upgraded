@@ -1,6 +1,7 @@
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import KeyBenefits from "@/lib/pages/btriple/sections/KeyBenefits";
+import Expansion from "@/lib/pages/btriple/sections/Expansion";
 
 const Page = () => {
   return (
@@ -13,6 +14,7 @@ const Page = () => {
         cornerText="Talk with an expert"
       />
       <KeyBenefits />
+      <Expansion />
     </Container>
   );
 };
