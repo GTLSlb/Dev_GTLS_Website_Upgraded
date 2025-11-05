@@ -25,7 +25,7 @@ const Locations = ({
         height={500}
         className="object-cover w-full h-auto"
       />
-      <div className="absolute bottom-15 left-30 w-80">
+      <div className="absolute bottom-30 left-30 w-80">
         <div className="flex flex-row gap-4 bg-white shadow-lg rounded-4xl p-5">
           <div className="relative">
             <Image
@@ -36,7 +36,7 @@ const Locations = ({
               className="object-cover"
             />
           </div>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2">
             <TextWrapper
               text="GTLS is growing — and getting closer to you, every step of the way."
               fontFamily="dmSans"

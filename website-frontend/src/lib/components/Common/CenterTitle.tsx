@@ -46,7 +46,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
           text={description}
           fontFamily="dmSans"
           styleType="body"
-          className={`max-w-3xl ${textColor}`}
+          className={`max-w-3xl ${textColor} whitespace-pre-line`}
         />
       )}
       {/* ✅ List with optional icons */}

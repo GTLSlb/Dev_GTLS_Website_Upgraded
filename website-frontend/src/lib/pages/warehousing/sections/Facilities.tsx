@@ -19,6 +19,7 @@ const Facilities = ({
           titleColor="text-white"
           buttonText={buttonText}
           dark
+          className="!mt-0"
           buttonVariant={"outline"}
           description={description}
         />
@@ -32,7 +33,7 @@ const Facilities = ({
                       src={item?.picture}
                       alt={item.title}
                       fill
-                      className="rounded-2xl"
+                      className=""
                     />
                   </div>
                   <div className="flex flex-col gap-1">

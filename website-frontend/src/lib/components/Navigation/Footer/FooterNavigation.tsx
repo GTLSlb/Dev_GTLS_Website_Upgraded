@@ -37,7 +37,7 @@ const FooterNavigation = ({}) => {
                 </Button>
               </div>
               <TextWrapper
-                text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut "
+                text="Stay updated with our latest news, insights, and exclusive updates straight to your inbox."
                 fontFamily="dmSans"
                 styleType="bodySmall"
                 className="text-tint-light-gray"

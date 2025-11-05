@@ -11,6 +11,7 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
         title={data.title}
         placement="left"
         titleColor="text-gold"
+        className="!mt-0"
       />
 
       <div className="bg-gold rounded-t-4xl relative rounded-br-4xl p-15 py-15 md:mt-24">

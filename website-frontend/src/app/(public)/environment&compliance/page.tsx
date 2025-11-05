@@ -13,7 +13,7 @@ const Page = () => {
         title="Sustainability & Compliance"
         subtitle="Building a safer, greener future in logistics."
         description="We lead with eco-conscious practices, certified compliance, and a strong focus on safety and driver well-being — ensuring sustainable, responsible logistics."
-        imageSrc="/webp/3movers.webp"
+        imageSrc="/pages/compliance.png"
         cornerText="Contatc Us"
       />
       <Recycling />

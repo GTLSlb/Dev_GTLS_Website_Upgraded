@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import HeaderNavigation from "@/lib/components/Navigation/Header/HeaderNavigation";
-import FooterNavigation from "@/lib/components/Navigation/Footer/HeaderNavigation";
+import FooterNavigation from "@/lib/components/Navigation/Footer/FooterNavigation";
 
 type Props = {
   children: React.ReactNode;
