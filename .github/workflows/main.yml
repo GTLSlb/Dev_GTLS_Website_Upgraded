@@ -1,0 +1,22 @@
+name: Deploy to Staging
+on:
+  push:
+    branches:
+      - store
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Deploy to  Server
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🚀 Execute Deployment Script
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /www/wwwroot/new_website_store
+            ./deploy_script.sh
