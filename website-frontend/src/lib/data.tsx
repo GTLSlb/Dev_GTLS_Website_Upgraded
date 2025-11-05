@@ -15,7 +15,6 @@ import {
   Users,
 } from "lucide-react";
 import {
-  FacilitiesItem,
   GridCardProps,
   InfoSection,
   IntegratedSolutionsItem,

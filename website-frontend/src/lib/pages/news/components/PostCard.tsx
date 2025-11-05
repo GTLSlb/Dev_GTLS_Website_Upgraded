@@ -2,7 +2,7 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import { RecentPostsCardProps } from "@/lib/types";
 import { Button } from "@/lib/ui/button";
-import { Facebook, Instagram, Linkedin, Share } from "lucide-react";
+import { Share } from "lucide-react";
 import Image from "next/image";
 
 export default function PostCard({
@@ -12,8 +12,6 @@ export default function PostCard({
   image,
   href,
 }: RecentPostsCardProps) {
-  const postUrl =
-  "https://www.linkedin.com/posts/gold-tiger-logistics-solutions_goldtigerlogistics-sqfcertified-logisticsstandards-activity-7379630095738675200-ZSIT";
 
 const handleShare = async () => {
     if (navigator.share) {

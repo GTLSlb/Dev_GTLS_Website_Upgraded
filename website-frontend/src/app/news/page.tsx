@@ -1,6 +1,5 @@
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
-import SearchBar from "@/lib/pages/news/sections/SearchBar";
 import PostsAndNews from "@/lib/pages/news/sections/PostsAndNews";
 
 const Page = () => {

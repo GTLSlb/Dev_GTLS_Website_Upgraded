@@ -1,9 +1,6 @@
-import HorizontalCard from "@/lib/components/Common/HorizontalCard";
 import ImageAndText from "@/lib/components/Common/ImageAndText";
-import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import { IndustriesData } from "@/lib/data";
-import Image from "next/image";
 
 const Industries = () => {
   return (

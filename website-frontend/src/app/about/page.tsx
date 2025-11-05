@@ -1,6 +1,5 @@
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
-import History from "@/lib/pages/about/sections/History";
 import BannerSection from "@/lib/pages/about/sections/BannerSection";
 import OurStory from "@/lib/pages/about/sections/OurStory";
 import Mission from "@/lib/pages/about/sections/Mission";

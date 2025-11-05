@@ -1,4 +1,3 @@
-import { news } from "@/lib/data";
 import { RecentNewsProps } from "@/lib/types";
 import NewsCard from "./NewsCard";
 import CenterTitle from "@/lib/components/Common/CenterTitle";

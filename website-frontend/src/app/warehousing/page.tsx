@@ -2,7 +2,6 @@ import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import { FacilitiesGridData, LocationsData } from "@/lib/data";
 import Facilities from "@/lib/pages/warehousing/sections/Facilities";
-import Cards from "@/lib/pages/warehousing/sections/Cards";
 import Locations from "@/lib/pages/warehousing/sections/Locations";
 
 const Page = () => {

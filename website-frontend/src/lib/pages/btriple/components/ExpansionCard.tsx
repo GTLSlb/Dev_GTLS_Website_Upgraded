@@ -1,5 +1,5 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { CoreValue, Expansion } from "@/lib/types";
+import {  Expansion } from "@/lib/types";
 import { Circle } from "lucide-react";
 
 const ExpansionCard: React.FC<{ value: Expansion; index: number }> = ({

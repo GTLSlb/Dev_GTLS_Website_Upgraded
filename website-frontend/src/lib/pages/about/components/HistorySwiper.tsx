@@ -3,24 +3,25 @@ import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
-import { ArrowLeft, ArrowRight, MoveLeft, MoveRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { SliderProps } from "@/lib/types";
 import CarouselCard from "./CarouselCard";
+import { Swiper as SwiperType } from 'swiper';
 
 const HistorySwiper: React.FC<SliderProps> = ({ items }) => {
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperType|null>(null);
   return (
     <div className="relative w-full">
       {/* Header with custom arrows */}
       <div className="flex justify-end mb-0 gap-2">
         <button
-          onClick={() => swiperRef.current?.slidePrev()}
+          onClick={() => swiperRef?.current?.slidePrev()}
           className="p-2 rounded-full hover:cursor-pointer border-gray-300 hover:bg-gray-100 transition"
         >
           <ArrowLeft className="w-4 h-4 text-gold" />
         </button>
         <button
-          onClick={() => swiperRef.current?.slideNext()}
+          onClick={() => swiperRef?.current?.slideNext()}
           className="p-2 rounded-full hover:cursor-pointer border-gray-300 hover:bg-gray-100 transition"
         >
           <ArrowRight className="w-4 h-4 text-gold" />

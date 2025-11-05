@@ -2,7 +2,7 @@ import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import { FacilitiesProps } from "@/lib/types";
-import { Card, CardContent, CardHeader } from "@/lib/ui/card";
+import { Card, CardContent } from "@/lib/ui/card";
 import Image from "next/image";
 
 const Facilities = ({

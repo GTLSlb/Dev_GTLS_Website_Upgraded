@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Container from "../../Containers/container";
 import SectionContainer from "../../Containers/sectionContainer";
 import NavigationMenuBar from "./NavigationMenuBar";

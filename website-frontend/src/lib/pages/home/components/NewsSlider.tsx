@@ -6,21 +6,22 @@ import "swiper/css";
 import NewsCard from "@/lib/components/Common/NewsCard";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { NewsSliderProps } from "@/lib/types";
+import { Swiper as SwiperType } from 'swiper';
 
 const NewsSlider: React.FC<NewsSliderProps> = ({ news }) => {
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperType|null>(null);
   return (
     <div className="relative w-full">
       {/* Header with custom arrows */}
       <div className="flex justify-end mb-0 gap-2">
         <button
-          onClick={() => swiperRef.current?.slidePrev()}
+          onClick={() => swiperRef?.current?.slidePrev()}
           className="p-2 rounded-full  border-gray-300 hover:bg-gray-100 transition"
         >
           <MoveLeft className="w-4 h-4 text-gold" />
         </button>
         <button
-          onClick={() => swiperRef.current?.slideNext()}
+          onClick={() => swiperRef?.current?.slideNext()}
           className="p-2 rounded-full  border-gray-300 hover:bg-gray-100 transition"
         >
           <MoveRight className="w-4 h-4 text-gold" />

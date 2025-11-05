@@ -1,5 +1,4 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
-import NewsCard from "@/lib/components/Common/NewsCard";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import NewsSlider from "../components/NewsSlider";
 import { NewsData } from "@/lib/data";
