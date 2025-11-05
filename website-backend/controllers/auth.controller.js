@@ -30,7 +30,7 @@ class AuthController {
 
       const lastActivity = Date.now() / 1000;
 
-      const query = `INSERT INTO ${db_table} (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+      const query = `INSERT INTO ${db_table} (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`;
 
       connection.query(
         query,
@@ -42,8 +42,6 @@ class AuthController {
             ? JSON.stringify(userObject[0])
             : JSON.stringify(userObject),
           lastActivity,
-          new Date().getTime(),
-          new Date().getTime(),
         ],
         (err, results) => {
           if (err) {
@@ -255,7 +253,7 @@ class AuthController {
 
           const lastActivity = Date.now() / 1000;
 
-          const query = `INSERT INTO custom_sessions (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+          const query = `INSERT INTO custom_sessions (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`;
 
           connection.query(
             query,
@@ -267,8 +265,6 @@ class AuthController {
                 ? JSON.stringify(userObject[0])
                 : JSON.stringify(userObject),
               lastActivity,
-              new Date().getTime(),
-              new Date().getTime(),
             ],
             (err, results) => {
               if (err) {
