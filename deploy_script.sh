@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e  # Exit on error
 
 # Set PATH to include pnpm
@@ -22,40 +21,24 @@ echo "📥 Pulling latest code..."
 sudo git reset --hard HEAD
 sudo git pull origin store
 
-# Stop all PM2 processes
+# Stop all PM2 processes (allow failure if no processes exist)
 echo ""
 echo "⏸️  Stopping sudo PM2 processes..."
-sudo pm2 stop all
+sudo pm2 stop all || echo "No PM2 processes to stop"
 
 # Build frontend
 echo ""
 echo "🎨 Building frontend..."
 cd website-frontend
-
 echo "  → Installing dependencies..."
 pnpm i --force
-
-echo "  → Building..."
-pnpm build
-
-cd "$PROJECT_ROOT"
-
-# Build frontend
-echo ""
-echo " Building frontend..."
-cd website-frontend
-
-echo "  → Installing dependencies..."
-pnpm i --force
-
 echo "  → Building..."
 pnpm build
 
 if [ $? -ne 0 ]; then
-    echo "❌ Build failed!"
+    echo "❌ Frontend build failed!"
     exit 1
 fi
-
 
 # Go back to root
 cd "$PROJECT_ROOT"
@@ -70,7 +53,7 @@ pnpm i --force
 # Restart PM2
 echo ""
 echo "♻️  Restarting PM2 processes..."
-sudo pm2 restart all
+sudo pm2 restart all || sudo pm2 start all
 
 # Save PM2 config
 sudo pm2 save
