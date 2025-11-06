@@ -62,4 +62,4 @@ echo ""
 echo "=========================================="
 echo "✅ Deployment Complete!"
 echo "=========================================="
-sudo pm2 list
+pm2 list

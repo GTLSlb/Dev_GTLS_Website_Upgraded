@@ -19,9 +19,5 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           debug: true
           script: |
-            echo "=== User Information ==="
-            echo "Logged in as: $(whoami)"
-            echo "Working directory: $(pwd)"
-            echo "========================"
             cd /www/wwwroot/website_upgraded
             bash ./deploy_script.sh
