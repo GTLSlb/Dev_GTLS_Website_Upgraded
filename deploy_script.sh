@@ -24,7 +24,7 @@ sudo git pull origin store
 # Stop all PM2 processes (allow failure if no processes exist)
 echo ""
 echo "⏸️  Stopping sudo PM2 processes..."
-sudo pm2 stop all || echo "No PM2 processes to stop"
+pm2 stop all || echo "No PM2 processes to stop"
 
 # Build frontend
 echo ""
@@ -53,10 +53,10 @@ pnpm i --force
 # Restart PM2
 echo ""
 echo "♻️  Restarting PM2 processes..."
-sudo pm2 restart all || sudo pm2 start all
+pm2 restart all || pm2 start all
 
 # Save PM2 config
-sudo pm2 save
+pm2 save
 
 echo ""
 echo "=========================================="
