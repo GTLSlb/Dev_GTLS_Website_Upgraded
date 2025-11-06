@@ -11,7 +11,7 @@ echo "🚀 Deployment Script - Staging"
 echo "Date: $(date)"
 echo "=========================================="
 
-PROJECT_ROOT="/www/wwwroot/new_website_store"
+PROJECT_ROOT="/www/wwwroot/website_upgraded"
 
 # Navigate to project
 cd "$PROJECT_ROOT"
