@@ -14,18 +14,19 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-import {
-  GridCardProps,
-  InfoSection,
-  IntegratedSolutionsItem,
-  Location,
-  MenuSection,
-  MessageBannerData,
-  NavigationConfig,
-  ProfileItem,
-  ServiceData,
-  WhyGtlsItem,
-} from "./types";
+import { MenuSection, NavigationConfig } from "./types/navigation";
+import { CustomerHubDataType, FeatureCard } from "./types/cards";
+import { IntegratedSolutionsItem } from "./types/integratedSolutions";
+import { ServiceData } from "./types/services";
+import { InfoSection } from "./types/info";
+import { BannerProps, MessageBannerData } from "./types/banners";
+import { ProfileItem } from "./types/profiles";
+import { WhyGtlsDataTypes, WhyGtlsItem } from "./types/content";
+import { Location } from "./types/location";
+import { NewsItem, NewsSliderDataType } from "./types/news";
+import { SliderItem } from "./types/sliders";
+import { HeroDataType } from "./types/hero";
+import { ServicesDataType } from "./types/props";
 
 export const navigationConfig: NavigationConfig = {
   logo: {
@@ -76,40 +77,47 @@ export const navigationConfig: NavigationConfig = {
   ],
 };
 
-export const serviceData: GridCardProps[] = [
-  {
-    id: 1,
-    title: "Transport",
-    icon: "/svgs/transport.svg",
-    description: "Building modern, responsive websites.",
-    content: "Reliable local and regional transport with a modern fleet and skilled drivers — ensuring safe, on-time deliveries.",
-    footer: "Learn More",
-  },
-  {
-    id: 2,
-    icon: "/svgs/warehousing.svg",
-    title: "Warehousing",
-    description: "Creating native and cross-platform mobile apps.",
-    content: "Secure, organized, and industry-ready storage with advanced facilities, safety standards, and temperature control.",
-    footer: "Get a Quote",
-  },
-  {
-    id: 3,
-    icon: "/svgs/distribution.svg",
-    title: "Distribution",
-    description: "Creating native and cross-platform mobile apps.",
-    content: "Efficient order fulfillment and last-mile delivery with smooth coordination, timely dispatch, and full visibility.",
-    footer: "Get a Quote",
-  },
-  {
-    id: 4,
-    icon: "/svgs/ftl.svg",
-    title: "FTL & LTL Solutions",
-    description: "Creating native and cross-platform mobile apps.",
-    content: "We provide dedicated transport for large shipments, offering faster transit times, maximum security, and cost efficiency.",
-    footer: "Get a Quote",
-  },
-];
+export const serviceData: ServicesDataType = {
+  title: "Our Services",
+  items: [
+    {
+      id: 1,
+      title: "Transport",
+      icon: "/svgs/transport.svg",
+      description: "Building modern, responsive websites.",
+      content:
+        "Reliable local and regional transport with a modern fleet and skilled drivers — ensuring safe, on-time deliveries.",
+      footer: "Learn More",
+    },
+    {
+      id: 2,
+      icon: "/svgs/warehousing.svg",
+      title: "Warehousing",
+      description: "Creating native and cross-platform mobile apps.",
+      content:
+        "Secure, organized, and industry-ready storage with advanced facilities, safety standards, and temperature control.",
+      footer: "Get a Quote",
+    },
+    {
+      id: 3,
+      icon: "/svgs/distribution.svg",
+      title: "Distribution",
+      description: "Creating native and cross-platform mobile apps.",
+      content:
+        "Efficient order fulfillment and last-mile delivery with smooth coordination, timely dispatch, and full visibility.",
+      footer: "Get a Quote",
+    },
+    {
+      id: 4,
+      icon: "/svgs/ftl.svg",
+      title: "FTL & LTL Solutions",
+      description: "Creating native and cross-platform mobile apps.",
+      content:
+        "We provide dedicated transport for large shipments, offering faster transit times, maximum security, and cost efficiency.",
+      footer: "Get a Quote",
+    },
+  ],
+};
 
 export const footerMenu: MenuSection[] = [
   {
@@ -165,152 +173,151 @@ export const locations: Location[] = [
   },
 ];
 
-export const WhyGtlsData: WhyGtlsItem[] = [
-  {
-    title: "Integrated Model",
-    picture: "/svgs/whygtls/integration.svg",
-  },
-  {
-    title: "Technology",
-    picture: "/svgs/whygtls/cpu.svg",
-  },
-  {
-    title: "Safety & Compliance",
-    picture: "/svgs/whygtls/safety.svg",
-  },
-  {
-    title: "Partners",
-    picture: "/svgs/whygtls/partners.svg",
-  },
-  {
-    title: "Accreditations",
-    picture: "/svgs/whygtls/accreditations.svg",
-  },
-  {
-    title: "Environment & Sustainability",
-    picture: "/svgs/whygtls/eco-friendly.svg",
-  },
-  {
-    title: "B-Triple",
-    picture: "/svgs/whygtls/lorry.svg",
-  },
-  {
-    title: "Workshops",
-    picture: "/svgs/whygtls/workshops.svg",
-  },
-];
+export const WhyGtlsData: WhyGtlsDataTypes = {
+  title: "Why Gold Tiger Logistics Solutions",
+  description: "Designed for Efficiency and Security",
+  buttonText: "Get a Custom Solution",
+  backgroundImage: "/svgs/tiger.svg",
+  items: [
+    {
+      title: "Integrated Model",
+      picture: "/svgs/whygtls/integration.svg",
+    },
+    {
+      title: "Technology",
+      picture: "/svgs/whygtls/cpu.svg",
+    },
+    {
+      title: "Safety & Compliance",
+      picture: "/svgs/whygtls/safety.svg",
+    },
+    {
+      title: "Partners",
+      picture: "/svgs/whygtls/partners.svg",
+    },
+    {
+      title: "Accreditations",
+      picture: "/svgs/whygtls/accreditations.svg",
+    },
+    {
+      title: "Environment & Sustainability",
+      picture: "/svgs/whygtls/eco-friendly.svg",
+    },
+    {
+      title: "B-Triple",
+      picture: "/svgs/whygtls/lorry.svg",
+    },
+    {
+      title: "Workshops",
+      picture: "/svgs/whygtls/workshops.svg",
+    },
+  ],
+};
 
-export const CustomerHubData = [
-  {
-    imageSrc: "/svgs/gtrs.svg",
-    title: "GTRS",
-    subtitle: "Gold Tiger Reporting System",
-    list: [
-      {
-        icon: <Check />,
-        description: "Real-time dashboard for shipment visibility",
-      },
-      {
-        icon: <Check />,
-        description: "Access KPI, transport, and RDD reports",
-      },
-      {
-        icon: <Check />,
-        description: "Analyze delivery trends and performance",
-      },
-    ],
-  },
-  {
-    imageSrc: "/svgs/terms&conditions.svg",
-    title: "Terms & Conditions",
-    subtitle: "Know Your Ground Rules",
-    list: [
-      { icon: <Check />, description: "Shipping liability terms" },
-      { icon: <Check />, description: "Handling & delivery policies" },
-      { icon: <Check />, description: "Dispute resolution protocols" },
-    ],
-  },
-  {
-    imageSrc: "/svgs/faq.svg",
-    title: "FAQ",
-    subtitle: "Quick Answers to Common Questions",
-    list: [
-      { icon: <Check />, description: "Delivery & tracking" },
-      { icon: <Check />, description: "Account access" },
-      { icon: <Check />, description: "Documentation & POD retrieval" },
-    ],
-  },
-  {
-    imageSrc: "/svgs/portal.svg",
-    title: "Portal Login",
-    subtitle: "Manage Your Account Online",
-    list: [
-      {
-        icon: <Check />,
-        description: "Real-time dashboard for shipment visibility",
-      },
-      {
-        icon: <Check />,
-        description: "Access KPI, transport, and RDD reports",
-      },
-      {
-        icon: <Check />,
-        description: "Analyze delivery trends and performance",
-      },
-    ],
-  },
-  {
-    imageSrc: "/svgs/lock.svg",
-    title: "Self-Service Portal",
-    subtitle: "Independence Made Easy",
-    list: [
-      { icon: <Check />, description: "Update account information" },
-      { icon: <Check />, description: "Submit support tickets" },
-      { icon: <Check />, description: "Retrieve documents anytime" },
-    ],
-  },
-];
+export const customerHubData: CustomerHubDataType = {
+  title: "Customer Hub Simplifying Your Journey",
+  description:
+    "Your one-stop destination for support, resources, and self-service tools.",
+  buttonText: "Get a Custom Solution",
+  list: [
+    {
+      imageSrc: "/svgs/terms&conditions.svg",
+      title: "Terms & Conditions",
+      subtitle: "Know Your Ground Rules",
+      list: [
+        { icon: <Check />, description: "Shipping liability terms" },
+        { icon: <Check />, description: "Handling & delivery policies" },
+        { icon: <Check />, description: "Dispute resolution protocols" },
+      ],
+    },
+    {
+      imageSrc: "/svgs/faq.svg",
+      title: "FAQ",
+      subtitle: "Quick Answers to Common Questions",
+      list: [
+        { icon: <Check />, description: "Delivery & tracking" },
+        { icon: <Check />, description: "Account access" },
+        { icon: <Check />, description: "Documentation & POD retrieval" },
+      ],
+    },
+    {
+      imageSrc: "/svgs/portal.svg",
+      title: "Portal Login",
+      subtitle: "Manage Your Account Online",
+      list: [
+        {
+          icon: <Check />,
+          description: "Real-time dashboard for shipment visibility",
+        },
+        {
+          icon: <Check />,
+          description: "Access KPI, transport, and RDD reports",
+        },
+        {
+          icon: <Check />,
+          description: "Analyze delivery trends and performance",
+        },
+      ],
+    },
+    {
+      imageSrc: "/svgs/lock.svg",
+      title: "Self-Service Portal",
+      subtitle: "Independence Made Easy",
+      list: [
+        { icon: <Check />, description: "Update account information" },
+        { icon: <Check />, description: "Submit support tickets" },
+        { icon: <Check />, description: "Retrieve documents anytime" },
+      ],
+    },
+  ],
+};
 
-export const NewsData = [
-  {
-    title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-    description:
-      "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-    imageSrc: "/webp/3movers.webp",
-  },
-  {
-    title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-    description:
-      "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-    imageSrc: "/webp/3movers.webp",
-  },
-  {
-    title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-    description:
-      "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-    imageSrc: "/webp/3movers.webp",
-  },
-  {
-    title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-    description:
-      "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-    imageSrc: "/webp/3movers.webp",
-  },
-  {
-    title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-    description:
-      "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-    imageSrc: "/webp/3movers.webp",
-  },
-  {
-    title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-    description:
-      "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-    imageSrc: "/webp/3movers.webp",
-  },
-];
+export const NewsData: NewsSliderDataType = {
+  title: "News",
+  description:
+    "Stay updated with the latest news, industry trends, and behind-the-scenes stories from Gold Tiger. From expert tips to company milestones — our blog keeps you in the loop.",
+  buttonText: "Read More News",
+  news: [
+    {
+      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      description:
+        "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
+      imageSrc: "/webp/3movers.webp",
+    },
+    {
+      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      description:
+        "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
+      imageSrc: "/webp/3movers.webp",
+    },
+    {
+      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      description:
+        "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
+      imageSrc: "/webp/3movers.webp",
+    },
+    {
+      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      description:
+        "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
+      imageSrc: "/webp/3movers.webp",
+    },
+    {
+      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      description:
+        "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
+      imageSrc: "/webp/3movers.webp",
+    },
+    {
+      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      description:
+        "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
+      imageSrc: "/webp/3movers.webp",
+    },
+  ],
+};
 
-export const HistoryData = [
+export const HistoryData: SliderItem[] = [
   {
     date: "2026",
     title: "One Truck, One Dream",
@@ -337,7 +344,7 @@ export const HistoryData = [
   },
 ];
 
-export const BannerAboutData = {
+export const BannerAboutData: BannerProps = {
   title: "Integrated Model",
   items: [
     {
@@ -845,27 +852,32 @@ export const FacilitiesGridData = {
   items: [
     {
       title: "Strategic Locations",
-      description: "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
+      description:
+        "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
       picture: "/svgs/whygtls/mappin.svg",
     },
     {
       title: "Flexible Storage Options",
-      description: "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
+      description:
+        "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
       picture: "/svgs/distribution.svg",
     },
     {
       title: "Technology-Driven Management",
-      description: "Real-time visibility, smart inventory tracking, and reporting with our advanced Warehouse Management Systems (WMS).",
+      description:
+        "Real-time visibility, smart inventory tracking, and reporting with our advanced Warehouse Management Systems (WMS).",
       picture: "/svgs/whygtls/tech.svg",
     },
     {
       title: "Safety & Security",
-      description: "24/7 surveillance, controlled access, and strict compliance to keep your goods protected.",
+      description:
+        "24/7 surveillance, controlled access, and strict compliance to keep your goods protected.",
       picture: "/svgs/whygtls/safety2.svg",
     },
     {
       title: "Value-Added Services",
-      description: "Cross-docking, pick & pack, labelling, distribution, and reverse logistics to streamline your operations.",
+      description:
+        "Cross-docking, pick & pack, labelling, distribution, and reverse logistics to streamline your operations.",
       picture: "/svgs/whygtls/value.svg",
     },
   ],
@@ -986,26 +998,22 @@ export const MessageBannerdata: MessageBannerData = {
 export const ProfileData: ProfileItem[] = [
   {
     title: "Imad El Masri",
-    description:
-      "Managing Director",
+    description: "Managing Director",
     imageSrc: "/webp/imad.webp",
   },
   {
     title: "Sarah Johnson",
-    description:
-      "Chief Executive Officer",
+    description: "Chief Executive Officer",
     imageSrc: "/webp/imad.webp",
   },
   {
     title: "Michael Tan",
-    description:
-      "Chief Operating Officer",
+    description: "Chief Operating Officer",
     imageSrc: "/webp/imad.webp",
   },
   {
     title: "Laura Smith",
-    description:
-      "Chief Financial Officer",
+    description: "Chief Financial Officer",
     imageSrc: "/webp/imad.webp",
   },
 ];
@@ -1045,4 +1053,12 @@ export const ExpansionValues = {
         "A reflection of our customers’ trust and our ongoing commitment to innovation, sustainability, and operational excellence.",
     },
   ],
+};
+
+export const HeroData: HeroDataType = {
+  title: "Global Transport & Logistics Solutions",
+  subtitle: "Move More. Spend Less. Reduce Emissions.",
+  description:
+    "We provide end-to-end logistics solutions across Australia, with a focus on efficiency, safety, and sustainability. From local freight to long-haul BTriple operations, GTLS keeps your business moving.",
+  videoSrc: "/videos/goldtiger-header.mp4",
 };

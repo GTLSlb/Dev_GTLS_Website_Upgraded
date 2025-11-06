@@ -2,7 +2,7 @@ import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 import * as LucideIcons from "lucide-react";
 
-export interface GridCardProps {
+ interface GridCardProps {
   id: number;
   title: string;
   icon: string; // Made optional in case some cards don't have an icon
@@ -11,7 +11,7 @@ export interface GridCardProps {
   footer: string;
 }
 
-export interface CenterTitleProps {
+ interface CenterTitleProps {
   title: string;
   className?: string;
   subtitle?: string;
@@ -35,17 +35,17 @@ export interface CenterTitleProps {
   listItems?: { icon?: React.ReactNode; title: string }[];
 }
 
-export interface MenuItem {
+ interface MenuItem {
   label: string;
   link: string;
 }
 
-export interface MenuSection {
+ interface MenuSection {
   title: string;
   items: MenuItem[];
 }
 
-export interface Location {
+ interface Location {
   city: string;
   street: string;
   suburb: string;
@@ -53,25 +53,25 @@ export interface Location {
   postalCode: string;
 }
 
-export interface WhyGtlsItem {
+ interface WhyGtlsItem {
   title: string;
   picture: string;
 }
 
-export interface UnevenGridProps {
+ interface UnevenGridProps {
   items: WhyGtlsItem[];
 }
 
-export interface IconListItem {
+ interface IconListItem {
   icon: React.ReactNode; // can be any JSX element
   description: string;
 }
 
-export interface IconListProps {
+ interface IconListProps {
   items: IconListItem[];
 }
 
-export interface CustomerHubCardProps {
+ interface CustomerHubCardProps {
   title: string;
   subtitle: string;
   imageSrc: string;
@@ -80,13 +80,13 @@ export interface CustomerHubCardProps {
   children?: React.ReactNode; // optional additional content
 }
 
-export interface NewsCardProps {
+ interface NewsCardProps {
   title: string;
   description: string;
   imageSrc: string;
 }
 
-export interface ProfileCardProps {
+ interface ProfileCardProps {
   title: string;
   description: string;
   imageSrc: string;
@@ -98,36 +98,36 @@ interface NewsItem {
   imageSrc: string;
 }
 
-export interface ProfileItem {
+ interface ProfileItem {
   title: string;
   description: string;
   imageSrc: string;
 }
 
-export interface SliderItem {
+ interface SliderItem {
   date: string;
   title: string;
   description: string;
 }
 
-export interface NewsSliderProps {
+ interface NewsSliderProps {
   news: NewsItem[];
 }
-export interface ProfileSliderProps {
+ interface ProfileSliderProps {
   items: ProfileItem[];
 }
 
-export interface SliderProps {
+ interface SliderProps {
   items: SliderItem[];
 }
 
-export interface FloatingBannerProps {
+ interface FloatingBannerProps {
   iconSrc: string; // Path to the icon (e.g. "/svgs/distribution.svg")
   text: string; // The text you want to show
   className?: string; // Optional additional classes for customization
 }
 
-export interface HeroProps {
+ interface HeroProps {
   title?: string;
   subtitle?: string;
   description?: string;
@@ -139,30 +139,30 @@ export interface HeroProps {
   color?: "gold" | "green";
 }
 
-export interface BannerPropsItem {
+ interface BannerPropsItem {
   title: string;
   subtitle: string;
 }
 
-export interface BannerProps {
+ interface BannerProps {
   title: string;
   description: string;
   items: BannerPropsItem[];
   imageSrc: string;
   imageAlt?: string;
 }
-export interface ContentListNumber {
+ interface ContentListNumber {
   label: string;
   value: string;
 }
 
-export interface ContentListItem {
+ interface ContentListItem {
   icon: LucideIcon;
   title: string;
   description: string;
 }
 
-export interface ContentListType {
+ interface ContentListType {
   title: string;
   subtitle: string;
   description: string;
@@ -170,7 +170,7 @@ export interface ContentListType {
   list: ContentListItem[];
 }
 
-export interface HorizontalCardProps {
+ interface HorizontalCardProps {
   imgSrc: string;
   title: string;
   subtitle: string;
@@ -185,21 +185,21 @@ type Branch = {
   mail: string;
 };
 
-export interface BranchesProps {
+ interface BranchesProps {
   data: Branch[];
 }
 
-export interface IntegratedSolutionsItem {
+ interface IntegratedSolutionsItem {
   title: string;
   description: string;
   picture: string;
 }
 
-export interface IntegratedSolutionsProps {
+ interface IntegratedSolutionsProps {
   items: IntegratedSolutionsItem[];
 }
 
-export interface RecentNewsCardProps {
+ interface RecentNewsCardProps {
   title: string;
   date: string;
   description: string;
@@ -207,11 +207,11 @@ export interface RecentNewsCardProps {
   href: string;
 }
 
-export interface RecentNewsProps {
+ interface RecentNewsProps {
   items: RecentNewsCardProps[];
 }
 
-export interface RecentPostsCardProps {
+ interface RecentPostsCardProps {
   title: string;
   date: string;
   description: string;
@@ -219,37 +219,37 @@ export interface RecentPostsCardProps {
   href: string;
 }
 
-export interface RecentPostsProps {
+ interface RecentPostsProps {
   items: RecentPostsCardProps[];
 }
 
-export interface BorderedGridItemProps {
+ interface BorderedGridItemProps {
   title: string;
   description: string;
 }
 
-export interface BorderedGridProps {
+ interface BorderedGridProps {
   data: BorderedGridItemProps[];
 }
 
-export interface CoreValue {
+ interface CoreValue {
   icon: React.ReactNode; // Placeholder for the icon name (e.g., 'Heart', 'Users', 'Leaf')
   title: string;
   description: string;
 }
 
-export interface Expansion {
+ interface Expansion {
   heading: string;
   description: string;
 }
 
-export interface NavLink {
+ interface NavLink {
   label: string;
   href?: string;
   children?: NavLink[];
 };
 
-export interface NavigationConfig {
+ interface NavigationConfig {
   logo: {
     src: string;
     alt: string;
@@ -259,25 +259,25 @@ export interface NavigationConfig {
   links: NavLink[];
 };
 
-export interface FacilitiesItem {
+ interface FacilitiesItem {
   title: string;
   description: string;
   picture: string;
 }
 
-export interface FacilitiesProps {
+ interface FacilitiesProps {
   title: string;
   description: string;
   buttonText?: string;
   items: FacilitiesItem[];
 }
 
-export interface ServiceListItem {
+ interface ServiceListItem {
   icon: ReactNode;
   title: string;
 }
 
-export interface ServiceData {
+ interface ServiceData {
   title: string;
   subtitle?: string;
   description?: string;
@@ -286,12 +286,12 @@ export interface ServiceData {
   image?: string;
 }
 
-export interface InfoListItem {
+ interface InfoListItem {
   icon?: ReactNode;
   title: string;
 }
 
-export interface InfoItem {
+ interface InfoItem {
   icon: ReactNode;
   title: string;
   subtitle: string;
@@ -299,13 +299,13 @@ export interface InfoItem {
   listItems: InfoListItem[];
 }
 
-export interface InfoSection {
+ interface InfoSection {
   title: string;
   description: string;
   items: InfoItem[];
 }
 
-export interface MessageBannerData {
+ interface MessageBannerData {
   title: string;
   titleColor?: string;
   quote: string;
@@ -315,11 +315,11 @@ export interface MessageBannerData {
 }
 
 // Props for the component
-export interface MessageBannerProps {
+ interface MessageBannerProps {
   data: MessageBannerData;
 }
 
-export interface SafetyComplianceSection {
+ interface SafetyComplianceSection {
   /** The name of the icon (to map to an icon component) */
   icon: keyof typeof LucideIcons; 
   /** The title for the section */
@@ -328,12 +328,12 @@ export interface SafetyComplianceSection {
   content: string[];
 }
 
-export interface SafetyComplianceIntro {
+ interface SafetyComplianceIntro {
   /** Short introductory description text */
   description: string;
 }
 
-export interface SafetyComplianceData {
+ interface SafetyComplianceData {
   /** Main title for the page or section */
   title: string;
   /** Introductory section */
@@ -342,13 +342,13 @@ export interface SafetyComplianceData {
   sections: SafetyComplianceSection[];
 }
 
-export interface BTripleSection {
+ interface BTripleSection {
   icon: keyof typeof LucideIcons;
   title: string;
   description: string;
 }
 
-export interface BTriplesDataType {
+ interface BTriplesDataType {
   title: string;
   sections: BTripleSection[];
 }

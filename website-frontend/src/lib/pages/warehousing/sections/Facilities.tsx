@@ -1,7 +1,7 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { FacilitiesProps } from "@/lib/types";
+import { FacilitiesProps } from "@/lib/types/facilities";
 import { Card, CardContent } from "@/lib/ui/card";
 import Image from "next/image";
 
@@ -33,7 +33,6 @@ const Facilities = ({
                       src={item?.picture}
                       alt={item.title}
                       fill
-                      className=""
                     />
                   </div>
                   <div className="flex flex-col gap-1">

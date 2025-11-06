@@ -1,5 +1,5 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { BannerProps } from "@/lib/types";
+import { BannerProps } from "@/lib/types/banners";
 import Image from "next/image";
 
 const Banner: React.FC<BannerProps> = ({ title, items, imageSrc, imageAlt = "Banner Image" }) => {

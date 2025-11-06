@@ -155,15 +155,15 @@
 }
 
 .profile-swiper .swiper-slide-active .profile-card {
-  background-color: #b98c25; /* light gold / whatever color you want */
+  background-color: #b98c25;
   color: white !important;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .profile-swiper .profile-card .goldtext{
-  color: #b98c25; /* light gold / whatever color you want */
+  color: #b98c25; 
 }
 
 .profile-swiper .swiper-slide-active .profile-card .goldtext{
-  color: white; /* light gold / whatever color you want */
+  color: white;
 }

@@ -5,9 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/lib/ui/card";
-import { GridCardProps } from "@/lib/types";
 import Image from "next/image";
 import TextWrapper from "./TextWrapper";
+import { GridCardProps } from "@/lib/types/cards";
 
 // Destructure the props you need: title, description, content, and footer.
 // The `footer` prop is a good place to pass in a button or link.

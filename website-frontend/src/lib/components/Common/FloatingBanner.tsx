@@ -1,7 +1,7 @@
 import Image from "next/image";
 import TextWrapper from "./TextWrapper";
-import { FloatingBannerProps } from "@/lib/types";
 import { XIcon } from "lucide-react";
+import { FloatingBannerProps } from "@/lib/types/banners";
 
 const FloatingBanner = ({ iconSrc, text, className }: FloatingBannerProps) => {
   return (

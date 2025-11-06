@@ -5,8 +5,8 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import NewsCard from "@/lib/components/Common/NewsCard";
 import { MoveLeft, MoveRight } from "lucide-react";
-import { NewsSliderProps } from "@/lib/types";
 import { Swiper as SwiperType } from "swiper";
+import { NewsSliderProps } from "@/lib/types/news";
 
 const NewsSlider: React.FC<NewsSliderProps> = ({ news }) => {
   const swiperRef = useRef<SwiperType | null>(null);
