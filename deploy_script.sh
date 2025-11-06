@@ -6,7 +6,7 @@ export PATH="/home/deployer/.local/share/pnpm:$PATH"
 export PNPM_HOME="/home/deployer/.local/share/pnpm"
 
 echo "=========================================="
-echo "🚀 Deployment Script - Staging"
+echo "🚀 Deployment Script - store"
 echo "Date: $(date)"
 echo "=========================================="
 
