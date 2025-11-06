@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Banner: React.FC<BannerProps> = ({ title, items, imageSrc, imageAlt = "Banner Image" }) => {
   return (
-    <div className="bg-creamy rounded-t-4xl flex gap-20 flex-col items-center md:flex-row rounded-br-4xl p-10 py-20">
+    <div className="bg-creamy rounded-t-4xl flex gap-20 flex-col items-center md:flex-row rounded-br-4xl p-10">
       {/* Left Content */}
       <div className="flex flex-col gap-5 w-full md:w-4/6">
         <TextWrapper

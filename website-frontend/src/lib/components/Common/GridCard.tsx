@@ -13,7 +13,7 @@ import TextWrapper from "./TextWrapper";
 // The `footer` prop is a good place to pass in a button or link.
 const GridCard: React.FC<GridCardProps> = ({ title, content ,icon}) => {
   return (
-    <Card className="pb-20 hover:shadow-lg transition-shadow duration-300 ease-in-out hover:bg-light-gold/10 border-0 shadow-none">
+    <Card className="hover:shadow-lg transition-shadow duration-300 ease-in-out hover:bg-light-gold/10 border-0 shadow-none">
       <CardHeader>
         <Image
           src={icon}

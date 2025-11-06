@@ -6,10 +6,10 @@ import FloatingBanner from "@/lib/components/Common/FloatingBanner";
 
 const News = () => {
   return (
-    <SectionContainer  parentClassName="relative overflow-hidden">
+    <SectionContainer parentClassName="relative overflow-hidden">
       <FloatingBanner
-        iconSrc="/svgs/distribution.svg"
-        text="Get in touch"
+        iconSrc="/svgs/nationalmap.svg"
+        text="National Road Event"
         className="absolute top-40 -right-10"
       />
       <CenterTitle

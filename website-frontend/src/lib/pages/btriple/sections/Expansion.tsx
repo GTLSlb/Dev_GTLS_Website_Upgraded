@@ -10,6 +10,7 @@ const Expansion = () => {
         title="Why This Expansion Matters"
         placement="left"
         titleColor="text-gold"
+        className="!mt-0"
       />
       <div className=" grid grid-cols-1 md:grid-cols-2  gap-6">
         {ExpansionValues.points.map((value, index) => (

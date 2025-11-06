@@ -12,7 +12,7 @@ const Industries = () => {
             title={industry.title}
             description={industry.description}
             imgSrc={industry.imgSrc}
-            imageFirst={index % 2 === 0} // ✅ alternate placement
+            imageFirst={!(index % 2 === 0)} // ✅ alternate placement
           />
           {/* Divider outside */}
           <div className="h-0.5 bg-gray-100 w-full mt-20"></div>

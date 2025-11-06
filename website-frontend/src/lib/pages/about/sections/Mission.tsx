@@ -6,7 +6,7 @@ import { MissionGridData } from "@/lib/data";
 
 const Mission = () => {
   return (
-    <SectionContainer>
+    <SectionContainer className="flex flex-col gap-6">
       <CenterTitle
         title="Mission"
         placement="left"

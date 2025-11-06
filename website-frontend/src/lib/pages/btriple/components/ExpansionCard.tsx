@@ -25,7 +25,7 @@ const ExpansionCard: React.FC<{ value: Expansion; index: number }> = ({
 
   return (
     <div
-      className={`p-6 gap-4 transition rounded-3xl duration-300 hover:shadow-xl flex flex-col`}
+      className={`p-6 gap-4 transition rounded-3xl duration-300 shadow-md hover:shadow-xl flex flex-col`}
     >
       <Circle className="text-gold" size={15} />
       <TextWrapper

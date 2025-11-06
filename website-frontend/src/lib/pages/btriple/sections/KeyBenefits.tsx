@@ -60,6 +60,7 @@ const KeyBenefits = () => {
           <CenterTitle
             title="Key Benefits of Our B-Triple Solution"
             titleColor="text-white"
+            className="!my-0"
             placement="left"
             dark
           />
@@ -67,7 +68,7 @@ const KeyBenefits = () => {
             {BTriplesData.sections.map((item, i) => {
               const Icon = LucideIcons[item.icon] as LucideIcon;
               return (
-                <div key={i} className="flex gap-12 py-10 items-start">
+                <div key={i} className="flex gap-8 py-10 px-4 items-start">
                   <div className="bg-white p-8 rounded-xl">
                     <Icon className="text-gold" size={64} />
                   </div>

@@ -8,7 +8,7 @@ const Page = () => {
     <Container>
       <CommonHero
         title="B-Triple"
-        description="Following the successful launch of our B-Triple configurations in November 2024, Gold Tiger Logistics Solutions is proud to announce the expansion of this high-capacity, fuel-efficient transport solution with operations now extended across major freight routes including Brisbane–Melbourne, Sydney–Melbourne, Melbourne–Adelaide, and NSW–Adelaide. In response to strong customer demand and sustained freight growth, we have doubled our B-Triple fleet, further strengthening our ability to deliver reliable, cost-effective, and sustainable transport solutions across Australia’s key logistics corridors."
+        description="Gold Tiger Logistics Solutions has expanded its B-Triple fleet nationwide following a successful 2024 launch, doubling capacity to meet growing freight demand and enhance sustainable, high-efficiency transport across Australia’s major routes."
         imageSrc="/webp/btriple.png"
         contain
         cornerText="Talk with an expert"

@@ -4,7 +4,7 @@ import { BannerAboutData } from "@/lib/data";
 
 const BannerSection = () => {
   return (
-    <SectionContainer>
+    <SectionContainer className="!pt-0">
       <Banner {...BannerAboutData} />
     </SectionContainer>
   );
