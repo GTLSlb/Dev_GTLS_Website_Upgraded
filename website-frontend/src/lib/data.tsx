@@ -40,21 +40,16 @@ export const navigationConfig: NavigationConfig = {
       href: "/about",
     },
     {
-      label: "Business",
-      children: [
-        {
-          label: "Transport",
-          href: "/transport",
-        },
-        {
-          label: "Warehousing",
-          href: "/warehousing",
-        },
-        {
-          label: "Industries",
-          href: "/industries",
-        },
-      ],
+      label: "Transport",
+      href: "/transport",
+    },
+    {
+      label: "Warehousing",
+      href: "/warehousing",
+    },
+    {
+      label: "Industries",
+      href: "/industries",
     },
     {
       label: "News",
@@ -82,7 +77,8 @@ export const serviceData: GridCardProps[] = [
     title: "Transport",
     icon: "/svgs/transport.svg",
     description: "Building modern, responsive websites.",
-    content: "Reliable local and regional transport with a modern fleet and skilled drivers — ensuring safe, on-time deliveries.",
+    content:
+      "Reliable local and regional transport with a modern fleet and skilled drivers — ensuring safe, on-time deliveries.",
     footer: "Learn More",
   },
   {
@@ -90,7 +86,8 @@ export const serviceData: GridCardProps[] = [
     icon: "/svgs/warehousing.svg",
     title: "Warehousing",
     description: "Creating native and cross-platform mobile apps.",
-    content: "Secure, organized, and industry-ready storage with advanced facilities, safety standards, and temperature control.",
+    content:
+      "Secure, organized, and industry-ready storage with advanced facilities, safety standards, and temperature control.",
     footer: "Get a Quote",
   },
   {
@@ -98,7 +95,8 @@ export const serviceData: GridCardProps[] = [
     icon: "/svgs/distribution.svg",
     title: "Distribution",
     description: "Creating native and cross-platform mobile apps.",
-    content: "Efficient order fulfillment and last-mile delivery with smooth coordination, timely dispatch, and full visibility.",
+    content:
+      "Efficient order fulfillment and last-mile delivery with smooth coordination, timely dispatch, and full visibility.",
     footer: "Get a Quote",
   },
   {
@@ -106,7 +104,8 @@ export const serviceData: GridCardProps[] = [
     icon: "/svgs/ftl.svg",
     title: "FTL & LTL Solutions",
     description: "Creating native and cross-platform mobile apps.",
-    content: "We provide dedicated transport for large shipments, offering faster transit times, maximum security, and cost efficiency.",
+    content:
+      "We provide dedicated transport for large shipments, offering faster transit times, maximum security, and cost efficiency.",
     footer: "Get a Quote",
   },
 ];
@@ -845,27 +844,32 @@ export const FacilitiesGridData = {
   items: [
     {
       title: "Strategic Locations",
-      description: "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
+      description:
+        "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
       picture: "/svgs/whygtls/mappin.svg",
     },
     {
       title: "Flexible Storage Options",
-      description: "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
+      description:
+        "Positioned along major transport routes to reduce transit times and optimise delivery efficiency.",
       picture: "/svgs/distribution.svg",
     },
     {
       title: "Technology-Driven Management",
-      description: "Real-time visibility, smart inventory tracking, and reporting with our advanced Warehouse Management Systems (WMS).",
+      description:
+        "Real-time visibility, smart inventory tracking, and reporting with our advanced Warehouse Management Systems (WMS).",
       picture: "/svgs/whygtls/tech.svg",
     },
     {
       title: "Safety & Security",
-      description: "24/7 surveillance, controlled access, and strict compliance to keep your goods protected.",
+      description:
+        "24/7 surveillance, controlled access, and strict compliance to keep your goods protected.",
       picture: "/svgs/whygtls/safety2.svg",
     },
     {
       title: "Value-Added Services",
-      description: "Cross-docking, pick & pack, labelling, distribution, and reverse logistics to streamline your operations.",
+      description:
+        "Cross-docking, pick & pack, labelling, distribution, and reverse logistics to streamline your operations.",
       picture: "/svgs/whygtls/value.svg",
     },
   ],
@@ -986,26 +990,37 @@ export const MessageBannerdata: MessageBannerData = {
 export const ProfileData: ProfileItem[] = [
   {
     title: "Imad El Masri",
-    description:
-      "Managing Director",
+    description: "Managing Director",
     imageSrc: "/webp/imad.webp",
   },
   {
     title: "Sarah Johnson",
-    description:
-      "Chief Executive Officer",
+    description: "Chief Executive Officer",
     imageSrc: "/webp/imad.webp",
   },
   {
     title: "Michael Tan",
-    description:
-      "Chief Operating Officer",
+    description: "Chief Operating Officer",
     imageSrc: "/webp/imad.webp",
   },
   {
     title: "Laura Smith",
-    description:
-      "Chief Financial Officer",
+    description: "Chief Financial Officer",
+    imageSrc: "/webp/imad.webp",
+  },
+  {
+    title: "Terry Smith",
+    description: "",
+    imageSrc: "/webp/imad.webp",
+  },
+  {
+    title: "Fady Haddad",
+    description: "Chief Financial Officer",
+    imageSrc: "/webp/imad.webp",
+  },
+  {
+    title: "Tony Smith",
+    description: "Chief Financial Officer",
     imageSrc: "/webp/imad.webp",
   },
 ];
