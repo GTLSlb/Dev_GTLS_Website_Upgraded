@@ -1,5 +1,5 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { CoreValue } from "@/lib/types";
+import { CoreValue } from "@/lib/types/content";
 
 const ValueCard: React.FC<{ value: CoreValue; index: number }> = ({
   value,

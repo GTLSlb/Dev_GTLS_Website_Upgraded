@@ -7,7 +7,7 @@ import WhyLogistics from "@/lib/pages/about/sections/WhyLogistics";
 import CoreValues from "@/lib/pages/about/sections/CoreValues";
 import Vision from "@/lib/pages/about/sections/Vision";
 import MessageBanner from "@/lib/pages/about/sections/MessageBanner";
-import { MessageBannerdata } from "@/lib/data";
+import { BannerAboutData, CoreValuesData, MessageBannerdata, MissionData, OurStoryData, OurTeamData, VisionData, WhyLogisticsData } from "@/lib/data";
 import OurTeam from "@/lib/pages/about/sections/OurTeam";
 import { CommonHeroDataType } from "@/lib/types/hero";
 
@@ -36,14 +36,14 @@ const Page = () => {
         cornerText={aboutHeroData.cornerText}
       />
       {/* <History /> */}
-      <OurStory />
-      <Mission />
-      <Vision />
-      <CoreValues />
-      <BannerSection />
-      <WhyLogistics />
+      <OurStory data={OurStoryData} />
+      <Mission data={MissionData} />
+      <Vision data={VisionData} />
+      <CoreValues data={CoreValuesData} />
+      <BannerSection data={BannerAboutData} />
+      <WhyLogistics data={WhyLogisticsData} />
       <MessageBanner data={MessageBannerdata} />
-      <OurTeam />
+      <OurTeam data={OurTeamData} />
     </Container>
   );
 };

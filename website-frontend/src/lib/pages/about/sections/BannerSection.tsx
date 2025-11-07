@@ -1,11 +1,15 @@
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import Banner from "../components/Banner";
-import { BannerAboutData } from "@/lib/data";
+import { BannerDataType } from "@/lib/types/banners";
 
-const BannerSection = () => {
+type BannerProps ={
+  data: BannerDataType
+}
+
+const BannerSection = ({data}: BannerProps) => {
   return (
     <SectionContainer className="!pt-0">
-      <Banner {...BannerAboutData} />
+      <Banner {...data} />
     </SectionContainer>
   );
 };

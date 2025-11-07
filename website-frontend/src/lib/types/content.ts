@@ -50,6 +50,11 @@ export type CoreValue = {
   description: string;
 };
 
+export type CoreValuesDataType = {
+  title: string;
+  values: CoreValue[]; // An array of the type you defined
+};
+
 export type Expansion = {
   heading: string;
   description: string;
@@ -75,4 +80,15 @@ export type WhyGtlsDataTypes = {
 
   /** List of Why GTLS feature items */
   items: WhyGtlsItem[];
+};
+
+export type OurStoryDataType = {
+  title: string;
+  content: string;
+  imgSrc: string; // Allows for path strings OR static imports
+};
+
+export type VisionDataType = {
+  title: string;
+  description: string;
 };

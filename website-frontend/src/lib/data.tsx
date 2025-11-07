@@ -19,14 +19,15 @@ import { CustomerHubDataType, FeatureCard } from "./types/cards";
 import { IntegratedSolutionsItem } from "./types/integratedSolutions";
 import { ServiceData } from "./types/services";
 import { InfoSection } from "./types/info";
-import { BannerProps, MessageBannerData } from "./types/banners";
-import { ProfileItem } from "./types/profiles";
-import { WhyGtlsDataTypes, WhyGtlsItem } from "./types/content";
+import { BannerDataType, MessageBannerData } from "./types/banners";
+import { OurTeamDataType, ProfileItem } from "./types/profiles";
+import { CoreValuesDataType, OurStoryDataType, VisionDataType, WhyGtlsDataTypes, WhyGtlsItem } from "./types/content";
 import { Location } from "./types/location";
 import { NewsItem, NewsSliderDataType } from "./types/news";
 import { SliderItem } from "./types/sliders";
 import { HeroDataType } from "./types/hero";
 import { ServicesDataType } from "./types/props";
+import { GridAboutDataType } from "./types/grids";
 
 export const navigationConfig: NavigationConfig = {
   logo: {
@@ -344,7 +345,7 @@ export const HistoryData: SliderItem[] = [
   },
 ];
 
-export const BannerAboutData: BannerProps = {
+export const BannerAboutData: BannerDataType = {
   title: "Integrated Model",
   items: [
     {
@@ -436,7 +437,7 @@ export const StoryData = {
   ],
 };
 
-export const OurStoryData = {
+export const OurStoryData : OurStoryDataType = {
   title: "Our Story",
   content:
     "Founded in 2006, Gold Tiger Logistics Solutions (Gold Tiger) has grown into one of Australia’s leading transport and logistics companies. Over the years, we have expanded our capabilities to provide efficient, reliable, and nationwide logistics solutions, combining industry expertise with advanced technology.\n\n We operate a fully owned fleet supported by a skilled workforce of drivers and logistics professionals. Our operations leverage state-of-the-art fleet management systems, GPS tracking, and advanced scheduling technologies to ensure every shipment is monitored, optimized, and delivered safely and on time.\n\n Our commitment to excellence is strengthened by our gold partner extended warranty with Volvo, which includes a rigorous maintenance schedule to manufacturer standards using OEM parts, 24-hour nationwide breakdown support, and replacement vehicles if trucks are off the road. All vehicles are serviced regularly by qualified mechanics in our on-site workshops.\n\n At Gold Tiger, customer satisfaction is at the heart of everything we do. From proactive communication and tracking to responsive support. We ensure our clients have complete visibility and confidence in their logistics solutions. Combining technology, experience, and a dedication to operational reliability, we deliver transport solutions that are safe, efficient, and dependable.",
@@ -771,8 +772,20 @@ export const MissionGridData = [
       "Foster a culture of integrity, accountability, and continuous improvement for our team and stakeholders.",
   },
 ];
+export const MissionData: GridAboutDataType = {
+  title: "Mission",
+  description: "To provide safe, efficient, and innovative logistics solutions that empower businesses to grow with confidence.",
+  subtitle: "Core Commitments:", // <-- You can safely delete this line to test the "optional" part
+  gridData: MissionGridData,                // <-- We pass the grid data in here
+};
 
-export const WhyLogisticsGridData = [
+export const VisionData: VisionDataType = {
+  title: "Our Vision",
+  description:
+    "To be Australia’s most trusted and innovative logistics partner, recognised for delivery excellence, reliability, cost efficiency and exceptional customer service",
+};
+
+export const WhyLogisticsGridList = [
   {
     title: "End-to-End Operational Efficiency",
     description:
@@ -800,7 +813,12 @@ export const WhyLogisticsGridData = [
   },
 ];
 
-export const CoreValuesData = [
+export const WhyLogisticsData: GridAboutDataType = {
+  title: "Why Integrated Logistics Matters",
+  gridData: WhyLogisticsGridList,
+}
+
+export const CoreValuesDataList = [
   {
     icon: <HandHeart />, // Represents Commitment & Dedication
     title: "Commitment & Dedication",
@@ -844,6 +862,11 @@ export const CoreValuesData = [
       "We act with honesty, fairness, and mutual respect, valuing the unique skills and perspectives each team member and customer brings.",
   },
 ];
+
+export const CoreValuesData: CoreValuesDataType = {
+  title: "Core Values",
+  values: CoreValuesDataList, // We embed the array here
+};
 
 export const FacilitiesGridData = {
   title: "Why Choose Our Warehousing Solutions?",
@@ -995,7 +1018,7 @@ export const MessageBannerdata: MessageBannerData = {
   directorImage: "/svgs/imadVertical.svg",
 };
 
-export const ProfileData: ProfileItem[] = [
+export const teamProfiles: ProfileItem[] = [
   {
     title: "Imad El Masri",
     description: "Managing Director",
@@ -1018,6 +1041,12 @@ export const ProfileData: ProfileItem[] = [
   },
 ];
 
+export const OurTeamData: OurTeamDataType = {
+  title: "Meet Our Team",
+  description:
+    "Our people are the heart of Gold Tiger Logistics. Skilled, dedicated, and passionate. They’re the ones keeping your supply chain moving every day.",
+  profiles: teamProfiles, // Embed the array here
+};
 export const ExpansionValues = {
   title: "Why This Expansion Matters",
   points: [

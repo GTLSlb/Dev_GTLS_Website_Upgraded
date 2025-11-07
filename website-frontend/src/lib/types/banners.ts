@@ -23,7 +23,7 @@ export type BannerPropsItem = {
   subtitle: string;
 };
 
-export type BannerProps = {
+export type BannerDataType = {
   title: string;
   description: string;
   items: BannerPropsItem[];
@@ -38,8 +38,4 @@ export type MessageBannerData = {
   directorName: string;
   directorPosition: string;
   directorImage: string;
-};
-
-export type MessageBannerProps = {
-  data: MessageBannerData;
 };

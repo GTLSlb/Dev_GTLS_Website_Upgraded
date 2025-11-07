@@ -1,8 +1,11 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { MessageBannerProps } from "@/lib/types";
+import { MessageBannerData } from "@/lib/types/banners";
 import Image from "next/image";
+
+type MessageBannerProps={
+  data: MessageBannerData}
 
 const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
   return (
