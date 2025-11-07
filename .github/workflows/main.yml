@@ -1,4 +1,4 @@
-name: Deploy to Staging
+name: Deploy to store
 on:
   push:
     branches:
@@ -17,6 +17,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
+          debug: true
           script: |
-            cd /www/wwwroot/new_website_store
-            ./deploy_script.sh
+            cd /www/wwwroot/website_upgraded
+            bash ./deploy_script.sh

@@ -10,7 +10,7 @@ const Page = () => {
       <CommonHero
         title="Warehousing Facilities"
         description="Our warehousing services are designed to be more than just storage, they are a strategic extension of your supply chain. With flexible, secure, and technology-driven facilities, we make sure your goods are always in the right place, at the right time."
-        imageSrc="/webp/transporthero.webp"
+        imageSrc="/pages/warehousing.png"
         cornerText="Talk with an expert"
       />
       <Facilities {...FacilitiesGridData} />

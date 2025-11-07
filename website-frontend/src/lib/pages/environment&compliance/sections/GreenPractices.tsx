@@ -17,7 +17,7 @@ const GreenPractices = () => {
 
   return (
     <SectionContainer>
-      <div className="flex flex-col md:flex-row gap-10">
+      <div className="flex flex-col md:flex-row gap-12">
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 min-h-96">
           <Image

@@ -17,7 +17,8 @@ const Page = () => {
         title="Gold Tiger"
         subtitle="A Story of Ambition on Wheels..."
         description="Founded to solve real logistics challenges, Gold Tiger Logistics Solutions began with a single vision: to make freight and supply chain smarter, faster, and more reliable across Australia."
-        imageSrc="/webp/3movers.webp"
+        imageSrc="/pages/aboutus.png"
+        link="/contactus"
         cornerText="Talk with an expert"
       />
       {/* <History /> */}

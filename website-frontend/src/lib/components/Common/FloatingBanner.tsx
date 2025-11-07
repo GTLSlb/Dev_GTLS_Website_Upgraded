@@ -17,8 +17,8 @@ const FloatingBanner = ({ iconSrc, text, className }: FloatingBannerProps) => {
       <TextWrapper
         text={text}
         fontFamily="dmSans"
-        styleType="title4"
-        className="text-tint-black mt-2"
+        styleType="subtitle"
+        className="text-tint-black w-32 mt-2"
       />
     </div>
   );

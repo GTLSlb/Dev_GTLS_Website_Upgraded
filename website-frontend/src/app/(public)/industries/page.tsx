@@ -9,7 +9,7 @@ const Page = () => {
         title="Industries We Serve"
         subtitle="Tailored Logistics for Every Sector."
         description="At Gold Tiger Logistics Solutions, we recognize that no two industries are the same. Each sector comes with its own supply chain requirements, compliance needs, and customer expectations."
-        imageSrc="/webp/3movers.webp"
+        imageSrc="/pages/industries.png"
         cornerText="Talk with an expert"
       />
       <Industries />

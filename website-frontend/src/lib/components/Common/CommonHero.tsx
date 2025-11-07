@@ -58,7 +58,7 @@ const CommonHero = ({
       </div>
 
       {/* Hero Image instead of Video */}
-      <div className="relative w-full h-[500px] rounded-4xl overflow-hidden">
+      <div className="relative w-full h-[400px] rounded-4xl overflow-hidden">
         <Image
           src={imageSrc}
           alt={title}

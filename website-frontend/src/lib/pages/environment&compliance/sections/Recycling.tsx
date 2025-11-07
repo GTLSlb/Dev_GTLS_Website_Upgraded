@@ -12,7 +12,7 @@ const Recycling = () => {
       alt: "recycling",
     },
     description:
-      "At Gold Tiger Logistics Solutions, sustainability goes beyond transportation — it’s part of how we operate every day. Through our dedicated recycling programs, we responsibly recycle materials such as metal, batteries, and tyres. These initiatives help reduce waste, conserve natural resources, and support a circular economy. By transforming discarded materials into reusable resources, we actively contribute to a cleaner, safer, and more sustainable environment for future generations.",
+      "At Gold Tiger Logistics Solutions, sustainability goes beyond transportation — it’s part of how we operate every day. Through our dedicated recycling programs, we responsibly recycle materials such as metal, batteries, and tyres. These initiatives help reduce waste, conserve natural resources, and support a circular economy.\n\n By transforming discarded materials into reusable resources, we actively contribute to a cleaner, safer, and more sustainable environment for future generations.",
   };
 
   return (

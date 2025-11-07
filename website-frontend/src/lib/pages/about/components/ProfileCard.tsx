@@ -15,7 +15,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       </div>
       <div className="text-center flex flex-col gap-4">
         <CardTitle>
-          <TextWrapper text={title} fontFamily="dmSans" styleType="title4" />
+          <TextWrapper text={title} fontFamily="dmSans" styleType="title4" className="goldtext" />
         </CardTitle>
         <CardDescription>
           <TextWrapper

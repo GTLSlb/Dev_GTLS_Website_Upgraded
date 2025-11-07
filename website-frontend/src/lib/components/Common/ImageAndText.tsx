@@ -55,6 +55,7 @@ export default function ImageAndText({
           text={description}
           fontFamily="dmSans"
           styleType="body"
+          className="whitespace-pre-line"
         />
       </div>
     </div>
