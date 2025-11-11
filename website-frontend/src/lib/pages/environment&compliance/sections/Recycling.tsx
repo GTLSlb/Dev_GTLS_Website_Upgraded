@@ -1,19 +1,13 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
+import { RecyclingDataType } from "@/lib/types/content";
 import Image from "next/image";
 
-const Recycling = () => {
-  // Define dynamic data
-  const sectionData = {
-    title: "Recycling Programs",
-    titleColor: "text-gold",
-    image: {
-      src: "/svgs/recycling.svg",
-      alt: "recycling",
-    },
-    description:
-      "At Gold Tiger Logistics Solutions, sustainability goes beyond transportation — it’s part of how we operate every day. Through our dedicated recycling programs, we responsibly recycle materials such as metal, batteries, and tyres. These initiatives help reduce waste, conserve natural resources, and support a circular economy.\n\n By transforming discarded materials into reusable resources, we actively contribute to a cleaner, safer, and more sustainable environment for future generations.",
-  };
+type RecyclingProps = {
+  data: RecyclingDataType;
+};
+
+const Recycling = ({ data }: RecyclingProps) => {
 
   return (
     <SectionContainer>
@@ -21,18 +15,18 @@ const Recycling = () => {
         {/* Text Section */}
         <div className="w-full md:w-1/2">
           <CenterTitle
-            title={sectionData.title}
-            titleColor={sectionData.titleColor}
+            title={data.title}
+            titleColor="text-gold"
             placement="left"
-            description={sectionData.description}
+            description={data.description}
           />
         </div>
 
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 min-h-96">
           <Image
-            src={sectionData.image.src}
-            alt={sectionData.image.alt}
+            src={data.imgSrc}
+            alt={data.title}
             fill
             className="object-contain"
           />

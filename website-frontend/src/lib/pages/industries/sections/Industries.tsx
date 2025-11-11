@@ -1,12 +1,18 @@
 import ImageAndText from "@/lib/components/Common/ImageAndText";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import { IndustriesData } from "@/lib/data";
+import { IndustriesDataArray } from "@/lib/types/content";
 
-const Industries = () => {
+type IndustriesProps = {
+  data : IndustriesDataArray
+};
+
+
+const Industries = ({data}: IndustriesProps) => {
   return (
     <SectionContainer>
       <div className="flex flex-col gap-20">
-        {IndustriesData.map((industry, index) => (
+        {data.map((industry, index) => (
         <div key={index}>
           <ImageAndText
             title={industry.title}

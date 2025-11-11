@@ -9,3 +9,10 @@ export type GridAboutDataType = {
   subtitle?: string; // <-- This property is now optional
   gridData: TGridItem[];      // <-- An array of the type we just defined
 };
+/**
+ * Defines the full structure for the exported ExpansionValues object.
+ */
+export interface ExpansionDataType {
+  title: string;
+  points: TGridItem[];
+}

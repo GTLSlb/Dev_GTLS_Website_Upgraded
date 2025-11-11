@@ -4,7 +4,7 @@ export type FacilitiesItem = {
   picture: string;
 };
 
-export type FacilitiesProps = {
+export type FacilitiesDataType = {
   title: string;
   description: string;
   buttonText?: string;

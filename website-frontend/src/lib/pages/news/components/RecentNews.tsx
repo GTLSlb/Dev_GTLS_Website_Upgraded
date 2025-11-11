@@ -1,17 +1,20 @@
-import { RecentNewsProps } from "@/lib/types";
+
+import { RecentNewsDataType } from "@/lib/types/news";
 import NewsCard from "./NewsCard";
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 
-const RecentNews = ({ items }: RecentNewsProps) => {
+export type RecentNewsProps =  RecentNewsDataType;
+
+const RecentNews = ({ title, items }: RecentNewsProps) => {
   return (
     <div className="flex flex-col gap-0 w-full md:w-7/12">
       <CenterTitle
-        title="Recent News"
+        title={title}
         placement="left"
         titleColor="text-black"
       />
       <div className="flex flex-col gap-8">
-        {items.map((news, index) => (
+        {items?.map((news, index) => (
           <NewsCard key={index} {...news} />
         ))}
       </div>

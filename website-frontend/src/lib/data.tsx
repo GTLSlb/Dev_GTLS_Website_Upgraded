@@ -21,13 +21,21 @@ import { ServiceData } from "./types/services";
 import { InfoSection } from "./types/info";
 import { BannerDataType, MessageBannerData } from "./types/banners";
 import { OurTeamDataType, ProfileItem } from "./types/profiles";
-import { CoreValuesDataType, OurStoryDataType, VisionDataType, WhyGtlsDataTypes, WhyGtlsItem } from "./types/content";
+import {
+  CoreValuesDataType,
+  IndustriesDataArray,
+  OurStoryDataType,
+  VisionDataType,
+  WhyGtlsDataTypes,
+  WhyGtlsItem,
+} from "./types/content";
 import { Location } from "./types/location";
 import { NewsItem, NewsSliderDataType } from "./types/news";
 import { SliderItem } from "./types/sliders";
 import { HeroDataType } from "./types/hero";
 import { ServicesDataType } from "./types/props";
-import { GridAboutDataType } from "./types/grids";
+import { ExpansionDataType, GridAboutDataType } from "./types/grids";
+import { BTriplesDataType } from "./types/safetyCompliance";
 
 export const navigationConfig: NavigationConfig = {
   logo: {
@@ -437,14 +445,14 @@ export const StoryData = {
   ],
 };
 
-export const OurStoryData : OurStoryDataType = {
+export const OurStoryData: OurStoryDataType = {
   title: "Our Story",
   content:
     "Founded in 2006, Gold Tiger Logistics Solutions (Gold Tiger) has grown into one of Australia’s leading transport and logistics companies. Over the years, we have expanded our capabilities to provide efficient, reliable, and nationwide logistics solutions, combining industry expertise with advanced technology.\n\n We operate a fully owned fleet supported by a skilled workforce of drivers and logistics professionals. Our operations leverage state-of-the-art fleet management systems, GPS tracking, and advanced scheduling technologies to ensure every shipment is monitored, optimized, and delivered safely and on time.\n\n Our commitment to excellence is strengthened by our gold partner extended warranty with Volvo, which includes a rigorous maintenance schedule to manufacturer standards using OEM parts, 24-hour nationwide breakdown support, and replacement vehicles if trucks are off the road. All vehicles are serviced regularly by qualified mechanics in our on-site workshops.\n\n At Gold Tiger, customer satisfaction is at the heart of everything we do. From proactive communication and tracking to responsive support. We ensure our clients have complete visibility and confidence in their logistics solutions. Combining technology, experience, and a dedication to operational reliability, we deliver transport solutions that are safe, efficient, and dependable.",
   imgSrc: "/pages/ourstory.png",
 };
 
-export const IndustriesData = [
+export const IndustriesData: IndustriesDataArray = [
   {
     imgSrc: "/pages/printing.png",
     title: "Printing and Packaging",
@@ -709,41 +717,84 @@ export const ServicesData: ServiceData[] = [
   },
 ];
 
-export const news = [
-  {
-    title: "We've Doubled Our B-Triple Fleet!",
-    date: "June 10, 2025",
-    description:
-      "At Gold Tiger Logistics Solutions, we're proud to announce that we have doubled our B-Triple fleet.",
-    image: "/webp/3movers.webp", // replace with actual path
-    href: "/posts/b-triple-fleet",
-  },
-  {
-    title: "New Depot Opening in Sydney",
-    date: "May 15, 2025",
-    description:
-      "We are excited to expand our network with a brand new logistics hub in Sydney.",
-    image: "/webp/3movers.webp",
-    href: "/posts/depot-opening",
-  },
-  {
-    title: "We've Doubled Our B-Triple Fleet!",
-    date: "June 10, 2025",
-    description:
-      "At Gold Tiger Logistics Solutions, we're proud to announce that we have doubled our B-Triple fleet.",
-    image: "/webp/3movers.webp", // replace with actual path
-    href: "/posts/b-triple-fleet",
-  },
-  {
-    title: "New Depot Opening in Sydney",
-    date: "May 15, 2025",
-    description:
-      "We are excited to expand our network with a brand new logistics hub in Sydney.",
-    image: "/webp/3movers.webp",
-    href: "/posts/depot-opening",
-  },
-  // Add more posts here
-];
+export const newsData = {
+  title: "Latest News",
+  items: [
+    {
+      title: "We've Doubled Our B-Triple Fleet!",
+      date: "June 10, 2025",
+      description:
+        "At Gold Tiger Logistics Solutions, we're proud to announce that we have doubled our B-Triple fleet.",
+      image: "/webp/3movers.webp", // replace with actual path
+      href: "/posts/b-triple-fleet",
+    },
+    {
+      title: "New Depot Opening in Sydney",
+      date: "May 15, 2025",
+      description:
+        "We are excited to expand our network with a brand new logistics hub in Sydney.",
+      image: "/webp/3movers.webp",
+      href: "/posts/depot-opening",
+    },
+    {
+      title: "We've Doubled Our B-Triple Fleet!",
+      date: "June 10, 2025",
+      description:
+        "At Gold Tiger Logistics Solutions, we're proud to announce that we have doubled our B-Triple fleet.",
+      image: "/webp/3movers.webp", // replace with actual path
+      href: "/posts/b-triple-fleet",
+    },
+    {
+      title: "New Depot Opening in Sydney",
+      date: "May 15, 2025",
+      description:
+        "We are excited to expand our network with a brand new logistics hub in Sydney.",
+      image: "/webp/3movers.webp",
+      href: "/posts/depot-opening",
+    },
+    // Add more posts here
+  ],
+};
+
+export const postsData = {
+  title: "Latest Posts",
+  items: [
+    {
+      title: "We've Doubled Our B-Triple Fleet!",
+      date: "June 10, 2025",
+      description:
+        "At Gold Tiger Logistics Solutions, we're proud to announce that we have doubled our B-Triple fleet.",
+      image: "/webp/3movers.webp", // replace with actual path
+      href: "/posts/b-triple-fleet",
+    },
+    {
+      title: "New Depot Opening in Sydney",
+      date: "May 15, 2025",
+      description:
+        "We are excited to expand our network with a brand new logistics hub in Sydney.",
+      image: "/webp/3movers.webp",
+      href: "/posts/depot-opening",
+    },
+    {
+      title: "We've Doubled Our B-Triple Fleet!",
+      date: "June 10, 2025",
+      description:
+        "At Gold Tiger Logistics Solutions, we're proud to announce that we have doubled our B-Triple fleet.",
+      image: "/webp/3movers.webp", // replace with actual path
+      href: "/posts/b-triple-fleet",
+    },
+    {
+      title: "New Depot Opening in Sydney",
+      date: "May 15, 2025",
+      description:
+        "We are excited to expand our network with a brand new logistics hub in Sydney.",
+      image: "/webp/3movers.webp",
+      href: "/posts/depot-opening",
+    },
+    // Add more posts here
+  ],
+};
+
 
 export const MissionGridData = [
   {
@@ -774,9 +825,10 @@ export const MissionGridData = [
 ];
 export const MissionData: GridAboutDataType = {
   title: "Mission",
-  description: "To provide safe, efficient, and innovative logistics solutions that empower businesses to grow with confidence.",
+  description:
+    "To provide safe, efficient, and innovative logistics solutions that empower businesses to grow with confidence.",
   subtitle: "Core Commitments:", // <-- You can safely delete this line to test the "optional" part
-  gridData: MissionGridData,                // <-- We pass the grid data in here
+  gridData: MissionGridData, // <-- We pass the grid data in here
 };
 
 export const VisionData: VisionDataType = {
@@ -816,7 +868,7 @@ export const WhyLogisticsGridList = [
 export const WhyLogisticsData: GridAboutDataType = {
   title: "Why Integrated Logistics Matters",
   gridData: WhyLogisticsGridList,
-}
+};
 
 export const CoreValuesDataList = [
   {
@@ -1047,36 +1099,36 @@ export const OurTeamData: OurTeamDataType = {
     "Our people are the heart of Gold Tiger Logistics. Skilled, dedicated, and passionate. They’re the ones keeping your supply chain moving every day.",
   profiles: teamProfiles, // Embed the array here
 };
-export const ExpansionValues = {
+export const ExpansionValues: ExpansionDataType = {
   title: "Why This Expansion Matters",
   points: [
     {
-      heading: "Meeting Growth Demand",
+      title: "Meeting Growth Demand",
       description:
         "Driven by customer growth and evolving freight requirements, our expanded and doubled B-Triple fleet enhances capacity, reduces turnaround times, and supports greater freight efficiency.",
     },
     {
-      heading: "Enhanced Reliability",
+      title: "Enhanced Reliability",
       description:
         "The fleet expansion allows for optimized payloads, fewer trips, and faster, more sustainable deliveries across Australia’s busiest transport corridors.",
     },
     {
-      heading: "Sustainability Commitment",
+      title: "Sustainability Commitment",
       description:
         "By maximizing load capacity and minimizing total trips, our B-Triple operations help lower fuel usage and CO₂ emissions, aligning with Gold Tiger’s dedication to a greener supply chain.",
     },
     {
-      heading: "Cost-Effective Operations",
+      title: "Cost-Effective Operations",
       description:
         "With a company-owned fleet and integrated logistics model, we maintain control over costs while ensuring exceptional service quality and dependability.",
     },
     {
-      heading: "Seamless End-to-End Service",
+      title: "Seamless End-to-End Service",
       description:
         "Our extended network ensures customers receive consistent, on-time deliveries — reinforcing Gold Tiger’s reputation for reliability and excellence.",
     },
     {
-      heading:
+      title:
         "Our B-Triple fleet expansion represents a major milestone in our growth journey",
       description:
         "A reflection of our customers’ trust and our ongoing commitment to innovation, sustainability, and operational excellence.",
@@ -1090,4 +1142,40 @@ export const HeroData: HeroDataType = {
   description:
     "We provide end-to-end logistics solutions across Australia, with a focus on efficiency, safety, and sustainability. From local freight to long-haul BTriple operations, GTLS keeps your business moving.",
   videoSrc: "/videos/goldtiger-header.mp4",
+};
+
+export const BTriplesData: BTriplesDataType = {
+  title: "Key Benefits of Our B-Triple Solution",
+  sections: [
+    {
+      icon: "Truck",
+      title: "Higher Load Capacity",
+      description:
+        "With an additional trailer, our B-Triples move significantly more freight per trip — ideal for customers managing large-volume shipments or high-frequency distribution needs.",
+    },
+    {
+      icon: "Save",
+      title: "Safe Handling of Fragile Goods",
+      description:
+        "Each trailer is fitted with adjustable mezzanine floors, allowing the safe transport of delicate or fragile products that cannot be double stacked, ensuring your goods arrive in perfect condition.",
+    },
+    {
+      icon: "Fuel",
+      title: "Enhanced Fuel Efficiency",
+      description:
+        "With an additional trailer, our B-Triples move significantly more freight per trip — ideal for customers managing large-volume shipments or high-frequency distribution needs.",
+    },
+    {
+      icon: "Map",
+      title: "Extended Reach",
+      description:
+        "Our expanded B-Triple network now connects major eastern and southern routes, enabling faster and more consistent delivery over longer distances.",
+    },
+    {
+      icon: "HardHat",
+      title: "Reliability and Safety",
+      description:
+        "Safety remains at the forefront of every journey. Our B-Triple trucks are equipped with advanced monitoring systems, and our drivers undergo specialized training to ensure precision, control, and care on every route.",
+    },
+  ],
 };

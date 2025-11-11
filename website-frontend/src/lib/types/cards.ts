@@ -60,6 +60,10 @@ export type RecentPostsCardProps = {
   href: string;
 };
 
+export type RecentPostsProps = {
+  items: RecentPostsCardProps[];
+};
+
 export type BorderedGridItemProps = {
   title: string;
   description: string;

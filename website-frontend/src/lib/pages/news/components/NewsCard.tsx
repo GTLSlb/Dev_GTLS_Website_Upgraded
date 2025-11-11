@@ -1,5 +1,5 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { RecentNewsCardProps } from "@/lib/types";
+import { RecentNewsCardProps } from "@/lib/types/news";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

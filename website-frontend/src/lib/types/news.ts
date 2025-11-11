@@ -19,6 +19,12 @@ export type RecentNewsCardProps = {
   href: string;
 };
 
-export type RecentNewsProps = {
+export type RecentNewsDataType = {
+  title: string;
+  items: RecentNewsCardProps[];
+};
+
+export type RecentPostsDataType = {
+  title: string;
   items: RecentNewsCardProps[];
 };

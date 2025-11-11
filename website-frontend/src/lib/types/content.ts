@@ -92,3 +92,21 @@ export type VisionDataType = {
   title: string;
   description: string;
 };
+
+export interface TSectionItem {
+  imgSrc: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+}
+
+export type IndustriesDataArray = TSectionItem[];
+
+export type RecyclingDataType = TSectionItem;
+export type GreenPracticesDataType = TSectionItem;
+
+export interface TSectionData {
+  title: string;
+  image: string;
+  description: string;
+}
