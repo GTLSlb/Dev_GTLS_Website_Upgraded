@@ -1,28 +1,28 @@
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import Industries from "@/lib/pages/industries/sections/Industries";
-import { CommonHeroDataType } from "@/lib/types/hero";
-import { IndustriesData } from "@/lib/data";
+import { IndustryPageData } from "@/lib/types/pages";
+import { getIndustryPageData } from "@/lib/services/api";
 
-export const industriesHeroData: CommonHeroDataType = {
-  title: "Industries We Serve",
-  subtitle:"Tailored Logistics for Every Sector.",
-  description:"At Gold Tiger Logistics Solutions, we recognize that no two industries are the same. Each sector comes with its own supply chain requirements, compliance needs, and customer expectations.",
-  imageSrc: "/pages/industries.png",
-  cornerText: "Talk with an expert",
-};
 
-const Page = () => {
+
+const Page = async () => {
+  
+  // Fetch data
+  const industryData: IndustryPageData = await getIndustryPageData();
+ 
+
+  const { HeroSection, Services} = industryData;
   return (
     <Container>
       <CommonHero
-        title={industriesHeroData.title}
-        subtitle={industriesHeroData.subtitle}
-        description={industriesHeroData.description}
-        imageSrc={industriesHeroData.imageSrc}
-        cornerText={industriesHeroData.cornerText}
+        title={HeroSection.Title}
+        subtitle={HeroSection.Subtitle}
+        description={HeroSection.Description}
+        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+HeroSection.Media?.url || "/pages/industries.png"}
+        cornerText={HeroSection.cornerText}
       />
-      <Industries data={IndustriesData} />
+      <Industries data={Services} />
     </Container>
   );
 };

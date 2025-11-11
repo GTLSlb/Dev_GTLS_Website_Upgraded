@@ -24,5 +24,5 @@ export type BTripleSection = {
 
 export type BTriplesDataType = {
   title: string;
-  sections: BTripleSection[];
+  Sections: BTripleSection[];
 };

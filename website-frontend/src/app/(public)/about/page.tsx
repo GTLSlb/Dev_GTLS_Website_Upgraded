@@ -7,38 +7,48 @@ import WhyLogistics from "@/lib/pages/about/sections/WhyLogistics";
 import CoreValues from "@/lib/pages/about/sections/CoreValues";
 import Vision from "@/lib/pages/about/sections/Vision";
 import MessageBanner from "@/lib/pages/about/sections/MessageBanner";
-import { BannerAboutData, CoreValuesData, MessageBannerdata, MissionData, OurStoryData, OurTeamData, VisionData, WhyLogisticsData } from "@/lib/data";
+import { BannerAboutData, CoreValuesData, MessageBannerdata, MissionData, OurTeamData, VisionData, WhyLogisticsData } from "@/lib/data";
 import OurTeam from "@/lib/pages/about/sections/OurTeam";
 import { CommonHeroDataType } from "@/lib/types/hero";
+import { AboutUsPageData } from "@/lib/types/pages";
+import { getAboutUsPageData } from "@/lib/services/api";
 
 type HeroProps = {
   /** Pass the hero data object to the component */
   data: CommonHeroDataType;
 };
-export const aboutHeroData: CommonHeroDataType = {
-  title: "Gold Tiger",
-  subtitle: "A Story of Ambition on Wheels...",
-  description:
-    "Founded to solve real logistics challenges, Gold Tiger Logistics Solutions began with a single vision: to make freight and supply chain smarter, faster, and more reliable across Australia.",
-  imageSrc: "/pages/aboutus.png",
-  link: "/contactus",
-  cornerText: "Talk with an expert",
-};
-const Page = () => {
+
+const Page = async () => {
+  
+  // Fetch data
+  const aboutUsData: AboutUsPageData | null = await getAboutUsPageData();
+  console.log(aboutUsData)
+  // Handle Not Found/Error
+  if (!aboutUsData) {
+    return (
+      <div className="text-center p-10">
+        <h1>Error</h1>
+        <p>Failed to load About Us page content.</p>
+      </div>
+    );
+  }
+  
+  // Destructure the necessary components
+  const { HeroSection, OurVision , OurStory: OurStoryData, CoreValues: CoreValuesData } = aboutUsData;
   return (
     <Container>
       <CommonHero
-        title={aboutHeroData.title}
-        subtitle={aboutHeroData.subtitle}
-        description={aboutHeroData.description}
-        imageSrc={aboutHeroData.imageSrc}
-        link={aboutHeroData.link}
-        cornerText={aboutHeroData.cornerText}
+        title={HeroSection.Title}
+        subtitle={HeroSection.Subtitle}
+        description={HeroSection.Description}
+        imageSrc={HeroSection.Media?.url || "/pages/about-hero.png"}
+        link={HeroSection.link}
+        cornerText={HeroSection.cornerText}
       />
       {/* <History /> */}
       <OurStory data={OurStoryData} />
       <Mission data={MissionData} />
-      <Vision data={VisionData} />
+      <Vision data={OurVision} />
       <CoreValues data={CoreValuesData} />
       <BannerSection data={BannerAboutData} />
       <WhyLogistics data={WhyLogisticsData} />

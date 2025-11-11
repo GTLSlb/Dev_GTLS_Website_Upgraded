@@ -1,6 +1,5 @@
 import ImageAndText from "@/lib/components/Common/ImageAndText";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { IndustriesData } from "@/lib/data";
 import { IndustriesDataArray } from "@/lib/types/content";
 
 type IndustriesProps = {
@@ -16,7 +15,7 @@ const Industries = ({data}: IndustriesProps) => {
         <div key={index}>
           <ImageAndText
             title={industry.title}
-            description={industry.description}
+            description={industry.content}
             imgSrc={industry.imgSrc}
             imageFirst={!(index % 2 === 0)} // ✅ alternate placement
           />

@@ -1,3 +1,5 @@
+import { StrapiMediaFile } from "./media";
+
 export type HeroDataType = {
   title: string;
   subtitle: string;
@@ -7,16 +9,16 @@ export type HeroDataType = {
 
 export type CommonHeroDataType = {
   /** Main heading text */
-  title: string;
+  Title: string;
 
   /** Optional secondary heading */
-  subtitle?: string;
+  Subtitle?: string;
 
   /** Description paragraph */
-  description?: string;
+  Description?: string;
 
   /** Hero image path */
-  imageSrc?: string;
+  Media: StrapiMediaFile;
 
   /** Optional CTA link */
   link?: string;

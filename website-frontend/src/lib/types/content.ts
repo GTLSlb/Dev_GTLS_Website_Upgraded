@@ -1,5 +1,6 @@
 import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
+import { StrapiMediaFile } from "./media";
 
 export type ContentListNumber = {
   label: string;
@@ -85,7 +86,7 @@ export type WhyGtlsDataTypes = {
 export type OurStoryDataType = {
   title: string;
   content: string;
-  imgSrc: string; // Allows for path strings OR static imports
+  Img: StrapiMediaFile; // Allows for path strings OR static imports
 };
 
 export type VisionDataType = {
@@ -97,7 +98,7 @@ export interface TSectionItem {
   imgSrc: string;
   title: string;
   subtitle?: string;
-  description: string;
+  content: string;
 }
 
 export type IndustriesDataArray = TSectionItem[];

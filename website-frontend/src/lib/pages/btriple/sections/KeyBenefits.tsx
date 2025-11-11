@@ -33,12 +33,12 @@ const KeyBenefits = ({ data }: BTripleProps) => {
             dark
           />
           <div className="grid md:grid-cols-2 divide-y">
-            {data.sections.map((item, i) => {
+            {data.Sections?.map((item, i) => {
               const Icon = LucideIcons[item.icon] as LucideIcon;
               return (
                 <div key={i} className="flex gap-8 py-10 px-4 items-start">
                   <div className="bg-white p-8 rounded-xl">
-                    <Icon className="text-gold" size={64} />
+                    {item.icon&& <Icon className="text-gold" size={64} />}
                   </div>
                   <div className="flex flex-col gap-2">
                     <TextWrapper

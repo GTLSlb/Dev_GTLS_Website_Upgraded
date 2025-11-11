@@ -445,43 +445,43 @@ export const StoryData = {
   ],
 };
 
-export const OurStoryData: OurStoryDataType = {
-  title: "Our Story",
-  content:
-    "Founded in 2006, Gold Tiger Logistics Solutions (Gold Tiger) has grown into one of Australia’s leading transport and logistics companies. Over the years, we have expanded our capabilities to provide efficient, reliable, and nationwide logistics solutions, combining industry expertise with advanced technology.\n\n We operate a fully owned fleet supported by a skilled workforce of drivers and logistics professionals. Our operations leverage state-of-the-art fleet management systems, GPS tracking, and advanced scheduling technologies to ensure every shipment is monitored, optimized, and delivered safely and on time.\n\n Our commitment to excellence is strengthened by our gold partner extended warranty with Volvo, which includes a rigorous maintenance schedule to manufacturer standards using OEM parts, 24-hour nationwide breakdown support, and replacement vehicles if trucks are off the road. All vehicles are serviced regularly by qualified mechanics in our on-site workshops.\n\n At Gold Tiger, customer satisfaction is at the heart of everything we do. From proactive communication and tracking to responsive support. We ensure our clients have complete visibility and confidence in their logistics solutions. Combining technology, experience, and a dedication to operational reliability, we deliver transport solutions that are safe, efficient, and dependable.",
-  imgSrc: "/pages/ourstory.png",
-};
+// export const OurStoryData: OurStoryDataType = {
+//   title: "Our Story",
+//   content:
+//     "Founded in 2006, Gold Tiger Logistics Solutions (Gold Tiger) has grown into one of Australia’s leading transport and logistics companies. Over the years, we have expanded our capabilities to provide efficient, reliable, and nationwide logistics solutions, combining industry expertise with advanced technology.\n\n We operate a fully owned fleet supported by a skilled workforce of drivers and logistics professionals. Our operations leverage state-of-the-art fleet management systems, GPS tracking, and advanced scheduling technologies to ensure every shipment is monitored, optimized, and delivered safely and on time.\n\n Our commitment to excellence is strengthened by our gold partner extended warranty with Volvo, which includes a rigorous maintenance schedule to manufacturer standards using OEM parts, 24-hour nationwide breakdown support, and replacement vehicles if trucks are off the road. All vehicles are serviced regularly by qualified mechanics in our on-site workshops.\n\n At Gold Tiger, customer satisfaction is at the heart of everything we do. From proactive communication and tracking to responsive support. We ensure our clients have complete visibility and confidence in their logistics solutions. Combining technology, experience, and a dedication to operational reliability, we deliver transport solutions that are safe, efficient, and dependable.",
+//   imgSrc: "/pages/ourstory.png",
+// };
 
-export const IndustriesData: IndustriesDataArray = [
-  {
-    imgSrc: "/pages/printing.png",
-    title: "Printing and Packaging",
-    subtitle: "Fast, Flexible, Everywhere.",
-    description:
-      "At Gold Tiger Logistics Solutions, we understand the fast-paced and detail-driven nature of the printing and packaging industry. From raw materials to finished products, timing and precision are everything. Our specialized logistics services ensure that your paper and packaging materials, and finished goods move seamlessly through every stage of the supply chain.\n\n With our advanced fleet, and high-security warehouses, and extensive distribution network, we provide reliable transport solutions that minimize delays and prevent damage to sensitive materials.\n\n By combining operational excellence with deep industry expertise, Gold Tiger Logistics supports printing and packaging businesses in maintaining continuous production, meeting tight deadlines, and achieving sustainable growth.",
-  },
-  {
-    imgSrc: "/pages/food.png",
-    title: "Food & Beverage (F&B)",
-    subtitle: "Fresh. Safe. On Time.",
-    description:
-      "At Gold Tiger Logistics Solutions, we provide reliable logistics support tailored to the Food & Beverage industry where quality, safety, and efficiency are key. We specialize in the storage and transport of room-temperature food and beverage products, ensuring they are handled with care and delivered on time.\n\n Our operations meet the highest international food safety standards, backed by our SQF (Safe Quality Food) certification. From warehousing to nationwide distribution, every process is designed to maintain product integrity and regulatory compliance throughout the supply chain.\n\n With strategically located facilities, a modern fleet, and a dedicated team, Gold Tiger Logistics Solutions helps F&B brands move their goods seamlessly from production to market ensuring safety, consistency, and customer satisfaction at every step.",
-  },
-  {
-    imgSrc: "/pages/health.png",
-    title: "Health & Beauty",
-    subtitle: "Care That Delivers.",
-    description:
-      "Health and beauty products require careful handling, secure storage, and fast distribution to protect product integrity and meet consumer demand. At Gold Tiger Logistics Solutions.\n From cosmetics and skincare to personal wellness, pharmaceuticals, and baby products, we handle every shipment with precision and care.\n\n Our secure warehouses and modern fleet ensure the safe storage and transport of sensitive items, maintaining optimal conditions from pickup to delivery. We adhere to strict hygiene and handling protocols to protect product quality and comply with industry standards.\n With our experience and commitment to reliability, Gold Tiger Logistics Solutions supports leading health, beauty, and baby care brands in delivering their products safely and efficiently building trust with every shipment.",
-  },
-  {
-    imgSrc: "/pages/fast.png",
-    title: "Fast-Moving Consumer Goods (FMCG)",
-    subtitle: "High Volume. High Velocity.",
-    description:
-      "The FMCG sector thrives on speed, availability, and scalability. To keep up with consumer demand, we provide:\n\n - High-volume warehousing with flexible storage options.\n - Nationwide transport coverage for quick replenishment.\n - Scalable distribution solutions that adapt to seasonal demand spikes.\n\n With Gold Tiger, FMCG businesses gain a logistics partner that supports growth, agility, and uninterrupted supply in a highly dynamic market.",
-  },
-];
+// export const IndustriesData: IndustriesDataArray = [
+//   {
+//     imgSrc: "/pages/printing.png",
+//     title: "Printing and Packaging",
+//     subtitle: "Fast, Flexible, Everywhere.",
+//     description:
+//       "At Gold Tiger Logistics Solutions, we understand the fast-paced and detail-driven nature of the printing and packaging industry. From raw materials to finished products, timing and precision are everything. Our specialized logistics services ensure that your paper and packaging materials, and finished goods move seamlessly through every stage of the supply chain.\n\n With our advanced fleet, and high-security warehouses, and extensive distribution network, we provide reliable transport solutions that minimize delays and prevent damage to sensitive materials.\n\n By combining operational excellence with deep industry expertise, Gold Tiger Logistics supports printing and packaging businesses in maintaining continuous production, meeting tight deadlines, and achieving sustainable growth.",
+//   },
+//   {
+//     imgSrc: "/pages/food.png",
+//     title: "Food & Beverage (F&B)",
+//     subtitle: "Fresh. Safe. On Time.",
+//     description:
+//       "At Gold Tiger Logistics Solutions, we provide reliable logistics support tailored to the Food & Beverage industry where quality, safety, and efficiency are key. We specialize in the storage and transport of room-temperature food and beverage products, ensuring they are handled with care and delivered on time.\n\n Our operations meet the highest international food safety standards, backed by our SQF (Safe Quality Food) certification. From warehousing to nationwide distribution, every process is designed to maintain product integrity and regulatory compliance throughout the supply chain.\n\n With strategically located facilities, a modern fleet, and a dedicated team, Gold Tiger Logistics Solutions helps F&B brands move their goods seamlessly from production to market ensuring safety, consistency, and customer satisfaction at every step.",
+//   },
+//   {
+//     imgSrc: "/pages/health.png",
+//     title: "Health & Beauty",
+//     subtitle: "Care That Delivers.",
+//     description:
+//       "Health and beauty products require careful handling, secure storage, and fast distribution to protect product integrity and meet consumer demand. At Gold Tiger Logistics Solutions.\n From cosmetics and skincare to personal wellness, pharmaceuticals, and baby products, we handle every shipment with precision and care.\n\n Our secure warehouses and modern fleet ensure the safe storage and transport of sensitive items, maintaining optimal conditions from pickup to delivery. We adhere to strict hygiene and handling protocols to protect product quality and comply with industry standards.\n With our experience and commitment to reliability, Gold Tiger Logistics Solutions supports leading health, beauty, and baby care brands in delivering their products safely and efficiently building trust with every shipment.",
+//   },
+//   {
+//     imgSrc: "/pages/fast.png",
+//     title: "Fast-Moving Consumer Goods (FMCG)",
+//     subtitle: "High Volume. High Velocity.",
+//     description:
+//       "The FMCG sector thrives on speed, availability, and scalability. To keep up with consumer demand, we provide:\n\n - High-volume warehousing with flexible storage options.\n - Nationwide transport coverage for quick replenishment.\n - Scalable distribution solutions that adapt to seasonal demand spikes.\n\n With Gold Tiger, FMCG businesses gain a logistics partner that supports growth, agility, and uninterrupted supply in a highly dynamic market.",
+//   },
+// ];
 
 export const EnvironmentData = [
   {
@@ -1146,7 +1146,7 @@ export const HeroData: HeroDataType = {
 
 export const BTriplesData: BTriplesDataType = {
   title: "Key Benefits of Our B-Triple Solution",
-  sections: [
+  Sections: [
     {
       icon: "Truck",
       title: "Higher Load Capacity",
