@@ -24,9 +24,12 @@ import {
 import { navigationConfig } from "@/lib/data";
 import { Button } from "@/lib/ui/button";
 import TextWrapper from "../../Common/TextWrapper";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export function NavigationMenuBar() {
   const [open, setOpen] = React.useState(false);
+  const pathname = usePathname();
   const { logo, links } = navigationConfig;
 
   return (
@@ -45,36 +48,59 @@ export function NavigationMenuBar() {
       <div className="hidden lg:flex">
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
-            {links.map((link) => (
-              <NavigationMenuItem key={link.label} className="">
-                {link.children ? (
-                  <>
-                    <NavigationMenuTrigger>{link.label}</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid gap-3 p-4 w-[220px]">
-                        {link.children.map((child) => (
-                          <li key={child.label}>
-                            <NavigationMenuLink asChild>
-                              <Link href={child.href ?? "#"}>
-                                {child.label}
-                              </Link>
-                            </NavigationMenuLink>
-                          </li>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </>
-                ) : (
-                  <NavigationMenuLink
-                    asChild
-                    className={navigationMenuTriggerStyle()}
-                  >
-                    <Link href={link.href ?? "#"}>{link.label}</Link>
-                  </NavigationMenuLink>
+        {links.map((link) => (
+          <NavigationMenuItem key={link.label}>
+            {/* ✅ Dropdown (has children) */}
+            {link.children ? (
+              <>
+                <NavigationMenuTrigger
+                  // ✅ active if current path starts with any child link
+                  className={cn(
+                    "group inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors bg-background text-foreground hover:bg-creamy hover:text-gold focus-visible:ring-[3px] outline-none focus-visible:ring-ring/50",
+                    // Open state (Radix adds `data-state=open` automatically)
+                    "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
+                    // Active route
+                    link.children.some((child) => pathname.startsWith(child.href ?? "")) &&
+                      "bg-accent text-accent-foreground"
+                  )}
+                >
+                  {link.label}
+                </NavigationMenuTrigger>
+
+                <NavigationMenuContent>
+                  <ul className="grid gap-3 p-4 w-[220px]">
+                    {link.children.map((child) => (
+                      <li key={child.label}>
+                        <NavigationMenuLink
+                          asChild
+                          className={cn(
+                            "block rounded-md px-2 py-1.5 hover:bg-creamy hover:text-gold transition-colors",
+                            pathname.startsWith(child.href ?? "") && "bg-accent text-gold"
+                          )}
+                        >
+                          <Link href={child.href ?? "#"}>{child.label}</Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </>
+            ) : (
+              /* ✅ Simple single link */
+              <NavigationMenuLink
+                asChild
+                className={cn(
+                  "group inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors bg-background text-foreground hover:bg-creamy hover:text-gold",
+                  "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
+                  pathname.startsWith(link.href ?? "") && "bg-accent text-gold"
                 )}
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
+              >
+                <Link href={link.href ?? "#"}>{link.label}</Link>
+              </NavigationMenuLink>
+            )}
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-4">
@@ -82,7 +108,7 @@ export function NavigationMenuBar() {
           <Button
             size="sm"
             variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5 lg:w-11 "
           >
             <Search className="size-4" /><TextWrapper text="Search" fontFamily="dmSans" styleType="body" className="block lg:hidden" />
           </Button>
@@ -91,7 +117,7 @@ export function NavigationMenuBar() {
           <Button
             size="sm"
             variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5 px-8"
           >
             <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
           </Button>
@@ -152,7 +178,7 @@ export function NavigationMenuBar() {
               </div>
               <Button
                 variant="outline"
-                className="w-full mt-6 border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5"
+                className="w-full mt-6 border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5"
                 // onClick={() => setOpen(false)}
               >
                 <TextWrapper

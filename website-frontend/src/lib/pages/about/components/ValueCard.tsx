@@ -14,7 +14,7 @@ const ValueCard: React.FC<{ value: CoreValue; index: number }> = ({
 
   return (
     <div
-      className={`p-6 bg-white border border-gray-100 rounded-4xl shadow-lg gap-4 transition duration-300 hover:shadow-xl ${rowSpanClass} flex flex-col`}
+      className={`p-6 bg-white border border-gray-100 rounded-xl shadow-lg gap-4 transition duration-300 hover:shadow-xl ${rowSpanClass} flex flex-col`}
     >
       <div className="text-gold">
         {value.icon}

@@ -26,7 +26,7 @@ const Facilities = ({
         <div className="flex flex-wrap justify-center gap-10">
           {items?.map((item, index) => (
             <div key={index} className="w-full sm:w-[calc(50%-20px)] lg:w-[calc(33.333%-40px)]">
-              <Card  className="rounded-4xl">
+              <Card  className="rounded-xl">
                 <CardContent className="h-56 flex flex-col gap-10 items-center justify-center text-center">
                   <div className="relative h-20 w-20 ">
                     <Image

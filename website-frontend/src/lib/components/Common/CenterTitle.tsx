@@ -71,7 +71,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
         <Button
           type={buttonType}
           onClick={onButtonClick}
-          className={`rounded-full !hover:bg-creamy hover:text-black hover:cursor-pointer h-12 w-[250px]  ${borderColor} ${buttonTextColor}`}
+          className={`rounded-xl !hover:bg-creamy hover:text-black hover:cursor-pointer h-12 w-[250px]  ${borderColor} ${buttonTextColor}`}
           variant={buttonVariant}
         >
           <TextWrapper

@@ -9,7 +9,7 @@ const Page = () => {
         title="News List"
         subtitle="Stories, Trends & Industry Highlights."
         description="Stay updated with the latest news, industry trends, and behind the scenes stories from Gold Tiger. From expert tips to company milestones — our blog keeps you in the loop."
-        imageSrc="/webp/3movers.webp"
+        imageSrc="/pages/newshero.png"
         cornerText="Talk with an expert"
       />
       {/* <SearchBar /> */}
