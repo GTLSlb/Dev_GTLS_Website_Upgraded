@@ -18,7 +18,7 @@ const CoreValues = ({ data }: CoreValuesProps) => {
         className="!mt-0"
       />
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
-        {data.values?.map((value, index) => (
+        {data.CoreValueItem?.map((value, index) => (
           <ValueCard key={index} value={value} index={index} />
         ))}
       </div>

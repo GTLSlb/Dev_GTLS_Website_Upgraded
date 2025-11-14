@@ -54,6 +54,8 @@ export async function getWarehousingPageData() {
       'populate[WhyChooseGtls][populate]': '*',
     };
     const response = await strapi.get('/warehousing', { params });
+
+    console.log('Warehousing API Response:', response.data);
     
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;

@@ -46,15 +46,77 @@ export type CenterTitleProps = {
 };
 
 export type CoreValue = {
-  icon: ReactNode;
+  icon: StrapiMediaFile;
   title: string;
   description: string;
 };
 
+export interface GridCardItem {
+    id: number;
+    gridcard_id: number | null;
+    title: string;
+    description: string;
+    content: string | null;
+    footer: string | null;
+}
+
+export interface WhyLogisticsDataType {
+    id: number;
+    title: string;
+    description: string | null;
+    Subtitle: string | null;
+    GridCard: GridCardItem[];
+}
+
+export interface MessageDirectorDataType {
+    id: number;
+    title: string;
+    content: string;
+    imgSrc: string;
+    subtitle: string | null;
+    Img: StrapiMediaFile;
+    Sections: any[];
+}
+
+export interface TeamMember {
+    id: number;
+    title: string;
+    description: string;
+    buttonText: string | null;
+}
+
+export interface MeetTeamDataType {
+    id: number;
+    title: string;
+    description: string;
+    Members: TeamMember[];
+}
+
+export interface WhyGtlsUnevenGridItem {
+    id: number;
+    title: string;
+    description: string;
+    buttonText: string | null;
+}
+
+export interface WhyGtlsDataType {
+    id: number;
+    WhyGtlsItem: any[];
+    UnevenGrid: WhyGtlsUnevenGridItem[];
+    WarehouseMap: any[];
+}
+
 export type CoreValuesDataType = {
-  title: string;
-  values: CoreValue[]; // An array of the type you defined
-};
+    id: number;
+    title: string;
+    CoreValueItem: CoreValue[];
+    WhyLogistics: WhyLogisticsDataType;
+    MessageDirector: MessageDirectorDataType;
+    MeetTeam: MeetTeamDataType;
+    WhyGtls: WhyGtlsDataType[];
+}
+
+
 
 export type Expansion = {
   heading: string;

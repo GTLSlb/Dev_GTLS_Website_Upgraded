@@ -2,9 +2,10 @@ import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import ProfileSlider from "../components/ProfileSlider";
 import { OurTeamDataType } from "@/lib/types/profiles";
+import { MeetTeamDataType } from "@/lib/types/content";
 
 type OurTeamProps = {
-  data: OurTeamDataType;
+  data: MeetTeamDataType;
 };
 
 const OurTeam = ({ data }: OurTeamProps) => {
@@ -19,7 +20,7 @@ const OurTeam = ({ data }: OurTeamProps) => {
       {/* ProfileSlider now receives OurTeamData.profiles, which is guaranteed 
         to be a ProfileItem[] array, perfectly matching its expected props. 
       */}
-      <ProfileSlider items={data.profiles} />
+      <ProfileSlider items={data.Members} />
     </SectionContainer>
   );
 };

@@ -12,7 +12,7 @@ const Page = async () => {
   
   // 1. Fetch data directly inside the Server Component
   const bTripleData: BTripPageData | null = await getBTriplePageData();
-  
+  console.log(bTripleData)
   // Optional: Error/Not Found Handling
   if (!bTripleData) {
     return (

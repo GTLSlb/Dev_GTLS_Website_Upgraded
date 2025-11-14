@@ -4,11 +4,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import { MoveLeft, MoveRight } from "lucide-react";
-import { ProfileSliderProps } from "@/lib/types";
 import ProfileCard from "./ProfileCard";
 import { Swiper as SwiperType } from 'swiper';
+import { ProfileSliderProps } from "@/lib/types/profiles";
+import { TeamMember } from "@/lib/types/content";
 
-const ProfileSlider: React.FC<ProfileSliderProps> = ({ items }) => {
+type OurTeamProps = {
+  items: TeamMember[];
+};
+
+const ProfileSlider: React.FC<OurTeamProps> = ({items} : OurTeamProps) => {
   const swiperRef = useRef<SwiperType|null>(null);
   return (
     <div className="relative w-full">
@@ -49,7 +54,7 @@ const ProfileSlider: React.FC<ProfileSliderProps> = ({ items }) => {
             <ProfileCard
               title={item.title}
               description={item.description}
-              imageSrc={item.imageSrc}
+              imageSrc={item.la}
             />
           </SwiperSlide>
         ))}

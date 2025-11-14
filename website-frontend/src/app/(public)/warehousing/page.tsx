@@ -4,6 +4,7 @@ import { FacilitiesGridData, LocationsData } from "@/lib/data";
 import Facilities from "@/lib/pages/warehousing/sections/Facilities";
 import Locations from "@/lib/pages/warehousing/sections/Locations";
 import { CommonHeroDataType } from "@/lib/types/hero";
+import { getIndustryPageData, getWarehousingPageData } from "@/lib/services/api";
 
 export const warehousingHeroData: CommonHeroDataType = {
   title: "Warehousing Facilities",
@@ -12,7 +13,10 @@ export const warehousingHeroData: CommonHeroDataType = {
   cornerText: "Talk with an expert",
 };
 
-const Page = () => {
+const Page =  async () => {
+  
+  // Fetch data
+  const warehousingHeroData = await getWarehousingPageData();
   return (
     <Container>
       <CommonHero

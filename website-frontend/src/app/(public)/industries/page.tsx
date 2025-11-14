@@ -19,7 +19,7 @@ const Page = async () => {
         title={HeroSection.Title}
         subtitle={HeroSection.Subtitle}
         description={HeroSection.Description}
-        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+HeroSection.Media?.url || "/pages/industries.png"}
+        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+HeroSection.Media?.url}
         cornerText={HeroSection.cornerText}
       />
       <Industries data={Services} />

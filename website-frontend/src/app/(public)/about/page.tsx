@@ -35,13 +35,16 @@ const Page = async () => {
   
   // Destructure the necessary components
   const { HeroSection, OurVision , OurStory: OurStoryData, CoreValues: CoreValuesData } = aboutUsData;
+  const { WhyLogistics: WhyLogisticsData, MessageDirector, MeetTeam: OurTeamData } = CoreValuesData;
+
+  
   return (
     <Container>
       <CommonHero
         title={HeroSection.Title}
         subtitle={HeroSection.Subtitle}
         description={HeroSection.Description}
-        imageSrc={HeroSection.Media?.url || "/pages/about-hero.png"}
+        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+HeroSection.Media?.url || "/pages/about-hero.png"}
         link={HeroSection.link}
         cornerText={HeroSection.cornerText}
       />
@@ -52,8 +55,8 @@ const Page = async () => {
       <CoreValues data={CoreValuesData} />
       <BannerSection data={BannerAboutData} />
       <WhyLogistics data={WhyLogisticsData} />
-      <MessageBanner data={MessageBannerdata} />
-      <OurTeam data={OurTeamData} />
+      <MessageBanner data={MessageDirector} />
+      <OurTeam data={OurTeamData.data} />
     </Container>
   );
 };
