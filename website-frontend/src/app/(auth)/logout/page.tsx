@@ -8,7 +8,7 @@ import { pca } from "@/lib/utils/helper";
 import { AuthContext } from "@/lib/context/auth_context";
 import { AUTH_ENDPOINTS } from "@/lib/api/endpoints";
 import { backendUrl } from "@/lib/api/endpoints";
-import AnimatedLoading from "@/lib/components/Loader/DotsLoader";
+import AnimatedLoading from "@/lib/components/Loader/AnimatedLoading";
 import { deleteCookie } from "cookies-next/client";
 
 const ClientLogoutPage = dynamic(

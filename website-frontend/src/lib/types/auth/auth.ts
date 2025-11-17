@@ -31,3 +31,12 @@ export type LoginResponse = {
 }
 
 export type token = string;
+
+export type AllowedApp = {
+    "AppId": number;
+    "AppName": string;
+    "AppAbv": string;
+    "AppURL": string;
+    "AppIcon": string;
+    "AppDesc": string;
+}

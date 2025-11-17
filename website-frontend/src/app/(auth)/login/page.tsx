@@ -7,7 +7,7 @@ import { clearMSALLocalStorage, pca } from "@/lib/utils/helper";
 import { AUTH_ENDPOINTS } from "@/lib/api/endpoints";
 import Logo from "@/lib/assets/images/Logo.png";
 import Image from "next/image";
-import AnimatedLoading from "@/lib/components/Loader/DotsLoader";
+import AnimatedLoading from "@/lib/components/Loader/AnimatedLoading";
 import axios from "axios";
 
 const ClientLoginPage = dynamic(
@@ -66,7 +66,7 @@ export default function Login() {
       <ClientLoginPage
         appDomain={appDomain}
         googlekey={googleKey}
-        redirectURL={process.env.NEXT_PUBLIC_APP_REDIRECT_ROUTE || "/gtrr"}
+        redirectURL={process.env.NEXT_PUBLIC_APP_REDIRECT_ROUTE || "/landing-page"}
         loginURL={loginURL}
         gtamURl={gtamURl}
         pca={pca}

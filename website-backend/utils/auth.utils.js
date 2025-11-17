@@ -18,28 +18,19 @@ const validate_access_token = async (token, user_id) => {
     Token: token,
   };
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       `${root}Validate/Session`,
-      {},
       { headers }
     );
+    console.log("GTAM Results:", response.status, "with root", root)
     if (response.status === STATUS.OK) {
-      return res.status(STATUS.OK).json({
-        message: "Success",
-        data: response.data,
-      });
+      return true;
     } else {
-      return res.status(STATUS.UNAUTHORIZED).json({
-        message: "Unauthorized",
-        error: response.data,
-      });
+      return false;
     }
   } catch (error) {
     logger.error("Internal Server Error: " + error.message);
-    return res.status(STATUS.INTERNAL_SERVER_ERROR).json({
-      message: "Internal Server Error",
-      error: error.message,
-    });
+    return false;
   }
 };
 
@@ -205,6 +196,22 @@ const fill_user_model = (user) => {
         return logged_in_user;
 }
 
+const is_session_valid = async (token, userId) => {
+  try{
+    // Query the database to check if the session is valid
+    const table_name = process.env.DB_TABLE || "custom_sessions";
+
+    const sql = `SELECT * FROM ${table_name} WHERE payload="${token}" AND user_id="${userId}" LIMIT 1`;
+    const results = await runQuery(sql);
+    console.log("MySQL Results:", results?.length)
+    const isValid = validate_access_token(token, userId);
+    console.log("isValid:", isValid, "results length:", results.length, "Valid?", results.length > 0 && isValid)
+    return isValid;
+  }catch(e){
+    return false;
+  }
+}
+
 module.exports = {
   validate_access_token,
   clear_storage_cookies,
@@ -214,4 +221,5 @@ module.exports = {
   is_token_valid,
   get_user_info,
   fill_user_model,
+  is_session_valid,
 };
