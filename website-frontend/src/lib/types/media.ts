@@ -23,7 +23,7 @@ export type StrapiMediaFile = {
     id: number;
     documentId: string;
     name: string;
-    alternativeText: string;
+    alternativeText: string | null;
     caption: string | null;
     width: number;
     height: number;

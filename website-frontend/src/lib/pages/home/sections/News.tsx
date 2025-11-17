@@ -1,7 +1,6 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import NewsSlider from "../components/NewsSlider";
-import { NewsData } from "@/lib/data";
 import FloatingBanner from "@/lib/components/Common/FloatingBanner";
 import { NewsSliderDataType } from "@/lib/types/news";
 
@@ -10,6 +9,7 @@ type NewsProps = {
 };
 
 const News = ({ data }: NewsProps) => {
+
   return (
     <SectionContainer parentClassName="relative overflow-hidden">
       <FloatingBanner
@@ -24,7 +24,7 @@ const News = ({ data }: NewsProps) => {
         buttonVariant={"default"}
         className="!mt-0"
       />
-      <NewsSlider news={data.news} />
+      <NewsSlider news={data.SliderItems} />
     </SectionContainer>
   );
 };

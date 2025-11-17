@@ -1,4 +1,4 @@
-import { UnevenGridProps } from "@/lib/types";
+import { UnevenGridProps, WhyGtlsItem } from "@/lib/types";
 import { Card, CardContent, CardHeader } from "@/lib/ui/card";
 import Image from "next/image";
 import TextWrapper from "./TextWrapper";
@@ -11,7 +11,7 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
     <div>
       {/* Use auto rows so you don't have to predict how many rows you'll need */}
       <div className="hidden lg:grid grid-cols-4 gap-10 auto-rows-min">
-        {items?.map((item, index) => {
+        {items?.map((item: WhyGtlsItem, index: number) => {
           const col = (index % cols) + 1;
           const block = Math.floor(index / cols);
           const isLeftCol = (col - 1) % 2 === 0; // columns 1 & 3
@@ -30,7 +30,7 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
               <CardContent className="h-56 flex flex-col gap-10 items-center justify-center text-center">
                 <div className="relative h-20 w-20 ">
                   <Image
-                    src={item?.picture}
+                    src={process.env.NEXT_PUBLIC_STRAPI_URL ? process.env.NEXT_PUBLIC_STRAPI_URL + item?.icon.url : ''}
                     alt={item.title}
                     fill
                     className="rounded-2xl"
@@ -54,7 +54,7 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
             <CardHeader className="relative h-44">
               <div className="relative h-20 w-20 ">
                 <Image
-                  src={item?.picture}
+                  src={process.env.NEXT_PUBLIC_STRAPI_URL ? process.env.NEXT_PUBLIC_STRAPI_URL + item?.icon.url : ''}
                   alt={item.title}
                   fill
                   className="rounded-2xl"

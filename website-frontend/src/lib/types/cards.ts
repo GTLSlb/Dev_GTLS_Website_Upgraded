@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
+import { StrapiMediaFile } from "./media";
 
 export type GridCardProps = {
   id: number;
   title: string;
-  icon: string;
+  icon: StrapiMediaFile;
   description: string;
   content: string;
-  footer: string;
+  footer: object;
 };
 
 export type HorizontalCardProps = {
@@ -89,20 +90,12 @@ export type ServiceItem = {
   /** Unique numeric identifier for the service */
   id: number;
 
-  /** Service title */
+  gridcard_id: string;
   title: string;
-
-  /** Icon name or path (e.g. '/svgs/truck.svg') */
-  icon: string;
-
-  /** Short tagline or intro */
   description: string;
-
-  /** Main detailed content */
   content: string;
-
-  /** Optional footer or tagline */
-  footer: string;
+  footer: object;
+  icon: StrapiMediaFile;
 };
 
 export type ServicesList = {
@@ -113,7 +106,7 @@ export type CustomerHubDataType = {
   title: string;
   description?: string;
   buttonText?: string;
-  list: FeatureCard[];
+  CustomerHubCard: FeatureCard[];
 };
 
 export type CardData = {

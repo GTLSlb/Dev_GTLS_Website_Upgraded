@@ -1,22 +1,24 @@
+'use client';
+
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import IntegratedSolutions from "@/lib/pages/transport/sections/IntegratedSolutions";
-import { IntegratedSolutionsData } from "@/lib/data";
 import Services from "@/lib/pages/transport/sections/Services";
+import { transport_page_data } from "@/lib/data";
 
 const Page = () => {
   return (
     <Container>
       <CommonHero
-        title="Transport Solutions"
-        subtitle="Move More. Spend Less. Reduce Emissions."
-        description="Our expanding B-Triple fleet offers high-volume, long-haul transport that delivers greater efficiency, fewer road trips, and lower environmental impact."
-        imageSrc="/webp/transporthero.webp"
-        cornerText="B-Triple"
+        title={transport_page_data.HeroSection.Title}
+        subtitle={transport_page_data.HeroSection.Subtitle}
+        description={transport_page_data.HeroSection.Description}
+        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+transport_page_data.HeroSection.Media.url}
+        cornerText={transport_page_data.HeroSection.cornerText}
         link="/b-triple"
       />
-      <IntegratedSolutions items={IntegratedSolutionsData} />
-      <Services />
+      <IntegratedSolutions data={transport_page_data.IntegratedSolutions} />
+      <Services data={transport_page_data.TransportServices}/>
     </Container>
   );
 };

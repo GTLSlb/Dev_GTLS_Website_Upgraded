@@ -1,17 +1,48 @@
 import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 import * as LucideIcons from "lucide-react";
+import { StrapiMediaFile } from "./media";
 
- interface GridCardProps {
+export type IntegratedSolutionsType = {
+  id: number;
+  SolutionsCards: SolutionsCardsType;
+};
+
+export type TransportListItem = {
   id: number;
   title: string;
-  icon: string; // Made optional in case some cards don't have an icon
-  description: string;
-  content: string;
-  footer: string;
-}
+  icon?: StrapiMediaFile;
+};
 
- interface CenterTitleProps {
+export type transportServicesType = {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  buttonText: string;
+  image: StrapiMediaFile;
+  transportlistItems: TransportListItem[];
+};
+
+export type SolutionsCardsType = {
+  id: number;
+  title: string;
+  description: string;
+  buttonText: string;
+  subtitle: string | null;
+  CustomerHubCard: CustomerHubCard[];
+};
+
+export type CustomerHubCard = {
+  id: number;
+  title: string;
+  subtitle: string;
+  imageSrc: string | null;
+  img: StrapiMediaFile;
+  CustomerHubList: [];
+};
+
+export interface CenterTitleProps {
   title: string;
   className?: string;
   subtitle?: string;
@@ -32,20 +63,21 @@ import * as LucideIcons from "lucide-react";
     | "ghost"
     | null
     | undefined; // new prop
-  listItems?: { icon?: React.ReactNode; title: string }[];
+  listItems?: { icon?: StrapiMediaFile; title: string }[];
+  icon?: StrapiMediaFile;
 }
 
- interface MenuItem {
+interface MenuItem {
   label: string;
   link: string;
 }
 
- interface MenuSection {
+interface MenuSection {
   title: string;
   items: MenuItem[];
 }
 
- interface Location {
+interface Location {
   city: string;
   street: string;
   suburb: string;
@@ -53,40 +85,43 @@ import * as LucideIcons from "lucide-react";
   postalCode: string;
 }
 
- interface WhyGtlsItem {
+export interface WhyGtlsItem {
+  id: number;
   title: string;
-  picture: string;
+  description?: string;
+  icon: StrapiMediaFile;
 }
 
- interface UnevenGridProps {
+export interface UnevenGridProps {
   items: WhyGtlsItem[];
 }
 
- interface IconListItem {
-  icon: React.ReactNode; // can be any JSX element
+export interface IconListItem {
+  icon: StrapiMediaFile;
   description: string;
 }
 
- interface IconListProps {
+export interface IconListProps {
   items: IconListItem[];
 }
 
- interface CustomerHubCardProps {
+export interface CustomerHubCardProps {
   title: string;
   subtitle: string;
   imageSrc: string;
-  list?: IconListItem[]; // optional array for IconList
+  CustomerHubList?: IconListItem[]; // optional array for IconList
   iconColor?: string; // arrow icon color
   children?: React.ReactNode; // optional additional content
+  img?: StrapiMediaFile;
 }
 
- interface NewsCardProps {
+interface NewsCardProps {
   title: string;
   description: string;
   imageSrc: string;
 }
 
- interface ProfileCardProps {
+interface ProfileCardProps {
   title: string;
   description: string;
   imageSrc: string;
@@ -98,36 +133,36 @@ interface NewsItem {
   imageSrc: string;
 }
 
- interface ProfileItem {
+interface ProfileItem {
   title: string;
   description: string;
   imageSrc: string;
 }
 
- interface SliderItem {
+interface SliderItem {
   date: string;
   title: string;
   description: string;
 }
 
- interface NewsSliderProps {
+interface NewsSliderProps {
   news: NewsItem[];
 }
- interface ProfileSliderProps {
+interface ProfileSliderProps {
   items: ProfileItem[];
 }
 
- interface SliderProps {
+interface SliderProps {
   items: SliderItem[];
 }
 
- interface FloatingBannerProps {
+interface FloatingBannerProps {
   iconSrc: string; // Path to the icon (e.g. "/svgs/distribution.svg")
   text: string; // The text you want to show
   className?: string; // Optional additional classes for customization
 }
 
- interface HeroProps {
+interface HeroProps {
   title?: string;
   subtitle?: string;
   description?: string;
@@ -139,30 +174,30 @@ interface NewsItem {
   color?: "gold" | "green";
 }
 
- interface BannerPropsItem {
+interface BannerPropsItem {
   title: string;
   subtitle: string;
 }
 
- interface BannerProps {
+interface BannerProps {
   title: string;
   description: string;
   items: BannerPropsItem[];
   imageSrc: string;
   imageAlt?: string;
 }
- interface ContentListNumber {
+interface ContentListNumber {
   label: string;
   value: string;
 }
 
- interface ContentListItem {
+interface ContentListItem {
   icon: LucideIcon;
   title: string;
   description: string;
 }
 
- interface ContentListType {
+interface ContentListType {
   title: string;
   subtitle: string;
   description: string;
@@ -170,7 +205,7 @@ interface NewsItem {
   list: ContentListItem[];
 }
 
- interface HorizontalCardProps {
+interface HorizontalCardProps {
   imgSrc: string;
   title: string;
   subtitle: string;
@@ -185,21 +220,21 @@ type Branch = {
   mail: string;
 };
 
- interface BranchesProps {
+interface BranchesProps {
   data: Branch[];
 }
 
- interface IntegratedSolutionsItem {
+interface IntegratedSolutionsItem {
   title: string;
   description: string;
   picture: string;
 }
 
- interface IntegratedSolutionsProps {
+interface IntegratedSolutionsProps {
   items: IntegratedSolutionsItem[];
 }
 
- interface RecentNewsCardProps {
+interface RecentNewsCardProps {
   title: string;
   date: string;
   description: string;
@@ -207,11 +242,11 @@ type Branch = {
   href: string;
 }
 
- interface RecentNewsProps {
+interface RecentNewsProps {
   items: RecentNewsCardProps[];
 }
 
- interface RecentPostsCardProps {
+interface RecentPostsCardProps {
   title: string;
   date: string;
   description: string;
@@ -219,37 +254,37 @@ type Branch = {
   href: string;
 }
 
- interface RecentPostsProps {
+interface RecentPostsProps {
   items: RecentPostsCardProps[];
 }
 
- interface BorderedGridItemProps {
+interface BorderedGridItemProps {
   title: string;
   description: string;
 }
 
- interface BorderedGridProps {
+interface BorderedGridProps {
   data: BorderedGridItemProps[];
 }
 
- interface CoreValue {
+interface CoreValue {
   icon: React.ReactNode; // Placeholder for the icon name (e.g., 'Heart', 'Users', 'Leaf')
   title: string;
   description: string;
 }
 
- interface Expansion {
+interface Expansion {
   heading: string;
   description: string;
 }
 
- interface NavLink {
+interface NavLink {
   label: string;
   href?: string;
   children?: NavLink[];
-};
+}
 
- interface NavigationConfig {
+interface NavigationConfig {
   logo: {
     src: string;
     alt: string;
@@ -257,27 +292,27 @@ type Branch = {
     height?: number;
   };
   links: NavLink[];
-};
+}
 
- interface FacilitiesItem {
+interface FacilitiesItem {
   title: string;
   description: string;
   picture: string;
 }
 
- interface FacilitiesProps {
+interface FacilitiesProps {
   title: string;
   description: string;
   buttonText?: string;
   items: FacilitiesItem[];
 }
 
- interface ServiceListItem {
+interface ServiceListItem {
   icon: ReactNode;
   title: string;
 }
 
- interface ServiceData {
+interface ServiceData {
   title: string;
   subtitle?: string;
   description?: string;
@@ -286,12 +321,12 @@ type Branch = {
   image?: string;
 }
 
- interface InfoListItem {
+interface InfoListItem {
   icon?: ReactNode;
   title: string;
 }
 
- interface InfoItem {
+interface InfoItem {
   icon: ReactNode;
   title: string;
   subtitle: string;
@@ -299,13 +334,13 @@ type Branch = {
   listItems: InfoListItem[];
 }
 
- interface InfoSection {
+interface InfoSection {
   title: string;
   description: string;
   items: InfoItem[];
 }
 
- interface MessageBannerData {
+interface MessageBannerData {
   title: string;
   titleColor?: string;
   quote: string;
@@ -315,25 +350,25 @@ type Branch = {
 }
 
 // Props for the component
- interface MessageBannerProps {
+interface MessageBannerProps {
   data: MessageBannerData;
 }
 
- interface SafetyComplianceSection {
+interface SafetyComplianceSection {
   /** The name of the icon (to map to an icon component) */
-  icon: keyof typeof LucideIcons; 
+  icon: keyof typeof LucideIcons;
   /** The title for the section */
   title: string;
   /** Paragraphs or bullet points for the section */
   content: string[];
 }
 
- interface SafetyComplianceIntro {
+interface SafetyComplianceIntro {
   /** Short introductory description text */
   description: string;
 }
 
- interface SafetyComplianceData {
+interface SafetyComplianceData {
   /** Main title for the page or section */
   title: string;
   /** Introductory section */
@@ -342,13 +377,13 @@ type Branch = {
   sections: SafetyComplianceSection[];
 }
 
- interface BTripleSection {
+interface BTripleSection {
   icon: keyof typeof LucideIcons;
   title: string;
   description: string;
 }
 
- interface BTriplesDataType {
+interface BTriplesDataType {
   title: string;
   sections: BTripleSection[];
 }

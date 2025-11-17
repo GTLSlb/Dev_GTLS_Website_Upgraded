@@ -124,8 +124,10 @@ export type Expansion = {
 };
 
 export type WhyGtlsItem = {
+  id: number;
   title: string;
-  picture: string;
+  description?: string;
+  icon: StrapiMediaFile;
 };
 
 export type WhyGtlsDataTypes = {
@@ -136,13 +138,15 @@ export type WhyGtlsDataTypes = {
   description?: string;
 
   /** Optional call-to-action button text */
-  buttonText?: string;
+  quote?: string;
 
   /** Background image (like the tiger.svg in your section) */
   backgroundImage?: string;
 
   /** List of Why GTLS feature items */
-  items: WhyGtlsItem[];
+  data: WhyGtlsItem[];
+
+  icon?: StrapiMediaFile;
 };
 
 export type OurStoryDataType = {
@@ -161,6 +165,8 @@ export interface TSectionItem {
   title: string;
   subtitle?: string;
   content: string;
+  position: string;
+  Img: StrapiMediaFile;
 }
 
 export type IndustriesDataArray = TSectionItem[];

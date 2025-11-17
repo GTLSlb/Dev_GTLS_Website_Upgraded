@@ -1,3 +1,5 @@
+"use client";
+
 import {
   BarChart3,
   Check,
@@ -26,16 +28,23 @@ import {
   IndustriesDataArray,
   OurStoryDataType,
   VisionDataType,
-  WhyGtlsDataTypes,
-  WhyGtlsItem,
 } from "./types/content";
 import { Location } from "./types/location";
-import { NewsItem, NewsSliderDataType } from "./types/news";
+import { NewsSliderDataType } from "./types/news";
 import { SliderItem } from "./types/sliders";
 import { HeroDataType } from "./types/hero";
 import { ServicesDataType } from "./types/props";
 import { ExpansionDataType, GridAboutDataType } from "./types/grids";
 import { BTriplesDataType } from "./types/safetyCompliance";
+import {
+  getHomePageData,
+  getAboutUsPageData,
+  getBTriplePageData,
+  getIndustryPageData,
+  getSustainabilityPageData,
+  getTransportPageData,
+  getWarehousingPageData,
+} from "@/lib/services/api";
 
 export const navigationConfig: NavigationConfig = {
   logo: {
@@ -82,48 +91,6 @@ export const navigationConfig: NavigationConfig = {
     {
       label: "Contact Us",
       href: "/contactus",
-    },
-  ],
-};
-
-export const serviceData: ServicesDataType = {
-  title: "Our Services",
-  items: [
-    {
-      id: 1,
-      title: "Transport",
-      icon: "/svgs/transport.svg",
-      description: "Building modern, responsive websites.",
-      content:
-        "Reliable local and regional transport with a modern fleet and skilled drivers — ensuring safe, on-time deliveries.",
-      footer: "Learn More",
-    },
-    {
-      id: 2,
-      icon: "/svgs/warehousing.svg",
-      title: "Warehousing",
-      description: "Creating native and cross-platform mobile apps.",
-      content:
-        "Secure, organized, and industry-ready storage with advanced facilities, safety standards, and temperature control.",
-      footer: "Get a Quote",
-    },
-    {
-      id: 3,
-      icon: "/svgs/distribution.svg",
-      title: "Distribution",
-      description: "Creating native and cross-platform mobile apps.",
-      content:
-        "Efficient order fulfillment and last-mile delivery with smooth coordination, timely dispatch, and full visibility.",
-      footer: "Get a Quote",
-    },
-    {
-      id: 4,
-      icon: "/svgs/ftl.svg",
-      title: "FTL & LTL Solutions",
-      description: "Creating native and cross-platform mobile apps.",
-      content:
-        "We provide dedicated transport for large shipments, offering faster transit times, maximum security, and cost efficiency.",
-      footer: "Get a Quote",
     },
   ],
 };
@@ -182,146 +149,395 @@ export const locations: Location[] = [
   },
 ];
 
-export const WhyGtlsData: WhyGtlsDataTypes = {
-  title: "Why Gold Tiger Logistics Solutions",
-  description: "Designed for Efficiency and Security",
-  buttonText: "Get a Custom Solution",
-  backgroundImage: "/svgs/tiger.svg",
-  items: [
-    {
-      title: "Integrated Model",
-      picture: "/svgs/whygtls/integration.svg",
-    },
-    {
-      title: "Technology",
-      picture: "/svgs/whygtls/cpu.svg",
-    },
-    {
-      title: "Safety & Compliance",
-      picture: "/svgs/whygtls/safety.svg",
-    },
-    {
-      title: "Partners",
-      picture: "/svgs/whygtls/partners.svg",
-    },
-    {
-      title: "Accreditations",
-      picture: "/svgs/whygtls/accreditations.svg",
-    },
-    {
-      title: "Environment & Sustainability",
-      picture: "/svgs/whygtls/eco-friendly.svg",
-    },
-    {
-      title: "B-Triple",
-      picture: "/svgs/whygtls/lorry.svg",
-    },
-    {
-      title: "Workshops",
-      picture: "/svgs/whygtls/workshops.svg",
-    },
-  ],
-};
-
-export const customerHubData: CustomerHubDataType = {
-  title: "Customer Hub Simplifying Your Journey",
-  description:
-    "Your one-stop destination for support, resources, and self-service tools.",
-  buttonText: "Get a Custom Solution",
-  list: [
-    {
-      imageSrc: "/svgs/terms&conditions.svg",
-      title: "Terms & Conditions",
-      subtitle: "Know Your Ground Rules",
-      list: [
-        { icon: <Check />, description: "Shipping liability terms" },
-        { icon: <Check />, description: "Handling & delivery policies" },
-        { icon: <Check />, description: "Dispute resolution protocols" },
-      ],
-    },
-    {
-      imageSrc: "/svgs/faq.svg",
-      title: "FAQ",
-      subtitle: "Quick Answers to Common Questions",
-      list: [
-        { icon: <Check />, description: "Delivery & tracking" },
-        { icon: <Check />, description: "Account access" },
-        { icon: <Check />, description: "Documentation & POD retrieval" },
-      ],
-    },
-    {
-      imageSrc: "/svgs/portal.svg",
-      title: "Portal Login",
-      subtitle: "Manage Your Account Online",
-      list: [
-        {
-          icon: <Check />,
-          description: "Real-time dashboard for shipment visibility",
-        },
-        {
-          icon: <Check />,
-          description: "Access KPI, transport, and RDD reports",
-        },
-        {
-          icon: <Check />,
-          description: "Analyze delivery trends and performance",
-        },
-      ],
-    },
-    {
-      imageSrc: "/svgs/lock.svg",
-      title: "Self-Service Portal",
-      subtitle: "Independence Made Easy",
-      list: [
-        { icon: <Check />, description: "Update account information" },
-        { icon: <Check />, description: "Submit support tickets" },
-        { icon: <Check />, description: "Retrieve documents anytime" },
-      ],
-    },
-  ],
-};
-
 export const NewsData: NewsSliderDataType = {
   title: "News",
   description:
     "Stay updated with the latest news, industry trends, and behind-the-scenes stories from Gold Tiger. From expert tips to company milestones — our blog keeps you in the loop.",
   buttonText: "Read More News",
-  news: [
+  SliderItems: [
     {
-      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-      description:
+      id: 100,
+      name: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      position:
         "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-      imageSrc: "/webp/3movers.webp",
+      img: {
+        id: 50,
+        documentId: "khzh0dzajcpfzbr4tfknedcn",
+        name: "contactus.webp",
+        alternativeText: null,
+        caption: null,
+        width: 796,
+        height: 451,
+        formats: {
+          thumbnail: {
+            name: "thumbnail_contactus.webp",
+            hash: "thumbnail_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 245,
+            height: 139,
+            size: 7.19,
+            sizeInBytes: 7188,
+            url: "/uploads/thumbnail_contactus_9030e987f7.webp",
+          },
+          medium: {
+            name: "medium_contactus.webp",
+            hash: "medium_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 750,
+            height: 425,
+            size: 31.49,
+            sizeInBytes: 31490,
+            url: "/uploads/medium_contactus_9030e987f7.webp",
+          },
+          small: {
+            name: "small_contactus.webp",
+            hash: "small_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 500,
+            height: 283,
+            size: 19.81,
+            sizeInBytes: 19814,
+            url: "/uploads/small_contactus_9030e987f7.webp",
+          },
+        },
+        hash: "contactus_9030e987f7",
+        ext: ".webp",
+        mime: "image/webp",
+        size: 39.56,
+        url: "/uploads/contactus_9030e987f7.webp",
+        previewUrl: null,
+        provider: "local",
+        provider_metadata: null,
+        createdAt: "2025-11-06T10:59:35.913Z",
+        updatedAt: "2025-11-06T10:59:35.913Z",
+        publishedAt: "2025-11-06T10:59:35.913Z",
+      },
     },
     {
-      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-      description:
+      id: 101,
+      name: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      position:
         "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-      imageSrc: "/webp/3movers.webp",
+      img: {
+        id: 50,
+        documentId: "khzh0dzajcpfzbr4tfknedcn",
+        name: "contactus.webp",
+        alternativeText: null,
+        caption: null,
+        width: 796,
+        height: 451,
+        formats: {
+          thumbnail: {
+            name: "thumbnail_contactus.webp",
+            hash: "thumbnail_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 245,
+            height: 139,
+            size: 7.19,
+            sizeInBytes: 7188,
+            url: "/uploads/thumbnail_contactus_9030e987f7.webp",
+          },
+          medium: {
+            name: "medium_contactus.webp",
+            hash: "medium_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 750,
+            height: 425,
+            size: 31.49,
+            sizeInBytes: 31490,
+            url: "/uploads/medium_contactus_9030e987f7.webp",
+          },
+          small: {
+            name: "small_contactus.webp",
+            hash: "small_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 500,
+            height: 283,
+            size: 19.81,
+            sizeInBytes: 19814,
+            url: "/uploads/small_contactus_9030e987f7.webp",
+          },
+        },
+        hash: "contactus_9030e987f7",
+        ext: ".webp",
+        mime: "image/webp",
+        size: 39.56,
+        url: "/uploads/contactus_9030e987f7.webp",
+        previewUrl: null,
+        provider: "local",
+        provider_metadata: null,
+        createdAt: "2025-11-06T10:59:35.913Z",
+        updatedAt: "2025-11-06T10:59:35.913Z",
+        publishedAt: "2025-11-06T10:59:35.913Z",
+      },
     },
     {
-      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-      description:
+      id: 102,
+      name: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      position:
         "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-      imageSrc: "/webp/3movers.webp",
+      img: {
+        id: 50,
+        documentId: "khzh0dzajcpfzbr4tfknedcn",
+        name: "contactus.webp",
+        alternativeText: null,
+        caption: null,
+        width: 796,
+        height: 451,
+        formats: {
+          thumbnail: {
+            name: "thumbnail_contactus.webp",
+            hash: "thumbnail_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 245,
+            height: 139,
+            size: 7.19,
+            sizeInBytes: 7188,
+            url: "/uploads/thumbnail_contactus_9030e987f7.webp",
+          },
+          medium: {
+            name: "medium_contactus.webp",
+            hash: "medium_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 750,
+            height: 425,
+            size: 31.49,
+            sizeInBytes: 31490,
+            url: "/uploads/medium_contactus_9030e987f7.webp",
+          },
+          small: {
+            name: "small_contactus.webp",
+            hash: "small_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 500,
+            height: 283,
+            size: 19.81,
+            sizeInBytes: 19814,
+            url: "/uploads/small_contactus_9030e987f7.webp",
+          },
+        },
+        hash: "contactus_9030e987f7",
+        ext: ".webp",
+        mime: "image/webp",
+        size: 39.56,
+        url: "/uploads/contactus_9030e987f7.webp",
+        previewUrl: null,
+        provider: "local",
+        provider_metadata: null,
+        createdAt: "2025-11-06T10:59:35.913Z",
+        updatedAt: "2025-11-06T10:59:35.913Z",
+        publishedAt: "2025-11-06T10:59:35.913Z",
+      },
     },
     {
-      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-      description:
+      id: 104,
+      name: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      position:
         "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-      imageSrc: "/webp/3movers.webp",
+      img: {
+        id: 50,
+        documentId: "khzh0dzajcpfzbr4tfknedcn",
+        name: "contactus.webp",
+        alternativeText: null,
+        caption: null,
+        width: 796,
+        height: 451,
+        formats: {
+          thumbnail: {
+            name: "thumbnail_contactus.webp",
+            hash: "thumbnail_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 245,
+            height: 139,
+            size: 7.19,
+            sizeInBytes: 7188,
+            url: "/uploads/thumbnail_contactus_9030e987f7.webp",
+          },
+          medium: {
+            name: "medium_contactus.webp",
+            hash: "medium_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 750,
+            height: 425,
+            size: 31.49,
+            sizeInBytes: 31490,
+            url: "/uploads/medium_contactus_9030e987f7.webp",
+          },
+          small: {
+            name: "small_contactus.webp",
+            hash: "small_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 500,
+            height: 283,
+            size: 19.81,
+            sizeInBytes: 19814,
+            url: "/uploads/small_contactus_9030e987f7.webp",
+          },
+        },
+        hash: "contactus_9030e987f7",
+        ext: ".webp",
+        mime: "image/webp",
+        size: 39.56,
+        url: "/uploads/contactus_9030e987f7.webp",
+        previewUrl: null,
+        provider: "local",
+        provider_metadata: null,
+        createdAt: "2025-11-06T10:59:35.913Z",
+        updatedAt: "2025-11-06T10:59:35.913Z",
+        publishedAt: "2025-11-06T10:59:35.913Z",
+      },
     },
     {
-      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-      description:
+      id: 105,
+      name: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      position:
         "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-      imageSrc: "/webp/3movers.webp",
+      img: {
+        id: 50,
+        documentId: "khzh0dzajcpfzbr4tfknedcn",
+        name: "contactus.webp",
+        alternativeText: null,
+        caption: null,
+        width: 796,
+        height: 451,
+        formats: {
+          thumbnail: {
+            name: "thumbnail_contactus.webp",
+            hash: "thumbnail_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 245,
+            height: 139,
+            size: 7.19,
+            sizeInBytes: 7188,
+            url: "/uploads/thumbnail_contactus_9030e987f7.webp",
+          },
+          medium: {
+            name: "medium_contactus.webp",
+            hash: "medium_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 750,
+            height: 425,
+            size: 31.49,
+            sizeInBytes: 31490,
+            url: "/uploads/medium_contactus_9030e987f7.webp",
+          },
+          small: {
+            name: "small_contactus.webp",
+            hash: "small_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 500,
+            height: 283,
+            size: 19.81,
+            sizeInBytes: 19814,
+            url: "/uploads/small_contactus_9030e987f7.webp",
+          },
+        },
+        hash: "contactus_9030e987f7",
+        ext: ".webp",
+        mime: "image/webp",
+        size: 39.56,
+        url: "/uploads/contactus_9030e987f7.webp",
+        previewUrl: null,
+        provider: "local",
+        provider_metadata: null,
+        createdAt: "2025-11-06T10:59:35.913Z",
+        updatedAt: "2025-11-06T10:59:35.913Z",
+        publishedAt: "2025-11-06T10:59:35.913Z",
+      },
     },
     {
-      title: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
-      description:
+      id: 106,
+      name: "Gold Tiger Expands Fleet with Eco-Friendly Trucks",
+      position:
         "In a bold move towards sustainability, Gold Tiger Logistics Solutions has added 50 new eco-friendly trucks to its fleet, reducing carbon emissions and promoting greener logistics practices.",
-      imageSrc: "/webp/3movers.webp",
+      img: {
+        id: 50,
+        documentId: "khzh0dzajcpfzbr4tfknedcn",
+        name: "contactus.webp",
+        alternativeText: null,
+        caption: null,
+        width: 796,
+        height: 451,
+        formats: {
+          thumbnail: {
+            name: "thumbnail_contactus.webp",
+            hash: "thumbnail_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 245,
+            height: 139,
+            size: 7.19,
+            sizeInBytes: 7188,
+            url: "/uploads/thumbnail_contactus_9030e987f7.webp",
+          },
+          medium: {
+            name: "medium_contactus.webp",
+            hash: "medium_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 750,
+            height: 425,
+            size: 31.49,
+            sizeInBytes: 31490,
+            url: "/uploads/medium_contactus_9030e987f7.webp",
+          },
+          small: {
+            name: "small_contactus.webp",
+            hash: "small_contactus_9030e987f7",
+            ext: ".webp",
+            mime: "image/webp",
+            path: null,
+            width: 500,
+            height: 283,
+            size: 19.81,
+            sizeInBytes: 19814,
+            url: "/uploads/small_contactus_9030e987f7.webp",
+          },
+        },
+        hash: "contactus_9030e987f7",
+        ext: ".webp",
+        mime: "image/webp",
+        size: 39.56,
+        url: "/uploads/contactus_9030e987f7.webp",
+        previewUrl: null,
+        provider: "local",
+        provider_metadata: null,
+        createdAt: "2025-11-06T10:59:35.913Z",
+        updatedAt: "2025-11-06T10:59:35.913Z",
+        publishedAt: "2025-11-06T10:59:35.913Z",
+      },
     },
   ],
 };
@@ -795,7 +1011,6 @@ export const postsData = {
   ],
 };
 
-
 export const MissionGridData = [
   {
     title: "Customer Focus",
@@ -915,10 +1130,10 @@ export const CoreValuesDataList = [
   },
 ];
 
-export const CoreValuesData: CoreValuesDataType = {
-  title: "Core Values",
-  values: CoreValuesDataList, // We embed the array here
-};
+// export const CoreValuesData: CoreValuesDataType = {
+//   title: "Core Values",
+//   values: CoreValuesDataList, // We embed the array here
+// };
 
 export const FacilitiesGridData = {
   title: "Why Choose Our Warehousing Solutions?",
@@ -1136,13 +1351,19 @@ export const ExpansionValues: ExpansionDataType = {
   ],
 };
 
-export const HeroData: HeroDataType = {
-  title: "Global Transport & Logistics Solutions",
-  subtitle: "Move More. Spend Less. Reduce Emissions.",
-  description:
-    "We provide end-to-end logistics solutions across Australia, with a focus on efficiency, safety, and sustainability. From local freight to long-haul BTriple operations, GTLS keeps your business moving.",
-  videoSrc: "/videos/goldtiger-header.mp4",
-};
+export const home_page_data = await getHomePageData();
+
+export const about_page_data = await getAboutUsPageData();
+
+export const b_triple_page_data = await getBTriplePageData();
+
+export const industry_page_data = await getIndustryPageData();
+
+export const sustainability_page_data = await getSustainabilityPageData();
+
+export const transport_page_data = await getTransportPageData();
+
+export const warehousing_page_data = await getWarehousingPageData();
 
 export const BTriplesData: BTriplesDataType = {
   title: "Key Benefits of Our B-Triple Solution",

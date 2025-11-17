@@ -16,7 +16,7 @@ const GridCard: React.FC<GridCardProps> = ({ title, content ,icon}) => {
     <Card className="hover:shadow-lg transition-shadow duration-300 ease-in-out hover:bg-light-gold/10 border-0 shadow-none">
       <CardHeader>
         <Image
-          src={icon}
+          src={process.env.NEXT_PUBLIC_STRAPI_URL+icon.url}
           alt="MADs"
           width={80}
           height={80}

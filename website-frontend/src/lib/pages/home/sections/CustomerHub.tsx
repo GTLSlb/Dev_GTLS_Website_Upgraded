@@ -23,7 +23,7 @@ const CustomerHub = ({ data }: CustomerHubProps) => {
           />
         </div>
         <div className="flex flex-col md:w-7/12 gap-6">
-        {data.list.map((card, index) => (
+        {data.CustomerHubCard.map((card, index) => (
             <CustomerHubCard key={index} {...card} />
           ))}
         </div>

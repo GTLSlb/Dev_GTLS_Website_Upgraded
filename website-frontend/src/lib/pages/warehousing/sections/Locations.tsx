@@ -1,14 +1,15 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { ServiceData } from "@/lib/types/services";
+import { WarehousingDataType } from "@/lib/types/services";
 import Image from "next/image";
 
 type LocationsProps = {
-  data: ServiceData;
+  data: WarehousingDataType;
 };
 
 const Locations = ({ data }: LocationsProps) => {
+  console.log(data);
   return (
     <SectionContainer
       className=""
@@ -37,12 +38,12 @@ const Locations = ({ data }: LocationsProps) => {
               </div>
               <div className="flex flex-col gap-2">
                 <TextWrapper
-                  text="GTLS is growing — and getting closer to you, every step of the way."
+                  text={data.description}
                   fontFamily="dmSans"
                   styleType="body"
                 />
                 <TextWrapper
-                  text="Imad El Masri • CEO"
+                  text={data.quote}
                   fontFamily="dmSans"
                   styleType="link"
                 />
@@ -56,11 +57,11 @@ const Locations = ({ data }: LocationsProps) => {
       <div className="flex flex-col gap-10">
         <CenterTitle
           title={data.title}
-          subtitle={data.subtitle}
-          listItems={data.listItems}
+          subtitle={""}
+          listItems={data.data}
           titleColor="text-gold"
           placement="left"
-          description={data.description}
+          description={""}
         />
       </div>
     </SectionContainer>

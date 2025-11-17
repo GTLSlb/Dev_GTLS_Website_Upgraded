@@ -23,20 +23,21 @@ const fallbackLocations = [
 ];
 
 const getStrapiImageURL = (url: string) => {
-    const baseUrl = process.env.NEXT_PUBLIC_STRAPI_BASE_URL || "";
+    const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "";
     // Handle case where Strapi is running on the same domain or path is already absolute
     if (url.startsWith('http') || baseUrl === "") return url;
     return `${baseUrl}${url}`;
 };
 const FooterNavigation = ({ footerContent }: FooterProps) => {
-  const { 
+  console.log(footerContent)
+    const { 
         logo, 
         description, 
         footerMenu, 
         Socials, 
         locations 
     } = footerContent;
-    console.log(footerContent)
+    
     const socialItems = Socials.SocialMediaItem || [];
    const logoUrl = getStrapiImageURL(logo.url);
    const displayLocations = locations || fallbackLocations;

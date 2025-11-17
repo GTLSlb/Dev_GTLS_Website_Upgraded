@@ -9,7 +9,7 @@ const strapi = axios.create({
   headers: {
     'Content-Type': 'application/json',
     // You can add authorization headers here if needed, e.g.,
-    'Authorization': `Bearer ${process.env.STRAPI_API_TOKEN}`,
+    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_APP_STRAPI_API_TOKEN}`,
   },
 });
 
@@ -235,6 +235,7 @@ export async function getHomePageData() {
     const params = {
       'populate': '*',
     };
+
     const response = await strapi.get('/home-page', { params });
     
     // Standard Strapi Single Type unwrapping

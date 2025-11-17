@@ -1,9 +1,9 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import UnevenGrid from "@/lib/components/Common/UnevenGrid";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { WhyGtlsData } from "@/lib/data";
 import { WhyGtlsDataTypes } from "@/lib/types/content";
 import Image from "next/image";
+import tiger from '../../../../../public/svgs/tiger.svg';
 
 type WhyGtlsDataProps = {
   data: WhyGtlsDataTypes;
@@ -17,15 +17,13 @@ const WhyGtls = ({ data }: WhyGtlsDataProps) => {
       parentClassName="bg-gold relative overflow-hidden"
     >
       {/* Background Image */}
-      {data.backgroundImage && (
         <Image
-          src={data.backgroundImage}
+          src={tiger}
           alt="Tiger"
           width={700}
           height={700}
           className="absolute left-0 -bottom-90 z-0"
         />
-      )}
 
       {/* Foreground content */}
       <div className="relative z-10">
@@ -33,10 +31,10 @@ const WhyGtls = ({ data }: WhyGtlsDataProps) => {
           title={data.title}
           titleColor="text-white"
           description={data.description}
-          buttonText={data.buttonText}
+          buttonText={data.quote}
           dark
         />
-        <UnevenGrid items={data.items} />
+        <UnevenGrid items={data.data} />
       </div>
     </SectionContainer>
   );

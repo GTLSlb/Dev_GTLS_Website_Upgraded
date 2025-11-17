@@ -1,14 +1,10 @@
-export type NewsItem = {
-  title: string;
-  description: string;
-  imageSrc: string;
-};
+import { StrapiMediaFile } from "./media";
 
 export type NewsSliderDataType = {
   title: string;
   description: string;
   buttonText: string;
-  news: NewsItem[];
+  SliderItems: RecentNewsDataType[];
 };
 
 export type RecentNewsCardProps = {
@@ -20,8 +16,10 @@ export type RecentNewsCardProps = {
 };
 
 export type RecentNewsDataType = {
-  title: string;
-  items: RecentNewsCardProps[];
+  id: number;
+  name: string;
+  position: string;
+  img: StrapiMediaFile;
 };
 
 export type RecentPostsDataType = {

@@ -1,10 +1,12 @@
 import { StrapiMediaFile } from "./media";
 
 export type HeroDataType = {
-  title: string;
-  subtitle: string;
-  description: string;
-  videoSrc: string;
+  Title: string;
+  Subtitle: string;
+  Description: string;
+  cornerText?: string;
+  videoSrc?: string;
+  Media?: StrapiMediaFile;
 };
 
 export type CommonHeroDataType = {

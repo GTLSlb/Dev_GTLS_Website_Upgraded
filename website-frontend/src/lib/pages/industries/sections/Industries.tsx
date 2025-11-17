@@ -16,7 +16,7 @@ const Industries = ({data}: IndustriesProps) => {
           <ImageAndText
             title={industry.title}
             description={industry.content}
-            imgSrc={industry.imgSrc}
+            imgSrc={process.env.NEXT_PUBLIC_STRAPI_URL+industry.Img.url}
             imageFirst={!(index % 2 === 0)} // ✅ alternate placement
           />
           {/* Divider outside */}

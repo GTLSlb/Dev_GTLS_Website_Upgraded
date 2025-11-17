@@ -9,8 +9,8 @@ import { CustomerHubCardProps } from "@/lib/types";
 const CustomerHubCard: React.FC<CustomerHubCardProps> = ({
   title,
   subtitle,
-  imageSrc,
-  list = [],
+  img,
+  CustomerHubList = [],
   iconColor = "text-gold",
   children,
 }) => {
@@ -21,7 +21,7 @@ const CustomerHubCard: React.FC<CustomerHubCardProps> = ({
           <div className="flex gap-4 md:gap-10">
             <div className="relative h-12 w-12">
               <Image
-                src={imageSrc}
+                src={img?.url ? process.env.NEXT_PUBLIC_STRAPI_URL+img?.url : ''}
                 alt={title}
                 fill
                 className="w-full h-full"
@@ -47,9 +47,9 @@ const CustomerHubCard: React.FC<CustomerHubCardProps> = ({
         </div>
       </CardHeader>
 
-      {(list.length > 0 || children) && (
-        <CardContent>
-          {list.length > 0 && <IconList items={list} />}
+      {(CustomerHubList.length > 0 || children) && (
+        <CardContent className="relative">
+          {CustomerHubList.length > 0 && <IconList items={CustomerHubList} />}
           {children}
         </CardContent>
       )}

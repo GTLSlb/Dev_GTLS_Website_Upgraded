@@ -1,3 +1,5 @@
+'use client';
+
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import Recycling from "@/lib/pages/environment&compliance/sections/Recycling";
@@ -12,15 +14,7 @@ import {
   TSectionItem,
 } from "@/lib/types/content";
 import { SafetyComplianceData } from "@/lib/types/safetyCompliance";
-
-export const complianceHeroData: CommonHeroDataType = {
-  title: "Sustainability & Compliance",
-  subtitle: "Building a safer, greener future in logistics.",
-  description:
-    "We lead with eco-conscious practices, certified compliance, and a strong focus on safety and driver well-being — ensuring sustainable, responsible logistics.",
-  imageSrc: "/pages/compliance.png",
-  cornerText: "Contatc Us",
-};
+import { sustainability_page_data } from "@/lib/data";
 
 const sectionData: RecyclingDataType = {
   title: "Recycling Programs",
@@ -96,11 +90,11 @@ const Page = () => {
   return (
     <Container>
       <CommonHero
-        title={complianceHeroData.title}
-        subtitle={complianceHeroData.subtitle}
-        description={complianceHeroData.description}
-        imageSrc={complianceHeroData.imageSrc}
-        cornerText={complianceHeroData.cornerText}
+        title={sustainability_page_data.HeroSection.Title}
+        subtitle={sustainability_page_data.HeroSection.Subtitle}
+        description={sustainability_page_data.HeroSection.Description}
+        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+sustainability_page_data.HeroSection.Media.url}
+        cornerText={sustainability_page_data.HeroSection.cornerText}
       />
       <Recycling data={sectionData} />
       <GreenPractices data={greenPracticesData} />

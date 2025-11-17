@@ -4,6 +4,7 @@ import React from "react";
 import { CenterTitleProps } from "@/lib/types";
 import TextWrapper from "./TextWrapper";
 import { Button } from "@/lib/ui/button";
+import Image from "next/image";
 
 const CenterTitle: React.FC<CenterTitleProps> = ({
   title,
@@ -30,7 +31,9 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
     right: "items-end text-right",
   };
   return (
-    <div className={`flex flex-col gap-4 my-10 ${alignmentClasses[placement] } ${className}`}>
+    <div
+      className={`flex flex-col gap-4 my-10 ${alignmentClasses[placement]} ${className}`}
+    >
       <TextWrapper
         text={title}
         fontFamily="funnel"
@@ -55,7 +58,13 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
           {listItems.map((item, idx) => (
             <li key={idx} className={`flex items-center gap-4 ${textColor}`}>
               {item.icon && (
-                <span className="flex-shrink-0 text-xl">{item.icon}</span>
+                <Image
+                  src={process.env.NEXT_PUBLIC_STRAPI_URL + item.icon.url}
+                  alt={item.icon.name}
+                  width={24}
+                  height={24}
+                  className="flex-shrink-0 text-xl"
+                />
               )}
               <TextWrapper
                 text={item.title}
@@ -71,7 +80,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
         <Button
           type={buttonType}
           onClick={onButtonClick}
-          className={`rounded-full !hover:bg-creamy hover:text-black hover:cursor-pointer h-12 w-[250px]  ${borderColor} ${buttonTextColor}`}
+          className={`rounded-full !hover:bg-creamy  hover:text-black hover:cursor-pointer h-12 w-[250px]  ${borderColor} ${buttonTextColor}`}
           variant={buttonVariant}
         >
           <TextWrapper

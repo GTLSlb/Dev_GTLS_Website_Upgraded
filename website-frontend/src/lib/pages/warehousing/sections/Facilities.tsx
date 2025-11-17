@@ -1,3 +1,5 @@
+"use client";
+
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
@@ -25,13 +27,13 @@ const Facilities = ({
           description={data.description}
         />
         <div className="flex flex-wrap justify-center gap-10">
-          {data.items?.map((item, index) => (
+          {data.data?.map((item, index) => (
             <div key={index} className="w-full sm:w-[calc(50%-20px)] lg:w-[calc(33.333%-40px)]">
               <Card  className="rounded-4xl">
                 <CardContent className="h-56 flex flex-col gap-10 items-center justify-center text-center">
                   <div className="relative h-20 w-20 ">
                     <Image
-                      src={item?.picture}
+                      src={process.env.NEXT_PUBLIC_STRAPI_URL+item?.icon?.url}
                       alt={item.title}
                       fill
                     />
