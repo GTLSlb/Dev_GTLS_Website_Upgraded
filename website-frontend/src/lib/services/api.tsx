@@ -13,15 +13,17 @@ const gtam_client = axios.create({
   baseURL: GTAM_URL,
 });
 
-export async function get_user_info() {
+export async function get_user_info(jwt_token: string) {
   try {
     // Make GET request to /users endpoint
     // obtain user, token, jwt_token from response
-    const response = await api_client.get("/users");
+    const response = await api_client.post("/users", {
+      jwt_token: jwt_token,
+    });
     console.log("Fetching user data from /users endpoint...", response);
     const user = response.data.user;
     const token = response.data.token;
-    const jwt_token = response.data.jwt_token;
+    const jwt_token_res = response.data.jwt_token;
 
     // Make GET request to /user/permissions endpoint
     const allowed_apps_response = await gtam_client.get("User/Permissions", {
@@ -31,7 +33,7 @@ export async function get_user_info() {
         }
     });
 
-    return { user: user, token: token, jwt_token: jwt_token, allowed_apps: allowed_apps_response.data };
+    return { user: user, token: token, jwt_token: jwt_token_res, allowed_apps: allowed_apps_response.data };
   } catch (error: any) {
     if (error.response && error.response.status === 401) {
       // Handle 401 error

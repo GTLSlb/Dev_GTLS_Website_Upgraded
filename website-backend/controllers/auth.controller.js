@@ -354,6 +354,10 @@ class AuthController {
       return res.status(STATUS.BAD_REQUEST).json({ errors: errors.array() });
     }
 
+    if(!req.body.jwt_token) return res.status(STATUS.BAD_REQUEST).json({ status: STATUS.BAD_REQUEST, message: "JWT Token is required" });
+
+    console.log('📢 jwt_token:', req.body.jwt_token);
+    console.log('📢 jwt_token valid:', is_token_valid(req.body.jwt_token));
     if (is_token_valid(req.body.jwt_token) === false)
       return res
         .status(STATUS.UNAUTHORIZED)
