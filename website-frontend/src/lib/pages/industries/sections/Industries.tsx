@@ -7,17 +7,19 @@ const Industries = () => {
     <SectionContainer>
       <div className="flex flex-col gap-20">
         {IndustriesData.map((industry, index) => (
-        <div key={index}>
-          <ImageAndText
-            title={industry.title}
-            description={industry.description}
-            imgSrc={industry.imgSrc}
-            imageFirst={!(index % 2 === 0)} // ✅ alternate placement
-          />
-          {/* Divider outside */}
-          <div className="h-0.5 bg-gray-100 w-full mt-20"></div>
-        </div>
-      ))}
+          <div key={index}>
+            <ImageAndText
+              title={industry.title}
+              description={industry.description}
+              imgSrc={industry.imgSrc}
+              imageFirst={!(index % 2 === 0)} // ✅ alternate placement
+            />
+            {/* Divider outside */}
+            {index < IndustriesData.length - 1 && (
+              <div className="h-0.5 bg-gray-100 w-full mt-20"></div>
+            )}
+          </div>
+        ))}
       </div>
     </SectionContainer>
   );

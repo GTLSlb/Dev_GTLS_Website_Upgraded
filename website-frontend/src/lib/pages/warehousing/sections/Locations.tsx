@@ -16,7 +16,7 @@ const Locations = ({
   parentClassName="bg-gray-100 overflow-hidden relative"
 >
   {/* Map Section */}
-  <div className="relative lg:absolute lg:-top-110 lg:right-0 xl:-top-100 xl:right-70">
+  <div className="relative lg:absolute lg:-top-110 lg:right-0 xl:-top-100 xl:right-10 2xl:right-50">
     <div className="relative">
       <Image
         src="/svgs/map.svg"

@@ -20,7 +20,7 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
           return (
             <Card
               key={index}
-              className="rounded-4xl p-5"
+              className="rounded-xl p-5"
               style={{
                 gridColumnStart: col,
                 gridRowStart: rowStart,
