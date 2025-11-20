@@ -13,6 +13,7 @@ const Page = async () => {
  
 
   const { HeroSection, Services} = industryData;
+  console.log('Industry Page Data:', industryData);
   return (
     <Container>
       <CommonHero

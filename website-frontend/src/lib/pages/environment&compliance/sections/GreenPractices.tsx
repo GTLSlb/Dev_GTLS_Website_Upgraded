@@ -1,10 +1,11 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { GreenPracticesDataType } from "@/lib/types/content";
+import { StrapiLink } from "@/lib/services/media";
+import { GreenPracticesDataType, PicAndMediaItem } from "@/lib/types/content";
 import Image from "next/image";
 
 type GreenPracticesProps = {
-  data: GreenPracticesDataType;
+  data: PicAndMediaItem;
 };
 
 const GreenPractices = ({data}: GreenPracticesProps) => {
@@ -15,8 +16,8 @@ const GreenPractices = ({data}: GreenPracticesProps) => {
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 min-h-96">
           <Image
-            src={data.imgSrc}
-            alt={data.title}
+            src={StrapiLink(data.image.url)}
+            alt={data.Title}
             fill
             className="object-contain"
           />
@@ -25,7 +26,7 @@ const GreenPractices = ({data}: GreenPracticesProps) => {
         {/* Text Section */}
         <div className="w-full md:w-1/2">
           <CenterTitle
-            title={data.title}
+            title={data.Title}
             titleColor="text-green"
             placement="left"
             description={data.description}

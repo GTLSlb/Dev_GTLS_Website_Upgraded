@@ -1,15 +1,15 @@
 import ImageAndText from "@/lib/components/Common/ImageAndText";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { TSectionItem } from "@/lib/types/content";
+import { PicAndMediaItem, TSectionItem } from "@/lib/types/content";
 
 type FatigueProps = {
-  data: TSectionItem;
+  data: PicAndMediaItem;
 };
 
 const Fatigue = ({ data }: FatigueProps) => {
   return (
     <SectionContainer>
-      <ImageAndText {...data} />
+      <ImageAndText title={data.Title} description={data.description} imgSrc={data.image.url}/>
     </SectionContainer>
   );
 };

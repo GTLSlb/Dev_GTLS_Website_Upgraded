@@ -1,5 +1,6 @@
 import ImageAndText from "@/lib/components/Common/ImageAndText";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
+import { StrapiLink } from "@/lib/services/media";
 import { IndustriesDataArray } from "@/lib/types/content";
 
 type IndustriesProps = {
@@ -16,7 +17,7 @@ const Industries = ({data}: IndustriesProps) => {
           <ImageAndText
             title={industry.title}
             description={industry.content}
-            imgSrc={process.env.NEXT_PUBLIC_STRAPI_URL+industry.Img.url}
+            imgSrc={industry.Img.url}
             imageFirst={!(index % 2 === 0)} // ✅ alternate placement
           />
           {/* Divider outside */}

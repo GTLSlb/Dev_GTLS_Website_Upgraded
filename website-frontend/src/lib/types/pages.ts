@@ -1,4 +1,4 @@
-import { CoreValuesDataType, IndustriesDataArray, OurStoryDataType, VisionDataType } from "./content";
+import { CoreValuesDataType, IndustriesDataArray, OurStoryDataType, PicAndMediaItem, VisionDataType } from "./content";
 import { GridAboutDataType } from "./grids";
 import { CommonHeroDataType } from "./hero";
 import { BTriplesDataType } from "./safetyCompliance";
@@ -38,4 +38,14 @@ export type IndustryPageData = {
   publishedAt: string;
   HeroSection: CommonHeroDataType;
   Services: IndustriesDataArray;
+}
+
+export interface SustainabilityPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  HeroSection: CommonHeroDataType;
+  PicAndMedia: PicAndMediaItem[];
 }

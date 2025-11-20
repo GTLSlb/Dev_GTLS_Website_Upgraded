@@ -45,6 +45,7 @@ import {
   getTransportPageData,
   getWarehousingPageData,
 } from "@/lib/services/api";
+import { SustainabilityPage } from "./types/pages";
 
 export const navigationConfig: NavigationConfig = {
   logo: {
@@ -59,21 +60,16 @@ export const navigationConfig: NavigationConfig = {
       href: "/about",
     },
     {
-      label: "Business",
-      children: [
-        {
-          label: "Transport",
-          href: "/transport",
-        },
-        {
-          label: "Warehousing",
-          href: "/warehousing",
-        },
-        {
-          label: "Industries",
-          href: "/industries",
-        },
-      ],
+      label: "Transport",
+      href: "/transport",
+    },
+    {
+      label: "Warehousing",
+      href: "/warehousing",
+    },
+    {
+      label: "Industries",
+      href: "/industries",
     },
     {
       label: "News",
@@ -1359,7 +1355,8 @@ export const b_triple_page_data = await getBTriplePageData();
 
 export const industry_page_data = await getIndustryPageData();
 
-export const sustainability_page_data = await getSustainabilityPageData();
+export const sustainability_page_data: SustainabilityPage =
+  await getSustainabilityPageData();
 
 export const transport_page_data = await getTransportPageData();
 

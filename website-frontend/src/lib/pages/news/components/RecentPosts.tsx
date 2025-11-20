@@ -16,7 +16,7 @@ const RecentPosts = ({ title,items }: RecentPostsProps) => {
           titleColor="text-gold"
         />
         <div className="flex flex-col gap-8">
-          {items.map((news, index) => (
+          {items?.map((news, index) => (
             <PostCard key={index} {...news} />
           ))}
         </div>

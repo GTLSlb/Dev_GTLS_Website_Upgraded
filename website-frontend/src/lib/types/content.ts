@@ -1,6 +1,7 @@
 import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 import { StrapiMediaFile } from "./media";
+import { CommonHeroDataType } from "./hero";
 
 export type ContentListNumber = {
   label: string;
@@ -179,3 +180,19 @@ export interface TSectionData {
   image: string;
   description: string;
 }
+
+export type Section = {
+  id: number;
+  title: string;
+  description: string;
+}
+
+export type PicAndMediaItem  = {
+  id: number;
+  Title: string;
+  Children: null | any; // if you know the structure, update this
+  description: string;
+  image: StrapiMediaFile;
+  Sections: Section[];
+}
+
