@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cd ../website-backend && pnpm dev",
-    "backend": "cd ../website-backend && npm run dev"
+    "dev": "cd website-frontend && pnpm dev",
+    "backend": "cd website-backend && npm run dev"
   }
 }

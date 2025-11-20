@@ -8,7 +8,8 @@ import { MessageCircleMore, LogOutIcon } from "lucide-react";
 import Image from "next/image";
 import { getCookie } from "@/lib/api/axios";
 import AnimatedLoading from "../Loader/AnimatedLoading";
-import { CircleChevronRight, ChevronsRight } from "lucide-react";
+import { ChevronsRight } from "lucide-react";
+import goldMap from "../../../../public/webp/goldmap.webp";
 
 export default function Layout() {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -17,7 +18,9 @@ export default function Layout() {
   const [apps, setApps] = React.useState<AllowedApp[]>([]);
   const [filteredApps, setFilteredApps] = React.useState<AllowedApp[]>([]);
   const [greeting, setGreeting] = React.useState("");
-  const [imgFetchingErrors, setImgFetchingErrors] = React.useState<{[key: number]: boolean}>({});
+  const [imgFetchingErrors, setImgFetchingErrors] = React.useState<{
+    [key: number]: boolean;
+  }>({});
 
   function getGreeting() {
     const currentHour = new Date().getHours();
@@ -55,8 +58,8 @@ export default function Layout() {
       {!isLoading && user && Token ? (
         <div className="w-full h-full ">
           <div className="flex flex-row w-full h-full">
-            <div className="flex flex-col relative w-full h-screen min-h-screen bg-creamy via-dark to-dark overflow-hidden">
-              {/* <Image src={tiger} className="absolute left-0 bottom-0" alt="" /> */}
+            <div className="flex flex-col relative w-full h-full overflow-hidden">
+              <Image src={goldMap} className="absolute right-0 -bottom-12 w-[38vw] " alt="" />
               {/* navbar */}
               <div className="relative border-b-2 border-gold flex lg:flex-row flex-row justify-between lg:items-center sm:px-8 w-full h-30 text-white md:text-3xl py-4 mx-auto max-w-7xl ">
                 <p className="flex w-full md:mt-0">
@@ -123,15 +126,13 @@ export default function Layout() {
                     className="hover:cursor-pointer flex flex-row items-center p-2 text-warm-brown border border-creamy hover:border-gold rounded-3xl hover:text-gold"
                   >
                     <LogOutIcon className="w-7 ml-2" />
-                    <span className="text-xs ml-2 hidden sm:block">
-                      LOGOUT
-                    </span>
+                    <span className="text-xs ml-2 hidden sm:block">LOGOUT</span>
                   </button>
                 </div>
               </div>
               {/* border */}
 
-              <div className=" flex flex-col w-full mx-auto max-w-7xl px-6 py-4 lg:px-8">
+              <div className="flex flex-col w-full mx-auto max-w-7xl px-6 py-4 lg:px-8">
                 <div className="md:text-3xl  py-4 my-4 text-warm-brown">
                   {" "}
                   <span>{greeting}</span>
@@ -169,33 +170,45 @@ export default function Layout() {
                 <p className="text-light-gold/50 text-3xl pb-10 font-bold ">
                   Discover our Applications:
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-8 pb-8">
                   {filteredApps?.length > 0
                     ? filteredApps?.map((app) => (
                         <div
                           id={app.AppName}
-                          className={`relative sm:w-auto border bg-light-gold transition hover:scale-105 rounded-3xl shadow-md shadow-gold p-5 h-[18rem] hover:cursor-pointer  hover:shadow-lg hover:shadow-gold overflow-hidden`}
+                          className={`relative sm:w-auto border border-gold bg-creamy transition hover:scale-105 rounded-3xl shadow-md shadow-gold p-5 h-[18rem] hover:cursor-pointer  hover:shadow-lg hover:shadow-gold overflow-hidden`}
                           onClick={() => {
                             GoAppPage(app);
                           }}
                         >
-                          <div className="flex flex-row gap-x-6 items-center">
+                          <Image
+                            className="opacity-80 absolute -bottom-[66px] left-0"
+                            width={200}
+                            height={400}
+                            src={tiger}
+                            alt="tiger"
+                          />
+                          <div className="z-10 flex flex-row gap-x-6 items-center w-full">
                             <div className={` rounded-3xl w-auto`}>
-                                {
-                                    imgFetchingErrors[app.AppId] ? (
-                                        <div className="rounded-full text-warm-brown bg-creamy/70 border-2 border-warm-brown flex items-center justify-center h-14 w-14">{app.AppAbv.substring(2, app.AppAbv.length).toUpperCase()}</div>
-                                    ) : (
-                                        <img
-                                src={`${process.env.NEXT_PUBLIC_APP_GTAM_APP_URL}/AppLogo/${app?.AppIcon}`}
-                                alt=""
-                                className="h-14 w-14"
-                                onError={()=>setImgFetchingErrors({
-                                    ...imgFetchingErrors,
-                                    [app.AppId]: true,
-                                })}
-                              />       
-                                    )
-                                }
+                              {imgFetchingErrors[app.AppId] ? (
+                                <div className="rounded-full text-white bg-gold border-2 border-warm-brown flex items-center justify-center h-14 w-14">
+                                  {app.AppAbv.substring(
+                                    2,
+                                    app.AppAbv.length
+                                  ).toUpperCase()}
+                                </div>
+                              ) : (
+                                <img
+                                  src={`${process.env.NEXT_PUBLIC_APP_GTAM_APP_URL}/AppLogo/${app?.AppIcon}`}
+                                  alt=""
+                                  className="h-14 w-14"
+                                  onError={() =>
+                                    setImgFetchingErrors({
+                                      ...imgFetchingErrors,
+                                      [app.AppId]: true,
+                                    })
+                                  }
+                                />
+                              )}
                             </div>
                             <div className="flex flex-col gap-y-1">
                               <div className="flex gap-x-3">
@@ -213,14 +226,13 @@ export default function Layout() {
                               </div>
                             </div>
                           </div>
-                          <div className="py-4 text-left realtive">
-                            <h1 className="font-bold text-creamy">
+                          <div className="py-4 text-left">
+                            <h1 className="font-bold text-warm-brown">
                               {app.AppName}
                             </h1>
-                            <p className="mt-2 text-creamy">{app.AppDesc}</p>
-                          </div>
-                          <div className="w-full h-full absolute right-0 opacity-30">
-                            <Image src={tiger} width={200} alt="tiger" />
+                            <p className="mt-2 text-warm-brown">
+                              {app.AppDesc}
+                            </p>
                           </div>
                         </div>
                       ))
