@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { BACKEND_URL, GTAM_URL, get_user_info } from "@/lib/services/api";
+import { get_user_info } from "@/lib/services/api";
 import Logo from "../../../../public/Logos/logo-transparent.svg";
 import tiger from "../../../../public/svgs/tiger.svg";
 import { User, AllowedApp } from "@/lib/types/auth/auth";
