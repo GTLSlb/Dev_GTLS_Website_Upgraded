@@ -85,7 +85,7 @@ export async function getAboutUsPageData() {
     const params = {
       'populate': '*',
     };
-    const response = await strapi.get('/about-us', { params });
+    const response = await strapi.get('/aboutus-page', { params });
     
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -214,7 +214,7 @@ export async function getNavbarData() {
     const response = await strapi.get('/navbar', { params });
     
     // Standard Strapi Single Type unwrapping
-    const item = response.data.data;
+    const item = response.data;
 
     if (item) {
       return item

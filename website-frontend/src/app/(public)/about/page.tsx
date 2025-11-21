@@ -12,6 +12,7 @@ import OurTeam from "@/lib/pages/about/sections/OurTeam";
 import { CommonHeroDataType } from "@/lib/types/hero";
 import { AboutUsPageData } from "@/lib/types/pages";
 import { getAboutUsPageData } from "@/lib/services/api";
+import { StrapiLink } from "@/lib/services/media";
 
 type HeroProps = {
   /** Pass the hero data object to the component */
@@ -36,7 +37,7 @@ const Page = async () => {
   // Destructure the necessary components
   const { HeroSection, OurVision , OurStory: OurStoryData, CoreValues: CoreValuesData } = aboutUsData;
   const { WhyLogistics: WhyLogisticsData, MessageDirector, MeetTeam: OurTeamData } = CoreValuesData;
-
+console.log(aboutUsData)
   
   return (
     <Container>
@@ -44,19 +45,19 @@ const Page = async () => {
         title={HeroSection.Title}
         subtitle={HeroSection.Subtitle}
         description={HeroSection.Description}
-        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+HeroSection.Media?.url || "/pages/about-hero.png"}
+        imageSrc={StrapiLink(HeroSection.ImgSrc.url) || "/pages/about-hero.png"}
         link={HeroSection.link}
         cornerText={HeroSection.cornerText}
       />
       {/* <History /> */}
-      <OurStory data={OurStoryData} />
-      <Mission data={MissionData} />
-      <Vision data={OurVision} />
-      <CoreValues data={CoreValuesData} />
-      <BannerSection data={BannerAboutData} />
-      <WhyLogistics data={WhyLogisticsData} />
-      <MessageBanner data={MessageDirector} />
-      <OurTeam data={OurTeamData.data} />
+      {/* <OurStory data={OurStoryData} /> */}
+      {/* <Mission data={MissionData} /> */}
+      {/* <Vision data={OurVision} /> */}
+      {/* <CoreValues data={CoreValuesData} /> */}
+      {/* <BannerSection data={BannerAboutData} /> */}
+      {/* <WhyLogistics data={WhyLogisticsData} /> */}
+      {/* <MessageBanner data={MessageDirector} /> */}
+      {/* <OurTeam data={OurTeamData} /> */}
     </Container>
   );
 };

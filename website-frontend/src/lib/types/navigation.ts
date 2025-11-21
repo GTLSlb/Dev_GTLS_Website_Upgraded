@@ -76,3 +76,36 @@ export interface FooterPageData {
     // The main Footer component is directly accessible
     Footer: FooterComponent; 
 }
+
+// Navigation Item
+export interface NavItem {
+  id: number;
+  label: string;
+  href: string;
+}
+
+
+// Content
+export interface NavbarContent {
+  id: number;
+  NavItems: NavItem[];
+  Footer: any | null;          // type when you have structure
+  HeroSection: any[];          // same here
+  Logo: StrapiMediaFile;
+}
+
+// Data wrapper
+export interface DataWrapper {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  Content: NavbarContent;
+}
+
+// Final API Response
+export interface NavbarApiResponse {
+  data: DataWrapper;
+  meta: Record<string, any>;
+}

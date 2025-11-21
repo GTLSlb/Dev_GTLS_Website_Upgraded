@@ -26,8 +26,14 @@ import { Button } from "@/lib/ui/button";
 import TextWrapper from "../../Common/TextWrapper";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { NavbarContent } from "@/lib/types/navigation";
 
-export function NavigationMenuBar() {
+type NavigationMenuBarProps={
+  data: NavbarContent;
+}
+
+export function NavigationMenuBar({data}:NavigationMenuBarProps ) {
+  console.log(data)
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
 const [currentPath, setCurrentPath] = React.useState(pathname);
@@ -53,10 +59,10 @@ React.useEffect(() => {
       <div className="hidden lg:flex">
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
-        {links.map((link) => (
+        {data?.NavItems?.map((link) => (
           <NavigationMenuItem key={link.label}>
             {/* ✅ Dropdown (has children) */}
-            {link.children ? (
+            {/* {link.children ? (
               <>
                 <NavigationMenuTrigger
                   // ✅ active if current path starts with any child link
@@ -90,8 +96,7 @@ React.useEffect(() => {
                   </ul>
                 </NavigationMenuContent>
               </>
-            ) : (
-              /* ✅ Simple single link */
+            ) : ( */}
               <NavigationMenuLink
                 asChild
                 className={cn(
@@ -102,7 +107,7 @@ React.useEffect(() => {
               >
                 <Link href={link.href ?? "#"}>{link.label}</Link>
               </NavigationMenuLink>
-            )}
+            {/* )} */}
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>

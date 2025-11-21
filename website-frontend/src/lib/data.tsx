@@ -16,7 +16,11 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-import { MenuSection, NavigationConfig } from "./types/navigation";
+import {
+  MenuSection,
+  NavbarApiResponse,
+  NavigationConfig,
+} from "./types/navigation";
 import { CustomerHubDataType, FeatureCard } from "./types/cards";
 import { IntegratedSolutionsItem } from "./types/integratedSolutions";
 import { ServiceData } from "./types/services";
@@ -44,6 +48,7 @@ import {
   getSustainabilityPageData,
   getTransportPageData,
   getWarehousingPageData,
+  getNavbarData,
 } from "@/lib/services/api";
 import { SustainabilityPage } from "./types/pages";
 
@@ -1361,6 +1366,8 @@ export const sustainability_page_data: SustainabilityPage =
 export const transport_page_data = await getTransportPageData();
 
 export const warehousing_page_data = await getWarehousingPageData();
+
+export const navbar_data: NavbarApiResponse = await getNavbarData();
 
 export const BTriplesData: BTriplesDataType = {
   title: "Key Benefits of Our B-Triple Solution",
