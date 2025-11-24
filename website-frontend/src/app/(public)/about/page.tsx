@@ -7,7 +7,6 @@ import WhyLogistics from "@/lib/pages/about/sections/WhyLogistics";
 import CoreValues from "@/lib/pages/about/sections/CoreValues";
 import Vision from "@/lib/pages/about/sections/Vision";
 import MessageBanner from "@/lib/pages/about/sections/MessageBanner";
-import { BannerAboutData, CoreValuesData, MessageBannerdata, MissionData, OurTeamData, VisionData, WhyLogisticsData } from "@/lib/data";
 import OurTeam from "@/lib/pages/about/sections/OurTeam";
 import { CommonHeroDataType } from "@/lib/types/hero";
 import { AboutUsPageData } from "@/lib/types/pages";
@@ -35,9 +34,8 @@ const Page = async () => {
   }
   
   // Destructure the necessary components
-  const { HeroSection, OurVision , OurStory: OurStoryData, CoreValues: CoreValuesData } = aboutUsData;
-  const { WhyLogistics: WhyLogisticsData, MessageDirector, MeetTeam: OurTeamData } = CoreValuesData;
-console.log(aboutUsData)
+  const { HeroSection, OurVision , OurStory: OurStoryData, CoreValues: CoreValuesData, Mission: MissionData, IntegratedModel: BannerAboutData, WhyLogistics: WhyLogisticsData,MessageDirector,MeetTeam: OurTeamData  } = aboutUsData;
+console.log("About Us Data:", aboutUsData)
   
   return (
     <Container>
@@ -45,19 +43,19 @@ console.log(aboutUsData)
         title={HeroSection.Title}
         subtitle={HeroSection.Subtitle}
         description={HeroSection.Description}
-        imageSrc={StrapiLink(HeroSection.ImgSrc.url) || "/pages/about-hero.png"}
+        imageSrc={StrapiLink(HeroSection.Media.url) || "/pages/about-hero.png"}
         link={HeroSection.link}
         cornerText={HeroSection.cornerText}
       />
       {/* <History /> */}
-      {/* <OurStory data={OurStoryData} /> */}
-      {/* <Mission data={MissionData} /> */}
-      {/* <Vision data={OurVision} /> */}
-      {/* <CoreValues data={CoreValuesData} /> */}
-      {/* <BannerSection data={BannerAboutData} /> */}
-      {/* <WhyLogistics data={WhyLogisticsData} /> */}
-      {/* <MessageBanner data={MessageDirector} /> */}
-      {/* <OurTeam data={OurTeamData} /> */}
+      <OurStory data={OurStoryData} />
+      <Mission data={MissionData} />
+      <Vision data={OurVision} />
+      <CoreValues data={CoreValuesData} />
+      <BannerSection data={BannerAboutData} />
+      <WhyLogistics data={WhyLogisticsData} />
+      <MessageBanner data={MessageDirector} />
+      <OurTeam data={OurTeamData} />
     </Container>
   );
 };

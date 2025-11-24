@@ -8,6 +8,7 @@ import ProfileCard from "./ProfileCard";
 import { Swiper as SwiperType } from 'swiper';
 import { ProfileSliderProps } from "@/lib/types/profiles";
 import { TeamMember } from "@/lib/types/content";
+import { StrapiLink } from "@/lib/services/media";
 
 type OurTeamProps = {
   items: TeamMember[];
@@ -49,12 +50,12 @@ const ProfileSlider: React.FC<OurTeamProps> = ({items} : OurTeamProps) => {
         }}
         className="profile-swiper"
       >
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <SwiperSlide key={index} className="py-5 px-1">
             <ProfileCard
-              title={item.title}
-              description={item.description}
-              imageSrc={item.la}
+              name={item.name}
+              position={item.position}
+              imageSrc={StrapiLink(item.ImgSrc.url)}
             />
           </SwiperSlide>
         ))}

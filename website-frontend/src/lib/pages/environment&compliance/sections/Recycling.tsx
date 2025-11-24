@@ -16,7 +16,7 @@ const Recycling = ({ data }: RecyclingProps) => {
         {/* Text Section */}
         <div className="w-full md:w-1/2">
           <CenterTitle
-            title={data.Title}
+            title={data.title}
             titleColor="text-gold"
             placement="left"
             description={data.description}
@@ -26,8 +26,8 @@ const Recycling = ({ data }: RecyclingProps) => {
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 min-h-96">
           <Image
-            src={StrapiLink(data.image.url)}
-            alt={data.Title}
+            src={StrapiLink(data.ImgSrc.url)}
+            alt={data.title}
             fill
             className="object-contain"
           />

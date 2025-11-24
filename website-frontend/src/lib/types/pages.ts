@@ -1,5 +1,6 @@
-import { CoreValuesDataType, IndustriesDataArray, OurStoryDataType, PicAndMediaItem, VisionDataType } from "./content";
-import { GridAboutDataType } from "./grids";
+import { BannerDataType } from "./banners";
+import { CoreValuesDataType, IndustriesDataArray, MeetTeamDataType, MessageDirectorDataType, OurStoryDataType, PicAndMediaItem, safetyandcomplianceType, VisionDataType } from "./content";
+import { GridAboutDataType, WhyAboutDataType } from "./grids";
 import { CommonHeroDataType } from "./hero";
 import { BTriplesDataType } from "./safetyCompliance";
 
@@ -27,6 +28,10 @@ export interface AboutUsPageData {
     Mission: GridAboutDataType; // This is returned as an array []
     OurVision: VisionDataType;
     CoreValues: CoreValuesDataType;
+    IntegratedModel: BannerDataType;
+    WhyLogistics: WhyAboutDataType;
+    MessageDirector: MessageDirectorDataType;
+    MeetTeam: MeetTeamDataType;
 }
 
 
@@ -47,5 +52,9 @@ export interface SustainabilityPage {
   updatedAt: string;
   publishedAt: string;
   HeroSection: CommonHeroDataType;
-  PicAndMedia: PicAndMediaItem[];
+  RecyclingPrograms: PicAndMediaItem;
+  Partners: PicAndMediaItem;
+  GreenPractices: PicAndMediaItem;
+  Fatiguemanagement: PicAndMediaItem;
+  safetyandcompliance: safetyandcomplianceType;
 }

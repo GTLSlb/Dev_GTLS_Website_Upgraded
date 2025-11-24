@@ -16,7 +16,7 @@ const OurStory = ({ data }: OurStoryProps) => {
         <CenterTitle title={data.title} placement="left" description={data.content} titleColor="text-gold"  className="!my-0"/>
       </div>
       <div className="relative w-full md:w-4/12 rounded-4xl rounded-bl-none overflow-hidden">
-        <Image src={StrapiLink(data.image.url)||"/pages/ourstory.png"} alt={data.title} fill className="object-cover" />
+        <Image src={StrapiLink(data.ImgSrc.url)||"/pages/ourstory.png"} alt={data.title} fill className="object-cover" />
       </div>
     </SectionContainer>
   );

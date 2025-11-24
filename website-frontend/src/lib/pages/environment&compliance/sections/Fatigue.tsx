@@ -9,7 +9,7 @@ type FatigueProps = {
 const Fatigue = ({ data }: FatigueProps) => {
   return (
     <SectionContainer>
-      <ImageAndText title={data.Title} description={data.description} imgSrc={data.image.url}/>
+      <ImageAndText title={data.title} description={data.description} imgSrc={data.ImgSrc.url}/>
     </SectionContainer>
   );
 };

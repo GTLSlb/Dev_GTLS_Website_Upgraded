@@ -1,3 +1,4 @@
+"use client";
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
@@ -9,6 +10,7 @@ type MissionProps = {
 };
 
 const Mission = ({ data }: MissionProps) => {
+  console.log("Mission Data:", data);
   return (
     <SectionContainer className="flex flex-col gap-6">
       <CenterTitle
@@ -31,7 +33,7 @@ const Mission = ({ data }: MissionProps) => {
         />
       )}
 
-      <BorderedGrid data={data.gridData} /> {/* <-- Use data from object */}
+      <BorderedGrid data={data.CoreCommitmentsItem} /> {/* <-- Use data from object */}
     </SectionContainer>
   );
 };

@@ -31,11 +31,11 @@ const Page = () => {
         imageSrc={StrapiLink(sustainability_page_data.HeroSection.Media.url)}
         cornerText={sustainability_page_data.HeroSection.cornerText}
       />
-      <Recycling data={sustainability_page_data.PicAndMedia[0]} />
-      <GreenPractices data={sustainability_page_data.PicAndMedia[1]} />
-      <SafetyAndCompliance data={sustainability_page_data.PicAndMedia[4]} />
-      <Partners data={sustainability_page_data.PicAndMedia[2]} />
-      <Fatigue data={sustainability_page_data.PicAndMedia[3]} />
+      <Recycling data={sustainability_page_data.RecyclingPrograms} />
+      <GreenPractices data={sustainability_page_data.GreenPractices} />
+      <SafetyAndCompliance data={sustainability_page_data.safetyandcompliance} />
+      <Partners data={sustainability_page_data.Partners} />
+      <Fatigue data={sustainability_page_data.Fatiguemanagement} />
       {/* <EnvironmentList /> */}
     </Container>
   );

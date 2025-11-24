@@ -38,7 +38,7 @@ import { NewsSliderDataType } from "./types/news";
 import { SliderItem } from "./types/sliders";
 import { HeroDataType } from "./types/hero";
 import { ServicesDataType } from "./types/props";
-import { ExpansionDataType, GridAboutDataType } from "./types/grids";
+import { ExpansionDataType, GridAboutDataType, WhyAboutDataType } from "./types/grids";
 import { BTriplesDataType } from "./types/safetyCompliance";
 import {
   getHomePageData,
@@ -570,34 +570,7 @@ export const HistoryData: SliderItem[] = [
   },
 ];
 
-export const BannerAboutData: BannerDataType = {
-  title: "Integrated Model",
-  items: [
-    {
-      title: "Freight Solutions",
-      subtitle:
-        "Flexible FTL and LTL options, interstate transport, and real-time tracking for complete visibility and peace of mind.",
-    },
-    {
-      title: "Workshop Services",
-      subtitle:
-        "In-house fleet maintenance and repairs to ensure reliability and minimise delays.",
-    },
-    {
-      title: "Warehousing",
-      subtitle:
-        "Secure storage, inventory management, and streamlined distribution to keep your goods moving efficiently.",
-    },
-    {
-      title: "Corporate Services",
-      subtitle:
-        "Financial management, customer support, sales and marketing, and IT enablement to optimise supply chain operations.",
-    },
-  ],
-  description:
-    "Gold Tiger offers seamless transport, warehousing, and distribution services tailored to each client’s operations. With a nationwide fleet of Volvo trucks, strategic warehousing, and an all-employee driving team, we move over 250,000 tonnes of freight annually for 40+ major clients including Unilever, General Mills, and Sigma Healthcare. Our proactive, tech-driven approach ensures smooth integration, custom solutions, and dependable service that solves problems before they arise—making us a true extension of your business.",
-  imageSrc: "/svgs/aboutbanner.svg",
-};
+
 
 export const StoryData = {
   title: "Our Story",
@@ -1039,13 +1012,7 @@ export const MissionGridData = [
       "Foster a culture of integrity, accountability, and continuous improvement for our team and stakeholders.",
   },
 ];
-export const MissionData: GridAboutDataType = {
-  title: "Mission",
-  description:
-    "To provide safe, efficient, and innovative logistics solutions that empower businesses to grow with confidence.",
-  subtitle: "Core Commitments:", // <-- You can safely delete this line to test the "optional" part
-  gridData: MissionGridData, // <-- We pass the grid data in here
-};
+
 
 export const VisionData: VisionDataType = {
   title: "Our Vision",
@@ -1081,9 +1048,9 @@ export const WhyLogisticsGridList = [
   },
 ];
 
-export const WhyLogisticsData: GridAboutDataType = {
+export const WhyLogisticsData: WhyAboutDataType = {
   title: "Why Integrated Logistics Matters",
-  gridData: WhyLogisticsGridList,
+  WhyLogisticsItem: WhyLogisticsGridList,
 };
 
 export const CoreValuesDataList = [

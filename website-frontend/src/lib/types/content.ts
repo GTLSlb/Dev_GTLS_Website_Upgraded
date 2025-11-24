@@ -75,14 +75,15 @@ export interface MessageDirectorDataType {
     content: string;
     imgSrc: string;
     subtitle: string | null;
-    Img: StrapiMediaFile;
+    ImgSrc: StrapiMediaFile;
     Sections: any[];
 }
 
 export interface TeamMember {
     id: number;
-    title: string;
-    description: string;
+    name: string;
+    ImgSrc: StrapiMediaFile;
+    position: string;
     buttonText: string | null;
 }
 
@@ -90,7 +91,7 @@ export interface MeetTeamDataType {
     id: number;
     title: string;
     description: string;
-    Members: TeamMember[];
+    TeamMemberItem: TeamMember[];
 }
 
 export interface WhyGtlsUnevenGridItem {
@@ -111,10 +112,6 @@ export type CoreValuesDataType = {
     id: number;
     title: string;
     CoreValueItem: CoreValue[];
-    WhyLogistics: WhyLogisticsDataType;
-    MessageDirector: MessageDirectorDataType;
-    MeetTeam: MeetTeamDataType;
-    WhyGtls: WhyGtlsDataType[];
 }
 
 
@@ -153,7 +150,7 @@ export type WhyGtlsDataTypes = {
 export type OurStoryDataType = {
   title: string;
   content: string;
-  Img: StrapiMediaFile; // Allows for path strings OR static imports
+  ImgSrc: StrapiMediaFile; // Allows for path strings OR static imports
 };
 
 export type VisionDataType = {
@@ -185,14 +182,28 @@ export type Section = {
   id: number;
   title: string;
   description: string;
+  ImgSrc: StrapiMediaFile;
 }
 
 export type PicAndMediaItem  = {
   id: number;
-  Title: string;
-  Children: null | any; // if you know the structure, update this
+  title: string;
   description: string;
-  image: StrapiMediaFile;
-  Sections: Section[];
+  ImgSrc: StrapiMediaFile;
 }
 
+export interface TSectionItem {
+  imgSrc: string;
+  title: string;
+  subtitle?: string;
+  content: string;
+  position: string;
+  Img: StrapiMediaFile;
+}
+export type safetyandcomplianceType  = {
+  id: number;
+  title: string;
+  description: string;
+  safetyandcomplianceItems: Section[];
+  ImgSrc: StrapiMediaFile;
+}

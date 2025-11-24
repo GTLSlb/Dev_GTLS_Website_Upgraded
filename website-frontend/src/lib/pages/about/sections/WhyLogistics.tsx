@@ -1,11 +1,11 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import BorderedGrid from "../components/BorderedGrid";
-import { GridAboutDataType } from "@/lib/types/grids";
+import { GridAboutDataType, WhyAboutDataType } from "@/lib/types/grids";
 import { WhyGtlsDataType, WhyLogisticsDataType } from "@/lib/types/content";
 
 type WhyLogisticsProps = {
-  data: WhyLogisticsDataType
+  data: WhyAboutDataType;
 };
 
 const WhyLogistics = ({ data }: WhyLogisticsProps) => {
@@ -17,7 +17,7 @@ const WhyLogistics = ({ data }: WhyLogisticsProps) => {
         titleColor="text-gold"
         className="!mt-0"
       />
-      <BorderedGrid data={data.GridCard} />
+      <BorderedGrid data={data.WhyLogisticsItem} />
     </SectionContainer>
   );
 };

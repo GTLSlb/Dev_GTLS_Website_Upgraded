@@ -1,6 +1,5 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { CoreValuesData } from "@/lib/data";
 import ValueCard from "../components/ValueCard";
 import { CoreValuesDataType } from "@/lib/types/content";
 

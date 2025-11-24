@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { StrapiMediaFile } from "./media";
 
 export type FloatingBannerProps = {
   iconSrc: string;
@@ -20,14 +21,14 @@ export type HeroProps = {
 
 export type BannerPropsItem = {
   title: string;
-  subtitle: string;
+  description: string;
 };
 
 export type BannerDataType = {
   title: string;
   description: string;
-  items: BannerPropsItem[];
-  imageSrc: string;
+  IntegratedModelItem: BannerPropsItem[];
+  ImgSrc: StrapiMediaFile;
   imageAlt?: string;
 };
 

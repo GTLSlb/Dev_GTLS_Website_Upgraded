@@ -40,8 +40,8 @@ export type NewsCardProps = {
 };
 
 export type ProfileCardProps = {
-  title: string;
-  description: string;
+  name: string;
+  position: string;
   imageSrc: string;
 };
 

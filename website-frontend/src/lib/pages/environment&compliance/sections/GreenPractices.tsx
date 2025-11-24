@@ -16,8 +16,8 @@ const GreenPractices = ({data}: GreenPracticesProps) => {
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 min-h-96">
           <Image
-            src={StrapiLink(data.image.url)}
-            alt={data.Title}
+            src={StrapiLink(data.ImgSrc.url)}
+            alt={data.title}
             fill
             className="object-contain"
           />
@@ -26,7 +26,7 @@ const GreenPractices = ({data}: GreenPracticesProps) => {
         {/* Text Section */}
         <div className="w-full md:w-1/2">
           <CenterTitle
-            title={data.Title}
+            title={data.title}
             titleColor="text-green"
             placement="left"
             description={data.description}

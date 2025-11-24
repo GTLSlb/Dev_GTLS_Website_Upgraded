@@ -20,7 +20,7 @@ const OurTeam = ({ data }: OurTeamProps) => {
       {/* ProfileSlider now receives OurTeamData.profiles, which is guaranteed 
         to be a ProfileItem[] array, perfectly matching its expected props. 
       */}
-      <ProfileSlider items={data.Members} />
+      <ProfileSlider items={data.TeamMemberItem} />
     </SectionContainer>
   );
 };

@@ -198,9 +198,9 @@ export async function getFooterData() {
     return null;
   } catch (error) {
     if (error instanceof Error) {
-        console.error('Error fetching Industry page data:', error.message);
+        console.error('Error fetching Footer page data:', error.message);
     } else {
-        console.error('An unknown error occurred fetching Industry data:', error);
+        console.error('An unknown error occurred fetching Footer data:', error);
     }
     return null;
   }

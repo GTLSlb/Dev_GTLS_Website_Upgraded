@@ -35,7 +35,7 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
           className="object-cover absolute -top-0 left-0"
         />
         <Image
-          src={StrapiLink(data.Img.url)}
+          src={StrapiLink(data.ImgSrc.url)}
           alt="Director"
           width={500}
           height={400}
@@ -44,7 +44,7 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
         <div className="flex flex-col lg:flex-row gap-15">
           <div className="relative  w-full lg:w-1/3 rounded-4xl ">
             <Image
-              src={StrapiLink(data.Img.url)}
+              src={StrapiLink(data.ImgSrc.url)}
               alt="Director"
               height={100}
               width={600}
