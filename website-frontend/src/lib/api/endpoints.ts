@@ -7,10 +7,12 @@ export const AUTH_ENDPOINTS = {
   "microsoft-token": "/microsoft-token",
   "azure-callback": "/azure/callback",
   "forgot-password": "/forgot-password",
+  "reset-password": "/reset-password",
   validate: "/Validate/Session",
   users: "/users",
   "logout-without-request": "/logout-without-request",
   "upload-doc": "/upload-doc",
+  
 };
 
 export const PERMISSIONS = {

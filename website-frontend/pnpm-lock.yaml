@@ -48,11 +48,14 @@ importers:
         specifier: ^17.2.3
         version: 17.2.3
       gtls-npm-libraries:
-        specifier: ^1.2.19
-        version: 1.2.19(@inertiajs/inertia@0.11.1)(react@19.1.0)
+        specifier: ^1.2.21
+        version: 1.2.21(@inertiajs/inertia@0.11.1)(react@19.1.0)
       jose:
         specifier: ^6.1.2
         version: 6.1.2
+      lottie-web:
+        specifier: ^5.13.0
+        version: 5.13.0
       lucide-react:
         specifier: ^0.541.0
         version: 0.541.0(react@19.1.0)
@@ -1569,8 +1572,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  gtls-npm-libraries@1.2.19:
-    resolution: {integrity: sha512-aFnkzH5qdtZhVVi6reHrIb45gqvgcYP+75sJp9Y43CjTWENvhGGJTdaF5Q8v/R6RQBwSE7uezIaUSxz5ZtXNWA==}
+  gtls-npm-libraries@1.2.21:
+    resolution: {integrity: sha512-x0JvpRKuxWOKpNFRZKRj23eFmkj36SZu1AJ6SPyWor6TXM2NFnnXYzmjWB7oasNwT0R07gGwILluDsjMNGvPPg==}
     peerDependencies:
       react: ^18.2.0
 
@@ -1860,6 +1863,9 @@ packages:
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
+
+  lottie-web@5.13.0:
+    resolution: {integrity: sha512-+gfBXl6sxXMPe8tKQm7qzLnUy5DUPJPKIyRHwtpCpyUEYjHYRJC/5gjUvdkuO2c3JllrPtHXH5UJJK8LRYl5yQ==}
 
   lucide-react@0.541.0:
     resolution: {integrity: sha512-s0Vircsu5WaGv2KoJZ5+SoxiAJ3UXV5KqEM3eIFDHaHkcLIFdIWgXtZ412+Gh02UsdS7Was+jvEpBvPCWQISlg==}
@@ -3975,12 +3981,13 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  gtls-npm-libraries@1.2.19(@inertiajs/inertia@0.11.1)(react@19.1.0):
+  gtls-npm-libraries@1.2.21(@inertiajs/inertia@0.11.1)(react@19.1.0):
     dependencies:
       '@azure/msal-browser': 4.26.1
       '@heroicons/react': 2.2.0(react@19.1.0)
       '@inertiajs/inertia-react': 0.8.1(@inertiajs/inertia@0.11.1)(react@19.1.0)
       axios: 1.13.2
+      lottie-web: 5.13.0
       react: 19.1.0
       react-icons: 5.5.0(react@19.1.0)
     transitivePeerDependencies:
@@ -4251,6 +4258,8 @@ snapshots:
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
+
+  lottie-web@5.13.0: {}
 
   lucide-react@0.541.0(react@19.1.0):
     dependencies:

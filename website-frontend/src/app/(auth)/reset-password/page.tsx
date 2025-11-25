@@ -10,7 +10,6 @@ import Logo from "@/lib/assets/images/Logo.png";
 import React from "react";
 // REMOVED: import LottieComponent from "@/lib/components/lottie/LottieComponent"; // Moved to dynamic import
 import Image from "next/image";
-import { AUTH_ENDPOINTS } from "@/lib/api/endpoints";
 
 // 1. Dynamic import for the local Lottie component
 const DynamicLottieComponent = dynamic(
@@ -22,8 +21,8 @@ const DynamicLottieComponent = dynamic(
 );
 
 // 2. Dynamic import for the main page component from the library (Already correct)
-const ClientForgotPasswordPage = dynamic(
-  () => import("gtls-npm-libraries").then((mod) => mod.ForgotPasswordPage),
+const ClientResetPasswordPage = dynamic(
+  () => import("gtls-npm-libraries").then((mod) => mod.ResetLinkPage),
   {
     ssr: false,
     loading: () => (
@@ -32,11 +31,11 @@ const ClientForgotPasswordPage = dynamic(
   }
 );
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
   const gtamURl = process.env.NEXT_PUBLIC_APP_GTAM_API_URL || "";
 
   return (
-    <ClientForgotPasswordPage
+    <ClientResetPasswordPage
       gtamURl={gtamURl}
       gtlsLogo={
         <div className="ml-[1%]">
@@ -47,7 +46,6 @@ export default function ForgotPassword() {
       // 3. Pass the dynamically imported component here
       LottieComponent={DynamicLottieComponent}
       success={success}
-      forgotPasswordPageLink={AUTH_ENDPOINTS["forgot-password"]}
     />
   );
 }
