@@ -23,7 +23,7 @@ export type StrapiMediaFile = {
     id: number;
     documentId: string;
     name: string;
-    alternativeText: string | null;
+    alternativeText: string;
     caption: string | null;
     width: number;
     height: number;
@@ -42,6 +42,7 @@ export type StrapiMediaFile = {
     url: string;
     previewUrl: string | null;
     provider: string;
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     provider_metadata: any | null; // Use `any` or a specific type if known
     createdAt: string;
     updatedAt: string;

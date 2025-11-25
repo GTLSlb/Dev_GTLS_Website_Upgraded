@@ -9,10 +9,7 @@ import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
   NavigationMenuLink,
-  navigationMenuTriggerStyle,
 } from "@/lib/ui/navigation-menu";
 import {
   Sheet,
@@ -21,19 +18,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/lib/ui/sheet";
-import { navigationConfig } from "@/lib/data";
 import { Button } from "@/lib/ui/button";
 import TextWrapper from "../../Common/TextWrapper";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { NavbarContent } from "@/lib/types/navigation";
+import { StrapiLink } from "@/lib/services/media";
 
 type NavigationMenuBarProps={
   data: NavbarContent;
 }
 
 export function NavigationMenuBar({data}:NavigationMenuBarProps ) {
-  console.log(data)
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
 const [currentPath, setCurrentPath] = React.useState(pathname);
@@ -41,17 +37,16 @@ const [currentPath, setCurrentPath] = React.useState(pathname);
 React.useEffect(() => {
   setCurrentPath(pathname);
 }, [pathname]);
-  const { logo, links } = navigationConfig;
 
   return (
     <nav className="flex items-center justify-between gap-6 w-full p-4 border-b">
       {/* Logo */}
       <Link href="/" className="flex items-center space-x-2">
         <Image
-          src={logo.src}
-          alt={logo.alt}
-          width={logo.width ?? 100}
-          height={logo.height ?? 50}
+          src={StrapiLink(data.Logo.url)}
+          alt={data.Logo.alternativeText}
+          width={100}
+          height={50}
         />
       </Link>
 
@@ -147,31 +142,31 @@ React.useEffect(() => {
             </SheetHeader>
             <div className="flex flex-col gap-4 p-4 justify-between h-full">
               <div className="flex flex-col space-y-4 mt-4">
-                {links.map((link) =>
-                  link.children ? (
-                    <div key={link.label}>
-                      <TextWrapper
-                        text={link.label}
-                        fontFamily="dmSans"
-                        styleType="body"
-                      />
-                      <div className="ml-3 flex flex-col space-y-2">
-                        {link.children.map((child) => (
-                          <Link
-                            key={child.label}
-                            href={child.href ?? "#"}
-                            onClick={() => setOpen(false)}
-                          >
-                            <TextWrapper
-                              text={child.label}
-                              fontFamily="dmSans"
-                              styleType="link"
-                            />
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
+                {data?.NavItems.map((link) =>
+                  // link.children ? (
+                  //   <div key={link.label}>
+                  //     <TextWrapper
+                  //       text={link.label}
+                  //       fontFamily="dmSans"
+                  //       styleType="body"
+                  //     />
+                  //     <div className="ml-3 flex flex-col space-y-2">
+                  //       {link.children.map((child) => (
+                  //         <Link
+                  //           key={child.label}
+                  //           href={child.href ?? "#"}
+                  //           onClick={() => setOpen(false)}
+                  //         >
+                  //           <TextWrapper
+                  //             text={child.label}
+                  //             fontFamily="dmSans"
+                  //             styleType="link"
+                  //           />
+                  //         </Link>
+                  //       ))}
+                  //     </div>
+                  //   </div>
+                  // ) : (
                     <Link
                       key={link.label}
                       href={link.href ?? "#"}
@@ -184,7 +179,8 @@ React.useEffect(() => {
                       />
                     </Link>
                   )
-                )}
+                // )
+                }
               </div>
               <Button
                 variant="outline"

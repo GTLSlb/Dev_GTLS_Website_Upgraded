@@ -7,19 +7,9 @@ import GreenPractices from "@/lib/pages/environment&compliance/sections/GreenPra
 import SafetyAndCompliance from "@/lib/pages/environment&compliance/sections/SafetyAndCompliance";
 import Partners from "@/lib/pages/environment&compliance/sections/Partners";
 import Fatigue from "@/lib/pages/environment&compliance/sections/Fatigue";
-import { CommonHeroDataType } from "@/lib/types/hero";
-import {
-  GreenPracticesDataType,
-  RecyclingDataType,
-  TSectionItem,
-} from "@/lib/types/content";
-import { SafetyComplianceData } from "@/lib/types/safetyCompliance";
 import { sustainability_page_data } from "@/lib/data";
 import { StrapiLink } from "@/lib/services/media";
 
-
-
-console.log('Sustainability Page Data:', sustainability_page_data);
 
 const Page = () => {
   return (

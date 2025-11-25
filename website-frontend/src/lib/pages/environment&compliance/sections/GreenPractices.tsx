@@ -1,7 +1,7 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import { StrapiLink } from "@/lib/services/media";
-import { GreenPracticesDataType, PicAndMediaItem } from "@/lib/types/content";
+import { PicAndMediaItem } from "@/lib/types/content";
 import Image from "next/image";
 
 type GreenPracticesProps = {

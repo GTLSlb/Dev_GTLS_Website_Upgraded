@@ -1,16 +1,12 @@
-import Image from "next/image";
 import Container from "../../Containers/container";
-import { Input } from "@/lib/ui/input";
-import { Button } from "@/lib/ui/button";
 import TextWrapper from "../../Common/TextWrapper";
-import { Facebook, Instagram, Phone } from "lucide-react";
-import { footerMenu, locations } from "@/lib/data";
 import SectionContainer from "../../Containers/sectionContainer";
-import { FooterComponent } from "@/lib/types/navigation";
 import { StrapiLink } from "@/lib/services/media";
+import Image from "next/image";
+import { FooterContent, FooterMenuItem, FooterSection, LocationItem, QuickLinkItem, SocialItem } from "@/lib/types/navigation";
 
 interface FooterProps {
-  footerContent: any | null | undefined;
+  footerContent: FooterContent ;
 }
 
 const getStrapiImageURL = (url: string) => {
@@ -20,11 +16,11 @@ const getStrapiImageURL = (url: string) => {
   return `${baseUrl}${url}`;
 };
 const FooterNavigation = ({ footerContent }: FooterProps) => {
-  const { logo, description, footerMenu, Socials, locations } = footerContent;
+  const { logo, description, footerMenu, Socials } = footerContent;
   const footerMenuList = [
     {
       title: footerMenu.QuickLinks.title,
-      items: footerMenu.QuickLinks.linkitems.map((i: any) => ({
+      items: footerMenu.QuickLinks.linkitems.map((i: QuickLinkItem) => ({
         label: i.label,
         link: i.link ?? "#",
         isDocument: false,
@@ -32,7 +28,7 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
     },
     {
       title: footerMenu.OurServices.title,
-      items: footerMenu.OurServices.serviceitems.map((i: any) => ({
+      items: footerMenu.OurServices.serviceitems.map((i: QuickLinkItem) => ({
         label: i.label,
         link: i.link ?? "#",
         isDocument: false,
@@ -40,7 +36,7 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
     },
     {
       title: footerMenu.Legal.title,
-      items: footerMenu.Legal.legalitems.map((i: any) => ({
+      items: footerMenu.Legal.legalitems.map((i: QuickLinkItem) => ({
         label: i.label,
         link: i.document ?? "#",
         isDocument: true,
@@ -57,12 +53,15 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
             {/* LEFT COLUMN: Logo, Newsletter, Socials */}
             <div className="flex w-full md:w-5/12 flex-col gap-8">
               {/* 1. Logo (Dynamic from Strapi, replaced next/image with <img>) */}
-              <img
-                src={logoUrl}
-                alt={logo.alternativeText || logo.name}
-                style={{ width: logo.width || 100, height: logo.height || 50 }}
-                className="object-contain"
-              />
+              <div className="relative">
+                <Image
+                  src={logoUrl}
+                  alt={logo.alternativeText || logo.name}
+                  width={50}
+                  height={50}
+                  className="object-contain"
+                />
+              </div>
 
               {/* Newsletter / Input (Replaced external components with native elements) */}
               <div className="flex items-center w-full gap-4">
@@ -88,17 +87,17 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
 
               {/* 3. Social Media Links (Dynamic from Strapi, replaced lucide icons with <img>) */}
               <div className="flex gap-6 mt-4">
-                {socialItems.map((item: any) => (
+                {socialItems.map((item: SocialItem) => (
                   <a
                     key={item.id}
                     href={item.link || "#"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-black hover:text-gold transition duration-200"
+                    className="text-black relative hover:text-gold transition duration-200"
                   >
-                    <img
+                    <Image
                       src={getStrapiImageURL(item.Icon.url)}
-                      alt={item.Icon.alternativeText || item.Icon.name}
+                      alt={item.Icon.alternativeText || item.Icon.name || "Social Icon"}
                       width={20}
                       height={20}
                       className="h-5 w-5"
@@ -112,7 +111,7 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
             <div className="flex flex-col gap-10 w-full md:w-7/12">
               {/* 4. Footer Menu (Dynamic from Strapi) */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 w-full">
-                {footerMenuList.map((section: any) => (
+                {footerMenuList.map((section: FooterSection) => (
                   <div key={section.title} className="flex flex-col gap-4">
                     <TextWrapper
                       text={section.title}
@@ -120,10 +119,14 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                       styleType="subtitle"
                     />
                     <ul className="flex flex-col gap-2 text-gray-800">
-                      {section.items.map((item: any) => (
+                      {section.items.map((item: FooterMenuItem) => (
                         <li key={item.label}>
                           <a
-                            href={item.isDocument === true ? StrapiLink(item.link.url) : item.link}
+                            href={
+                              item.isDocument
+                                ? StrapiLink((item.link as { url: string }).url)
+                                : (item.link as string)
+                            }
                             className="text-sm hover:underline text-gray-600"
                             target={item.isDocument ? "_blank" : undefined}
                             rel={
@@ -149,7 +152,7 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                   styleType="subtitle" // Mocking text-gold style
                 />
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 w-full">
-                  {footerMenu.Locations.LocationItem.map((section: any) => (
+                  {footerMenu.Locations.LocationItem.map((section: LocationItem) => (
                     <div key={section.city} className="flex flex-col gap-1">
                       <TextWrapper
                         text={section.city}

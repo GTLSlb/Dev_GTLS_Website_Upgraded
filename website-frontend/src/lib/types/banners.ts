@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { StrapiMediaFile } from "./media";
 
 export type FloatingBannerProps = {

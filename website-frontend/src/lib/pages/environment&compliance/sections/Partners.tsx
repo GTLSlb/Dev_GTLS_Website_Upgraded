@@ -1,6 +1,6 @@
 import ImageAndText from "@/lib/components/Common/ImageAndText";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { PicAndMediaItem, TSectionItem } from "@/lib/types/content";
+import { PicAndMediaItem } from "@/lib/types/content";
 
 type PartnersProps = {
   data: PicAndMediaItem;

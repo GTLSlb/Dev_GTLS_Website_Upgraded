@@ -2,7 +2,6 @@ import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import { StrapiLink } from "@/lib/services/media";
-import { MessageBannerData } from "@/lib/types/banners";
 import { MessageDirectorDataType } from "@/lib/types/content";
 import Image from "next/image";
 

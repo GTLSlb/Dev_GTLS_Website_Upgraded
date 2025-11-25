@@ -1,5 +1,4 @@
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { ExpansionValues } from "@/lib/data";
 import ExpansionCard from "../components/ExpansionCard";
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import { ExpansionDataType } from "@/lib/types/grids";

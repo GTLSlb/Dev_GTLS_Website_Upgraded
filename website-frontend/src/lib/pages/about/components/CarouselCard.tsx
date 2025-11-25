@@ -1,5 +1,5 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { SliderItem } from "@/lib/types";
+import { SliderItem } from "@/lib/types/sliders";
 import { ArrowRight } from "lucide-react";
 
 const CarouselCard: React.FC<SliderItem> = ({ title, description, date }) => {

@@ -1,9 +1,6 @@
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import KeyBenefits from "@/lib/pages/btriple/sections/KeyBenefits";
-import Expansion from "@/lib/pages/btriple/sections/Expansion";
-import { CommonHeroDataType } from "@/lib/types/hero";
-import { BTriplesData, ExpansionValues } from "@/lib/data";
 import { getBTriplePageData } from "@/lib/services/api";
 import { BTripPageData } from "@/lib/types/pages";
 import { StrapiLink } from "@/lib/services/media";
@@ -37,7 +34,7 @@ const Page = async () => {
         cornerText={HeroSection.cornerText}
       />
       <KeyBenefits data={FetchedKeyBenefits} />
-      <Expansion data={ExpansionValues} /> 
+      {/* <Expansion data={ExpansionValues} />  */}
       
     </Container>
   );

@@ -1,8 +1,7 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import BorderedGrid from "../components/BorderedGrid";
-import { GridAboutDataType, WhyAboutDataType } from "@/lib/types/grids";
-import { WhyGtlsDataType, WhyLogisticsDataType } from "@/lib/types/content";
+import { WhyAboutDataType } from "@/lib/types/grids";
 
 type WhyLogisticsProps = {
   data: WhyAboutDataType;

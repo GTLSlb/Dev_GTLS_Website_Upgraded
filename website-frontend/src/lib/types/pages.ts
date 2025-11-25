@@ -22,8 +22,6 @@ export interface AboutUsPageData {
     updatedAt: string;
     publishedAt: string;
     HeroSection: CommonHeroDataType;
-    Footer: any | null; // Placeholder
-    Navbar: any | null; // Placeholder
     OurStory: OurStoryDataType;
     Mission: GridAboutDataType; // This is returned as an array []
     OurVision: VisionDataType;

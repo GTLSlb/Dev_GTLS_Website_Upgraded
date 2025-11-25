@@ -57,7 +57,6 @@ export interface SocialsComponent {
 
 export interface FooterComponent {
     id: number;
-    email_input: any | null; // Based on sample, assuming this is a placeholder or rich text/boolean
     description: string;
     // The logo field is a single non-repeatable media relation
     logo: StrapiMediaFile; 
@@ -74,8 +73,73 @@ export interface FooterPageData {
     updatedAt: string;
     publishedAt: string;
     // The main Footer component is directly accessible
-    Footer: FooterComponent; 
+    Footer: FooterContent; 
 }
+
+export type QuickLinkItem = {
+  label: string;
+  link?: string | null;
+  document?: string | null;
+};
+
+export type SocialItem = {
+  id: number | string;
+  link: string | null;
+  Icon: {
+    url: string;
+    name?: string;
+    alternativeText?: string;
+  };
+};
+
+export type FooterMenuItem = {
+  label: string;
+  isDocument: boolean;
+  link: string | { url: string } | null;
+};
+export type FooterSection = {
+  title: string;
+  items: FooterMenuItem[];
+};
+export type LocationItem = {
+  city: string;
+  street: string;
+  suburb: string;
+  state: string;
+  postalCode: string;
+};
+export type FooterContent = {
+  logo: StrapiMediaFile;
+
+  description: string;
+
+  Socials: {
+    SocialMediaItem: SocialItem[];
+  };
+
+  footerMenu: {
+    QuickLinks: {
+      title: string;
+      linkitems: QuickLinkItem[];
+    };
+
+    OurServices: {
+      title: string;
+      serviceitems: QuickLinkItem[];
+    };
+
+    Legal: {
+      title: string;
+      legalitems: QuickLinkItem[];
+    };
+
+    Locations: {
+      title: string;
+      LocationItem: LocationItem[];
+    };
+  };
+}
+
 
 // Navigation Item
 export interface NavItem {
@@ -88,9 +152,7 @@ export interface NavItem {
 // Content
 export interface NavbarContent {
   id: number;
-  NavItems: NavItem[];
-  Footer: any | null;          // type when you have structure
-  HeroSection: any[];          // same here
+  NavItems: NavItem[];        // same here
   Logo: StrapiMediaFile;
 }
 
@@ -107,5 +169,6 @@ export interface DataWrapper {
 // Final API Response
 export interface NavbarApiResponse {
   data: DataWrapper;
+  // eslint-disable-next-line
   meta: Record<string, any>;
 }

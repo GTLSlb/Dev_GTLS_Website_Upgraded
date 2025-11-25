@@ -1,7 +1,7 @@
 import { Card, CardDescription, CardTitle } from "@/lib/ui/card";
 import Image from "next/image";
 import TextWrapper from "./TextWrapper";
-import { NewsCardProps } from "@/lib/types";
+import { NewsCardProps } from "@/lib/types/cards";
 
 const NewsCard: React.FC<NewsCardProps> = ({
   title,

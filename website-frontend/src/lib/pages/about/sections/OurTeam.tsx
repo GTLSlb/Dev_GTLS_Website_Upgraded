@@ -1,7 +1,6 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import ProfileSlider from "../components/ProfileSlider";
-import { OurTeamDataType } from "@/lib/types/profiles";
 import { MeetTeamDataType } from "@/lib/types/content";
 
 type OurTeamProps = {

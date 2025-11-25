@@ -8,21 +8,15 @@ import CoreValues from "@/lib/pages/about/sections/CoreValues";
 import Vision from "@/lib/pages/about/sections/Vision";
 import MessageBanner from "@/lib/pages/about/sections/MessageBanner";
 import OurTeam from "@/lib/pages/about/sections/OurTeam";
-import { CommonHeroDataType } from "@/lib/types/hero";
 import { AboutUsPageData } from "@/lib/types/pages";
 import { getAboutUsPageData } from "@/lib/services/api";
 import { StrapiLink } from "@/lib/services/media";
 
-type HeroProps = {
-  /** Pass the hero data object to the component */
-  data: CommonHeroDataType;
-};
 
 const Page = async () => {
   
   // Fetch data
   const aboutUsData: AboutUsPageData | null = await getAboutUsPageData();
-  console.log(aboutUsData)
   // Handle Not Found/Error
   if (!aboutUsData) {
     return (

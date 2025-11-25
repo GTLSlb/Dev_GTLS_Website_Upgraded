@@ -1,7 +1,6 @@
 import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 import { StrapiMediaFile } from "./media";
-import { CommonHeroDataType } from "./hero";
 
 export type ContentListNumber = {
   label: string;
@@ -76,7 +75,6 @@ export interface MessageDirectorDataType {
     imgSrc: string;
     subtitle: string | null;
     ImgSrc: StrapiMediaFile;
-    Sections: any[];
 }
 
 export interface TeamMember {
@@ -101,12 +99,6 @@ export interface WhyGtlsUnevenGridItem {
     buttonText: string | null;
 }
 
-export interface WhyGtlsDataType {
-    id: number;
-    WhyGtlsItem: any[];
-    UnevenGrid: WhyGtlsUnevenGridItem[];
-    WarehouseMap: any[];
-}
 
 export type CoreValuesDataType = {
     id: number;

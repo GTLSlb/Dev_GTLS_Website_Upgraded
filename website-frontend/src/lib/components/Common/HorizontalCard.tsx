@@ -1,6 +1,6 @@
-import { HorizontalCardProps } from "@/lib/types";
 import Image from "next/image";
 import TextWrapper from "./TextWrapper";
+import { HorizontalCardProps } from "@/lib/types/cards";
 
 const HorizontalCard: React.FC<HorizontalCardProps> = ({
   imgSrc,

@@ -1,9 +1,9 @@
 
-import { RecentNewsDataType } from "@/lib/types/news";
+import { RecentPostsDataType } from "@/lib/types/news";
 import NewsCard from "./NewsCard";
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 
-export type RecentNewsProps =  RecentNewsDataType;
+export type RecentNewsProps =  RecentPostsDataType;
 
 const RecentNews = ({ title, items }: RecentNewsProps) => {
   return (

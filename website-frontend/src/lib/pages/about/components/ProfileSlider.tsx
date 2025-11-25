@@ -6,7 +6,6 @@ import "swiper/css";
 import { MoveLeft, MoveRight } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 import { Swiper as SwiperType } from 'swiper';
-import { ProfileSliderProps } from "@/lib/types/profiles";
 import { TeamMember } from "@/lib/types/content";
 import { StrapiLink } from "@/lib/services/media";
 

@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Layout = async ({ children }: Props) => {
-  const footerData: FooterPageData | null = await getFooterData();
+  const footerData: FooterPageData = await getFooterData();
 
   // Extract the main component content
   const footerContent = footerData?.Footer;

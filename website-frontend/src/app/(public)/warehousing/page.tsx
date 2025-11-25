@@ -2,7 +2,6 @@
 
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
-import { FacilitiesGridData, LocationsData } from "@/lib/data";
 import Facilities from "@/lib/pages/warehousing/sections/Facilities";
 import Locations from "@/lib/pages/warehousing/sections/Locations";
 import { warehousing_page_data } from "@/lib/data";

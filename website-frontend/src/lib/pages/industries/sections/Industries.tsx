@@ -1,6 +1,5 @@
 import ImageAndText from "@/lib/components/Common/ImageAndText";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { StrapiLink } from "@/lib/services/media";
 import { IndustriesDataArray } from "@/lib/types/content";
 
 type IndustriesProps = {

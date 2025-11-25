@@ -1,11 +1,8 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import { StrapiLink } from "@/lib/services/media";
-import { PicAndMediaItem, safetyandcomplianceType } from "@/lib/types/content";
-import { SafetyComplianceData } from "@/lib/types/safetyCompliance";
+import { safetyandcomplianceType } from "@/lib/types/content";
 import { Separator } from "@/lib/ui/separator";
-import * as LucideIcons from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 
 type SafetyComplianceProps = {
