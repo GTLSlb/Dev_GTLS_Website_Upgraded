@@ -1,5 +1,5 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { BorderedGridItemProps } from "@/lib/types";
+import { BorderedGridItemProps } from "@/lib/types/cards";
 import React from "react";
 
 const GridItem: React.FC<BorderedGridItemProps> = ({ title, description }) => {

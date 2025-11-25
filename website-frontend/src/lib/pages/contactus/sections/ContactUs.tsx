@@ -1,7 +1,5 @@
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import ContactForm from "../components/ContactForm";
-import Branches from "../components/Branches";
-import { branchesData } from "@/lib/data";
 import Image from "next/image";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 
@@ -34,7 +32,7 @@ const ContactUs = () => {
               </div>
             </div>
           </div>
-          <Branches data={branchesData} />
+          {/* <Branches data={branchesData} /> */}
         </div>
         <div className="w-full md:w-1/2">
           <ContactForm />

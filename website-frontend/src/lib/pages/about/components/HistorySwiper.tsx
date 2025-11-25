@@ -4,9 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { SliderProps } from "@/lib/types";
 import CarouselCard from "./CarouselCard";
 import { Swiper as SwiperType } from 'swiper';
+import { SliderProps } from "@/lib/types/sliders";
 
 const HistorySwiper: React.FC<SliderProps> = ({ items }) => {
   const swiperRef = useRef<SwiperType|null>(null);

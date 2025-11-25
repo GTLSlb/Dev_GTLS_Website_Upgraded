@@ -1,33 +1,43 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import UnevenGrid from "@/lib/components/Common/UnevenGrid";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { WhyGtlsData } from "@/lib/data";
+import { WhyGtlsDataTypes } from "@/lib/types/content";
 import Image from "next/image";
+import tiger from '../../../../../public/svgs/tiger.svg';
 
-const WhyGtls = () => {
+type WhyGtlsDataProps = {
+  data: WhyGtlsDataTypes;
+};
+
+const WhyGtls = ({ data }: WhyGtlsDataProps) => {
+
   return (
-      <SectionContainer className="!pt-0 overflow-hidden" parentClassName="bg-gold relative overflow-hidden">
-    {/* Background Image */}
-    <Image
-      src="/svgs/tiger.svg"
-      alt="Tiger"
-      width={700}
-      height={700}
-      className="absolute left-0 -bottom-90 z-0"
-    />
+    <SectionContainer
+      className="!pt-0 overflow-hidden"
+      parentClassName="bg-gold relative overflow-hidden"
+    >
+      {/* Background Image */}
+        <Image
+          src={tiger}
+          alt="Tiger"
+          width={700}
+          height={700}
+          className="absolute left-0 -bottom-90 z-0"
+        />
 
-    {/* Foreground content */}
-    <div className="relative z-10">
-      <CenterTitle
-        title="Why Gold Tiger Logistics Solutions"
-        titleColor="text-white"
-        description="Designed for Efficiency and Security"
-        buttonText="Get a Custom Solution"
-        dark
-      />
-      <UnevenGrid items={WhyGtlsData} />
-    </div>
-  </SectionContainer>
+      {/* Foreground content */}
+      <div className="relative z-10">
+        <CenterTitle
+          title={data.title}
+          titleColor="text-white"
+          description={data.description}
+          buttonText={data.quote}
+          dark
+        />
+        <UnevenGrid items={data.data} />
+      </div>
+    </SectionContainer>
   );
 };
+
 export default WhyGtls;
