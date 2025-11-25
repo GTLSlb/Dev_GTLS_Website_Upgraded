@@ -6,6 +6,7 @@ import { CommonHeroDataType } from "@/lib/types/hero";
 import { BTriplesData, ExpansionValues } from "@/lib/data";
 import { getBTriplePageData } from "@/lib/services/api";
 import { BTripPageData } from "@/lib/types/pages";
+import { StrapiLink } from "@/lib/services/media";
 
 
 const Page = async () => {
@@ -31,7 +32,7 @@ const Page = async () => {
       <CommonHero
         title={HeroSection.Title}
         description={HeroSection.Description}
-        imageSrc={HeroSection.Media?.url || "/webp/btriple.png"} 
+        imageSrc={StrapiLink(HeroSection.Media.url) || "/webp/btriple.png"} 
         contain
         cornerText={HeroSection.cornerText}
       />

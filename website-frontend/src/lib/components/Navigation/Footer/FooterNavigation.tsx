@@ -7,6 +7,7 @@ import { Facebook, Instagram, Phone } from "lucide-react";
 import { footerMenu, locations } from "@/lib/data";
 import SectionContainer from "../../Containers/sectionContainer";
 import { FooterComponent } from "@/lib/types/navigation";
+import { StrapiLink } from "@/lib/services/media";
 
 interface FooterProps {
   footerContent: any | null | undefined;
@@ -46,7 +47,6 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
       })),
     },
   ];
-  console.log(footerMenu.Legal);
   const socialItems = Socials.SocialMediaItem || [];
   const logoUrl = getStrapiImageURL(logo.url);
   return (
@@ -123,7 +123,7 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                       {section.items.map((item: any) => (
                         <li key={item.label}>
                           <a
-                            href={item.link}
+                            href={item.isDocument === true ? StrapiLink(item.link.url) : item.link}
                             className="text-sm hover:underline text-gray-600"
                             target={item.isDocument ? "_blank" : undefined}
                             rel={

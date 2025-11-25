@@ -18,7 +18,7 @@ const Expansion = ({data}: ExpansionProps) => {
         className="!mt-0"
       />
       <div className=" grid grid-cols-1 md:grid-cols-2  gap-6">
-        {data.points.map((value, index) => (
+        {data.points?.map((value, index) => (
           <ExpansionCard key={index} value={value} index={index} />
         ))}
       </div>
