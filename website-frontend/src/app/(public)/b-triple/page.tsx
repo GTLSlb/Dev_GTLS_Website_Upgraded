@@ -4,13 +4,13 @@ import KeyBenefits from "@/lib/pages/btriple/sections/KeyBenefits";
 import { getBTriplePageData } from "@/lib/services/api";
 import { BTripPageData } from "@/lib/types/pages";
 import { StrapiLink } from "@/lib/services/media";
+import Expansion from "@/lib/pages/btriple/sections/Expansion";
 
 
 const Page = async () => {
   
   // 1. Fetch data directly inside the Server Component
   const bTripleData: BTripPageData | null = await getBTriplePageData();
-  console.log(bTripleData)
   // Optional: Error/Not Found Handling
   if (!bTripleData) {
     return (
@@ -22,7 +22,7 @@ const Page = async () => {
   }
   console.log(bTripleData)
   // 2. Destructure the fetched Strapi components (assuming they match your type)
-  const { HeroSection, KeyBenefits: FetchedKeyBenefits} = bTripleData;
+  const { HeroSection, KeyBenefits: FetchedKeyBenefits , Expansion: ExpansionValues} = bTripleData;
 
   return (
     <Container>
@@ -34,7 +34,7 @@ const Page = async () => {
         cornerText={HeroSection.cornerText}
       />
       <KeyBenefits data={FetchedKeyBenefits} />
-      {/* <Expansion data={ExpansionValues} />  */}
+      <Expansion data={ExpansionValues} /> 
       
     </Container>
   );

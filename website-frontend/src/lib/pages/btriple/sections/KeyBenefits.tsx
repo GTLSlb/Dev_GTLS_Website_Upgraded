@@ -5,6 +5,7 @@ import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import { BTriplesDataType } from "@/lib/types/safetyCompliance";
+import { StrapiLink } from "@/lib/services/media";
 
 type BTripleProps = {
   data: BTriplesDataType;
@@ -33,12 +34,17 @@ const KeyBenefits = ({ data }: BTripleProps) => {
             dark
           />
           <div className="grid md:grid-cols-2 divide-y">
-            {data.Sections?.map((item, i) => {
-              const Icon = LucideIcons[item.icon] as LucideIcon;
+            {data.CoreValueItem?.map((item, i) => {
               return (
                 <div key={i} className="flex gap-8 py-10 px-4 items-start">
-                  <div className="bg-white p-8 rounded-xl">
-                    {item.icon&& <Icon className="text-gold" size={64} />}
+                  <div className="bg-white relative p-8 rounded-xl">
+                    <Image
+                      src={StrapiLink(item.icon.url)}
+                      alt={item.title}
+                      width={70}
+                      height={70}
+                      className="object-contain"
+                    />
                   </div>
                   <div className="flex flex-col gap-2">
                     <TextWrapper

@@ -1,4 +1,5 @@
 import * as LucideIcons from "lucide-react";
+import { StrapiMediaFile } from "./media";
 
 export type SafetyComplianceSection = {
   icon: keyof typeof LucideIcons;
@@ -17,12 +18,12 @@ export type SafetyComplianceData = {
 };
 
 export type BTripleSection = {
-  icon: keyof typeof LucideIcons;
+  icon: StrapiMediaFile;
   title: string;
   description: string;
 };
 
 export type BTriplesDataType = {
   title: string;
-  Sections: BTripleSection[];
+  CoreValueItem: BTripleSection[];
 };

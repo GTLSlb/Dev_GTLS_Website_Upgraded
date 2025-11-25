@@ -4,6 +4,17 @@ import { GridAboutDataType, WhyAboutDataType } from "./grids";
 import { CommonHeroDataType } from "./hero";
 import { BTriplesDataType } from "./safetyCompliance";
 
+export type ExpansionItem = {
+  id: number;
+  title: string;
+  description: string;
+};
+
+export type Expansion = {
+  id: number;
+  title: string;
+  data: ExpansionItem[];
+};
 export type BTripPageData = {
     id: number;
     documentId: string;
@@ -12,6 +23,7 @@ export type BTripPageData = {
     publishedAt: string; // ISO 8601 date string
     HeroSection: CommonHeroDataType;
     KeyBenefits: BTriplesDataType;
+    Expansion: Expansion;
     // Add any other components that might be in the 'populate=*' response
 }
 
