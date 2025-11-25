@@ -10,7 +10,7 @@ const FloatingBanner = ({ iconSrc, text, className }: FloatingBannerProps) => {
         className ?? ""
       }`}
     >
-        <XIcon className="absolute -top-2 left-2 size-6 text-tint-gray p-1 bg-white rounded-full  cursor-pointer hover:text-tint-gray" />
+        <XIcon className="absolute -top-2 left-2 size-6 text-tint-gray p-1 bg-gold rounded-full  cursor-pointer text-white" />
       <div className="relative w-16 h-16">
         <Image src={iconSrc} alt={text} fill />
       </div>
