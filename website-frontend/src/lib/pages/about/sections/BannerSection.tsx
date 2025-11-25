@@ -7,7 +7,6 @@ type BannerProps ={
 }
 
 const BannerSection = ({data}: BannerProps) => {
-  console.log("Banner Section Data:", data);
   return (
     <SectionContainer className="!pt-0">
       <Banner data={data} />

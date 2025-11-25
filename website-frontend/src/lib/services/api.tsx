@@ -26,7 +26,6 @@ export async function getBTriplePageData() {
       'populate': '*',
     };
     const response = await strapi.get('/b-triple', { params });
-    console.log('B-Triple API Response:', response.data);
     // Strapi Single Type response structure: { data: { id, attributes: {...} }, meta: {} }
     const item = response.data.data;
 
@@ -55,7 +54,6 @@ export async function getWarehousingPageData() {
     };
     const response = await strapi.get('/warehousing', { params });
 
-    console.log('Warehousing API Response:', response.data);
     
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;

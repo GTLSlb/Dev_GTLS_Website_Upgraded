@@ -5,7 +5,6 @@ import SectionContainer from "../../Containers/sectionContainer";
 import NavigationMenuBar from "./NavigationMenuBar";
 
 const HeaderNavigation = ({}) => {
-  console.log("Navbar Data:", navbar_data?.data)
   return (
     <div className="fixed top-0 z-50 h-24 bg-white w-full">
       <Container>

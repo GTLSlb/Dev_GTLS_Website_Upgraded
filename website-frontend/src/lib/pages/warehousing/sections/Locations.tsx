@@ -9,7 +9,6 @@ type LocationsProps = {
 };
 
 const Locations = ({ data }: LocationsProps) => {
-  console.log(data);
   return (
     <SectionContainer
       className=""

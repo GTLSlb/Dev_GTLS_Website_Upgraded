@@ -29,7 +29,6 @@ const Page = async () => {
   
   // Destructure the necessary components
   const { HeroSection, OurVision , OurStory: OurStoryData, CoreValues: CoreValuesData, Mission: MissionData, IntegratedModel: BannerAboutData, WhyLogistics: WhyLogisticsData,MessageDirector,MeetTeam: OurTeamData  } = aboutUsData;
-console.log("About Us Data:", aboutUsData)
   
   return (
     <Container>

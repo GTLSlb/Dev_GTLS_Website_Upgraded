@@ -20,7 +20,6 @@ const Page = async () => {
       </div>
     );
   }
-  console.log(bTripleData)
   // 2. Destructure the fetched Strapi components (assuming they match your type)
   const { HeroSection, KeyBenefits: FetchedKeyBenefits , Expansion: ExpansionValues} = bTripleData;
 

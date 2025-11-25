@@ -10,7 +10,6 @@ type MissionProps = {
 };
 
 const Mission = ({ data }: MissionProps) => {
-  console.log("Mission Data:", data);
   return (
     <SectionContainer className="flex flex-col gap-6">
       <CenterTitle
