@@ -60,7 +60,6 @@ export async function get_user_info(jwt_token: string) {
     return null;
   }
 }
-import axios, { AxiosError } from 'axios';
 
 // --- Configuration ---
 // Set the base URL for your Strapi API
