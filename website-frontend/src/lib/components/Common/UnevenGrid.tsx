@@ -1,5 +1,5 @@
 import { UnevenGridProps, WhyGtlsItem } from "@/lib/types";
-import { Card, CardContent, CardHeader } from "@/lib/ui/card";
+import { Card, CardContent } from "@/lib/ui/card";
 import Image from "next/image";
 import TextWrapper from "./TextWrapper";
 

@@ -10,12 +10,12 @@ import { getCookie } from "@/lib/api/axios";
 import AnimatedLoading from "../Loader/AnimatedLoading";
 import { ChevronsRight } from "lucide-react";
 import goldMap from "../../../../public/webp/goldmap.webp";
+import Link from "next/link";
 
 export default function Layout() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [user, setUser] = React.useState<User | null>(null);
   const [Token, setToken] = React.useState(null);
-  const [apps, setApps] = React.useState<AllowedApp[]>([]);
   const [filteredApps, setFilteredApps] = React.useState<AllowedApp[]>([]);
   const [greeting, setGreeting] = React.useState("");
   const [imgFetchingErrors, setImgFetchingErrors] = React.useState<{
@@ -39,7 +39,6 @@ export default function Layout() {
       .then((data) => {
         setUser(data?.user || null);
         setToken(data?.token || null);
-        setApps(data?.allowed_apps || []);
         setFilteredApps(data?.allowed_apps || []);
       })
       .finally(() => {
@@ -63,9 +62,9 @@ export default function Layout() {
               {/* navbar */}
               <div className="relative border-b-2 border-gold flex lg:flex-row flex-row justify-between lg:items-center sm:px-8 w-full h-30 text-white md:text-3xl py-4 mx-auto max-w-7xl ">
                 <p className="flex w-full md:mt-0">
-                  <a href="/">
+                  <Link href="/">
                     <Image src={Logo} className="h-14" alt="Image" />
-                  </a>
+                  </Link>
                 </p>
 
                 <div className="w-full right-5 top-3 lg:relative lg:right-0 lg:top-0 flex justify-center gap-x-6 sm:gap-x-10 items-center">
@@ -172,8 +171,9 @@ export default function Layout() {
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-8 pb-8">
                   {filteredApps?.length > 0
-                    ? filteredApps?.map((app) => (
+                    ? filteredApps?.map((app, index) => (
                         <div
+                          key={index}
                           id={app.AppName}
                           className={`relative sm:w-auto border border-gold bg-creamy transition hover:scale-105 rounded-3xl shadow-md shadow-gold p-5 h-[18rem] hover:cursor-pointer  hover:shadow-lg hover:shadow-gold overflow-hidden`}
                           onClick={() => {
@@ -197,7 +197,7 @@ export default function Layout() {
                                   ).toUpperCase()}
                                 </div>
                               ) : (
-                                <img
+                                <Image
                                   src={`${process.env.NEXT_PUBLIC_APP_GTAM_APP_URL}/AppLogo/${app?.AppIcon}`}
                                   alt=""
                                   className="h-14 w-14"

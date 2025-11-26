@@ -1,6 +1,6 @@
 "use client";
 
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { LoginResponse, User } from "../types/auth/auth";
 import { AUTH_ENDPOINTS } from "../api/endpoints";
 import { createContext, useState, useEffect, useContext } from "react";
@@ -9,7 +9,6 @@ import { ReactNode } from "react";
 import { getCookie } from "cookies-next";
 import { usePathname, useRouter } from "next/navigation";
 import { handleSessionExpiration } from "../utils/helper";
-import { jwtVerify } from 'jose';
 
 export type AuthContextType = {
   user: User | null;
@@ -44,39 +43,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const [validating, setValidating] = useState(true);
 
-    async function hasSession(): Promise<boolean> {
-    const jwt_token = await getCookie("jwt_token");
-    
-    if (!jwt_token) {
-      return false;
-    }
-
-    // Check token structure
-    const parts = jwt_token.split('.');
-    
-    if (parts.length !== 3) {
-      console.error('❌ Invalid JWT format - should have 3 parts');
-      return false;
-    }
-
-    try {
-      const secret = new TextEncoder().encode('2zX!8fD@qY6k#eT^mP9w$Jr1&uV5g*Bf3');
-      
-      await jwtVerify(jwt_token, secret, {
-        algorithms: ['HS256'],
-      });
-      
-      return true;
-      
-    } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
-      console.error('❌ 9. Verification FAILED');
-      console.error('   - Error name:', error.name);
-      console.error('   - Error code:', error.code);
-      console.error('   - Error message:', error.message);
-      console.error('   - Full error:', JSON.stringify(error, null, 2));
-      return false;
-    }
-  }
 
   const TOKEN_KEY = "token";
   const USER_KEY = "user";
@@ -132,6 +98,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
       setValidating(false);
     }
+    //eslint-disable-next-line
   }, [pathname]);
   // In your logout component or auth context
   const handleLogout = () => {

@@ -30,6 +30,7 @@ export default function Logout() {
   useEffect(() => {
     // Delete jwt token from cookies
     deleteCookie("jwt_token", { path: "/", domain: appDomain });
+    //eslint-disable-next-line
   },[])
 
   return (
