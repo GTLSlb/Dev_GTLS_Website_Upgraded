@@ -1,6 +1,6 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { InfoSection } from "@/lib/types";
+import { InfoSection } from "@/lib/types/info";
 
 const SmarterLogistics = ({ title, items, description }: InfoSection) => {
   return (
@@ -22,7 +22,7 @@ const SmarterLogistics = ({ title, items, description }: InfoSection) => {
               title={item.title}
               subtitle={item.subtitle}
               description={item.description}
-              listItems={item.listItems}
+              // listItems={item.listItems}
               titleColor="text-gold"
               className="!mt-0"
               placement="left"

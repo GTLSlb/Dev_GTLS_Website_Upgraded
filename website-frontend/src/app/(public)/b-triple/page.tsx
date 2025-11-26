@@ -1,20 +1,40 @@
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import KeyBenefits from "@/lib/pages/btriple/sections/KeyBenefits";
+import { getBTriplePageData } from "@/lib/services/api";
+import { BTripPageData } from "@/lib/types/pages";
+import { StrapiLink } from "@/lib/services/media";
 import Expansion from "@/lib/pages/btriple/sections/Expansion";
 
-const Page = () => {
+
+const Page = async () => {
+  
+  // 1. Fetch data directly inside the Server Component
+  const bTripleData: BTripPageData | null = await getBTriplePageData();
+  // Optional: Error/Not Found Handling
+  if (!bTripleData) {
+    return (
+      <div className="text-center p-10">
+        <h1>Error</h1>
+        <p>Could not load B-Triple page content from the API.</p>
+      </div>
+    );
+  }
+  // 2. Destructure the fetched Strapi components (assuming they match your type)
+  const { HeroSection, KeyBenefits: FetchedKeyBenefits , Expansion: ExpansionValues} = bTripleData;
+
   return (
     <Container>
       <CommonHero
-        title="B-Triple"
-        description="Gold Tiger Logistics Solutions has expanded its B-Triple fleet nationwide following a successful 2024 launch, doubling capacity to meet growing freight demand and enhance sustainable, high-efficiency transport across Australia’s major routes."
-        imageSrc="/webp/btriple.png"
+        title={HeroSection.Title}
+        description={HeroSection.Description}
+        imageSrc={StrapiLink(HeroSection.Media.url) || "/webp/btriple.png"} 
         contain
-        cornerText="Talk with an expert"
+        cornerText={HeroSection.cornerText}
       />
-      <KeyBenefits />
-      <Expansion />
+      <KeyBenefits data={FetchedKeyBenefits} />
+      <Expansion data={ExpansionValues} /> 
+      
     </Container>
   );
 };

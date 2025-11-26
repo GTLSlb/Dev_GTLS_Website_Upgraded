@@ -1,8 +1,8 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import {  Expansion } from "@/lib/types";
+import { TGridItem } from "@/lib/types/grids";
 import { Circle } from "lucide-react";
 
-const ExpansionCard: React.FC<{ value: Expansion; index: number }> = ({
+const ExpansionCard: React.FC<{ value: TGridItem; index: number }> = ({
   value,
   index,
 }) => {
@@ -11,7 +11,7 @@ const ExpansionCard: React.FC<{ value: Expansion; index: number }> = ({
       className={`p-6 gap-4 rounded-3xl shadow-lg flex flex-col`}
     >
       <TextWrapper
-        text={value.heading}
+        text={value.title}
         fontFamily="dmSans"
         styleType="title4"
         className="text-black"
@@ -29,7 +29,7 @@ const ExpansionCard: React.FC<{ value: Expansion; index: number }> = ({
     >
       <Circle className="text-gold" size={15} />
       <TextWrapper
-        text={value.heading}
+        text={value.title}
         fontFamily="funnel"
         styleType="title4"
         className="text-gold"

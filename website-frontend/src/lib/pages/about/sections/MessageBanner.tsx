@@ -1,8 +1,12 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { MessageBannerProps } from "@/lib/types";
+import { StrapiLink } from "@/lib/services/media";
+import { MessageDirectorDataType } from "@/lib/types/content";
 import Image from "next/image";
+
+type MessageBannerProps={
+  data: MessageDirectorDataType}
 
 const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
   return (
@@ -30,7 +34,7 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
           className="object-cover absolute -top-0 left-0"
         />
         <Image
-          src={data.directorImage}
+          src={StrapiLink(data.ImgSrc.url)}
           alt="Director"
           width={500}
           height={400}
@@ -39,7 +43,7 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
         <div className="flex flex-col lg:flex-row gap-15">
           <div className="relative  w-full lg:w-1/3 rounded-4xl ">
             <Image
-              src={data.directorImage}
+              src={StrapiLink(data.ImgSrc.url)}
               alt="Director"
               height={100}
               width={600}
@@ -52,20 +56,20 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
             </div>
             {/* <Quote className="text-white" size={60} /> */}
             <TextWrapper
-              text={data.quote}
+              text={data.content}
               fontFamily="dmSans"
               styleType="body"
               className="text-white"
             />
             <div className="flex flex-col">
               <TextWrapper
-                text={data.directorName}
+                text={data.imgSrc}
                 fontFamily="dmSans"
                 styleType="title4"
                 className="text-white"
               />
               <TextWrapper
-                text={data.directorPosition}
+                text={data.imgSrc}
                 fontFamily="dmSans"
                 styleType="body"
                 className="text-white"

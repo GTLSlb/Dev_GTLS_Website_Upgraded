@@ -1,15 +1,44 @@
-import { LucideIcon } from "lucide-react";
-import { ReactNode } from "react";
-import * as LucideIcons from "lucide-react";
 
-export interface GridCardProps {
+import { StrapiMediaFile } from "./media";
+
+export type IntegratedSolutionsType = {
+  id: number;
+  SolutionsCards: SolutionsCardsType;
+};
+
+export type TransportListItem = {
   id: number;
   title: string;
-  icon: string; // Made optional in case some cards don't have an icon
+  icon?: StrapiMediaFile;
+};
+
+export type transportServicesType = {
+  id: number;
+  title: string;
+  subtitle: string;
   description: string;
-  content: string;
-  footer: string;
-}
+  buttonText: string;
+  image: StrapiMediaFile;
+  transportlistItems: TransportListItem[];
+};
+
+export type SolutionsCardsType = {
+  id: number;
+  title: string;
+  description: string;
+  buttonText: string;
+  subtitle: string | null;
+  CustomerHubCard: CustomerHubCard[];
+};
+
+export type CustomerHubCard = {
+  id: number;
+  title: string;
+  subtitle: string;
+  imageSrc: string | null;
+  img: StrapiMediaFile;
+  CustomerHubList: [];
+};
 
 export interface CenterTitleProps {
   title: string;
@@ -32,30 +61,15 @@ export interface CenterTitleProps {
     | "ghost"
     | null
     | undefined; // new prop
-  listItems?: { icon?: React.ReactNode; title: string }[];
-}
-
-export interface MenuItem {
-  label: string;
-  link: string;
-}
-
-export interface MenuSection {
-  title: string;
-  items: MenuItem[];
-}
-
-export interface Location {
-  city: string;
-  street: string;
-  suburb: string;
-  state: string;
-  postalCode: string;
+  listItems?: { icon?: StrapiMediaFile; title: string }[];
+  icon?: StrapiMediaFile;
 }
 
 export interface WhyGtlsItem {
+  id: number;
   title: string;
-  picture: string;
+  description?: string;
+  icon: StrapiMediaFile;
 }
 
 export interface UnevenGridProps {
@@ -63,7 +77,7 @@ export interface UnevenGridProps {
 }
 
 export interface IconListItem {
-  icon: React.ReactNode; // can be any JSX element
+  icon: StrapiMediaFile;
   description: string;
 }
 
@@ -75,280 +89,12 @@ export interface CustomerHubCardProps {
   title: string;
   subtitle: string;
   imageSrc: string;
-  list?: IconListItem[]; // optional array for IconList
+  CustomerHubList?: IconListItem[]; // optional array for IconList
   iconColor?: string; // arrow icon color
   children?: React.ReactNode; // optional additional content
+  img?: StrapiMediaFile;
 }
 
-export interface NewsCardProps {
-  title: string;
-  description: string;
-  imageSrc: string;
-}
 
-export interface ProfileCardProps {
-  title: string;
-  description: string;
-  imageSrc: string;
-}
 
-interface NewsItem {
-  title: string;
-  description: string;
-  imageSrc: string;
-}
 
-export interface ProfileItem {
-  title: string;
-  description: string;
-  imageSrc: string;
-}
-
-export interface SliderItem {
-  date: string;
-  title: string;
-  description: string;
-}
-
-export interface NewsSliderProps {
-  news: NewsItem[];
-}
-export interface ProfileSliderProps {
-  items: ProfileItem[];
-}
-
-export interface SliderProps {
-  items: SliderItem[];
-}
-
-export interface FloatingBannerProps {
-  iconSrc: string; // Path to the icon (e.g. "/svgs/distribution.svg")
-  text: string; // The text you want to show
-  className?: string; // Optional additional classes for customization
-}
-
-export interface HeroProps {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  imageSrc?: string;
-  className?: string;
-  cornerText?: string;
-  contain?: boolean;
-  link?: string;
-  color?: "gold" | "green";
-}
-
-export interface BannerPropsItem {
-  title: string;
-  subtitle: string;
-}
-
-export interface BannerProps {
-  title: string;
-  description: string;
-  items: BannerPropsItem[];
-  imageSrc: string;
-  imageAlt?: string;
-}
-export interface ContentListNumber {
-  label: string;
-  value: string;
-}
-
-export interface ContentListItem {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-}
-
-export interface ContentListType {
-  title: string;
-  subtitle: string;
-  description: string;
-  numbers?: ContentListNumber[];
-  list: ContentListItem[];
-}
-
-export interface HorizontalCardProps {
-  imgSrc: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  color?: string;
-}
-
-type Branch = {
-  name: string;
-  phone: string;
-  address: string;
-  mail: string;
-};
-
-export interface BranchesProps {
-  data: Branch[];
-}
-
-export interface IntegratedSolutionsItem {
-  title: string;
-  description: string;
-  picture: string;
-}
-
-export interface IntegratedSolutionsProps {
-  items: IntegratedSolutionsItem[];
-}
-
-export interface RecentNewsCardProps {
-  title: string;
-  date: string;
-  description: string;
-  image: string;
-  href: string;
-}
-
-export interface RecentNewsProps {
-  items: RecentNewsCardProps[];
-}
-
-export interface RecentPostsCardProps {
-  title: string;
-  date: string;
-  description: string;
-  image: string;
-  href: string;
-}
-
-export interface RecentPostsProps {
-  items: RecentPostsCardProps[];
-}
-
-export interface BorderedGridItemProps {
-  title: string;
-  description: string;
-}
-
-export interface BorderedGridProps {
-  data: BorderedGridItemProps[];
-}
-
-export interface CoreValue {
-  icon: React.ReactNode; // Placeholder for the icon name (e.g., 'Heart', 'Users', 'Leaf')
-  title: string;
-  description: string;
-}
-
-export interface Expansion {
-  heading: string;
-  description: string;
-}
-
-export interface NavLink {
-  label: string;
-  href?: string;
-  children?: NavLink[];
-};
-
-export interface NavigationConfig {
-  logo: {
-    src: string;
-    alt: string;
-    width?: number;
-    height?: number;
-  };
-  links: NavLink[];
-};
-
-export interface FacilitiesItem {
-  title: string;
-  description: string;
-  picture: string;
-}
-
-export interface FacilitiesProps {
-  title: string;
-  description: string;
-  buttonText?: string;
-  items: FacilitiesItem[];
-}
-
-export interface ServiceListItem {
-  icon: ReactNode;
-  title: string;
-}
-
-export interface ServiceData {
-  title: string;
-  subtitle?: string;
-  description?: string;
-  listItems: ServiceListItem[];
-  buttonText: string;
-  image?: string;
-}
-
-export interface InfoListItem {
-  icon?: ReactNode;
-  title: string;
-}
-
-export interface InfoItem {
-  icon: ReactNode;
-  title: string;
-  subtitle: string;
-  description: string;
-  listItems: InfoListItem[];
-}
-
-export interface InfoSection {
-  title: string;
-  description: string;
-  items: InfoItem[];
-}
-
-export interface MessageBannerData {
-  title: string;
-  titleColor?: string;
-  quote: string;
-  directorName: string;
-  directorPosition: string;
-  directorImage: string;
-}
-
-// Props for the component
-export interface MessageBannerProps {
-  data: MessageBannerData;
-}
-
-export interface SafetyComplianceSection {
-  /** The name of the icon (to map to an icon component) */
-  icon: keyof typeof LucideIcons; 
-  /** The title for the section */
-  title: string;
-  /** Paragraphs or bullet points for the section */
-  content: string[];
-}
-
-export interface SafetyComplianceIntro {
-  /** Short introductory description text */
-  description: string;
-}
-
-export interface SafetyComplianceData {
-  /** Main title for the page or section */
-  title: string;
-  /** Introductory section */
-  intro: SafetyComplianceIntro;
-  /** Array of safety/compliance topics */
-  sections: SafetyComplianceSection[];
-}
-
-export interface BTripleSection {
-  icon: keyof typeof LucideIcons;
-  title: string;
-  description: string;
-}
-
-export interface BTriplesDataType {
-  title: string;
-  sections: BTripleSection[];
-}

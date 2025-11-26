@@ -1,6 +1,6 @@
 "use client";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { RecentPostsCardProps } from "@/lib/types";
+import { RecentPostsCardProps } from "@/lib/types/cards";
 import { Button } from "@/lib/ui/button";
 import { Share } from "lucide-react";
 import Image from "next/image";

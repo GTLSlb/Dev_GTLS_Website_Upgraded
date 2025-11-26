@@ -1,9 +1,9 @@
 import Image from "next/image";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { HeroProps } from "@/lib/types";
 import { MoveUpRight } from "lucide-react";
 import Link from "next/link";
+import { HeroProps } from "@/lib/types/banners";
 
 const CommonHero = ({
   title = "Global Transport & Logistics Solutions",

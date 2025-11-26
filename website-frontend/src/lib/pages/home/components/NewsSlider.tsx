@@ -5,10 +5,10 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import NewsCard from "@/lib/components/Common/NewsCard";
 import { MoveLeft, MoveRight } from "lucide-react";
-import { NewsSliderProps } from "@/lib/types";
 import { Swiper as SwiperType } from "swiper";
+import { RecentNewsDataType } from "@/lib/types/news";
 
-const NewsSlider: React.FC<NewsSliderProps> = ({ news }) => {
+const NewsSlider: React.FC<{ news: RecentNewsDataType[] }> = ({ news }) => {
   const swiperRef = useRef<SwiperType | null>(null);
   return (
     <div className="relative w-full">
@@ -31,9 +31,9 @@ const NewsSlider: React.FC<NewsSliderProps> = ({ news }) => {
         {news.map((item, index) => (
           <SwiperSlide key={index} className="py-5 px-1">
             <NewsCard
-              title={item.title}
-              description={item.description}
-              imageSrc={item.imageSrc}
+              title={item.name}
+              description={item.position}
+              imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+item.img.url}
             />
           </SwiperSlide>
         ))}

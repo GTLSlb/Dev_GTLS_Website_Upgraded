@@ -1,18 +1,25 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { ProfileData } from "@/lib/data";
 import ProfileSlider from "../components/ProfileSlider";
+import { MeetTeamDataType } from "@/lib/types/content";
 
-const OurTeam = () => {
+type OurTeamProps = {
+  data: MeetTeamDataType;
+};
+
+const OurTeam = ({ data }: OurTeamProps) => {
   return (
     <SectionContainer>
       <CenterTitle
-        title="Meet Our Team"
+        title={data.title} // <-- Use data from object
         titleColor="text-gold"
-        description="Our people are the heart of Gold Tiger Logistics. Skilled, dedicated, and passionate. They’re the ones keeping your supply chain moving every day."
+        description={data.description} // <-- Use data from object
         className="!mt-0"
       />
-      <ProfileSlider items={ProfileData} />
+      {/* ProfileSlider now receives OurTeamData.profiles, which is guaranteed 
+        to be a ProfileItem[] array, perfectly matching its expected props. 
+      */}
+      <ProfileSlider items={data.TeamMemberItem} />
     </SectionContainer>
   );
 };

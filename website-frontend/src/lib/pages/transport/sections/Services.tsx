@@ -1,13 +1,17 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { ServicesData } from "@/lib/data";
 import Image from "next/image";
+import { transportServicesType } from "@/lib/types";
 
-const Services = () => {
+type transportServicesProps = {
+  data: transportServicesType[];
+}
+
+const Services: React.FC<transportServicesProps> = ({ data }) => {
   return (
     <SectionContainer>
       <div className="space-y-20 divide-y divide-gray-200">
-        {ServicesData.map((service, idx) => (
+        {data.map((service, idx) => (
           <div
             key={idx}
             className={`flex flex-col md:flex-row md:gap-24 md:pb-20 gap-5 items-center ${
@@ -20,7 +24,7 @@ const Services = () => {
                 titleColor="text-gold"
                 subtitle={service.subtitle}
                 description={service.description}
-                listItems={service.listItems}
+                listItems={service.transportlistItems}
                 buttonText={service.buttonText}
                 buttonVariant="default"
                 placement="left"
@@ -28,7 +32,7 @@ const Services = () => {
             </div>
             <div className="relative flex-1 w-full h-[450px] rounded-4xl overflow-hidden">
               <Image
-                src={service?.image? service.image : "/images/placeholder.png"}
+                src={service?.image? process.env.NEXT_PUBLIC_STRAPI_URL+service.image.url : "/images/placeholder.png"}
                 alt={service.title}
                 fill
                 className="rounded-lg shadow-md object-cover"

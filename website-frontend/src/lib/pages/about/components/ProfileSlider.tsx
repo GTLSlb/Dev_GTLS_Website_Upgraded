@@ -4,11 +4,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import { MoveLeft, MoveRight } from "lucide-react";
-import { ProfileSliderProps } from "@/lib/types";
 import ProfileCard from "./ProfileCard";
 import { Swiper as SwiperType } from 'swiper';
+import { TeamMember } from "@/lib/types/content";
+import { StrapiLink } from "@/lib/services/media";
 
-const ProfileSlider: React.FC<ProfileSliderProps> = ({ items }) => {
+type OurTeamProps = {
+  items: TeamMember[];
+};
+
+const ProfileSlider: React.FC<OurTeamProps> = ({items} : OurTeamProps) => {
   const swiperRef = useRef<SwiperType|null>(null);
   return (
     <div className="relative w-full">
@@ -28,12 +33,12 @@ const ProfileSlider: React.FC<ProfileSliderProps> = ({ items }) => {
         }}
         className="profile-swiper"
       >
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <SwiperSlide key={index} className="py-5 px-1">
             <ProfileCard
-              title={item.title}
-              description={item.description}
-              imageSrc={item.imageSrc}
+              name={item.name}
+              position={item.position}
+              imageSrc={StrapiLink(item.ImgSrc.url)}
             />
           </SwiperSlide>
         ))}

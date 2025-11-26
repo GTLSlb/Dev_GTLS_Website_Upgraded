@@ -1,14 +1,18 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
+import { VisionDataType } from "@/lib/types/content";
 
-const Vision = () => {
+type VisionProps = {
+  data: VisionDataType;
+};
+const Vision = ({ data }: VisionProps) => {
   return (
     <SectionContainer parentClassName="bg-gray-100">
       <CenterTitle
-        title="Our Vision"
+        title={data.title}
         titleColor="text-gold"
         className="!my-0"
-        description="To be Australia’s most trusted and innovative logistics partner, recognised for delivery excellence, reliability, cost efficiency and exceptional customer service"
+        description={data.description}
       />
     </SectionContainer>
   );

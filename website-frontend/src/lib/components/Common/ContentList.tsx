@@ -1,4 +1,4 @@
-import { ContentListType } from "@/lib/types";
+import { ContentListType } from "@/lib/types/content";
 import TextWrapper from "./TextWrapper";
 
 interface StoryProps {
