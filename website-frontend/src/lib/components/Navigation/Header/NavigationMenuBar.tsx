@@ -118,7 +118,7 @@ React.useEffect(() => {
             <Search className="size-4" /><TextWrapper text="Search" fontFamily="dmSans" styleType="body" className="block lg:hidden" />
           </Button>
         </Link>
-        <Link href="/contact" className="text-sm hidden lg:block font-medium">
+        <Link href="/login" className="text-sm hidden lg:block font-medium">
           <Button
             size="sm"
             variant="outline"

@@ -16,6 +16,7 @@
 }
 
 @theme inline {
+  --color-warm-brown: var(--warm-brown);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -56,6 +57,7 @@
 }
 
 :root {
+  --warm-brown: #59493B;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -91,6 +93,7 @@
 }
 
 .dark {
+  --warm-brown: #59493B;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -122,6 +125,21 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+@keyframes thrust {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px) scale(1.25);
+  }
+}
+
+@layer utilities {
+  .animate-slide-ping {
+    animation: thrust 1s ease-out infinite;
+  }
 }
 
 .funnel-font {
