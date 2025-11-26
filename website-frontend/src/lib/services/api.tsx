@@ -315,3 +315,28 @@ export async function getHomePageData() {
     return null;
   }
 }
+
+export async function getNewsPageData() {
+  try {
+    const params = {
+      populate: "*",
+    };
+
+    const response = await strapi.get("/news-page", { params });
+
+    // Standard Strapi Single Type unwrapping
+    const item = response.data.data;
+
+    if (item) {
+      return item;
+    }
+    return null;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching Industry page data:", error.message);
+    } else {
+      console.error("An unknown error occurred fetching Industry data:", error);
+    }
+    return null;
+  }
+}
