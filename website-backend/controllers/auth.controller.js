@@ -439,7 +439,7 @@ class AuthController {
               token: user_info.token,
               user: logged_in_user,
               jwt_token: req.body.jwt_token,
-              gtls_session: response.data.data.gtls_session,
+              gtls_session: response.data.gtls_session,
             });
           } else {
             return res.status(STATUS.NOTFOUND).json({
