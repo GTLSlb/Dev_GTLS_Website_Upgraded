@@ -185,3 +185,21 @@
 .profile-swiper .swiper-slide-active .profile-card .goldtext{
   color: white;
 }
+
+
+/* Default pagination bullets */
+.swiper-pagination-bullet {
+  background: #d1d1d1 !important; /* inactive color */
+  opacity: 1 !important;
+}
+
+/* Active bullet */
+.swiper-pagination-bullet-active {
+  background: #a37100 !important; /* your gold color */
+}
+
+/* Navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #a37100 !important; /* your gold color */
+}
