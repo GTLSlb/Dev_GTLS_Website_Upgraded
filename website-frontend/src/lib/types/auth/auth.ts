@@ -40,3 +40,11 @@ export type AllowedApp = {
     "AppIcon": string;
     "AppDesc": string;
 }
+
+export type JWT_Payload = {
+    user: User;
+    userId: number;
+    Token: string;
+    iat: number;
+    exp: number;
+}

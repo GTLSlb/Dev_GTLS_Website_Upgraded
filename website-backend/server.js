@@ -128,7 +128,7 @@ app.use(cookie_parser());
 
 app.use(
   cors({
-    origin: ["https://gtrr.gtls.com.lb", "http://localhost:3000"],
+    origin: ["https://gtrr.gtls.com.lb", "http://localhost:3000", "https://web-test-api.gtls.store", "https://web-test.gtls.store", "https://gtrr-api.gtls.com.lb"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],

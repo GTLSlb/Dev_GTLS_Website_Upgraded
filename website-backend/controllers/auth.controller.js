@@ -193,6 +193,7 @@ class AuthController {
 
         // Clear cookie and send success response immediately
         res.clearCookie("gtls_session");
+        res.clearCookie("jwt_token");
         return res.status(STATUS.OK).json({
           status: STATUS.OK,
           message: "Logout successful",
@@ -392,7 +393,6 @@ class AuthController {
           let parsedUser;
           try {
              const user_obj = user.hasOwnProperty('user') ? user.user : user;
-            console.log('In IF', typeof user_obj, user_obj);
             parsedUser =
               typeof user_obj === "string" ? JSON.parse(user_obj) : user_obj;
           } catch (parseError) {
@@ -418,7 +418,7 @@ class AuthController {
               };
               console.log("🗣️ Req body:", body);
               console.log("🗣️gtamUrs:", gtamUrl);
-              console.log('⛔URL', `${gtamUrl}/exchange-token`)
+              console.log('⛔URL', `${gtamUrl}exchange-token`)
               response = await axios.post(
               `${gtamUrl}exchange-token`,
               body,

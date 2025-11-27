@@ -1,5 +1,5 @@
 export const gtamUrl = process.env.NEXT_PUBLIC_APP_GTAM_API_URL || "";
-export const backendUrl = process.env.NEXT_PUBLIC_APP_WEBSITE_API_URL || "";
+export const backendUrl = process.env.NEXT_PUBLIC_APP_BACKEND_URL || "";
 
 export const AUTH_ENDPOINTS = {
   login: "/login",

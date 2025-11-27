@@ -1,7 +1,6 @@
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import ExpansionCard from "../components/ExpansionCard";
 import CenterTitle from "@/lib/components/Common/CenterTitle";
-import { ExpansionDataType } from "@/lib/types/grids";
 import { Expansion as ExpansionType } from "@/lib/types/pages";
 
 type ExpansionProps = {
