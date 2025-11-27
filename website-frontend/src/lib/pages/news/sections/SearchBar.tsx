@@ -13,7 +13,7 @@ const SearchBar = () => {
   return (
       <div className="flex flex-col md:flex-row p-5 border border-color-[#6e6f7a] rounded-3xl gap-4">
         <Input
-          placeholder="Your Name"
+          placeholder="Search Articles"
           className="bg-creamy rounded-full w-full h-11"
           icon={<Search className="text-dark-gold size-4" />}
         />

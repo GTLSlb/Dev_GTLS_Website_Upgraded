@@ -113,7 +113,7 @@ React.useEffect(() => {
           <Button
             size="sm"
             variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5 lg:w-11 "
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
           >
             <Search className="size-4" /><TextWrapper text="Search" fontFamily="dmSans" styleType="body" className="block lg:hidden" />
           </Button>
@@ -122,7 +122,7 @@ React.useEffect(() => {
           <Button
             size="sm"
             variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5 px-8"
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
           >
             <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
           </Button>

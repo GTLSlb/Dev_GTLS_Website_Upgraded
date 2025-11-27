@@ -1,7 +1,7 @@
 "use client";
 
-import { NavbarApiResponse} from "./types/navigation";
-import { NewsSliderDataType } from "./types/news";
+import { NavbarApiResponse } from "./types/navigation";
+import { NewsPage, NewsSliderDataType } from "./types/news";
 import {
   getHomePageData,
   getAboutUsPageData,
@@ -11,10 +11,9 @@ import {
   getTransportPageData,
   getWarehousingPageData,
   getNavbarData,
+  getNewsPageData,
 } from "@/lib/services/api";
 import { SustainabilityPage } from "./types/pages";
-
-
 
 export const NewsData: NewsSliderDataType = {
   title: "News",
@@ -488,6 +487,8 @@ export const postsData = {
 };
 
 export const home_page_data = await getHomePageData();
+
+export const news_page_data: NewsPage = await getNewsPageData();
 
 export const about_page_data = await getAboutUsPageData();
 

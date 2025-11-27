@@ -1,6 +1,8 @@
 "use client";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
+import { StrapiLink } from "@/lib/services/media";
 import { RecentPostsCardProps } from "@/lib/types/cards";
+import { PostItem } from "@/lib/types/news";
 import { Button } from "@/lib/ui/button";
 import { Share } from "lucide-react";
 import Image from "next/image";
@@ -10,8 +12,8 @@ export default function PostCard({
   date,
   description,
   image,
-  href,
-}: RecentPostsCardProps) {
+  url,
+}: PostItem) {
 
 const handleShare = async () => {
     if (navigator.share) {
@@ -19,7 +21,7 @@ const handleShare = async () => {
         await navigator.share({
           title: "Check out this post!",
           text: "Thought you might find this LinkedIn post interesting:",
-          url: href,
+          url: url,
         });
       } catch (error) {
         console.error("Share cancelled or failed:", error);
@@ -31,10 +33,10 @@ const handleShare = async () => {
   };
 
   return (
-    <div className="flex flex-row gap-4 bg-white">
+    <div className="flex p-2 flex-row gap-4 bg-white">
       {/* Image */}
       <div className="relative overflow-hidden w-1/3 h-[150px] rounded-4xl ">
-        <Image src={image} alt={title} fill className="object-cover" />
+        <Image src={StrapiLink(image.url)} alt={title} fill className="object-cover" />
       </div>
 
       {/* Content */}

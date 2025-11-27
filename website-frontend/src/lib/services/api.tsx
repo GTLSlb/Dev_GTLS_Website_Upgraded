@@ -28,7 +28,6 @@ export async function get_user_info(jwt_token: string) {
     const response = await api_client.post("/users", {
       jwt_token: jwt_token,
     });
-
     const user = response.data.user;
     const token = response.data.token;
     const jwt_token_res = response.data.jwt_token;
@@ -312,6 +311,56 @@ export async function getHomePageData() {
       console.error("Error fetching Industry page data:", error.message);
     } else {
       console.error("An unknown error occurred fetching Industry data:", error);
+    }
+    return null;
+  }
+}
+
+export async function getNewsPageData() {
+  try {
+    const params = {
+      populate: "*",
+    };
+
+    const response = await strapi.get("/news-page", { params });
+
+    // Standard Strapi Single Type unwrapping
+    const item = response.data.data;
+
+    if (item) {
+      return item;
+    }
+    return null;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching Industry page data:", error.message);
+    } else {
+      console.error("An unknown error occurred fetching Industry data:", error);
+    }
+    return null;
+  }
+}
+
+export async function getSingleNews(id: string | number) {
+  try {
+    const params = {
+      populate: "*", // populate all relations/components
+    };
+
+    const response = await strapi.get(`/news-items/${id}`);
+
+    // Standard Strapi response unwrapping
+    const item = response.data.data;
+
+    if (item) {
+      return item;
+    }
+    return null;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching news item:", error.message);
+    } else {
+      console.error("An unknown error occurred fetching news item:", error);
     }
     return null;
   }
