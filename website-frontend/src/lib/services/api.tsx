@@ -28,7 +28,7 @@ export async function get_user_info(jwt_token: string) {
     const response = await api_client.post("/users", {
       jwt_token: jwt_token,
     });
-    console.log("Fetching user data from /users endpoint...", response);
+
     const user = response.data.user;
     const token = response.data.token;
     const jwt_token_res = response.data.jwt_token;
