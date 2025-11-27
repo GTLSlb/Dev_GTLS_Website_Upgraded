@@ -1,8 +1,6 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import Image from "next/image";
-import * as LucideIcons from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import { BTriplesDataType } from "@/lib/types/safetyCompliance";
 import { StrapiLink } from "@/lib/services/media";
