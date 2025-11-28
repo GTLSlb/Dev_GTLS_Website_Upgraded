@@ -1,4 +1,5 @@
 // app/news/[NewsId]/page.tsx
+import { ArrowLeft } from "lucide-react";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import MediaSwiper from "@/lib/pages/news/components/MediaSwiper";
@@ -7,6 +8,7 @@ import { getSingleNews } from "@/lib/services/api";
 import { StrapiLink } from "@/lib/services/media";
 import { NewsItem } from "@/lib/types/news";
 import Image from "next/image";
+import Link from "next/link";
 
 interface PageProps {
   params: { NewsId: string }; // comes from folder name
@@ -28,6 +30,13 @@ const Page = async ({ params }: PageProps) => {
           className="object-cover"
         />
       </div>
+      <Link
+          href={`/all-news`}
+          className="text-gold font-semibold text-xs hover:underline inline-flex items-center gap-1"
+        >
+          <ArrowLeft size={16}/>
+        <span>Back to main</span>
+        </Link>
       <div className="flex flex-col gap-2">
         <TextWrapper
           text={news_item_data.newsDate}

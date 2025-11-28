@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/lib/ui/select";
 import { Button } from "@/lib/ui/button";
+import SearchBar from "../sections/SearchBar";
 
 interface Props {
   NewsList: NewsItem[];
@@ -51,7 +52,7 @@ export default function NewsList({ NewsList }: Props) {
   // Filter the list
   const filtered = useMemo(() => {
     const s = search.toLowerCase();
-    return duplicateArray(NewsList, 10).filter(
+    return NewsList?.filter(
       (item) =>
         item.title.toLowerCase().includes(s) ||
         item.description.toLowerCase().includes(s)
@@ -60,37 +61,50 @@ export default function NewsList({ NewsList }: Props) {
 
   const totalPages = Math.ceil(filtered.length / pageSize);
 
-  const displayedNews = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const [displayedNews, setDisplayedNews] = useState(
+    filtered.slice((page - 1) * pageSize, page * pageSize)
+  );
+
+  const handleSearchNews = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setPage(1);
+    if(e.target.value === "") setDisplayedNews(NewsList);
+    else{
+      const filtered = NewsList?.filter(
+        (item) =>
+          item.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.description.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+      setDisplayedNews(filtered);
+    }
+  };
+
+  const handleFilterCategories = (e: String) => {
+    if (e === "all") setDisplayedNews(NewsList);
+    else {
+      const filtered = NewsList?.filter((item) => item.category === e);
+      setDisplayedNews(filtered);
+    }
+  };
+
+  const categories = NewsList?.reduce((acc, item) => {
+    if (!acc.find((cat) => cat.value === item.category)) {
+      acc.push({ label: item.category, value: item.category });
+    }
+    return acc;
+  }, [] as { label: string; value: string }[]);
 
   return (
     <div className="flex flex-col gap-6">
       {/* Search Input */}
-      <div className="flex flex-col md:flex-row p-5 border border-color-[#6e6f7a] rounded-3xl gap-4">
-        <Input
-          placeholder="Search Articles"
-          className="bg-creamy rounded-full w-full h-11"
-          icon={<Search className="text-dark-gold size-4" />}
-          value={search}
-          onChange={(e) => {
-            setPage(1); // reset page on new search
-            setSearch(e.target.value);
-          }}
-        />
-        <Select>
-          <SelectTrigger className="bg-creamy rounded-full w-full md:w-9/12 !h-11">
-            <SelectValue placeholder="Article Category" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="house">House</SelectItem>
-            <SelectItem value="apartment">Apartment</SelectItem>
-            <SelectItem value="condo">Condo</SelectItem>
-            <SelectItem value="land">Land</SelectItem>
-          </SelectContent>
-        </Select>
-        <Button className="bg-dark-gold rounded-full h-11 md:w-2/12">
-          <Search className="text-creamy size-4" /> Search Article
-        </Button>
-      </div>
+      <SearchBar
+        data={categories}
+        onSearch={(e: React.ChangeEvent<HTMLInputElement>) =>
+          handleSearchNews(e)
+        }
+        onSearchClick={() => {}}
+        onSelect={(e: String) => handleFilterCategories(e)}
+      />
       {/* News Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {displayedNews.map((news, index) => (

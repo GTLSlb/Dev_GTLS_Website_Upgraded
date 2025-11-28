@@ -9,7 +9,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   imageSrc,
 }) => {
   return (
-    <Card className="p-5 pb-15 rounded-3xl">
+    <Card className="p-5 pb-15 rounded-3xl min-h-[500px]">
       <div className="relative h-64 w-full rounded-t-2xl overflow-hidden">
         <Image src={imageSrc} alt={title} fill className="object-cover" />
       </div>

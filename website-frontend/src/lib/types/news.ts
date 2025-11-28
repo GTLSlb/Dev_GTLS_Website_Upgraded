@@ -18,9 +18,14 @@ export type RecentNewsCardProps = {
 
 export type RecentNewsDataType = {
   id: number;
-  name: string;
-  position: string;
-  img: StrapiMediaFile;
+  name?: string;
+  position?: string;
+  img?: StrapiMediaFile;
+  coverImg: StrapiMediaFile;
+  title: string;
+  description: string;
+  date: string;
+  href: string;
 };
 
 export type RecentPostsDataType = {
@@ -47,6 +52,7 @@ export interface NewsItem {
   coverImg: StrapiMediaFile;
   mediaContent: StrapiMediaFile[];
   textContent: string;
+  category: string;
 }
 
 export interface RecentNewsType {

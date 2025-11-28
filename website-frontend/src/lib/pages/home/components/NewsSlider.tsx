@@ -31,9 +31,9 @@ const NewsSlider: React.FC<{ news: RecentNewsDataType[] }> = ({ news }) => {
         {news.map((item, index) => (
           <SwiperSlide key={index} className="py-5 px-1">
             <NewsCard
-              title={item.name}
-              description={item.position}
-              imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+item.img.url}
+              title={item.title}
+              description={item.description}
+              imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+item.coverImg.url}
             />
           </SwiperSlide>
         ))}

@@ -86,7 +86,13 @@ export async function getBTriplePageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/b-triple", { params });
+    const response = await strapi.get("/b-triple", { params, 
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["btriple-page"],
+      },
+     });
     // Strapi Single Type response structure: { data: { id, attributes: {...} }, meta: {} }
     const item = response.data.data;
 
@@ -146,7 +152,13 @@ export async function getAboutUsPageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/aboutus-page", { params });
+    const response = await strapi.get("/aboutus-page", { params,
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["about-us-page"],
+      },
+     });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -176,7 +188,13 @@ export async function getIndustryPageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/industry", { params });
+    const response = await strapi.get("/industry", { params, 
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["industry-page"],
+      },
+     });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -200,7 +218,13 @@ export async function getSustainabilityPageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/sustainability", { params });
+    const response = await strapi.get("/sustainability", { params, 
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["sustainability-page"],
+      },
+    });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -224,7 +248,13 @@ export async function getTransportPageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/transport", { params });
+    const response = await strapi.get("/transport", { params,
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["transport-page"],
+      },
+     });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -248,7 +278,12 @@ export async function getFooterData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/footer", { params });
+    const response = await strapi.get("/footer", { params, 
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["footer"],
+      }, });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -272,7 +307,12 @@ export async function getNavbarData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/navbar", { params });
+    const response = await strapi.get("/navbar", { params, 
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["navbar"],
+      }, });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data;
@@ -297,7 +337,14 @@ export async function getHomePageData() {
       populate: "*",
     };
 
-    const response = await strapi.get("/home-page", { params });
+    const response = await strapi.get("/home-page", {
+      params,
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["home-page"],
+      },
+    });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -322,7 +369,12 @@ export async function getNewsPageData() {
       populate: "*",
     };
 
-    const response = await strapi.get("/news-page", { params });
+    const response = await strapi.get("/news-page", { params,
+      // @ts-expect-error next required to revalidate cache
+      next: {
+         revalidate: 3600, // Revalidate every 1h hour
+        tags: ["news-page"],
+      } });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -347,7 +399,12 @@ export async function getSingleNews(id: string | number) {
       populate: "*", // populate all relations/components
     };
 
-    const response = await strapi.get(`/news-items/${id}`);
+    const response = await strapi.get(`/news-items/${id}`, 
+      {// @ts-expect-error next required to revalidate cache
+        next: {
+          revalidate: 3600, // Revalidate every 1h hour
+          tags: ["single-news"],
+      }},);
 
     // Standard Strapi response unwrapping
     const item = response.data.data;
