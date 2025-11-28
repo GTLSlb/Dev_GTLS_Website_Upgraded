@@ -11,6 +11,7 @@ import { Search } from "lucide-react";
 import React from "react";
 import { XCircleIcon } from "lucide-react";
 
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SearchBar = ({ data, onSelect, onSearch, onSearchClick} : {data: any, onSelect: any, onSearch: any, onSearchClick: any}) => {
     const NO_CATEGORY_OPTION = {
     label: "All Categories",
