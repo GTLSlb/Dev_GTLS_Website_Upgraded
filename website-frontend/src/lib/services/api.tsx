@@ -46,7 +46,7 @@ export async function get_user_info(jwt_token: string) {
       jwt_token: jwt_token_res,
       allowed_apps: allowed_apps_response.data,
     };
-    //eslint-disable-next-line
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.response && error.response.status === 401) {
       // Handle 401 error
