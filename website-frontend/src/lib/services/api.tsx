@@ -46,9 +46,10 @@ export async function get_user_info(jwt_token: string) {
       jwt_token: jwt_token_res,
       allowed_apps: allowed_apps_response.data,
     };
-    //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    if (error.response && error.response.status === 401) {
+    // eslint-disable @typescript-eslint/no-explicit-any
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response && error.response.status === 401) {
       // Handle 401 error
       Swal.fire({
         title: "Session Expired!",
@@ -61,6 +62,7 @@ export async function get_user_info(jwt_token: string) {
           await handleSessionExpiration();
         }
       });
+    }
     }
     const axiosError = error as AxiosError;
     console.error("Error fetching user data:", axiosError.message);
