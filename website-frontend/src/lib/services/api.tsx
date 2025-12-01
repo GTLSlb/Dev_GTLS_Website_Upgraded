@@ -5,6 +5,9 @@ import Swal from "sweetalert2";
 export const GTAM_URL = process.env.NEXT_PUBLIC_APP_GTAM_API_URL;
 export const BACKEND_URL = process.env.NEXT_PUBLIC_APP_BACKEND_URL;
 
+export const dynamic = "force-dynamic";
+
+const revalidate = 10;
 const api_client = axios.create({
   baseURL: BACKEND_URL,
 });
@@ -50,19 +53,19 @@ export async function get_user_info(jwt_token: string) {
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response && error.response.status === 401) {
-      // Handle 401 error
-      Swal.fire({
-        title: "Session Expired!",
-        text: "Please login again",
-        icon: "warning",
-        showCancelButton: false,
-        confirmButtonText: "OK",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await handleSessionExpiration();
-        }
-      });
-    }
+        // Handle 401 error
+        Swal.fire({
+          title: "Session Expired!",
+          text: "Please login again",
+          icon: "warning",
+          showCancelButton: false,
+          confirmButtonText: "OK",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await handleSessionExpiration();
+          }
+        });
+      }
     }
     const axiosError = error as AxiosError;
     console.error("Error fetching user data:", axiosError.message);
@@ -88,13 +91,14 @@ export async function getBTriplePageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/b-triple", { params, 
+    const response = await strapi.get("/b-triple", {
+      params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: revalidate,
         tags: ["btriple-page"],
       },
-     });
+    });
     // Strapi Single Type response structure: { data: { id, attributes: {...} }, meta: {} }
     const item = response.data.data;
 
@@ -154,13 +158,15 @@ export async function getAboutUsPageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/aboutus-page", { params,
+    const response = await strapi.get("/aboutus-page", {
+      params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: revalidate,
         tags: ["about-us-page"],
       },
-     });
+      cache: "no-store",
+    });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -190,13 +196,14 @@ export async function getIndustryPageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/industry", { params, 
+    const response = await strapi.get("/industry", {
+      params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: revalidate,
         tags: ["industry-page"],
       },
-     });
+    });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -220,10 +227,11 @@ export async function getSustainabilityPageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/sustainability", { params, 
+    const response = await strapi.get("/sustainability", {
+      params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: revalidate,
         tags: ["sustainability-page"],
       },
     });
@@ -250,13 +258,14 @@ export async function getTransportPageData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/transport", { params,
+    const response = await strapi.get("/transport", {
+      params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: revalidate,
         tags: ["transport-page"],
       },
-     });
+    });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -280,12 +289,14 @@ export async function getFooterData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/footer", { params, 
+    const response = await strapi.get("/footer", {
+      params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: 3600, // Revalidate every 1h hour
         tags: ["footer"],
-      }, });
+      },
+    });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -309,12 +320,14 @@ export async function getNavbarData() {
     const params = {
       populate: "*",
     };
-    const response = await strapi.get("/navbar", { params, 
+    const response = await strapi.get("/navbar", {
+      params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: 3600, // Revalidate every 1h hour
         tags: ["navbar"],
-      }, });
+      },
+    });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data;
@@ -343,7 +356,7 @@ export async function getHomePageData() {
       params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: revalidate,
         tags: ["home-page"],
       },
     });
@@ -371,12 +384,14 @@ export async function getNewsPageData() {
       populate: "*",
     };
 
-    const response = await strapi.get("/news-page", { params,
+    const response = await strapi.get("/news-page", {
+      params,
       // @ts-expect-error next required to revalidate cache
       next: {
-         revalidate: 3600, // Revalidate every 1h hour
+        revalidate: revalidate,
         tags: ["news-page"],
-      } });
+      },
+    });
 
     // Standard Strapi Single Type unwrapping
     const item = response.data.data;
@@ -401,12 +416,13 @@ export async function getSingleNews(id: string | number) {
       populate: "*", // populate all relations/components
     };
 
-    const response = await strapi.get(`/news-items/${id}`, 
-      {// @ts-expect-error next required to revalidate cache
-        next: {
-          revalidate: 3600, // Revalidate every 1h hour
-          tags: ["single-news"],
-      }},);
+    const response = await strapi.get(`/news-items/${id}`, {
+      // @ts-expect-error next required to revalidate cache
+      next: {
+        revalidate: revalidate,
+        tags: ["single-news"],
+      },
+    });
 
     // Standard Strapi response unwrapping
     const item = response.data.data;
