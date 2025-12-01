@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/lib/ui/button";
 import { Input } from "@/lib/ui/input";
 import {
