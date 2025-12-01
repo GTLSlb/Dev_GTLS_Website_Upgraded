@@ -11,7 +11,14 @@ const NewsCard: React.FC<NewsCardProps> = ({
   return (
     <Card className="p-5 pb-15 rounded-3xl min-h-[500px]">
       <div className="relative h-64 w-full rounded-t-2xl overflow-hidden">
-        <Image src={imageSrc} alt={title} fill className="object-cover" />
+        <Image
+          src={imageSrc}
+          alt={title}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
+          fill
+          className="object-cover"
+        />
       </div>
       <div className="text-center flex flex-col gap-4">
         <CardTitle>
@@ -22,6 +29,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
             text={description}
             fontFamily="dmSans"
             styleType="bodySmall"
+            className="line-clamp-3"
           />
         </CardDescription>
       </div>

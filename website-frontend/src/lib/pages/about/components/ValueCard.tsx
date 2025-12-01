@@ -19,7 +19,12 @@ const ValueCard: React.FC<{ value: CoreValue; index: number }> = ({
       className={`p-6 bg-white border border-gray-100 rounded-xl shadow-lg gap-4 transition duration-300 hover:shadow-xl ${rowSpanClass} flex flex-col`}
     >
       <div className="relative">
-        <Image alt={value.title} width={48} height={48} src={StrapiLink(value.icon?.url)} />
+        <Image
+          alt={value.title}
+          width={48}
+          height={48}
+          src={StrapiLink(value.icon?.url)}
+        />
       </div>
       <TextWrapper
         text={value.title}

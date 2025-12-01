@@ -14,8 +14,7 @@ export default function PostCard({
   image,
   url,
 }: PostItem) {
-
-const handleShare = async () => {
+  const handleShare = async () => {
     if (navigator.share) {
       try {
         await navigator.share({
@@ -28,7 +27,9 @@ const handleShare = async () => {
       }
     } else {
       // Fallback for unsupported browsers
-      alert("Sharing is not supported in this browser. Please copy the link manually.");
+      alert(
+        "Sharing is not supported in this browser. Please copy the link manually."
+      );
     }
   };
 
@@ -36,7 +37,14 @@ const handleShare = async () => {
     <div className="flex p-2 flex-row gap-4 bg-white">
       {/* Image */}
       <div className="relative overflow-hidden w-1/3 h-[150px] rounded-4xl ">
-        <Image src={StrapiLink(image.url)} alt={title} fill className="object-cover" />
+        <Image
+          src={StrapiLink(image.url)}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
+          alt={title}
+          fill
+          className="object-cover"
+        />
       </div>
 
       {/* Content */}
@@ -60,8 +68,13 @@ const handleShare = async () => {
           className="text-gray-600 line-clamp-2"
         />
         <div className="flex flex-row items-center gap-0">
-          <Button className="hover:cursor-pointer" variant={"ghost"} onClick={handleShare}>
-            <Share className="text-gold size-4" /> <TextWrapper
+          <Button
+            className="hover:cursor-pointer"
+            variant={"ghost"}
+            onClick={handleShare}
+          >
+            <Share className="text-gold size-4" />{" "}
+            <TextWrapper
               text="Share"
               fontFamily="dmSans"
               styleType="linkSmall"

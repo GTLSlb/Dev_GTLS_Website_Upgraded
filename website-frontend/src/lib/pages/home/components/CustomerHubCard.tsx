@@ -21,7 +21,11 @@ const CustomerHubCard: React.FC<CustomerHubCardProps> = ({
           <div className="flex gap-4 md:gap-10">
             <div className="relative h-12 w-12">
               <Image
-                src={img?.url ? process.env.NEXT_PUBLIC_STRAPI_URL+img?.url : ''}
+                src={
+                  img?.url ? process.env.NEXT_PUBLIC_STRAPI_URL + img?.url : ""
+                }
+                placeholder="blur"
+                blurDataURL="/Logos/logo-transparent.svg"
                 alt={title}
                 fill
                 className="w-full h-full"

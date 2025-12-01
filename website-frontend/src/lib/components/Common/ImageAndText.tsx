@@ -37,6 +37,8 @@ export default function ImageAndText({
         <Image
           src={StrapiLink(imgSrc)}
           alt={title}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
           fill
           className="w-full h-auto object-cover"
         />

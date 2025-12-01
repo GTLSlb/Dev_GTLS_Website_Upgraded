@@ -40,7 +40,13 @@ export default function ForgotPassword() {
       gtamURl={gtamURl}
       gtlsLogo={
         <div className="ml-[1%]">
-          <Image alt="logo" src={Logo} className="self-center" />
+          <Image
+            alt="logo"
+            src={Logo}
+            placeholder="blur"
+            blurDataURL="/Logos/logo-transparent.svg"
+            className="self-center"
+          />
         </div>
       }
       truck={truck}

@@ -6,8 +6,8 @@ type HeroProps = {
 };
 const Hero = ({ data }: HeroProps) => {
   return (
-    <SectionContainer className="flex flex-col gap-14 mt-10 !pt-28">
-      <div className="flex flex-col md:flex-row gap-10">
+    <SectionContainer className="flex flex-col gap-10 md:gap-14 mt-10 !pt-20 sm:!pt-28">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-10">
         <div className="flex md:flex-col gap-4">
           <TextWrapper
             text={data.Title}

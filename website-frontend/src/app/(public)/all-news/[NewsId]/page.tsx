@@ -17,7 +17,7 @@ interface PageProps {
 const Page = async ({ params }: PageProps) => {
   const { NewsId } = params;
 
-  const news_item_data:NewsItem = await getSingleNews(NewsId);
+  const news_item_data: NewsItem = await getSingleNews(NewsId);
   if (!news_item_data) return <div>News not found</div>;
 
   return (
@@ -25,18 +25,20 @@ const Page = async ({ params }: PageProps) => {
       <div className="relative w-full h-96 rounded-4xl rounded-bl-none overflow-hidden">
         <Image
           src={StrapiLink(news_item_data.coverImg.url)}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
           alt={news_item_data.title}
           fill
           className="object-cover"
         />
       </div>
       <Link
-          href={`/all-news`}
-          className="text-gold font-semibold text-xs hover:underline inline-flex items-center gap-1"
-        >
-          <ArrowLeft size={16}/>
+        href={`/all-news`}
+        className="text-gold font-semibold text-xs hover:underline inline-flex items-center gap-1"
+      >
+        <ArrowLeft size={16} />
         <span>Back to main</span>
-        </Link>
+      </Link>
       <div className="flex flex-col gap-2">
         <TextWrapper
           text={news_item_data.newsDate}

@@ -5,8 +5,9 @@ import { StrapiLink } from "@/lib/services/media";
 import { MessageDirectorDataType } from "@/lib/types/content";
 import Image from "next/image";
 
-type MessageBannerProps={
-  data: MessageDirectorDataType}
+type MessageBannerProps = {
+  data: MessageDirectorDataType;
+};
 
 const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
   return (

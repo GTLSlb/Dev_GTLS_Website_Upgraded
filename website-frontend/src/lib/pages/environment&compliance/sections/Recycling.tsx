@@ -9,7 +9,6 @@ type RecyclingProps = {
 };
 
 const Recycling = ({ data }: RecyclingProps) => {
-
   return (
     <SectionContainer>
       <div className="flex flex-col md:flex-row gap-10">
@@ -27,6 +26,8 @@ const Recycling = ({ data }: RecyclingProps) => {
         <div className="relative w-full md:w-1/2 min-h-96">
           <Image
             src={StrapiLink(data.ImgSrc.url)}
+            placeholder="blur"
+            blurDataURL="/Logos/logo-transparent.svg"
             alt={data.title}
             fill
             className="object-contain"

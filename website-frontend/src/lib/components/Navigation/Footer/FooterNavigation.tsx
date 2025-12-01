@@ -3,10 +3,17 @@ import TextWrapper from "../../Common/TextWrapper";
 import SectionContainer from "../../Containers/sectionContainer";
 import { StrapiLink } from "@/lib/services/media";
 import Image from "next/image";
-import { FooterContent, FooterMenuItem, FooterSection, LocationItem, QuickLinkItem, SocialItem } from "@/lib/types/navigation";
+import {
+  FooterContent,
+  FooterMenuItem,
+  FooterSection,
+  LocationItem,
+  QuickLinkItem,
+  SocialItem,
+} from "@/lib/types/navigation";
 
 interface FooterProps {
-  footerContent: FooterContent ;
+  footerContent: FooterContent;
 }
 
 const getStrapiImageURL = (url: string) => {
@@ -56,9 +63,11 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
               <div className="relative">
                 <Image
                   src={logoUrl}
+                  placeholder="blur"
+                  blurDataURL="/Logos/logo-transparent.svg"
                   alt={logo.alternativeText || logo.name}
-                  width={50}
-                  height={50}
+                  width={100}
+                  height={100}
                   className="object-contain"
                 />
               </div>
@@ -97,7 +106,13 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                   >
                     <Image
                       src={getStrapiImageURL(item.Icon.url)}
-                      alt={item.Icon.alternativeText || item.Icon.name || "Social Icon"}
+                      placeholder="blur"
+                      blurDataURL="/Logos/logo-transparent.svg"
+                      alt={
+                        item.Icon.alternativeText ||
+                        item.Icon.name ||
+                        "Social Icon"
+                      }
                       width={20}
                       height={20}
                       className="h-5 w-5"
@@ -152,27 +167,29 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                   styleType="subtitle" // Mocking text-gold style
                 />
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 w-full">
-                  {footerMenu.Locations.LocationItem.map((section: LocationItem) => (
-                    <div key={section.city} className="flex flex-col gap-1">
-                      <TextWrapper
-                        text={section.city}
-                        fontFamily="dmSans"
-                        styleType="subtitle"
-                      />
-                      <div className="flex flex-col text-xs text-gray-500">
+                  {footerMenu.Locations.LocationItem.map(
+                    (section: LocationItem) => (
+                      <div key={section.city} className="flex flex-col gap-1">
                         <TextWrapper
-                          text={`${section.street}, ${section.suburb}`}
+                          text={section.city}
                           fontFamily="dmSans"
                           styleType="subtitle"
                         />
-                        <TextWrapper
-                          text={`${section.state}, ${section.postalCode}`}
-                          fontFamily="dmSans"
-                          styleType="subtitle"
-                        />
+                        <div className="flex flex-col text-xs text-gray-500">
+                          <TextWrapper
+                            text={`${section.street}, ${section.suburb}`}
+                            fontFamily="dmSans"
+                            styleType="subtitle"
+                          />
+                          <TextWrapper
+                            text={`${section.state}, ${section.postalCode}`}
+                            fontFamily="dmSans"
+                            styleType="subtitle"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </div>
             </div>
