@@ -194,7 +194,7 @@ export default function Layout() {
                           <div className="z-10 flex flex-row gap-x-6 items-center w-full">
                             <div className={` rounded-3xl w-auto`}>
                               {imgFetchingErrors[app.AppId] ? (
-                                <div className="rounded-full text-white bg-ligh-gold border-2 border-gold flex items-center justify-center h-14 w-14">
+                                <div className="rounded-full text-warm-brown bg-ligh-gold border-2 border-gold flex items-center justify-center h-14 w-14">
                                   {app.AppAbv.substring(
                                     2,
                                     app.AppAbv.length
@@ -206,6 +206,8 @@ export default function Layout() {
                                   alt=""
                                   placeholder="blur"
                                   blurDataURL="/Logos/logo-transparent.svg"
+                                  width="56"
+                                  height="56"
                                   className="h-14 w-14"
                                   onError={() =>
                                     setImgFetchingErrors({

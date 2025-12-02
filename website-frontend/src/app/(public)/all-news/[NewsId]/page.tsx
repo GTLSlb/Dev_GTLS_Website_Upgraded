@@ -1,6 +1,7 @@
 // app/news/[NewsId]/page.tsx
 import { ArrowLeft } from "lucide-react";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
+import DomPurifyWrapper from "@/lib/components/Common/DomPurifyWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import MediaSwiper from "@/lib/pages/news/components/MediaSwiper";
 import ShareButtons from "@/lib/pages/news/components/ShareButtons";
@@ -59,12 +60,18 @@ const Page = async ({ params }: PageProps) => {
           className="text-gray-600"
         />
       </div>
-      <TextWrapper
-        text={news_item_data.textContent}
+      {/* <TextWrapper
+        text={news_item_data.content}
         fontFamily="dmSans"
         html
         styleType="body"
         className="text-black"
+      /> */}
+      <DomPurifyWrapper
+        fontFamily="dmSans"
+        styleType="body"
+        className="text-black"
+        content={news_item_data.content}
       />
       <MediaSwiper media={news_item_data.mediaContent} />
       <ShareButtons title={news_item_data.title} />

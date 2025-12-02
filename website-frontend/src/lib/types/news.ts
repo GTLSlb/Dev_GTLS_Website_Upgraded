@@ -53,6 +53,7 @@ export interface NewsItem {
   mediaContent: StrapiMediaFile[];
   textContent: string;
   category: string;
+  content: string;
 }
 
 export interface RecentNewsType {
