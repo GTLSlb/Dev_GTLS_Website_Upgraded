@@ -39,7 +39,13 @@ export default function ResetPassword() {
       gtamURl={gtamURl}
       gtlsLogo={
         <div className="ml-[1%]">
-          <Image alt="logo" src={Logo} className="self-center" />
+          <Image
+            alt="logo"
+            placeholder="blur"
+            blurDataURL="/Logos/logo-transparent.svg"
+            src={Logo}
+            className="self-center"
+          />
         </div>
       }
       truck={truck}

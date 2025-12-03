@@ -14,7 +14,14 @@ const HorizontalCard: React.FC<HorizontalCardProps> = ({
       <div className="flex flex-col md:justify-between md:flex-row gap-4">
         <div className="md:w-44">
           <div className="relative h-20 w-20 rounded-full overflow-hidden">
-            <Image src={imgSrc} alt={title} fill className="object-cover" />
+            <Image
+              src={imgSrc}
+              alt={title}
+              placeholder="blur"
+              blurDataURL="/Logos/logo-transparent.svg"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
 

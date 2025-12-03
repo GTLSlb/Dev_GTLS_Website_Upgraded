@@ -8,18 +8,19 @@ type GreenPracticesProps = {
   data: PicAndMediaItem;
 };
 
-const GreenPractices = ({data}: GreenPracticesProps) => {
-
+const GreenPractices = ({ data }: GreenPracticesProps) => {
   return (
     <SectionContainer>
       <div className="flex flex-col md:flex-row gap-12">
         {/* Image Section */}
-        <div className="relative w-full md:w-1/2 min-h-96">
+        <div className="relative w-full rounded-4xl overflow-hidden md:w-1/2 min-h-96">
           <Image
             src={StrapiLink(data.ImgSrc.url)}
+            placeholder="blur"
+            blurDataURL="/Logos/logo-transparent.svg"
             alt={data.title}
             fill
-            className="object-contain"
+            className="object-cover"
           />
         </div>
 

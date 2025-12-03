@@ -58,7 +58,11 @@ export default function Layout() {
         <div className="w-full h-full ">
           <div className="flex flex-row w-full h-full">
             <div className="flex flex-col relative w-full h-full overflow-hidden">
-              <Image src={goldMap} className="absolute right-0 -bottom-12 w-[38vw] " alt="" />
+              <Image
+                src={goldMap}
+                className="absolute right-0 -bottom-12 w-[38vw] "
+                alt=""
+              />
               {/* navbar */}
               <div className="relative border-b-2 border-gold flex lg:flex-row flex-row justify-between lg:items-center sm:px-8 w-full h-30 text-white md:text-3xl py-4 mx-auto max-w-7xl ">
                 <p className="flex w-full md:mt-0">
@@ -200,6 +204,8 @@ export default function Layout() {
                                 <Image
                                   src={`${process.env.NEXT_PUBLIC_APP_GTAM_APP_URL}/AppLogo/${app?.AppIcon}`}
                                   alt=""
+                                  placeholder="blur"
+                                  blurDataURL="/Logos/logo-transparent.svg"
                                   width="56"
                                   height="56"
                                   className="h-14 w-14"

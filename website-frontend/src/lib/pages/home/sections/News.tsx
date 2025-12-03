@@ -15,7 +15,7 @@ const News = ({ data }: NewsProps) => {
       <FloatingBanner
         iconSrc="/svgs/nationalmap.svg"
         text="National Road Event"
-        className="absolute top-40 -right-10"
+        className="hidden md:absolute top-40 -right-10"
       />
       <CenterTitle
         title={data.title}

@@ -18,6 +18,8 @@ export default function NewsCard({
       <div className="relative overflow-hidden rounded-4xl rounded-bl-none w-full h-[400px]">
         <Image
           src={StrapiLink(coverImg.url)}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
           alt={title}
           fill
           className="object-cover"

@@ -20,7 +20,9 @@ const Industries = ({data}: IndustriesProps) => {
             imageFirst={!(index % 2 === 0)} // ✅ alternate placement
           />
           {/* Divider outside */}
-          <div className="h-0.5 bg-gray-100 w-full mt-20"></div>
+          {index !== data.length - 1 && (
+            <div className="h-0.5 bg-gray-100 w-full mt-20"></div>
+          )}
         </div>
       ))}
       </div>

@@ -11,11 +11,23 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   return (
     <Card className="p-5 pb-15 rounded-3xl profile-card">
       <div className="relative h-64 w-full rounded-t-2xl overflow-hidden">
-        <Image src={imageSrc} alt={name} fill className="object-cover" />
+        <Image
+          src={imageSrc}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
+          alt={name}
+          fill
+          className="object-cover"
+        />
       </div>
       <div className="text-center flex flex-col gap-4">
         <CardTitle>
-          <TextWrapper text={name} fontFamily="dmSans" styleType="title4" className="goldtext" />
+          <TextWrapper
+            text={name}
+            fontFamily="dmSans"
+            styleType="title4"
+            className="goldtext"
+          />
         </CardTitle>
         <CardDescription>
           <TextWrapper

@@ -6,7 +6,7 @@ import Image from "next/image";
 interface BannerProps {
   data: BannerDataType;
 }
-const Banner: React.FC<BannerProps> = ({data}: BannerProps) => {
+const Banner: React.FC<BannerProps> = ({ data }: BannerProps) => {
   return (
     <div className="bg-creamy rounded-t-4xl flex gap-20 flex-col items-center md:flex-row rounded-br-4xl p-10">
       {/* Left Content */}
@@ -20,8 +20,16 @@ const Banner: React.FC<BannerProps> = ({data}: BannerProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 gap-x-20 h-full">
           {data.IntegratedModelItem?.map((item, index) => (
             <div key={index} className="flex flex-col gap-0">
-              <TextWrapper text={item.title} fontFamily="dmSans" styleType="title4" />
-              <TextWrapper text={item.description} fontFamily="dmSans" styleType="bodySmall" />
+              <TextWrapper
+                text={item.title}
+                fontFamily="dmSans"
+                styleType="title4"
+              />
+              <TextWrapper
+                text={item.description}
+                fontFamily="dmSans"
+                styleType="bodySmall"
+              />
             </div>
           ))}
         </div>

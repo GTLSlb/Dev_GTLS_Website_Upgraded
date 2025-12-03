@@ -1,12 +1,12 @@
-"use client";
-
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import Facilities from "@/lib/pages/warehousing/sections/Facilities";
 import Locations from "@/lib/pages/warehousing/sections/Locations";
-import { warehousing_page_data } from "@/lib/data";
+import { getWarehousingPageData } from "@/lib/services/api";
+// import { warehousing_page_data } from "@/lib/data";
 
 const Page = async () => {
+  const warehousing_page_data = await getWarehousingPageData();
   return (
     <Container>
       <CommonHero

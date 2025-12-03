@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Container from "@/lib/components/Containers/container";
 import Services from "@/lib/pages/home/sections/services";
@@ -14,8 +14,8 @@ const Page = () => {
       <Hero data={home_page_data.HeroSection} />
       <Services data={home_page_data.Services} />
       <WhyGtls data={home_page_data.Services.WhyGtls} />
-     <CustomerHub data={home_page_data.Services.CustomerHub} />
-       <News data={home_page_data.Services.News[0]} />
+      <CustomerHub data={home_page_data.Services.CustomerHub} />
+      <News data={home_page_data.Services.News[0]} />
     </Container>
   );
 };

@@ -35,7 +35,7 @@ const KeyBenefits = ({ data }: BTripleProps) => {
             {data.CoreValueItem?.map((item, i) => {
               return (
                 <div key={i} className="flex gap-8 py-10 px-4 items-start">
-                  <div className="bg-white relative p-8 rounded-xl">
+                  <div className="bg-white relative p-4 md:p-8 rounded-xl">
                     <Image
                       src={StrapiLink(item.icon.url)}
                       alt={item.title}

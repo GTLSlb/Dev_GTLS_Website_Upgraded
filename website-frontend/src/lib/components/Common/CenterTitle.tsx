@@ -32,7 +32,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
   };
   return (
     <div
-      className={`flex flex-col gap-4 my-10 ${alignmentClasses[placement]} ${className}`}
+      className={`flex flex-col gap-4 mt-5 sm:mt-10 mb-5 sm:mb-10 ${alignmentClasses[placement]} ${className}`}
     >
       <TextWrapper
         text={title}
@@ -61,6 +61,8 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
                 <Image
                   src={process.env.NEXT_PUBLIC_STRAPI_URL + item.icon.url}
                   alt={item.icon.name}
+                  placeholder="blur"
+                  blurDataURL="/Logos/logo-transparent.svg"
                   width={24}
                   height={24}
                   className="flex-shrink-0 text-xl"

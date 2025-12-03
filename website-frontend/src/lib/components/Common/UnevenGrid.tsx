@@ -4,18 +4,13 @@ import Image from "next/image";
 import TextWrapper from "./TextWrapper";
 
 const UnevenGrid = ({ items }: UnevenGridProps) => {
-
   return (
     <div>
       {/* Use auto rows so you don't have to predict how many rows you'll need */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 auto-rows-min">
         {items?.map((item: WhyGtlsItem, index: number) => {
-
           return (
-            <Card
-              key={index}
-              className="rounded-4xl p-5"
-            >
+            <Card key={index} className="rounded-4xl p-5">
               <CardContent className="h-56 flex flex-col gap-5 items-center justify-center text-center">
                 <div className="relative h-20 w-20 ">
                   <Image
@@ -25,6 +20,8 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
                         : ""
                     }
                     alt={item.title}
+                    placeholder="blur"
+                    blurDataURL="/Logos/logo-transparent.svg"
                     fill
                     className="rounded-2xl"
                   />
@@ -36,7 +33,7 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
                     styleType="subtitle"
                   />
                   <TextWrapper
-                    text={item.description??""}
+                    text={item.description ?? ""}
                     fontFamily="dmSans"
                     styleType="bodySmall"
                   />

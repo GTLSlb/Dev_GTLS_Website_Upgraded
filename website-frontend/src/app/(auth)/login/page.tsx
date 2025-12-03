@@ -39,7 +39,7 @@ export default function Login() {
 
     const requestInterceptor = axios.interceptors.request.use(
       (config) => {
-        if (config.url?.includes('microsoft-token')) {
+        if (config.url?.includes("microsoft-token")) {
           config.withCredentials = false;
         }
         return config;
@@ -66,7 +66,9 @@ export default function Login() {
       <ClientLoginPage
         appDomain={appDomain}
         googlekey={googleKey}
-        redirectURL={process.env.NEXT_PUBLIC_APP_REDIRECT_ROUTE || "/landing-page"}
+        redirectURL={
+          process.env.NEXT_PUBLIC_APP_REDIRECT_ROUTE || "/landing-page"
+        }
         loginURL={loginURL}
         gtamURl={gtamURl}
         pca={pca}
@@ -78,7 +80,13 @@ export default function Login() {
         backToHomeURL={backToHomeURL}
         gtlsLogo={
           <div className="ml-[14%]">
-            <Image alt="logo" src={Logo} className="self-center" />
+            <Image
+              alt="logo"
+              src={Logo}
+              placeholder="blur"
+              blurDataURL="/Logos/logo-transparent.svg"
+              className="self-center"
+            />
           </div>
         }
         redirectUrl={AUTH_ENDPOINTS["azure-callback"]}

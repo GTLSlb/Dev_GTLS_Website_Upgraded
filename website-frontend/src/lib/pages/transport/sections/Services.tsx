@@ -2,10 +2,11 @@ import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import Image from "next/image";
 import { transportServicesType } from "@/lib/types";
+import { StrapiLink } from "@/lib/services/media";
 
 type transportServicesProps = {
   data: transportServicesType[];
-}
+};
 
 const Services: React.FC<transportServicesProps> = ({ data }) => {
   return (
@@ -30,9 +31,11 @@ const Services: React.FC<transportServicesProps> = ({ data }) => {
                 placement="left"
               />
             </div>
-            <div className="relative flex-1 w-full h-[450px] rounded-4xl overflow-hidden">
+            <div className="relative flex-1 w-full min-h-96 h-[450px] rounded-4xl overflow-hidden">
               <Image
-                src={service?.image? process.env.NEXT_PUBLIC_STRAPI_URL+service.image.url : "/images/placeholder.png"}
+                src={StrapiLink(service.image.url)}
+                placeholder="blur"
+                blurDataURL="/Logos/logo-transparent.svg"
                 alt={service.title}
                 fill
                 className="rounded-lg shadow-md object-cover"
