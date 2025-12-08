@@ -11,8 +11,6 @@ export const AUTH_ENDPOINTS = {
   validate: "/Validate/Session",
   users: "/users",
   "logout-without-request": "/logout-without-request",
-  "upload-doc": "/upload-doc",
-  
 };
 
 export const PERMISSIONS = {
