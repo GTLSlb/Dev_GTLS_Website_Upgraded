@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import { NavbarContent } from "@/lib/types/navigation";
 import { StrapiLink } from "@/lib/services/media";
 import { Separator } from "@/lib/ui/separator";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/lib/ui/tooltip";
 
 type NavigationMenuBarProps = {
   data: NavbarContent;
@@ -113,40 +114,70 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-2">
-        <Link href="https://map.gtls.com.au/" className="text-sm font-medium">
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
-          >
-            <MapIcon className="size-4" />
-          </Button>
-        </Link>
-        <Link href="/about" className="text-sm font-medium">
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
-          >
-            <Search className="size-4" />
-            <TextWrapper
-              text="Search"
-              fontFamily="dmSans"
-              styleType="body"
-              className="block lg:hidden"
-            />
-          </Button>
-        </Link>
-        <Link href="/login" className="text-sm hidden lg:block font-medium">
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 px-8"
-          >
-            <User className="size-4" />
-            {/* <TextWrapper text="Login" fontFamily="dmSans" styleType="body" /> */}
-          </Button>
-        </Link>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="https://map.gtls.com.au/"
+              className="text-sm font-medium"
+            >
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
+              >
+                <MapIcon className="size-4" />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Open Map</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* SEARCH BUTTON */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href="/about" className="text-sm font-medium">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
+              >
+                <Search className="size-4" />
+                <TextWrapper
+                  text="Search"
+                  fontFamily="dmSans"
+                  styleType="body"
+                  className="block lg:hidden"
+                />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Search</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* LOGIN BUTTON */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href="/login" className="text-sm hidden lg:block font-medium">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 px-8"
+              >
+                <User className="size-4" />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Login</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
       {/* Mobile Menu */}
       <div className="lg:hidden">
@@ -160,7 +191,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
-            <Separator  />
+            <Separator />
             <div className="flex flex-col gap-4 p-4 justify-between h-full">
               <div className="flex flex-col space-y-4 mt-0">
                 {
