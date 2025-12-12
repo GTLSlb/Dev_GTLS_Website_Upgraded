@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, Search } from "lucide-react";
+import { MapIcon, Menu, Search, User } from "lucide-react";
 
 import {
   NavigationMenu,
@@ -54,7 +54,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
       </Link>
 
       {/* Desktop Menu */}
-      <div className="hidden xl:flex">
+      <div className="hidden lg:flex">
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             {data?.NavItems?.map((link) => (
@@ -112,7 +112,16 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-2">
+        <Link href="https://map.gtls.com.au/" className="text-sm font-medium">
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
+          >
+            <MapIcon className="size-4" />
+          </Button>
+        </Link>
         <Link href="/about" className="text-sm font-medium">
           <Button
             size="sm"
@@ -132,14 +141,15 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
           <Button
             size="sm"
             variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 px-8"
           >
-            <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
+            <User className="size-4" />
+            {/* <TextWrapper text="Login" fontFamily="dmSans" styleType="body" /> */}
           </Button>
         </Link>
       </div>
       {/* Mobile Menu */}
-      <div className="xl:hidden">
+      <div className="lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <button>
