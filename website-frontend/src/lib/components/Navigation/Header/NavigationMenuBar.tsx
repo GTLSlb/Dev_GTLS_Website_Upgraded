@@ -27,6 +27,7 @@ import { StrapiLink } from "@/lib/services/media";
 import { Separator } from "@/lib/ui/separator";
 import SearchContainer from "@/lib/components/WebsiteSearch/Container";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/lib/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
 
 type NavigationMenuBarProps = {
   data: NavbarContent;
@@ -37,10 +38,30 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
   const pathname = usePathname();
   const [currentPath, setCurrentPath] = React.useState(pathname);
   const [openSearchContainer, setOpenSearchContainer] = React.useState(false);
+  const searchRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
     setCurrentPath(pathname);
   }, [pathname]);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        setOpenSearchContainer(false);
+      }
+    };
+
+    if (openSearchContainer) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openSearchContainer]);
 
   return (
     <nav className="flex items-center justify-between gap-6 w-full p-4 border-b">
@@ -58,7 +79,14 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
 
       {/* Desktop Menu */}
       <div className="hidden xl:flex relative">
-        <div className={`z-10 shadow rounded bg-white w-full absolute mt-[6vh] ${openSearchContainer ? "block" : "hidden"}`}><SearchContainer /></div>
+        <div
+          ref={searchRef}
+          className={`z-10 shadow rounded bg-white w-full absolute mt-[6vh] ${
+            openSearchContainer ? "block" : "hidden"
+          }`}
+        >
+          <SearchContainer />
+        </div>
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             {data?.NavItems?.map((link) => (
@@ -81,29 +109,61 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-4">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={()=>{setOpenSearchContainer(!openSearchContainer)}}
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
-          >
-            <Search className="size-4" />
-            <TextWrapper
-              text="Search"
-              fontFamily="dmSans"
-              styleType="body"
-              className="block lg:hidden"
-            />
-          </Button>
-        <Link href="/login" className="text-sm hidden lg:block font-medium">
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
-          >
-            <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
-          </Button>
-        </Link>
+        {/* Search Tooltip */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setOpenSearchContainer(!openSearchContainer)}
+              className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-10.5"
+            >
+              <Search className="size-4" />
+              <TextWrapper
+                text="Search"
+                fontFamily="dmSans"
+                styleType="body"
+                className="block lg:hidden"
+              />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Search</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* Login Tooltip */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              size="sm"
+              variant="outline"
+              className="hidden lg:flex border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
+            >
+              <User className="size-4" />
+            </Button>
+          </PopoverTrigger>
+
+          <PopoverContent align="end" className="w-48 p-2 space-y-1">
+            <Link href="https://jaixwebapps.gtls.com.au/Portal/Account/Login.aspx">
+              <Button
+                variant="ghost"
+                className="w-full justify-start hover:cursor-pointer"
+              >
+                Client Login
+              </Button>
+            </Link>
+
+            <Link href="/login">
+              <Button
+                variant="ghost"
+                className="w-full justify-start hover:cursor-pointer"
+              >
+                Staff Login
+              </Button>
+            </Link>
+          </PopoverContent>
+        </Popover>
       </div>
       {/* Mobile Menu */}
       <div className="lg:hidden">
@@ -137,17 +197,34 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                   // )
                 }
               </div>
-              <Button
-                variant="outline"
-                className="w-full mt-6 border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5"
-                // onClick={() => setOpen(false)}
-              >
-                <TextWrapper
-                  text="Login"
-                  fontFamily="dmSans"
-                  styleType="body"
-                />
-              </Button>
+              <div className="flex flex-col gap-3 mt-6">
+                <Link href="https://jaixwebapps.gtls.com.au/Portal/Account/Login.aspx">
+                  <Button
+                    variant="outline"
+                    className="w-full border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5"
+                    // onClick={() => setOpen(false)}
+                  >
+                    <TextWrapper
+                      text="Client Login"
+                      fontFamily="dmSans"
+                      styleType="body"
+                    />
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button
+                    variant="outline"
+                    className="w-full border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5"
+                    // onClick={() => setOpen(false)}
+                  >
+                    <TextWrapper
+                      text="Staff Login"
+                      fontFamily="dmSans"
+                      styleType="body"
+                    />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </SheetContent>
         </Sheet>
