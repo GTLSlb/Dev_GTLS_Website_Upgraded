@@ -25,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "mysql": "^2.18.1",
+    "typesense": "^2.1.0",
     "winston": "^3.17.0"
   },
   "devDependencies": {

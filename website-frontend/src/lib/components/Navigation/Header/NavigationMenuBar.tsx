@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import { NavbarContent } from "@/lib/types/navigation";
 import { StrapiLink } from "@/lib/services/media";
 import { Separator } from "@/lib/ui/separator";
+import SearchContainer from "@/lib/components/WebsiteSearch/Container";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/lib/ui/tooltip";
 
 type NavigationMenuBarProps = {
@@ -35,6 +36,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
   const [currentPath, setCurrentPath] = React.useState(pathname);
+  const [openSearchContainer, setOpenSearchContainer] = React.useState(false);
 
   React.useEffect(() => {
     setCurrentPath(pathname);
@@ -55,47 +57,12 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
       </Link>
 
       {/* Desktop Menu */}
-      <div className="hidden lg:flex">
+      <div className="hidden xl:flex relative">
+        <div className={`z-10 shadow rounded bg-white w-full absolute mt-[6vh] ${openSearchContainer ? "block" : "hidden"}`}><SearchContainer /></div>
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             {data?.NavItems?.map((link) => (
               <NavigationMenuItem key={link.label}>
-                {/* ✅ Dropdown (has children) */}
-                {/* {link.children ? (
-              <>
-                <NavigationMenuTrigger
-                  // ✅ active if current path starts with any child link
-                  className={cn(
-                    "group inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors bg-background text-foreground hover:bg-creamy hover:text-gold focus-visible:ring-[3px] outline-none focus-visible:ring-ring/50",
-                    // Open state (Radix adds `data-state=open` automatically)
-                    "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-                    // Active route
-                    link.children.some((child) => currentPath.startsWith(child.href ?? "")) &&
-                      "bg-accent text-accent-foreground"
-                  )}
-                >
-                  {link.label}
-                </NavigationMenuTrigger>
-
-                <NavigationMenuContent>
-                  <ul className="grid gap-3 p-4 w-[220px]">
-                    {link.children.map((child) => (
-                      <li key={child.label}>
-                        <NavigationMenuLink
-                          asChild
-                          className={cn(
-                            "block rounded-md px-2 py-1.5 hover:bg-creamy hover:text-gold transition-colors",
-                            currentPath.startsWith(child.href ?? "") && "bg-accent text-gold"
-                          )}
-                        >
-                          <Link href={child.href ?? "#"}>{child.label}</Link>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </>
-            ) : ( */}
                 <NavigationMenuLink
                   asChild
                   className={cn(
@@ -113,71 +80,30 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      <div className="flex items-center space-x-2">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link
-              href="https://map.gtls.com.au/"
-              className="text-sm font-medium"
-            >
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
-              >
-                <MapIcon className="size-4" />
-              </Button>
-            </Link>
-          </TooltipTrigger>
-
-          <TooltipContent side="bottom">
-            <p>Open Map</p>
-          </TooltipContent>
-        </Tooltip>
-
-        {/* SEARCH BUTTON */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link href="/about" className="text-sm font-medium">
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
-              >
-                <Search className="size-4" />
-                <TextWrapper
-                  text="Search"
-                  fontFamily="dmSans"
-                  styleType="body"
-                  className="block lg:hidden"
-                />
-              </Button>
-            </Link>
-          </TooltipTrigger>
-
-          <TooltipContent side="bottom">
-            <p>Search</p>
-          </TooltipContent>
-        </Tooltip>
-
-        {/* LOGIN BUTTON */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link href="/login" className="text-sm hidden lg:block font-medium">
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 px-8"
-              >
-                <User className="size-4" />
-              </Button>
-            </Link>
-          </TooltipTrigger>
-
-          <TooltipContent side="bottom">
-            <p>Login</p>
-          </TooltipContent>
-        </Tooltip>
+      <div className="flex items-center space-x-4">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={()=>{setOpenSearchContainer(!openSearchContainer)}}
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
+          >
+            <Search className="size-4" />
+            <TextWrapper
+              text="Search"
+              fontFamily="dmSans"
+              styleType="body"
+              className="block lg:hidden"
+            />
+          </Button>
+        <Link href="/login" className="text-sm hidden lg:block font-medium">
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
+          >
+            <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
+          </Button>
+        </Link>
       </div>
       {/* Mobile Menu */}
       <div className="lg:hidden">
@@ -196,30 +122,6 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
               <div className="flex flex-col space-y-4 mt-0">
                 {
                   data?.NavItems.map((link) => (
-                    // link.children ? (
-                    //   <div key={link.label}>
-                    //     <TextWrapper
-                    //       text={link.label}
-                    //       fontFamily="dmSans"
-                    //       styleType="body"
-                    //     />
-                    //     <div className="ml-3 flex flex-col space-y-2">
-                    //       {link.children.map((child) => (
-                    //         <Link
-                    //           key={child.label}
-                    //           href={child.href ?? "#"}
-                    //           onClick={() => setOpen(false)}
-                    //         >
-                    //           <TextWrapper
-                    //             text={child.label}
-                    //             fontFamily="dmSans"
-                    //             styleType="link"
-                    //           />
-                    //         </Link>
-                    //       ))}
-                    //     </div>
-                    //   </div>
-                    // ) : (
                     <Link
                       key={link.label}
                       href={link.href ?? "#"}
