@@ -1,6 +1,7 @@
 "use client";
 
 import "dotenv/config";
+import axios from "axios";
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { clearMSALLocalStorage, pca } from "@/lib/utils/helper";
@@ -8,7 +9,11 @@ import { AUTH_ENDPOINTS } from "@/lib/api/endpoints";
 import Logo from "@/lib/assets/images/Logo.png";
 import Image from "next/image";
 import AnimatedLoading from "@/lib/components/Loader/AnimatedLoading";
-import axios from "axios";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+  GoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 
 const ClientLoginPage = dynamic(
   () => import("gtls-npm-libraries").then((mod) => mod.LoginPage),
@@ -61,37 +66,49 @@ export default function Login() {
     };
   }, []);
 
+  const [ recaptchaValue, setRecaptchaValue] = React.useState<string>("");
   return (
     <div className="h-screen w-full">
-      <ClientLoginPage
-        appDomain={appDomain}
-        googlekey={googleKey}
-        redirectURL={
-          process.env.NEXT_PUBLIC_APP_REDIRECT_ROUTE || "/landing-page"
-        }
-        loginURL={loginURL}
-        gtamURl={gtamURl}
-        pca={pca}
-        canResetPassword={true}
-        handleForgotPassword={() =>
-          (window.location.href = AUTH_ENDPOINTS["forgot-password"])
-        }
-        microsoftURL={microsoftURL}
-        backToHomeURL={backToHomeURL}
-        gtlsLogo={
-          <div className="ml-[14%]">
-            <Image
-              alt="logo"
-              src={Logo}
-              placeholder="blur"
-              blurDataURL="/Logos/logo-transparent.svg"
-              className="self-center"
-            />
-          </div>
-        }
-        redirectUrl={AUTH_ENDPOINTS["azure-callback"]}
-        isTest={isTest == "true"}
-      />
+      <GoogleReCaptchaProvider
+        reCaptchaKey={"6LckFSUsAAAAAPzehqsZh0FFlZSo4k3ov4ycuEjl"}
+      >
+        <ClientLoginPage
+          appDomain={appDomain}
+          googlekey={googleKey}
+          redirectURL={
+            process.env.NEXT_PUBLIC_APP_REDIRECT_ROUTE || "/landing-page"
+          }
+          loginURL={loginURL}
+          gtamURl={gtamURl}
+          pca={pca}
+          canResetPassword={true}
+          handleForgotPassword={() =>
+            (window.location.href = AUTH_ENDPOINTS["forgot-password"])
+          }
+          microsoftURL={microsoftURL}
+          backToHomeURL={backToHomeURL}
+          gtlsLogo={
+            <div className="ml-[14%]">
+              <Image
+                alt="logo"
+                src={Logo}
+                placeholder="blur"
+                blurDataURL="/Logos/logo-transparent.svg"
+                className="self-center"
+              />
+            </div>
+          }
+          redirectUrl={AUTH_ENDPOINTS["azure-callback"]}
+          isTest={isTest == "true"}
+          recaptchaValue={recaptchaValue}
+          setRecaptchaValue={setRecaptchaValue}
+        />
+        <GoogleReCaptcha
+            onVerify={(token) => {
+              setRecaptchaValue(token);
+            }}
+          />
+      </GoogleReCaptchaProvider>
     </div>
   );
 }

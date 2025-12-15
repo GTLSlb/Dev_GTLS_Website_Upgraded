@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, Search } from "lucide-react";
+import { MapIcon, Menu, Search, User } from "lucide-react";
 
 import {
   NavigationMenu,
@@ -26,6 +26,7 @@ import { NavbarContent } from "@/lib/types/navigation";
 import { StrapiLink } from "@/lib/services/media";
 import { Separator } from "@/lib/ui/separator";
 import SearchContainer from "@/lib/components/WebsiteSearch/Container";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/lib/ui/tooltip";
 
 type NavigationMenuBarProps = {
   data: NavbarContent;
@@ -105,7 +106,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </Link>
       </div>
       {/* Mobile Menu */}
-      <div className="xl:hidden">
+      <div className="lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <button>
@@ -116,7 +117,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
-            <Separator  />
+            <Separator />
             <div className="flex flex-col gap-4 p-4 justify-between h-full">
               <div className="flex flex-col space-y-4 mt-0">
                 {
