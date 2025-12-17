@@ -70,7 +70,7 @@ export default function Login() {
   return (
     <div className="h-screen w-full">
       <GoogleReCaptchaProvider
-        reCaptchaKey={"6LckFSUsAAAAAPzehqsZh0FFlZSo4k3ov4ycuEjl"}
+        reCaptchaKey={googleKey}
       >
         <ClientLoginPage
           appDomain={appDomain}

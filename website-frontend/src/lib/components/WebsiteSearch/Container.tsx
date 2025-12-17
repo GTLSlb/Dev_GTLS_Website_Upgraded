@@ -1,17 +1,22 @@
 "use client";
 import React from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 import { search } from "@/lib/services/search";
 import { Search, Loader } from "lucide-react";
 
 import { SearchResult } from "@/lib/types/searchResults";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
+import Link from "next/link";
 
-export default function SearchContainer() {
+export default function SearchContainer({
+  setOpenSearchContainer,
+}: {
+  setOpenSearchContainer?: (open: boolean) => void;
+}) {
   const router = useRouter();
   const [query, setQuery] = React.useState("");
-  
+
   const [isLoadingResults, setIsLoadingResults] = React.useState(false);
   const [searchResults, setSearchResults] = React.useState<SearchResult>({
     query: "",
@@ -19,8 +24,11 @@ export default function SearchContainer() {
     results: [],
   });
 
-  const handleClick = () => {
-    router.push('/search?query=' + query);
+  const handleClick = (href: string) => {
+    if (setOpenSearchContainer) {
+      setOpenSearchContainer(false);
+    }
+    router.push(href);
   };
 
   React.useEffect(() => {
@@ -65,13 +73,28 @@ export default function SearchContainer() {
           />
           <ul className="flex flex-col gap-2 my-2">
             <li className="flex items-center gap-2 hover:bg-[#eacc87] hover:cursor-pointer p-1 rounded">
-              <Search className="size-4" /> B-Triple
+              <button
+                className="flex items-center gap-2"
+                onClick={() => handleClick("/b-triple")}
+              >
+                <Search className="size-4" /> B-Triple
+              </button>
             </li>
             <li className="flex items-center gap-2 hover:bg-[#eacc87] hover:cursor-pointer p-1 rounded">
-              <Search className="size-4" /> Sustainability
+              <button
+                className="flex items-center gap-2"
+                onClick={() => handleClick("/industries")}
+              >
+                <Search className="size-4" /> Industries
+              </button>
             </li>
             <li className="flex items-center gap-2 hover:bg-[#eacc87] hover:cursor-pointer p-1 rounded">
-              <Search className="size-4" /> Transport
+              <button
+                className="flex items-center gap-2"
+                onClick={() => handleClick("/transport")}
+              >
+                <Search className="size-4" /> Transport
+              </button>
             </li>
           </ul>
         </div>
@@ -88,16 +111,21 @@ export default function SearchContainer() {
               <li key={index}>
                 <div className="flex flex-col gap-2">
                   {result.hits.slice(0, 2).map((hit) => (
-                    <div className="flex items-center gap-2 hover:bg-[#eacc87] hover:cursor-pointer p-1 rounded">
-                      <Search className="size-4" />
-                      <span id={hit.id}>{hit.title}</span>
-                    </div>
+                    <button onClick={() => handleClick(hit.url)}>
+                      <div className="flex items-center gap-2 hover:bg-[#eacc87] hover:cursor-pointer p-1 rounded">
+                        <Search className="size-4" />
+                        <span id={hit.id}>{hit.title}</span>
+                      </div>
+                    </button>
                   ))}
                 </div>
               </li>
             ))}
           </ul>
-          <button onClick={handleClick} className="flex items-center gap-2 hover:underline hover:text-light-gold hover:cursor-pointer p-1 rounded">
+          <button
+            onClick={() => handleClick("/search?query=" + query)}
+            className="flex items-center gap-2 hover:underline hover:text-light-gold hover:cursor-pointer p-1 rounded"
+          >
             View all {searchResults?.total_hits} results
           </button>
         </div>

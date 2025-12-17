@@ -42,6 +42,19 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
     setCurrentPath(pathname);
   }, [pathname]);
 
+  React.useEffect(() => {
+    if (openSearchContainer) {
+      const handleScroll = () => {
+        setOpenSearchContainer(false);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [openSearchContainer]);
   return (
     <nav className="flex items-center justify-between gap-6 w-full p-4 border-b">
       {/* Logo */}
@@ -58,7 +71,24 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
 
       {/* Desktop Menu */}
       <div className="hidden xl:flex relative">
-        <div className={`z-10 shadow rounded bg-white w-full absolute mt-[6vh] ${openSearchContainer ? "block" : "hidden"}`}><SearchContainer /></div>
+        <div
+          style={{
+            position: "absolute",
+            top: "6vh",
+            opacity: openSearchContainer ? 1 : 0,
+            transform: openSearchContainer
+              ? "translateY(0)"
+              : "translateY(100%)",
+            transition: "opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
+            zIndex: 99999,
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            borderRadius: "4px",
+            width: "100%",
+            backgroundColor: "white",
+          }}
+        >
+          <SearchContainer setOpenSearchContainer={setOpenSearchContainer}/>
+        </div>
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             {data?.NavItems?.map((link) => (
@@ -81,20 +111,22 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-4">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={()=>{setOpenSearchContainer(!openSearchContainer)}}
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
-          >
-            <Search className="size-4" />
-            <TextWrapper
-              text="Search"
-              fontFamily="dmSans"
-              styleType="body"
-              className="block lg:hidden"
-            />
-          </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            setOpenSearchContainer(!openSearchContainer);
+          }}
+          className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
+        >
+          <Search className="size-4" />
+          <TextWrapper
+            text="Search"
+            fontFamily="dmSans"
+            styleType="body"
+            className="block lg:hidden"
+          />
+        </Button>
         <Link href="/login" className="text-sm hidden lg:block font-medium">
           <Button
             size="sm"

@@ -1,5 +1,6 @@
 const {
   index_data,
+  runQuerySlug,
   format_search_results,
   search_typesense_collections,
   delete_all_typesense_collections,
@@ -17,7 +18,8 @@ class TypesenseController {
     }
     try {
       const results = await search_typesense_collections(query);
-      const formatted_results = format_search_results(results);
+      const formatted_results = await format_search_results(results);
+
       return res.status(STATUS.OK).json({
         query: query,
         total_hits: formatted_results.total_hits,

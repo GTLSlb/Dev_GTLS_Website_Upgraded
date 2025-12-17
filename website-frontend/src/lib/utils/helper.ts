@@ -106,3 +106,15 @@ export function clearMSALLocalStorage() {
     deleteCookie("msal.isMicrosoftLogin", { path: "/", domain: appDomain });
     deleteCookie('jwt_token', { path: "/", domain: appDomain });
 }
+
+export function routeMapper(route: string) {
+    if(route.includes("about_us")){
+        return "/about";
+    }
+    if(route.includes("components_elements_customer_hub")){
+        return "/"
+    }
+    if(route.includes("components_elements_service")){
+        return "/"
+    }
+}

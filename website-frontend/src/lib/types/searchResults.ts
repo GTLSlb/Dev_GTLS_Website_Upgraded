@@ -14,6 +14,7 @@ export type SearchResultHit = {
     id: string;
     title: string;
     type: string;
+    url: string;
     score: number;
     document: any;
 };

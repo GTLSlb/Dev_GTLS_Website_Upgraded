@@ -13,11 +13,6 @@ services:
       - ./typesense_data:/data
     env_file:
       - ./.env
-    environment:
-      - TYPESENSE_HOST=${TYPESENSE_HOST}
-      - TYPESENSE_PORT=${TYPESENSE_PORT}
-      - TYPESENSE_PROTOCOL=${TYPESENSE_PROTOCOL}
-      - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
     command:
       - '--data-dir=/data'
       - '--api-key=${TYPESENSE_API_KEY}'

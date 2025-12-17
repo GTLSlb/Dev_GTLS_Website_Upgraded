@@ -3,7 +3,13 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 
 import { search } from "@/lib/services/search";
-import { Search, Loader, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Search,
+  Loader,
+  ChevronLeft,
+  ChevronRight,
+  FileX2Icon,
+} from "lucide-react";
 
 import { SearchResult } from "@/lib/types/searchResults";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
@@ -34,12 +40,41 @@ export default function SearchPageLayout() {
       setQuery(searchQuery);
       setIsLoadingResults(true);
       setCurrentPage(1); // Reset to first page on new search
-      search(query).then((data) => {
-        setSearchResults(data as SearchResult);
-        setIsLoadingResults(false);
+      search(query)
+        .then((data) => {
+          console.log('Search Results: ', data);
+          setSearchResults(data as SearchResult);
+          setIsLoadingResults(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching search results:", error);
+          setIsLoadingResults(false);
+        });
+    } else {
+      setIsLoadingResults(false);
+      setSearchResults({
+        query: "",
+        total_hits: 0,
+        results: [],
       });
     }
   }, [searchQuery]);
+  React.useEffect(() => {
+    if (query != "") {
+      setIsLoadingResults(true);
+      setCurrentPage(1); // Reset to first page on new search
+      search(query)
+        .then((data) => {
+          console.log('Search Results: ', data);
+          setSearchResults(data as SearchResult);
+          setIsLoadingResults(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching search results:", error);
+          setIsLoadingResults(false);
+        });
+    }
+  }, [query]);
 
   // Flatten all hits from all collections
   const allHits = React.useMemo(() => {
@@ -118,7 +153,7 @@ export default function SearchPageLayout() {
         className=""
         parentClassName="relative py-4 overflow-hidden"
       >
-        {isLoadingResults && allHits.length == 0  ? (
+        {isLoadingResults && allHits.length == 0 ? (
           <div className="min-h-[60vh] w-full">
             <AnimatedLoading />
           </div>
@@ -157,16 +192,29 @@ export default function SearchPageLayout() {
                 }`}
                 fontFamily="dmSans"
                 styleType="body"
-                className="text-gray-600 text-sm mb-4"
+                className={`text-gray-600 text-sm mb-4 ${
+                  query == "" ? "hidden" : ""
+                }`}
               />
-
               {allHits.length === 0 ? (
-                <div className="text-center py-12 text-gray-500">
-                  No results found for "{query}"
+                <div className="flex flex-col items-center justify-center gap-y-2 text-center py-12 text-gray-500 min-h-[30vh] w-full">
+                  <div>
+                    <FileX2Icon size="64" />
+                  </div>
+                  <div>
+                    No results found {query == "" ? "" : `for "${query}"`}
+                  </div>
                 </div>
               ) : (
                 <>
-                  <HighlightedSearchResultsList maxScore={searchResults.results[0]?.hits[0].score as number || 578730123365189800} hits={currentHits} query={query} />
+                  <HighlightedSearchResultsList
+                    maxScore={
+                      (searchResults.results[0]?.hits[0].score as number) ||
+                      578730123365189800
+                    }
+                    hits={currentHits}
+                    query={query}
+                  />
 
                   {/* Pagination Controls */}
                   {totalPages > 1 && (

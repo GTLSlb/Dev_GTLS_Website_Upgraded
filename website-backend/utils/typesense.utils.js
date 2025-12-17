@@ -1,6 +1,7 @@
 const connection = require("../database/strapi.connection");
 const logger = require("../shared-utils/logging");
 const typesense_client = require("./typesense.client");
+const enrich_collection_with_urls = require("./strapi_constants.utils").enrich_collection_with_urls;
 
 const exactExclusions = [
   "action_events",
@@ -46,6 +47,7 @@ const runQuery = (sql) => {
     });
   });
 };
+
 
 const get_filtered_db_tables = async () => {
   try {
@@ -306,7 +308,11 @@ const search_typesense_collections = async (query) => {
             .filter((field) => {
               // Only include fields that are explicitly indexed AND
               // are not the special Typesense wildcard field.
-              return field.index === true && field.name !== ".*" && field.type == 'string';
+              return (
+                field.index === true &&
+                field.name !== ".*" &&
+                field.type == "string"
+              );
             })
             .map((field) => field.name),
         };
@@ -355,14 +361,15 @@ const search_typesense_collections = async (query) => {
   }
 };
 
-function format_search_results(search_results) {
+async function format_search_results(search_results) {
   const results = [];
   let total_hits = 0;
 
-  search_results.forEach((collection_result) => {
+  for (const collection_result of search_results) {
     if (collection_result.found > 0) {
       total_hits += collection_result.found;
 
+      // Format basic hit data
       const hits = collection_result.hits.map((hit) => ({
         id: hit.document.id,
         // Assign a generic name/title field for easier consumption by the client
@@ -372,13 +379,20 @@ function format_search_results(search_results) {
         document: hit.document, // Include the full document data
       }));
 
+       // Enrich with URLs
+      const enrichedHits = await enrich_collection_with_urls(
+        collection_result.collection,
+        hits
+      );
+
       results.push({
         collection: collection_result.collection,
         found: collection_result.found,
-        hits: hits,
+        hits: enrichedHits,
       });
     }
-  });
+    
+  };
 
   return { total_hits: total_hits, results: results };
 }
