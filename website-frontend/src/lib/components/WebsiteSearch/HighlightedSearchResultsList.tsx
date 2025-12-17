@@ -99,7 +99,7 @@ const HighlightedText: React.FC<{
   const parts = text.split(new RegExp(`(${escapedQuery})`, "gi"));
 
   return (
-    <div className="inline">
+    <div key={text?.substring(0, 2)} className="inline">
       {parts.map((part, index) =>
         part.toLowerCase() === query.toLowerCase() ? (
           <mark key={index} className="bg-yellow-300 px-1 rounded font-medium inline">

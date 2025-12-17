@@ -109,9 +109,9 @@ export default function SearchContainer({
           <ul className="flex flex-col gap-2 my-2">
             {searchResults?.results.slice(0, 2)?.map((result, index) => (
               <li key={index}>
-                <div className="flex flex-col gap-2">
+                <div key={index} className="flex flex-col gap-2">
                   {result.hits.slice(0, 2).map((hit) => (
-                    <button onClick={() => handleClick(hit.url)}>
+                    <button key={hit.id} onClick={() => handleClick(hit.url)}>
                       <div className="flex items-center gap-2 hover:bg-[#eacc87] hover:cursor-pointer p-1 rounded">
                         <Search className="size-4" />
                         <span id={hit.id}>{hit.title}</span>
