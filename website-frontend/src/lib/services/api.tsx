@@ -86,6 +86,17 @@ const strapi = axios.create({
   },
 });
 
+async function strapiFetch(endpoint: string) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${endpoint}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_APP_STRAPI_API_TOKEN}`,
+    },
+    next: { revalidate: 0 }, // NOW this will work!
+  });
+  return res.json();
+}
+
 export async function getBTriplePageData() {
   try {
     const params = {
@@ -380,32 +391,22 @@ export async function getHomePageData() {
 
 export async function getNewsPageData() {
   try {
-    const params = {
-      populate: "*",
-    };
+    // 1. Build your query string (since we aren't using Axios's params object)
+    const endpoint = "news-page?populate=*";
 
-    const response = await strapi.get("/news-page", {
-      params,
-      // @ts-expect-error next required to revalidate cache
-      next: {
-        revalidate: revalidate,
-        tags: ["news-page"],
-      },
-    });
+    // 2. Call your new fetch-based function
+    const responseData = await strapiFetch(endpoint);
 
-    // Standard Strapi Single Type unwrapping
-    const item = response.data.data;
+    // 3. Strapi usually wraps data in a 'data' field. 
+    // If your strapiFetch returns res.json(), 'responseData' is the whole object.
+    const item = responseData.data;
 
     if (item) {
       return item;
     }
     return null;
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error fetching Industry page data:", error.message);
-    } else {
-      console.error("An unknown error occurred fetching Industry data:", error);
-    }
+    console.error("Error fetching News Page data:", error);
     return null;
   }
 }
