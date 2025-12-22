@@ -6,7 +6,7 @@ import { StrapiLink } from "@/lib/services/media";
 import { getNewsPageData } from "@/lib/services/api";
 import { NewsPage } from "@/lib/types/news";
 
-
+export const dynamic = 'force-dynamic';
 
 const Page = async () => {
   
