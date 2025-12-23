@@ -121,3 +121,4 @@ docs/
 # Typesense Local Logs
 app.log
 typesense_data
+typesense_data/db/LOG
