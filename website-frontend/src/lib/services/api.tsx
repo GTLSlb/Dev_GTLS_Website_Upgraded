@@ -92,7 +92,7 @@ async function strapiFetch(endpoint: string) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_APP_STRAPI_API_TOKEN}`,
     },
-    next: { revalidate: 0 }, // NOW this will work!
+    next: { revalidate: 1 },
   });
   return res.json();
 }

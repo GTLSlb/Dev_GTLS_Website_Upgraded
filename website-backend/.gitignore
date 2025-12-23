@@ -117,3 +117,7 @@ docs/
 # Backup files
 *.bak
 *.backup
+
+# Typesense Local Logs
+app.log
+typesense_data
