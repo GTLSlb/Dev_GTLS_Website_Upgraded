@@ -133,7 +133,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             variant="outline"
             className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
           >
-            <TextWrapper text="Ahmad Testing" fontFamily="dmSans" styleType="body" />
+            <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
           </Button>
         </Link>
       </div>
