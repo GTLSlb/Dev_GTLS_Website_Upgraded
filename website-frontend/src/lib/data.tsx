@@ -1,21 +1,5 @@
 "use client";
 
-import { NavbarApiResponse } from "./types/navigation";
-import { NewsPage, NewsSliderDataType } from "./types/news";
-import {
-  getHomePageData,
-  getAboutUsPageData,
-  getBTriplePageData,
-  getIndustryPageData,
-  getSustainabilityPageData,
-  getTransportPageData,
-  getWarehousingPageData,
-  getNavbarData,
-  getNewsPageData,
-} from "@/lib/services/api";
-import { SustainabilityPage } from "./types/pages";
-
-
 export const newsData = {
   title: "Latest News",
   items: [
@@ -93,22 +77,3 @@ export const postsData = {
     // Add more posts here
   ],
 };
-
-export const home_page_data = await getHomePageData();
-
-export const news_page_data: NewsPage = await getNewsPageData();
-
-export const about_page_data = await getAboutUsPageData();
-
-export const b_triple_page_data = await getBTriplePageData();
-
-export const industry_page_data = await getIndustryPageData();
-
-export const sustainability_page_data: SustainabilityPage =
-  await getSustainabilityPageData();
-
-export const transport_page_data = await getTransportPageData();
-
-export const warehousing_page_data = await getWarehousingPageData();
-
-export const navbar_data: NavbarApiResponse = await getNavbarData();

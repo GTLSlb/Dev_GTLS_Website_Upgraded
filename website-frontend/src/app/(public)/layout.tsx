@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import HeaderNavigation from "@/lib/components/Navigation/Header/HeaderNavigation";
 import FooterNavigation from "@/lib/components/Navigation/Footer/FooterNavigation";
 import { FooterPageData } from "@/lib/types/navigation";
-import { getFooterData } from "@/lib/services/api";
+import { getFooterData, getNavbarData } from "@/lib/services/api";
 import Link from "next/link";
 
 type Props = {
@@ -11,13 +11,14 @@ type Props = {
 
 const Layout = async ({ children }: Props) => {
   const footerData: FooterPageData = await getFooterData();
+  const navbarData = await getNavbarData();
 
   // Extract the main component content
   const footerContent = footerData?.Footer;
   return (
     <>
       <Suspense fallback={<div></div>}>
-        <HeaderNavigation />
+        <HeaderNavigation navbarData={navbarData} />
       </Suspense>
       {children}
       {/* Right Side Vertical Banner */}

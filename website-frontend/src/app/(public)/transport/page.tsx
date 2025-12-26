@@ -1,12 +1,12 @@
-'use client';
-
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import IntegratedSolutions from "@/lib/pages/transport/sections/IntegratedSolutions";
 import Services from "@/lib/pages/transport/sections/Services";
-import { transport_page_data } from "@/lib/data";
+import { getTransportPageData } from "@/lib/services/api";
 
-const Page = () => {
+const Page = async () => {
+  const transport_page_data = await getTransportPageData();
+
   return (
     <Container>
       <CommonHero
