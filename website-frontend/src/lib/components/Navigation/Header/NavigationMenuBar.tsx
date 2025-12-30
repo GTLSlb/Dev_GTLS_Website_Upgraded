@@ -27,6 +27,7 @@ import { StrapiLink } from "@/lib/services/media";
 import { Separator } from "@/lib/ui/separator";
 import SearchContainer from "@/lib/components/WebsiteSearch/Container";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/lib/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
 
 type NavigationMenuBarProps = {
   data: NavbarContent;
@@ -80,6 +81,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
               ? "translateY(0)"
               : "translateY(100%)",
             transition: "opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
+            pointerEvents: openSearchContainer ? "auto" : "none",
             zIndex: 99999,
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
             borderRadius: "4px",
@@ -87,7 +89,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             backgroundColor: "white",
           }}
         >
-          <SearchContainer setOpenSearchContainer={setOpenSearchContainer}/>
+          <SearchContainer setOpenSearchContainer={setOpenSearchContainer} />
         </div>
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
@@ -111,31 +113,89 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-4">
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => {
-            setOpenSearchContainer(!openSearchContainer);
-          }}
-          className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 "
-        >
-          <Search className="size-4" />
-          <TextWrapper
-            text="Search"
-            fontFamily="dmSans"
-            styleType="body"
-            className="block lg:hidden"
-          />
-        </Button>
-        <Link href="/login" className="text-sm hidden lg:block font-medium">
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
-          >
-            <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
-          </Button>
-        </Link>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="https://map.gtls.com.au/"
+              className="text-sm font-medium"
+            >
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
+              >
+                <MapIcon className="size-4" />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Open Map</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* SEARCH BUTTON */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                setOpenSearchContainer(!openSearchContainer);
+              }}
+              className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
+            >
+              <Search className="size-4" />
+              <TextWrapper
+                text="Search"
+                fontFamily="dmSans"
+                styleType="body"
+                className="block lg:hidden"
+              />
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Search</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* LOGIN BUTTON */}
+        <Tooltip>
+          <Popover>
+            <TooltipTrigger asChild>
+              <PopoverTrigger asChild>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-gold text-gold hover:bg-gold hover:text-creamy rounded-full py-5 lg:w-11 px-8 hover:cursor-pointer"
+                >
+                  <User className="size-4" />
+                </Button>
+              </PopoverTrigger>
+            </TooltipTrigger>
+
+            <PopoverContent align="end" side="bottom" className="w-48 p-2">
+              <div className="flex flex-col gap-1">
+                <Link href="/login">
+                  <Button variant="ghost" className="w-full justify-start hover:cursor-pointer">
+                    Staff Login
+                  </Button>
+                </Link>
+
+                <Link href="https://jaixwebapps.gtls.com.au/Portal/Account/Login.aspx">
+                  <Button variant="ghost" className="w-full justify-start hover:cursor-pointer">
+                    Client Login
+                  </Button>
+                </Link>
+              </div>
+            </PopoverContent>
+
+            <TooltipContent side="bottom">
+              <p>Login</p>
+            </TooltipContent>
+          </Popover>
+        </Tooltip>
       </div>
       {/* Mobile Menu */}
       <div className="lg:hidden">
