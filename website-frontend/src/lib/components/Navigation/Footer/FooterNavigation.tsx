@@ -11,6 +11,7 @@ import {
   QuickLinkItem,
   SocialItem,
 } from "@/lib/types/navigation";
+import { Button } from "@/lib/ui/button";
 
 interface FooterProps {
   footerContent: FooterContent;
@@ -79,12 +80,16 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                   className="px-4 py-2 rounded-full border border-black w-full focus:ring-2 focus:ring-gold focus:outline-none"
                   placeholder="Email Address"
                 />
-                <button
-                  type="submit"
-                  className="px-4 py-2 whitespace-nowrap rounded-full bg-transparent border-2 border-black hover:bg-black hover:text-white transition duration-200"
+                <Button
+                  className="rounded-full border border-black bg-transparent h-10.5 hover:bg-gold hover:text-white hover:cursor-pointer"
+                  variant={"outline"}
                 >
-                  Subscribe
-                </button>
+                  <TextWrapper
+                    text="Subscribe"
+                    fontFamily="dmSans"
+                    styleType="subtitleSmall"
+                  />
+                </Button>
               </div>
 
               {/* 2. Description (Dynamic from Strapi) */}
@@ -131,7 +136,8 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                     <TextWrapper
                       text={section.title}
                       fontFamily="dmSans"
-                      styleType="subtitle"
+                      styleType="title4"
+                      className="text-gold" // Mocking text-gold style
                     />
                     <ul className="flex flex-col gap-2 text-gray-800">
                       {section.items.map((item: FooterMenuItem) => (
@@ -142,7 +148,7 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                                 ? StrapiLink((item.link as { url: string }).url)
                                 : (item.link as string)
                             }
-                            className="text-sm hover:underline text-gray-600"
+                            className=" hover:underline "
                             target={item.isDocument ? "_blank" : undefined}
                             rel={
                               item.isDocument
@@ -150,7 +156,11 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                                 : undefined
                             }
                           >
-                            {item.label}
+                            <TextWrapper
+                              text={item.label}
+                              fontFamily="dmSans"
+                              styleType="linkSmall"
+                            />
                           </a>
                         </li>
                       ))}
@@ -160,11 +170,12 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
               </div>
 
               {/* 5. Locations (Using the locations data or fallback) */}
-              <div className=" flex flex-col gap-2 text-gray-500 mt-4">
+              <div className=" flex flex-col gap-2  mt-4">
                 <TextWrapper
                   text={footerMenu.Locations.title}
                   fontFamily="dmSans"
-                  styleType="subtitle" // Mocking text-gold style
+                  styleType="title4"
+                  className="text-gold" // Mocking text-gold style
                 />
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 w-full">
                   {footerMenu.Locations.LocationItem.map(
@@ -173,18 +184,18 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
                         <TextWrapper
                           text={section.city}
                           fontFamily="dmSans"
-                          styleType="subtitle"
+                          styleType="linkSmall"
                         />
-                        <div className="flex flex-col text-xs text-gray-500">
+                        <div className="flex flex-col text-gray-500">
                           <TextWrapper
                             text={`${section.street}, ${section.suburb}`}
                             fontFamily="dmSans"
-                            styleType="subtitle"
+                            styleType="bodySmall"
                           />
                           <TextWrapper
                             text={`${section.state}, ${section.postalCode}`}
                             fontFamily="dmSans"
-                            styleType="subtitle"
+                            styleType="bodySmall"
                           />
                         </div>
                       </div>
@@ -199,9 +210,10 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
           <div className="w-full border-t border-gray-300 mt-12 pt-6">
             <div className="flex justify-end">
               <TextWrapper
-                text="© 2024 GTLS. All rights reserved."
+                text="© 2026 GTLS. All rights reserved."
                 fontFamily="dmSans"
-                styleType="subtitle"
+                styleType="body"
+                className="text-gray-500"
               />
             </div>
           </div>

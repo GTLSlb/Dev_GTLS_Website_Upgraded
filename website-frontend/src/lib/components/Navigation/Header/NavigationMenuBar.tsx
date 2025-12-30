@@ -80,6 +80,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
               ? "translateY(0)"
               : "translateY(100%)",
             transition: "opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
+            pointerEvents: openSearchContainer ? "auto" : "none",
             zIndex: 99999,
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
             borderRadius: "4px",
@@ -87,7 +88,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             backgroundColor: "white",
           }}
         >
-          <SearchContainer setOpenSearchContainer={setOpenSearchContainer}/>
+          <SearchContainer setOpenSearchContainer={setOpenSearchContainer} />
         </div>
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
@@ -111,7 +112,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-4">
-        <Button
+        {/* <Button
           size="sm"
           variant="outline"
           onClick={() => {
@@ -126,16 +127,72 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             styleType="body"
             className="block lg:hidden"
           />
-        </Button>
-        <Link href="/login" className="text-sm hidden lg:block font-medium">
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 px-8"
-          >
-            <TextWrapper text="Login" fontFamily="dmSans" styleType="body" />
-          </Button>
-        </Link>
+        </Button> */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="https://map.gtls.com.au/"
+              className="text-sm font-medium"
+            >
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
+              >
+                <MapIcon className="size-4" />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Open Map</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* SEARCH BUTTON */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                setOpenSearchContainer(!openSearchContainer);
+              }}
+              className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11"
+            >
+              <Search className="size-4" />
+              <TextWrapper
+                text="Search"
+                fontFamily="dmSans"
+                styleType="body"
+                className="block lg:hidden"
+              />
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Search</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* LOGIN BUTTON */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href="/login" className="text-sm hidden lg:block font-medium">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 lg:w-11 px-8"
+              >
+                <User className="size-4" />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Login</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
       {/* Mobile Menu */}
       <div className="lg:hidden">
