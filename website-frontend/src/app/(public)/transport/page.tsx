@@ -1,5 +1,3 @@
-'use client';
-
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import IntegratedSolutions from "@/lib/pages/transport/sections/IntegratedSolutions";

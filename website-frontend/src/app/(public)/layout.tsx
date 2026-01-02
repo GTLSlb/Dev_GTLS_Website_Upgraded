@@ -17,7 +17,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <Suspense fallback={<div></div>}>
-        <HeaderNavigation />
+        <HeaderNavigation navbarData={navbarData} />
       </Suspense>
       {children}
       {/* Right Side Vertical Banner */}
