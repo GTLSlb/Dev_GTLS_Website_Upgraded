@@ -1,25 +1,29 @@
 // app/news/[NewsId]/page.tsx
+"use client";
 import { ArrowLeft } from "lucide-react";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import DomPurifyWrapper from "@/lib/components/Common/DomPurifyWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import MediaSwiper from "@/lib/pages/news/components/MediaSwiper";
 import ShareButtons from "@/lib/pages/news/components/ShareButtons";
-import { getSingleNews } from "@/lib/services/api";
+import { useSingleNews } from "@/lib/hooks/use-strapi-data";
 import { StrapiLink } from "@/lib/services/media";
-import { NewsItem } from "@/lib/types/news";
 import Image from "next/image";
 import Link from "next/link";
+import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
+import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
 interface PageProps {
   params: { NewsId: string }; // comes from folder name
 }
 
-const Page = async ({ params }: PageProps) => {
+const Page = ({ params }: PageProps) => {
   const { NewsId } = params;
+  const { data: news_item_data, loading, error } = useSingleNews(NewsId);
 
-  const news_item_data: NewsItem = await getSingleNews(NewsId);
-  if (!news_item_data) return <div>News not found</div>;
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!news_item_data) return <ErrorMessage error={new Error('News not found')} />;
 
   return (
     <SectionContainer className="!pt-28 flex flex-col gap-8">

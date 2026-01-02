@@ -1,15 +1,19 @@
+"use client";
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import Industries from "@/lib/pages/industries/sections/Industries";
-import { IndustryPageData } from "@/lib/types/pages";
-import { getIndustryPageData } from "@/lib/services/api";
+import { useIndustryPageData } from "@/lib/hooks/use-strapi-data";
+import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
+import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
 
 
-const Page = async () => {
-  
-  // Fetch data
-  const industryData: IndustryPageData = await getIndustryPageData();
+const Page = () => {
+  const { data: industryData, loading, error } = useIndustryPageData();
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!industryData) return <ErrorMessage error={new Error('No data available')} />;
  
 
   const { HeroSection, Services} = industryData;

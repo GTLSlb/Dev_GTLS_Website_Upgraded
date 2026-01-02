@@ -1,25 +1,20 @@
+"use client";
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import KeyBenefits from "@/lib/pages/btriple/sections/KeyBenefits";
-import { getBTriplePageData } from "@/lib/services/api";
-import { BTripPageData } from "@/lib/types/pages";
+import { useBTriplePageData } from "@/lib/hooks/use-strapi-data";
 import { StrapiLink } from "@/lib/services/media";
 import Expansion from "@/lib/pages/btriple/sections/Expansion";
+import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
+import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
 
-const Page = async () => {
-  
-  // 1. Fetch data directly inside the Server Component
-  const bTripleData: BTripPageData | null = await getBTriplePageData();
-  // Optional: Error/Not Found Handling
-  if (!bTripleData) {
-    return (
-      <div className="text-center p-10">
-        <h1>Error</h1>
-        <p>Could not load B-Triple page content from the API.</p>
-      </div>
-    );
-  }
+const Page = () => {
+  const { data: bTripleData, loading, error } = useBTriplePageData();
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!bTripleData) return <ErrorMessage error={new Error('No data available')} />;
   // 2. Destructure the fetched Strapi components (assuming they match your type)
   const { HeroSection, KeyBenefits: FetchedKeyBenefits , Expansion: ExpansionValues} = bTripleData;
 

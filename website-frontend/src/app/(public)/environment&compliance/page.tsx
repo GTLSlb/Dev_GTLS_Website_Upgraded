@@ -7,11 +7,19 @@ import GreenPractices from "@/lib/pages/environment&compliance/sections/GreenPra
 import SafetyAndCompliance from "@/lib/pages/environment&compliance/sections/SafetyAndCompliance";
 import Partners from "@/lib/pages/environment&compliance/sections/Partners";
 import Fatigue from "@/lib/pages/environment&compliance/sections/Fatigue";
-import { sustainability_page_data } from "@/lib/data";
+import { useSustainabilityPageData } from "@/lib/hooks/use-strapi-data";
 import { StrapiLink } from "@/lib/services/media";
+import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
+import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
 
 const Page = () => {
+  const { data: sustainability_page_data, loading, error } = useSustainabilityPageData();
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!sustainability_page_data) return <ErrorMessage error={new Error('No data available')} />;
+
   return (
     <Container>
       <CommonHero

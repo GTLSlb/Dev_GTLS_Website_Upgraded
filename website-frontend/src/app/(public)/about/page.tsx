@@ -1,3 +1,4 @@
+"use client";
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import BannerSection from "@/lib/pages/about/sections/BannerSection";
@@ -8,24 +9,18 @@ import CoreValues from "@/lib/pages/about/sections/CoreValues";
 import Vision from "@/lib/pages/about/sections/Vision";
 import MessageBanner from "@/lib/pages/about/sections/MessageBanner";
 import OurTeam from "@/lib/pages/about/sections/OurTeam";
-import { AboutUsPageData } from "@/lib/types/pages";
-import { getAboutUsPageData } from "@/lib/services/api";
+import { useAboutUsPageData } from "@/lib/hooks/use-strapi-data";
 import { StrapiLink } from "@/lib/services/media";
+import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
+import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
 
-const Page = async () => {
-  
-  // Fetch data
-  const aboutUsData: AboutUsPageData | null = await getAboutUsPageData();
-  // Handle Not Found/Error
-  if (!aboutUsData) {
-    return (
-      <div className="text-center p-10">
-        <h1>Error</h1>
-        <p>Failed to load About Us page content.</p>
-      </div>
-    );
-  }
+const Page = () => {
+  const { data: aboutUsData, loading, error } = useAboutUsPageData();
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!aboutUsData) return <ErrorMessage error={new Error('No data available')} />;
   
   // Destructure the necessary components
   const { HeroSection, OurVision , OurStory: OurStoryData, CoreValues: CoreValuesData, Mission: MissionData, IntegratedModel: BannerAboutData, WhyLogistics: WhyLogisticsData,MessageDirector,MeetTeam: OurTeamData  } = aboutUsData;

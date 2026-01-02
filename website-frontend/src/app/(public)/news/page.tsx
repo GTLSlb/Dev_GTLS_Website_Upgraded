@@ -1,17 +1,18 @@
+"use client";
 import Container from "@/lib/components/Containers/container";
 import PostsAndNews from "@/lib/pages/news/sections/PostsAndNews";
-import { newsData,postsData } from "@/lib/data";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import { StrapiLink } from "@/lib/services/media";
-import { getNewsPageData } from "@/lib/services/api";
-import { NewsPage } from "@/lib/types/news";
+import { useNewsPageData } from "@/lib/hooks/use-strapi-data";
+import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
+import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
-export const dynamic = 'force-dynamic';
+const Page = () => {
+  const { data: news_page_data, loading, error } = useNewsPageData();
 
-const Page = async () => {
-  
-  // 1. Fetch data directly inside the Server Component
-  const news_page_data: NewsPage  = await getNewsPageData();
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!news_page_data) return <ErrorMessage error={new Error('No data available')} />;
   return (
     <Container>
       <CommonHero
