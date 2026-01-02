@@ -1,3 +1,4 @@
+"use client";
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import Recycling from "@/lib/pages/environment&compliance/sections/Recycling";
