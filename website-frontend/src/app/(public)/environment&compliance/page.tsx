@@ -10,9 +10,6 @@ import { StrapiLink } from "@/lib/services/media";
 import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
 import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
-const Page = async () => {
-  const sustainability_page_data = await getSustainabilityPageData();
-
 const Page = () => {
   const { data: sustainability_page_data, loading, error } = useSustainabilityPageData();
 

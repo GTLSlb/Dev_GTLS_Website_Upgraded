@@ -1,3 +1,4 @@
+"use client";
 import Container from "@/lib/components/Containers/container";
 import Services from "@/lib/pages/home/sections/services";
 import Hero from "@/lib/pages/home/sections/hero";
