@@ -1,12 +1,19 @@
-'use client';
-
+"use client";
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import IntegratedSolutions from "@/lib/pages/transport/sections/IntegratedSolutions";
 import Services from "@/lib/pages/transport/sections/Services";
-import { transport_page_data } from "@/lib/data";
+import { useTransportPageData } from "@/lib/hooks/use-strapi-data";
+import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
+import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
 const Page = () => {
+  const { data: transport_page_data, loading, error } = useTransportPageData();
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!transport_page_data) return <ErrorMessage error={new Error('No data available')} />;
+
   return (
     <Container>
       <CommonHero
