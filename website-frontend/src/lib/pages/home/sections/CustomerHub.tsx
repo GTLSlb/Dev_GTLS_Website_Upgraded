@@ -10,7 +10,7 @@ type CustomerHubProps = {
 const CustomerHub = ({ data }: CustomerHubProps) => {
   return (
     <SectionContainer className="" parentClassName="bg-creamy">
-      <div className="flex flex-col md:flex-col gap-6">
+      <div className="flex flex-col md:flex-col gap-6 md:gap-0">
           <CenterTitle
             title={data.title}
             titleColor="text-gold"

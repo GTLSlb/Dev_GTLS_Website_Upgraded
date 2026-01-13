@@ -25,7 +25,7 @@ const Layout = ({ children }: Props) => {
         href="/contactus"
         className="
     hidden md:flex
-    fixed right-0 top-3/4 -translate-y-1/2
+    fixed right-0 top-1/4 -translate-y-1/2
     bg-gold text-white
     px-3 py-2
     rounded-l-lg
@@ -39,7 +39,9 @@ const Layout = ({ children }: Props) => {
       >
         Contact Us
       </Link>
-      {!loading && footerContent && <FooterNavigation footerContent={footerContent} />}
+      {!loading && footerContent && (
+        <FooterNavigation footerContent={footerContent} />
+      )}
     </>
   );
 };
