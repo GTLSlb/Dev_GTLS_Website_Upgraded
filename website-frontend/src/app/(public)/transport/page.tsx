@@ -9,7 +9,6 @@ import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
 const Page = () => {
   const { data: transport_page_data, loading, error } = useTransportPageData();
-
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
   if (!transport_page_data) return <ErrorMessage error={new Error('No data available')} />;
