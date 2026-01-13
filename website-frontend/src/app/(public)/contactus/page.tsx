@@ -1,9 +1,6 @@
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
-import BookMeeting from "@/lib/pages/contactus/sections/BookMeeting";
-import ContactUs from "@/lib/pages/contactus/sections/ContactUs";
-import SmarterLogistics from "@/lib/pages/contactus/sections/SmarterLogistics";
-import { SmartLogisticsInfo } from "@/lib/data";
+import HubspotForms from "@/lib/pages/contactus/components/HubspotForms";
 
 const Page = () => {
   return (
@@ -15,9 +12,10 @@ const Page = () => {
         imageSrc="/webp/3movers.webp"
         cornerText="Talk with an expert"
       />
-      <BookMeeting />
-      <ContactUs />
-      <SmarterLogistics {...SmartLogisticsInfo} />
+      <HubspotForms />
+      {/* <BookMeeting /> */}
+      {/* <ContactUs /> */}
+      {/* <SmarterLogistics {...SmartLogisticsInfo} /> */}
     </Container>
   );
 };

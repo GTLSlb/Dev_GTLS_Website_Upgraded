@@ -1,92 +1,165 @@
-import Image from "next/image";
 import Container from "../../Containers/container";
-import { Input } from "@/lib/ui/input";
-import { Button } from "@/lib/ui/button";
 import TextWrapper from "../../Common/TextWrapper";
-import { Facebook, Instagram, Phone } from "lucide-react";
-import { footerMenu, locations } from "@/lib/data";
 import SectionContainer from "../../Containers/sectionContainer";
+import { StrapiLink } from "@/lib/services/media";
+import Image from "next/image";
+import {
+  FooterContent,
+  FooterMenuItem,
+  FooterSection,
+  LocationItem,
+  QuickLinkItem,
+  SocialItem,
+} from "@/lib/types/navigation";
+import { Button } from "@/lib/ui/button";
 
-const FooterNavigation = ({}) => {
+interface FooterProps {
+  footerContent: FooterContent;
+}
+
+const getStrapiImageURL = (url: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "";
+  // Handle case where Strapi is running on the same domain or path is already absolute
+  if (url.startsWith("http") || baseUrl === "") return url;
+  return `${baseUrl}${url}`;
+};
+const FooterNavigation = ({ footerContent }: FooterProps) => {
+  const { logo, description, footerMenu, Socials } = footerContent;
+  const footerMenuList = [
+    {
+      title: footerMenu.QuickLinks.title,
+      items: footerMenu.QuickLinks.linkitems.map((i: QuickLinkItem) => ({
+        label: i.label,
+        link: i.link ?? "#",
+        isDocument: false,
+      })),
+    },
+    {
+      title: footerMenu.OurServices.title,
+      items: footerMenu.OurServices.serviceitems.map((i: QuickLinkItem) => ({
+        label: i.label,
+        link: i.link ?? "#",
+        isDocument: false,
+      })),
+    },
+    {
+      title: footerMenu.Legal.title,
+      items: footerMenu.Legal.legalitems.map((i: QuickLinkItem) => ({
+        label: i.label,
+        link: i.document ?? "#",
+        isDocument: true,
+      })),
+    },
+  ];
+  const socialItems = Socials.SocialMediaItem || [];
+  const logoUrl = getStrapiImageURL(logo.url);
   return (
-    <div className="w-full bg-creamy py-15">
+    <div className="w-full bg-creamy py-16">
       <Container>
         <SectionContainer className="!pt-0 !pb-0">
-          <div className="flex flex-col md:flex-row  gap-28">
-            <div className="flex w-full md:w-5/12 flex-col gap-10">
-              <Image
-                src="/Logos/logo-transparent.svg"
-                alt="MADs"
-                width={100}
-                height={50}
-                priority
-                fetchPriority="high"
-              />
-              <div className="flex items-center justify-between w-full gap-18">
-                <Input
+          <div className="flex flex-col md:flex-row gap-20 lg:gap-28">
+            {/* LEFT COLUMN: Logo, Newsletter, Socials */}
+            <div className="flex w-full md:w-5/12 flex-col gap-8">
+              {/* 1. Logo (Dynamic from Strapi, replaced next/image with <img>) */}
+              <div className="relative">
+                <Image
+                  src={logoUrl}
+                  placeholder="blur"
+                  blurDataURL="/Logos/logo-transparent.svg"
+                  alt={logo.alternativeText || logo.name}
+                  width={100}
+                  height={100}
+                  className="object-contain"
+                />
+              </div>
+
+              {/* Newsletter / Input (Replaced external components with native elements) */}
+              <div className="flex items-center w-full gap-4">
+                <input
                   type="email"
-                  className="rounded-full border border-black w-full"
+                  className="px-4 py-2 rounded-full border border-black w-full focus:ring-2 focus:ring-gold focus:outline-none"
                   placeholder="Email Address"
                 />
                 <Button
-                  type="submit"
-                  className="rounded-full bg-transparent border-black"
-                  variant="outline"
+                  className="rounded-full border border-black bg-transparent h-10.5 hover:bg-gold hover:text-white hover:cursor-pointer"
+                  variant={"outline"}
                 >
-                  Subscribe
+                  <TextWrapper
+                    text="Subscribe"
+                    fontFamily="dmSans"
+                    styleType="subtitleSmall"
+                  />
                 </Button>
               </div>
+
+              {/* 2. Description (Dynamic from Strapi) */}
               <TextWrapper
-                text="Stay updated with our latest news, insights, and exclusive updates straight to your inbox."
+                text={description}
                 fontFamily="dmSans"
-                styleType="bodySmall"
-                className="text-tint-light-gray"
+                styleType="body"
               />
-              <div className="flex gap-10">
-                <a
-                  href="https://wa.me/1234567890"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Phone size={20} />
-                </a>
 
-                <a
-                  href="https://facebook.com/yourpage"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Facebook size={20} />
-                </a>
-
-                <a
-                  href="https://instagram.com/yourprofile"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Instagram size={20} />
-                </a>
+              {/* 3. Social Media Links (Dynamic from Strapi, replaced lucide icons with <img>) */}
+              <div className="flex gap-6 mt-4">
+                {socialItems.map((item: SocialItem) => (
+                  <a
+                    key={item.id}
+                    href={item.link || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-black relative hover:text-gold transition duration-200"
+                  >
+                    <Image
+                      src={getStrapiImageURL(item.Icon.url)}
+                      placeholder="blur"
+                      blurDataURL="/Logos/logo-transparent.svg"
+                      alt={
+                        item.Icon.alternativeText ||
+                        item.Icon.name ||
+                        "Social Icon"
+                      }
+                      width={20}
+                      height={20}
+                      className="h-5 w-5"
+                    />
+                  </a>
+                ))}
               </div>
             </div>
+
+            {/* RIGHT COLUMN: Footer Menu & Locations */}
             <div className="flex flex-col gap-10 w-full md:w-7/12">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 w-full">
-                {footerMenu.map((section) => (
+              {/* 4. Footer Menu (Dynamic from Strapi) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 w-full">
+                {footerMenuList.map((section: FooterSection) => (
                   <div key={section.title} className="flex flex-col gap-4">
                     <TextWrapper
                       text={section.title}
                       fontFamily="dmSans"
-                      styleType="title3"
-                      className="text-gold"
+                      styleType="title4"
+                      className="text-gold" // Mocking text-gold style
                     />
-                    <ul className="flex flex-col gap-2 text-tint-black">
-                      {section.items.map((item) => (
+                    <ul className="flex flex-col gap-2 text-gray-800">
+                      {section.items.map((item: FooterMenuItem) => (
                         <li key={item.label}>
-                          <a href={item.link} className="hover:underline">
+                          <a
+                            href={
+                              item.isDocument
+                                ? StrapiLink((item.link as { url: string }).url)
+                                : (item.link as string)
+                            }
+                            className=" hover:underline "
+                            target={item.isDocument ? "_blank" : undefined}
+                            rel={
+                              item.isDocument
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
+                          >
                             <TextWrapper
                               text={item.label}
                               fontFamily="dmSans"
                               styleType="linkSmall"
-                              className="text-tint-black"
                             />
                           </a>
                         </li>
@@ -95,49 +168,52 @@ const FooterNavigation = ({}) => {
                   </div>
                 ))}
               </div>
-              <div className=" flex flex-col gap-2 text-tint-gray">
+
+              {/* 5. Locations (Using the locations data or fallback) */}
+              <div className=" flex flex-col gap-2  mt-4">
                 <TextWrapper
-                  text="Locations"
+                  text={footerMenu.Locations.title}
                   fontFamily="dmSans"
-                  styleType="title3"
-                  className="text-gold"
+                  styleType="title4"
+                  className="text-gold" // Mocking text-gold style
                 />
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 w-full">
-                  {locations.map((section) => (
-                    <div key={section.city} className="flex flex-col gap-4">
-                      <TextWrapper
-                        text={section.city}
-                        fontFamily="dmSans"
-                        styleType="subtitle"
-                        className="text-tint-black"
-                      />
-                      <div className="flex  flex-col">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 w-full">
+                  {footerMenu.Locations.LocationItem.map(
+                    (section: LocationItem) => (
+                      <div key={section.city} className="flex flex-col gap-1">
                         <TextWrapper
-                          text={`${section.street}, ${section.suburb}`}
+                          text={section.city}
                           fontFamily="dmSans"
-                          styleType="bodySmall"
-                          className="text-tint-light-gray !text-[12px]"
+                          styleType="linkSmall"
                         />
-                        <TextWrapper
-                          text={`${section.state}, ${section.postalCode}`}
-                          fontFamily="dmSans"
-                          styleType="bodySmall"
-                          className="text-tint-light-gray !text-[12px]"
-                        />
+                        <div className="flex flex-col text-gray-500">
+                          <TextWrapper
+                            text={`${section.street}, ${section.suburb}`}
+                            fontFamily="dmSans"
+                            styleType="bodySmall"
+                          />
+                          <TextWrapper
+                            text={`${section.state}, ${section.postalCode}`}
+                            fontFamily="dmSans"
+                            styleType="bodySmall"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-full">
-            <div className="flex justify-end mt-15">
+
+          {/* Copyright */}
+          <div className="w-full border-t border-gray-300 mt-12 pt-6">
+            <div className="flex justify-end">
               <TextWrapper
-                text="© 2024 GTLS. All rights reserved."
+                text="© 2026 GTLS. All rights reserved."
                 fontFamily="dmSans"
-                styleType="bodySmall"
-                className="text-tint-light-gray"
+                styleType="body"
+                className="text-gray-500"
               />
             </div>
           </div>

@@ -1,21 +1,28 @@
 import ImageAndText from "@/lib/components/Common/ImageAndText";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { IndustriesData } from "@/lib/data";
+import { IndustriesDataArray } from "@/lib/types/content";
 
-const Industries = () => {
+type IndustriesProps = {
+  data : IndustriesDataArray
+};
+
+
+const Industries = ({data}: IndustriesProps) => {
   return (
     <SectionContainer>
       <div className="flex flex-col gap-20">
-        {IndustriesData.map((industry, index) => (
+        {data.map((industry, index) => (
         <div key={index}>
           <ImageAndText
             title={industry.title}
-            description={industry.description}
-            imgSrc={industry.imgSrc}
+            description={industry.content}
+            imgSrc={industry.Img.url}
             imageFirst={!(index % 2 === 0)} // ✅ alternate placement
           />
           {/* Divider outside */}
-          <div className="h-0.5 bg-gray-100 w-full mt-20"></div>
+          {index !== data.length - 1 && (
+            <div className="h-0.5 bg-gray-100 w-full mt-20"></div>
+          )}
         </div>
       ))}
       </div>

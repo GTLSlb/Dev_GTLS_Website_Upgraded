@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
 
 // Define the new interface for the component's props
 import { CenterTitleProps } from "@/lib/types";
 import TextWrapper from "./TextWrapper";
 import { Button } from "@/lib/ui/button";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const CenterTitle: React.FC<CenterTitleProps> = ({
   title,
@@ -18,7 +21,9 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
   buttonVariant = "outline",
   placement = "center", // default center
   listItems,
+  link = "",
 }) => {
+  const router = useRouter();
   const textColor = dark ? "text-white" : "text-black";
 
   const buttonTextColor =
@@ -30,7 +35,9 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
     right: "items-end text-right",
   };
   return (
-    <div className={`flex flex-col gap-4 my-10 ${alignmentClasses[placement] } ${className}`}>
+    <div
+      className={`flex flex-col gap-4 mt-5 sm:mt-10 mb-5 sm:mb-10 ${alignmentClasses[placement]} ${className}`}
+    >
       <TextWrapper
         text={title}
         fontFamily="funnel"
@@ -46,7 +53,9 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
           text={description}
           fontFamily="dmSans"
           styleType="body"
-          className={`max-w-3xl ${textColor} whitespace-pre-line`}
+          className={`${
+            placement === "center" ? "max-w-3xl" : ""
+          } ${textColor} whitespace-pre-line`}
         />
       )}
       {/* ✅ List with optional icons */}
@@ -55,7 +64,15 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
           {listItems.map((item, idx) => (
             <li key={idx} className={`flex items-center gap-4 ${textColor}`}>
               {item.icon && (
-                <span className="flex-shrink-0 text-xl">{item.icon}</span>
+                <Image
+                  src={process.env.NEXT_PUBLIC_STRAPI_URL + item.icon.url}
+                  alt={item.icon.name}
+                  placeholder="blur"
+                  blurDataURL="/Logos/logo-transparent.svg"
+                  width={24}
+                  height={24}
+                  className="flex-shrink-0 text-xl"
+                />
               )}
               <TextWrapper
                 text={item.title}
@@ -70,8 +87,14 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
       {buttonText && (
         <Button
           type={buttonType}
-          onClick={onButtonClick}
-          className={`rounded-full !hover:bg-creamy hover:text-black hover:cursor-pointer h-12 w-[250px]  ${borderColor} ${buttonTextColor}`}
+          onClick={
+            link != ""
+              ? () => router.push(link)
+              : () => {
+                  if (onButtonClick) onButtonClick();
+                }
+          }
+          className={`rounded-full !hover:bg-creamy  hover:text-black hover:cursor-pointer h-12 w-[250px]  ${borderColor} ${buttonTextColor}`}
           variant={buttonVariant}
         >
           <TextWrapper

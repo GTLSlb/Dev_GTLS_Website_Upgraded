@@ -1,9 +1,9 @@
 import Image from "next/image";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { HeroProps } from "@/lib/types";
 import { MoveUpRight } from "lucide-react";
 import Link from "next/link";
+import { HeroProps } from "@/lib/types/banners";
 
 const CommonHero = ({
   title = "Global Transport & Logistics Solutions",
@@ -18,9 +18,9 @@ const CommonHero = ({
 }: HeroProps) => {
   return (
     <SectionContainer
-      className={`flex flex-col gap-10 !pt-28 mt-10 ${className ?? ""}`}
+      className={`flex flex-col gap-10 !pt-18 md:!pt-28 mt-10 ${className ?? ""}`}
     >
-      <div className="flex flex-col md:flex-row gap-10">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-10">
         {/* Left Title/Subtitle */}
         <div className="flex md:flex-col md:w-7/12 gap-2">
           <TextWrapper
@@ -64,7 +64,11 @@ const CommonHero = ({
           alt={title}
           fill
           priority
-          className={`rounded-4xl ${contain ? "object-contain" : "object-cover"}`}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
+          className={`rounded-4xl ${
+            contain ? "object-contain" : "object-cover"
+          }`}
         />
         {link && cornerText && (
           <div

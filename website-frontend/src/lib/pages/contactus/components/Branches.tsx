@@ -1,5 +1,5 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { BranchesProps } from "@/lib/types";
+import { BranchesProps } from "@/lib/types/branches";
 import { Phone, MapPin, Mail } from "lucide-react";
 
 const Branches = ({ data }: BranchesProps) => {

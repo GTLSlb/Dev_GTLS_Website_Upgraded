@@ -1,39 +1,45 @@
+"use client";
+
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
-import { FacilitiesProps } from "@/lib/types";
+import { StrapiLink } from "@/lib/services/media";
+import { FacilitiesDataType } from "@/lib/types/facilities";
 import { Card, CardContent } from "@/lib/ui/card";
 import Image from "next/image";
 
-const Facilities = ({
-  items,
-  title,
-  description,
-  buttonText,
-}: FacilitiesProps) => {
+type FacilitiesProps = {
+  data: FacilitiesDataType;
+};
+
+const Facilities = ({ data }: FacilitiesProps) => {
   return (
     <SectionContainer className="" parentClassName="bg-gold">
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-0">
         <CenterTitle
-          title={title}
+          title={data.title}
           titleColor="text-white"
-          buttonText={buttonText}
+          buttonText={data.buttonText}
           dark
           className="!mt-0"
           buttonVariant={"outline"}
-          description={description}
+          description={data.description}
         />
         <div className="flex flex-wrap justify-center gap-10">
-          {items?.map((item, index) => (
-            <div key={index} className="w-full sm:w-[calc(50%-20px)] lg:w-[calc(33.333%-40px)]">
-              <Card  className="rounded-4xl">
+          {data.data?.map((item, index) => (
+            <div
+              key={index}
+              className="w-full sm:w-[calc(50%-20px)] lg:w-[calc(33.333%-40px)]"
+            >
+              <Card className="rounded-xl">
                 <CardContent className="h-56 flex flex-col gap-10 items-center justify-center text-center">
                   <div className="relative h-20 w-20 ">
                     <Image
-                      src={item?.picture}
+                      src={StrapiLink(item.icon.url)}
+                      placeholder="blur"
+                      blurDataURL="/Logos/logo-transparent.svg"
                       alt={item.title}
                       fill
-                      className=""
                     />
                   </div>
                   <div className="flex flex-col gap-1">

@@ -1,18 +1,32 @@
+"use client";
 import Container from "@/lib/components/Containers/container";
 import CommonHero from "@/lib/components/Common/CommonHero";
 import Industries from "@/lib/pages/industries/sections/Industries";
+import { useIndustryPageData } from "@/lib/hooks/use-strapi-data";
+import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
+import ErrorMessage from "@/lib/components/Common/ErrorMessage";
+
+
 
 const Page = () => {
+  const { data: industryData, loading, error } = useIndustryPageData();
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!industryData) return <ErrorMessage error={new Error('No data available')} />;
+ 
+
+  const { HeroSection, Services} = industryData;
   return (
     <Container>
       <CommonHero
-        title="Industries We Serve"
-        subtitle="Tailored Logistics for Every Sector."
-        description="At Gold Tiger Logistics Solutions, we recognize that no two industries are the same. Each sector comes with its own supply chain requirements, compliance needs, and customer expectations."
-        imageSrc="/pages/industries.png"
-        cornerText="Talk with an expert"
+        title={HeroSection.Title}
+        subtitle={HeroSection.Subtitle}
+        description={HeroSection.Description}
+        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+HeroSection.Media?.url}
+        cornerText={HeroSection.cornerText}
       />
-      <Industries />
+      <Industries data={Services} />
     </Container>
   );
 };

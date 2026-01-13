@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
+import { StrapiLink } from "@/lib/services/media";
 
 export interface ImageAndTextProps {
   /** Section title */
@@ -24,7 +25,9 @@ export default function ImageAndText({
   className = "",
 }: ImageAndTextProps) {
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-2 items-center gap-16 ${className}`}>
+    <div
+      className={`grid grid-cols-1 md:grid-cols-2 items-center gap-16 ${className}`}
+    >
       {/* Image */}
       <div
         className={`w-full h-[400px] overflow-hidden rounded-3xl relative ${
@@ -32,8 +35,10 @@ export default function ImageAndText({
         }`}
       >
         <Image
-          src={imgSrc}
+          src={StrapiLink(imgSrc)}
           alt={title}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
           fill
           className="w-full h-auto object-cover"
         />
@@ -52,6 +57,7 @@ export default function ImageAndText({
           className="text-gold"
         />
         <TextWrapper
+          html
           text={description}
           fontFamily="dmSans"
           styleType="body"

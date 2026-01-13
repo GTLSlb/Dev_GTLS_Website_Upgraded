@@ -1,25 +1,28 @@
 import CenterTitle from "@/lib/components/Common/CenterTitle";
 import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import CustomerHubCard from "../components/CustomerHubCard";
-import { CustomerHubData } from "@/lib/data";
+import { CustomerHubDataType } from "@/lib/types/cards";
 
-const CustomerHub = () => {
+type CustomerHubProps = {
+  data: CustomerHubDataType;
+};
+
+const CustomerHub = ({ data }: CustomerHubProps) => {
   return (
     <SectionContainer className="" parentClassName="bg-creamy">
-      <div className="flex flex-col md:flex-row gap-10">
-        <div className="md:w-5/12">
-          <CenterTitle
-            title="Customer Hub Simplifying Your Journey"
-            placement="left"
-            titleColor="text-gold"
-            description="Your one-stop destination for support, resources, and self-service tools."
-            buttonText={"Get a Custom Solution"}
-            buttonVariant={"default"}
-            className="!mt-0"
-          />
-        </div>
-        <div className="flex flex-col md:w-7/12 gap-6">
-        {CustomerHubData.map((card, index) => (
+      <div className="flex flex-col md:flex-col gap-6 md:gap-0">
+        <CenterTitle
+          title={data.title}
+          titleColor="text-gold"
+          description={data.description}
+          buttonText={data.buttonText}
+          buttonVariant="default"
+          link={"/contactus"}
+          onButtonClick={() => {}}
+          className="!mt-0"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {data.CustomerHubCard.map((card, index) => (
             <CustomerHubCard key={index} {...card} />
           ))}
         </div>

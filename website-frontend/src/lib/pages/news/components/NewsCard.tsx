@@ -1,22 +1,25 @@
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { RecentNewsCardProps } from "@/lib/types";
+import { StrapiLink } from "@/lib/services/media";
+import { NewsItem, RecentNewsCardProps } from "@/lib/types/news";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function NewsCard({
   title,
-  date,
+  documentId,
+  newsDate,
   description,
-  image,
-  href,
-}: RecentNewsCardProps) {
+  coverImg,
+}: NewsItem) {
   return (
     <div className=" bg-white">
       {/* Image */}
       <div className="relative overflow-hidden rounded-4xl rounded-bl-none w-full h-[400px]">
         <Image
-          src={image}
+          src={StrapiLink(coverImg.url)}
+          placeholder="blur"
+          blurDataURL="/Logos/logo-transparent.svg"
           alt={title}
           fill
           className="object-cover"
@@ -26,7 +29,8 @@ export default function NewsCard({
       {/* Content */}
       <div className="flex flex-col gap-2 pt-4 pb-8">
         <TextWrapper
-          text={date}
+          text={newsDate}
+          isDate={true}
           fontFamily="dmSans"
           styleType="bodySmall"
           className="text-gold"
@@ -47,7 +51,7 @@ export default function NewsCard({
         />
 
         <Link
-          href={href}
+          href={`/all-news/${documentId}`}
           className="text-gold font-semibold text-xs hover:underline inline-flex items-center gap-1"
         >
           Read More <ArrowUpRight size={16} />
