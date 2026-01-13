@@ -30,7 +30,6 @@ export async function delete_all_collections() {
     const response = await api_client.get("/delete-all-collections");
 
     // eslint-disable @typescript-eslint/no-explicit-any
-    console.log("response", response);
     return response;
   } catch (error) {
     const axiosError = error as AxiosError;

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import NewsCard from "@/lib/pages/news/components/NewsCard";
 import { Input } from "@/lib/ui/input";
 import {
   Pagination,
@@ -22,9 +21,12 @@ import {
 } from "@/lib/ui/select";
 import { Button } from "@/lib/ui/button";
 import SearchBar from "../sections/SearchBar";
+import NewsCard from "@/lib/components/Common/NewsCard";
+import { NewsCardProps } from "@/lib/types/cards";
+import { StrapiLink } from "@/lib/services/media";
 
 interface Props {
-  NewsList: NewsItem[];
+  NewsList: NewsCardProps[];
 }
 function duplicateArray<T>(arr: T[], times: number): T[] {
   if (times < 1) return [];
@@ -68,13 +70,13 @@ export default function NewsList({ NewsList }: Props) {
   const handleSearchNews = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     setPage(1);
-    if(e.target.value === "") setDisplayedNews(NewsList);
-    else{
+    if (e.target.value === "") setDisplayedNews(NewsList);
+    else {
       const filtered = NewsList?.filter(
         (item) =>
           item.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.description.toLowerCase().includes(e.target.value.toLowerCase())
-      )
+      );
       setDisplayedNews(filtered);
     }
   };
@@ -108,7 +110,15 @@ export default function NewsList({ NewsList }: Props) {
       {/* News Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {displayedNews.map((news, index) => (
-          <NewsCard key={index} {...news} />
+          <NewsCard
+            key={index}
+            imageSrc={StrapiLink(news.coverImg?.url ?? "/placeholder.jpg")}
+            title={news.title}
+            category={news.category}
+            description={news.description}
+            documentId={news.documentId}
+            newsDate={news.newsDate}
+          />
         ))}
       </div>
 

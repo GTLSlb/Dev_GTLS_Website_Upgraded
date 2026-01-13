@@ -57,6 +57,7 @@ export default function PostCard({
         />
         <TextWrapper
           text={date}
+          isDate={true}
           fontFamily="dmSans"
           styleType="bodySmall"
           className="text-gold"
@@ -69,7 +70,7 @@ export default function PostCard({
         />
         <div className="flex flex-row items-center gap-0">
           <Button
-            className="hover:cursor-pointer"
+            className="hover:cursor-pointer !px-0 !py-0 hover:bg-transparent"
             variant={"ghost"}
             onClick={handleShare}
           >

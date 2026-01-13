@@ -56,6 +56,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
       };
     }
   }, [openSearchContainer]);
+
   return (
     <nav className="flex items-center justify-between gap-6 w-full p-4 border-b">
       {/* Logo */}
@@ -100,8 +101,10 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                   className={cn(
                     "group inline-flex h-9 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors bg-background text-foreground hover:bg-creamy hover:text-gold",
                     "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-                    currentPath.startsWith(link.href ?? "") &&
-                      "bg-accent !text-gold"
+                    currentPath.includes(link.href ?? "") &&
+                      "bg-accent !text-gold",
+                      currentPath.includes("b-triple") && link.href == "/transport" && "bg-accent !text-gold",
+                      currentPath.includes("all-news") && link.href == "/news" && "bg-accent !text-gold"
                   )}
                 >
                   <Link href={link.href ?? "#"}>{link.label}</Link>

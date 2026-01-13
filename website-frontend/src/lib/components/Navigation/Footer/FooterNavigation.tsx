@@ -54,7 +54,7 @@ const FooterNavigation = ({ footerContent }: FooterProps) => {
   const socialItems = Socials.SocialMediaItem || [];
   const logoUrl = getStrapiImageURL(logo.url);
   return (
-    <div className="w-full bg-gray-100 py-16">
+    <div className="w-full bg-creamy py-16">
       <Container>
         <SectionContainer className="!pt-0 !pb-0">
           <div className="flex flex-col md:flex-row gap-20 lg:gap-28">

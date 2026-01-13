@@ -10,17 +10,19 @@ type CustomerHubProps = {
 const CustomerHub = ({ data }: CustomerHubProps) => {
   return (
     <SectionContainer className="" parentClassName="bg-creamy">
-      <div className="flex flex-col md:flex-col gap-6">
-          <CenterTitle
-            title={data.title}
-            titleColor="text-gold"
-            description={data.description}
-            buttonText={data.buttonText}
-            buttonVariant="default"
-            className="!mt-0"
-          />
+      <div className="flex flex-col md:flex-col gap-6 md:gap-0">
+        <CenterTitle
+          title={data.title}
+          titleColor="text-gold"
+          description={data.description}
+          buttonText={data.buttonText}
+          buttonVariant="default"
+          link={"/contactus"}
+          onButtonClick={() => {}}
+          className="!mt-0"
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {data.CustomerHubCard.map((card, index) => (
+          {data.CustomerHubCard.map((card, index) => (
             <CustomerHubCard key={index} {...card} />
           ))}
         </div>

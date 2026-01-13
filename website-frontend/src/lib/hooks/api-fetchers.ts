@@ -5,11 +5,11 @@ const STRAPI_TOKEN = process.env.NEXT_PUBLIC_APP_STRAPI_API_TOKEN;
 
 // Generic fetcher for SWR
 export const fetcher = async (endpoint: string) => {
-  console.log("=== FETCHER CALLED ===");
-  console.log("Endpoint:", endpoint);
-  console.log("Base URL:", STRAPI_BASE_URL);
-  console.log("Full URL:", `${STRAPI_BASE_URL}${endpoint}`);
-  console.log("Token exists:", !!STRAPI_TOKEN);
+  // console.log("=== FETCHER CALLED ===");
+  // console.log("Endpoint:", endpoint);
+  // console.log("Base URL:", STRAPI_BASE_URL);
+  // console.log("Full URL:", `${STRAPI_BASE_URL}${endpoint}`);
+  // console.log("Token exists:", !!STRAPI_TOKEN);
 
   const url = `${STRAPI_BASE_URL}${endpoint}`;
 
@@ -20,8 +20,8 @@ export const fetcher = async (endpoint: string) => {
     },
   });
 
-  console.log("Response status:", res.status);
-  console.log("Response OK:", res.ok);
+  // console.log("Response status:", res.status);
+  // console.log("Response OK:", res.ok);
 
   if (!res.ok) {
     const error = new Error("Failed to fetch data from Strapi");
@@ -36,7 +36,6 @@ export const fetcher = async (endpoint: string) => {
   }
 
   const jsonData = await res.json();
-  console.log("Response data received:", jsonData);
 
   return jsonData;
 };

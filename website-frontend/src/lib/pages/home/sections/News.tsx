@@ -12,17 +12,14 @@ const News = ({ data }: NewsProps) => {
 
   return (
     <SectionContainer parentClassName="relative overflow-hidden">
-      <FloatingBanner
-        iconSrc="/svgs/nationalmap.svg"
-        text="National Road Event"
-        className="hidden md:absolute top-40 -right-10"
-      />
       <CenterTitle
         title={data.title}
         description={data.description}
         buttonText={"Read More News"}
         buttonVariant={"default"}
-        className="!mt-0"
+        className="!mt-0 !mb-5"
+        link={"/news"}
+        onButtonClick={() => {}}
       />
       <NewsSlider news={data.SliderItems} />
     </SectionContainer>

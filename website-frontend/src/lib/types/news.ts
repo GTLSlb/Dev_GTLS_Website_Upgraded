@@ -18,6 +18,7 @@ export type RecentNewsCardProps = {
 
 export type RecentNewsDataType = {
   id: number;
+  documentId: string;
   name?: string;
   position?: string;
   img?: StrapiMediaFile;

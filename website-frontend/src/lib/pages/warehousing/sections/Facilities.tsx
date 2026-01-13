@@ -15,7 +15,7 @@ type FacilitiesProps = {
 const Facilities = ({ data }: FacilitiesProps) => {
   return (
     <SectionContainer className="" parentClassName="bg-gold">
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-0">
         <CenterTitle
           title={data.title}
           titleColor="text-white"
