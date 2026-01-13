@@ -25,7 +25,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
           />
         </div>
         <div className=" flex flex-col gap-4">
-          <TextWrapper className="text-gold" isDate={true} text={newsDate} fontFamily="dmSans" styleType="body" />
+          <TextWrapper className="text-gold" isDate={true} text={newsDate || ""} fontFamily="dmSans" styleType="body" />
           <CardTitle>
             <TextWrapper text={title} fontFamily="dmSans" styleType="title4" />
           </CardTitle>

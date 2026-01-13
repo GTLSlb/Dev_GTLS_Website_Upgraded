@@ -29,7 +29,7 @@ export default function NewsCard({
       {/* Content */}
       <div className="flex flex-col gap-2 pt-4 pb-8">
         <TextWrapper
-          text={newsDate}
+          text={newsDate || ""}
           isDate={true}
           fontFamily="dmSans"
           styleType="bodySmall"
