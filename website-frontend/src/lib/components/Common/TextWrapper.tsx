@@ -1,5 +1,6 @@
 import React from "react";
 import { typography } from "@/lib/typography";
+import { formatDate } from "@/lib/utils/helper";
 
 type FontFamilies = keyof typeof typography;
 type StyleTypes =
@@ -11,6 +12,7 @@ interface TextWrapperProps {
   fontFamily: FontFamilies;
   styleType: StyleTypes;
   className?: string;
+  isDate?: boolean;
   html?: boolean; // 👈 NEW — if true, text is rendered as HTML
 }
 
@@ -20,6 +22,7 @@ const TextWrapper: React.FC<TextWrapperProps> = ({
   styleType,
   className,
   html = false,
+  isDate = false,
 }) => {
   const fontCategory = typography[fontFamily];
   const style =
@@ -54,7 +57,7 @@ const TextWrapper: React.FC<TextWrapperProps> = ({
   // Default: render as plain text
   return (
     <span className={className} style={combinedStyles}>
-      {text}
+      {isDate ? formatDate(text) : text}
     </span>
   );
 };

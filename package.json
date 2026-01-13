@@ -5,8 +5,5 @@
   "scripts": {
     "dev": "cd website-frontend && pnpm dev",
     "backend": "cd website-backend && npm run dev"
-  },
-  "dependencies": {
-    "gtls-npm-libraries": "^1.2.22"
   }
 }

@@ -39,6 +39,7 @@ export type NewsCardProps = {
   coverImg?: StrapiMediaFile;
   category: string;
   documentId: string;
+  newsDate: string;
 };
 
 export type ProfileCardProps = {

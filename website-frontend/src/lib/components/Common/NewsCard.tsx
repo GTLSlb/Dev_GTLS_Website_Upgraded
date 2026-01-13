@@ -9,10 +9,11 @@ const NewsCard: React.FC<NewsCardProps> = ({
   description,
   documentId,
   imageSrc,
+  newsDate,
 }) => {
   return (
     <Link href={`/all-news/${documentId}`} className="w-full">
-      <Card className="p-5 pb-5 rounded-3xl min-h-[450px]">
+      <Card className="p-5 pb-5 rounded-3xl min-h-[450px] h-[450px]">
         <div className="relative h-64 w-full rounded-t-2xl rounded-br-2xl overflow-hidden">
           <Image
             src={imageSrc}
@@ -24,6 +25,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
           />
         </div>
         <div className=" flex flex-col gap-4">
+          <TextWrapper className="text-gold" isDate={true} text={newsDate} fontFamily="dmSans" styleType="body" />
           <CardTitle>
             <TextWrapper text={title} fontFamily="dmSans" styleType="title4" />
           </CardTitle>

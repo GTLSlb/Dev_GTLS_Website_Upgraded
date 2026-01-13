@@ -32,6 +32,8 @@ const WhyGtls = ({ data }: WhyGtlsDataProps) => {
           titleColor="text-white"
           description={data.description}
           buttonText={data.quote}
+          link={"/contactus"}
+          onButtonClick={() => {}}
           dark
         />
         <UnevenGrid items={data.data} />

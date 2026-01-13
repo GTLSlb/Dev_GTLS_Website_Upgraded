@@ -18,7 +18,7 @@ const HubspotForms = () => {
         script.async = true;
         script.id = scriptId;
         script.onload = () => {
-          console.log("HubSpot embed script loaded!");
+          // console.log("HubSpot embed script loaded!");
           setLoading(false);
         };
         script.onerror = (e) => {

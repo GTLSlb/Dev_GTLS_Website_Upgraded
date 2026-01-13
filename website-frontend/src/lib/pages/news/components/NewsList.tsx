@@ -117,6 +117,7 @@ export default function NewsList({ NewsList }: Props) {
             category={news.category}
             description={news.description}
             documentId={news.documentId}
+            newsDate={news.newsDate}
           />
         ))}
       </div>

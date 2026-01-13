@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 // Define the new interface for the component's props
@@ -5,6 +6,7 @@ import { CenterTitleProps } from "@/lib/types";
 import TextWrapper from "./TextWrapper";
 import { Button } from "@/lib/ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const CenterTitle: React.FC<CenterTitleProps> = ({
   title,
@@ -19,7 +21,9 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
   buttonVariant = "outline",
   placement = "center", // default center
   listItems,
+  link = "",
 }) => {
+  const router = useRouter();
   const textColor = dark ? "text-white" : "text-black";
 
   const buttonTextColor =
@@ -49,7 +53,9 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
           text={description}
           fontFamily="dmSans"
           styleType="body"
-          className={`${placement === "center" ? "max-w-3xl" : ""} ${textColor} whitespace-pre-line`}
+          className={`${
+            placement === "center" ? "max-w-3xl" : ""
+          } ${textColor} whitespace-pre-line`}
         />
       )}
       {/* ✅ List with optional icons */}
@@ -81,7 +87,13 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
       {buttonText && (
         <Button
           type={buttonType}
-          onClick={onButtonClick}
+          onClick={
+            link != ""
+              ? () => router.push(link)
+              : () => {
+                  if (onButtonClick) onButtonClick();
+                }
+          }
           className={`rounded-full !hover:bg-creamy  hover:text-black hover:cursor-pointer h-12 w-[250px]  ${borderColor} ${buttonTextColor}`}
           variant={buttonVariant}
         >

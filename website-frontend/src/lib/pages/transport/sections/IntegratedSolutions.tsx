@@ -20,6 +20,8 @@ const IntegratedSolutions: React.FC<IntegratedSolutionsProps> = ({ data }) => {
         dark
         description={sectionCard.description}
         buttonText={sectionCard.buttonText}
+        link={"/contactus"}
+        onButtonClick={() => {}}
         titleColor="text-white"
       />
       <div className="grid gird-cols-1 md:grid-cols-3  gap-10">

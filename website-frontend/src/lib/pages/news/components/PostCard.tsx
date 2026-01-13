@@ -57,6 +57,7 @@ export default function PostCard({
         />
         <TextWrapper
           text={date}
+          isDate={true}
           fontFamily="dmSans"
           styleType="bodySmall"
           className="text-gold"

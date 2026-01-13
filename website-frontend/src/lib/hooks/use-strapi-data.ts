@@ -4,9 +4,9 @@ import useSWR from "swr";
 import { fetcher } from "./api-fetchers";
 import { UseDataResult } from "@/lib/types/hooks";
 
-console.log("=== use-strapi-data.ts MODULE LOADED ===");
-console.log("useSWR type:", typeof useSWR);
-console.log("fetcher type:", typeof fetcher);
+// console.log("=== use-strapi-data.ts MODULE LOADED ===");
+// console.log("useSWR type:", typeof useSWR);
+// console.log("fetcher type:", typeof fetcher);
 
 // Navbar - Cache for 1 hour (rarely changes)
 export function useNavbarData(): UseDataResult<any> {
@@ -38,18 +38,18 @@ export function useFooterData(): UseDataResult<any> {
 
 // Home Page - Cache for 10 seconds
 export function useHomePageData(): UseDataResult<any> {
-  console.log("=== useHomePageData HOOK CALLED ===");
+  // console.log("=== useHomePageData HOOK CALLED ===");
 
   const { data, error, isLoading } = useSWR("/home-page?populate=*", fetcher, {
     revalidateOnFocus: true,
     dedupingInterval: 10000,
   });
 
-  console.log("useHomePageData state:", {
-    hasData: !!data,
-    hasError: !!error,
-    isLoading
-  });
+  // console.log("useHomePageData state:", {
+  //   hasData: !!data,
+  //   hasError: !!error,
+  //   isLoading
+  // });
 
   return {
     data: data?.data || null,

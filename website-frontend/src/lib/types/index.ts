@@ -42,6 +42,7 @@ export type CustomerHubCard = {
 
 export interface CenterTitleProps {
   title: string;
+  link?: string;
   className?: string;
   subtitle?: string;
   description?: string; // The `?` makes this property optional

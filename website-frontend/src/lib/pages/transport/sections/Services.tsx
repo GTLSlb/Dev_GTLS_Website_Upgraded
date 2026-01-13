@@ -27,6 +27,8 @@ const Services: React.FC<transportServicesProps> = ({ data }) => {
                 description={service.description}
                 listItems={service.transportlistItems}
                 buttonText={service.buttonText}
+                link={"/contactus"}
+                onButtonClick={() => {}}
                 buttonVariant="default"
                 placement="left"
               />
