@@ -7,9 +7,9 @@ import { Mail } from "lucide-react";
 
 const Newsletter = ({title,buttonText,description}:NewsLetterType) => {
   return (
-    <div className="flex border border-color-[#6e6f7a] rounded-3xl px-6 pb-6 flex-col gap-4">
-      <CenterTitle title={title} placement="left" titleColor="text-gold" />
-      <div className="flex flex-col gap-10">
+    <div className="flex border border-color-[#6e6f7a] rounded-3xl px-6 py-6 flex-col gap-4">
+      <CenterTitle title={title} placement="left" titleColor="text-gold" className="!my-0 " />
+      <div className="flex flex-col gap-5">
         <TextWrapper
           text={description}
           fontFamily="dmSans"
