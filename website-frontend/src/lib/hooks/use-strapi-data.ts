@@ -185,3 +185,17 @@ export function useSingleNews(id: string): UseDataResult<any> {
     error: error || null,
   };
 }
+
+// Contact Us - Cache for 10 seconds
+export function useContactUsPageData(): UseDataResult<any> {
+  const { data, error, isLoading } = useSWR("/contact?populate=*", fetcher, {
+    revalidateOnFocus: true,
+    dedupingInterval: 10000,
+  });
+
+  return {
+    data: data?.data || null,
+    loading: isLoading,
+    error: error || null,
+  };
+}
