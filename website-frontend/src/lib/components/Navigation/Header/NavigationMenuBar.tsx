@@ -163,7 +163,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                   variant="ghost"
                   className="w-full justify-start hover:cursor-pointer"
                 >
-                  Staff Login
+                  Login
                 </Button>
               </Link>
 
@@ -172,7 +172,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                   variant="ghost"
                   className="w-full justify-start hover:cursor-pointer"
                 >
-                  Client Login
+                  Portal Login
                 </Button>
               </Link>
             </div>

@@ -52,61 +52,60 @@ export type CoreValue = {
 };
 
 export interface GridCardItem {
-    id: number;
-    gridcard_id: number | null;
-    title: string;
-    description: string;
-    content: string | null;
-    footer: string | null;
+  id: number;
+  gridcard_id: number | null;
+  title: string;
+  description: string;
+  content: string | null;
+  footer: string | null;
 }
 
 export interface WhyLogisticsDataType {
-    id: number;
-    title: string;
-    description: string | null;
-    Subtitle: string | null;
-    GridCard: GridCardItem[];
+  id: number;
+  title: string;
+  description: string | null;
+  Subtitle: string | null;
+  GridCard: GridCardItem[];
 }
 
 export interface MessageDirectorDataType {
-    id: number;
-    title: string;
-    content: string;
-    imgSrc: string;
-    subtitle: string | null;
-    ImgSrc: StrapiMediaFile;
+  id: number;
+  title: string;
+  name: string;
+  position: string;
+  content: string;
+  imgSrc: string;
+  subtitle: string | null;
+  ImgSrc: StrapiMediaFile;
 }
 
 export interface TeamMember {
-    id: number;
-    name: string;
-    ImgSrc: StrapiMediaFile;
-    position: string;
-    buttonText: string | null;
+  id: number;
+  name: string;
+  ImgSrc: StrapiMediaFile;
+  position: string;
+  buttonText: string | null;
 }
 
 export interface MeetTeamDataType {
-    id: number;
-    title: string;
-    description: string;
-    TeamMemberItem: TeamMember[];
+  id: number;
+  title: string;
+  description: string;
+  TeamMemberItem: TeamMember[];
 }
 
 export interface WhyGtlsUnevenGridItem {
-    id: number;
-    title: string;
-    description: string;
-    buttonText: string | null;
+  id: number;
+  title: string;
+  description: string;
+  buttonText: string | null;
 }
-
 
 export type CoreValuesDataType = {
-    id: number;
-    title: string;
-    CoreValueItem: CoreValue[];
-}
-
-
+  id: number;
+  title: string;
+  CoreValueItem: CoreValue[];
+};
 
 export type Expansion = {
   heading: string;
@@ -175,14 +174,14 @@ export type Section = {
   title: string;
   description: string;
   ImgSrc: StrapiMediaFile;
-}
+};
 
-export type PicAndMediaItem  = {
+export type PicAndMediaItem = {
   id: number;
   title: string;
   description: string;
   ImgSrc: StrapiMediaFile;
-}
+};
 
 export interface TSectionItem {
   imgSrc: string;
@@ -192,10 +191,10 @@ export interface TSectionItem {
   position: string;
   Img: StrapiMediaFile;
 }
-export type safetyandcomplianceType  = {
+export type safetyandcomplianceType = {
   id: number;
   title: string;
   description: string;
   safetyandcomplianceItems: Section[];
   ImgSrc: StrapiMediaFile;
-}
+};

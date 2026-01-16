@@ -115,3 +115,15 @@ export type CustomerHubDataType = {
 export type CardData = {
   Data: [];
 };
+
+export type GtrsItem = {
+  label: string;
+  description: string;
+  icon: StrapiMediaFile;
+};
+
+export type GtrsItems = {
+  title: string;
+  description: string;
+  GtrsFeatures : GtrsItem[];
+};

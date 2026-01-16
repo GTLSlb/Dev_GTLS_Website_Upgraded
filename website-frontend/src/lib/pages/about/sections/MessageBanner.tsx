@@ -19,13 +19,13 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
         className="!mt-0"
       />
 
-      <div className="bg-gold rounded-t-4xl relative rounded-br-4xl p-15 py-15 md:mt-24">
+      <div className="bg-gold rounded-t-4xl relative rounded-br-4xl px-5 md:px-15 py-15 md:mt-24">
         <Image
           src="/svgs/whiteTiger.svg"
           alt="Director"
           width={500}
           height={300}
-          className="object-cover absolute -bottom-0 right-10"
+          className="object-cover absolute -bottom-2 -right-10 md:right-0 md:bottom-0"
         />
         <Image
           src="/svgs/bottomTiger.svg"
@@ -37,7 +37,7 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
         <Image
           src={StrapiLink(data.ImgSrc.url)}
           alt="Director"
-          width={460}
+          width={500}
           height={400}
           className="object-cover hidden lg:inline absolute -bottom-0 -left-15 xl:left-0"
         />
@@ -52,25 +52,24 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
             />
           </div>
           <div className="flex flex-col w-full lg:w-2/3 gap-7">
-            <div className="relative w-18 h-14">
-              <Image src="/svgs/quotes.svg" alt="Director" fill className="" />
-            </div>
+           
             {/* <Quote className="text-white" size={60} /> */}
             <TextWrapper
               text={data.content}
               fontFamily="dmSans"
               styleType="body"
+              html
               className="text-white"
             />
             <div className="flex flex-col">
               <TextWrapper
-                text={data.imgSrc}
+                text={data.name}
                 fontFamily="dmSans"
                 styleType="title4"
                 className="text-white"
               />
               <TextWrapper
-                text={data.imgSrc}
+                text={data.position}
                 fontFamily="dmSans"
                 styleType="body"
                 className="text-white"
