@@ -34,6 +34,7 @@ const NewsSlider: React.FC<{ news: RecentNewsDataType[] }> = ({ news }) => {
               title={item.title}
               category=""
               description={item.description}
+              newsDate={item.newsDate}
               documentId={item.documentId}
               imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+item.coverImg.url}
             />

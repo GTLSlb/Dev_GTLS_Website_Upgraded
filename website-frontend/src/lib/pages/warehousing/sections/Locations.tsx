@@ -15,16 +15,16 @@ const Locations = ({ data }: LocationsProps) => {
       parentClassName="bg-gray-100 overflow-hidden relative"
     >
       {/* Map Section */}
-      <div className="relative lg:absolute lg:-top-120 lg:-right-30 xl:-top-100 xl:right-70">
+      <div className="relative lg:absolute lg:-top-120 lg:-right-30 xl:-top-90 xl:right-70">
         <div className="relative">
           <Image
             src="/svgs/map.svg"
             alt="locations"
-            width={700}
-            height={500}
+            width={600}
+            height={400}
             className="object-cover w-full h-auto"
           />
-          <div className="absolute bottom-30 md:bottom-30 md:left-30 w-80">
+          <div className="absolute bottom-30 md:bottom-40 md:left-30 w-80">
             <div className="flex flex-row gap-4 bg-white shadow-lg rounded-4xl p-5">
               <div className="relative">
                 <Image

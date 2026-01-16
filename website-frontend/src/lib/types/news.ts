@@ -25,7 +25,7 @@ export type RecentNewsDataType = {
   coverImg: StrapiMediaFile;
   title: string;
   description: string;
-  date: string;
+  newsDate: string;
   href: string;
 };
 
