@@ -15,6 +15,8 @@ export interface ImageAndTextProps {
   imageFirst?: boolean;
   /** Optional additional styling */
   className?: string;
+  /** Optional additional styling for image */
+  imageClassName?: string;
 }
 
 export default function ImageAndText({
@@ -23,6 +25,7 @@ export default function ImageAndText({
   imgSrc,
   imageFirst = true,
   className = "",
+  imageClassName = "",
 }: ImageAndTextProps) {
   
   return (
@@ -41,7 +44,7 @@ export default function ImageAndText({
           placeholder="blur"
           blurDataURL="/Logos/logo-transparent.svg"
           fill
-          className="w-full h-auto object-cover"
+          className={`object-cover ${imageClassName}`}
         />
       </div>
 

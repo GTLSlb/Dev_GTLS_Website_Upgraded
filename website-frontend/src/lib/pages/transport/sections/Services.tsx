@@ -10,7 +10,7 @@ type transportServicesProps = {
 const Services: React.FC<transportServicesProps> = ({ data }) => {
   return (
     <SectionContainer>
-      <div className="space-y-20 divide-y divide-gray-200">
+      <div className="space-y-15 divide-y divide-gray-200">
         {data.map((service, idx) => (
           <ImageAndText
             key={idx}
@@ -18,6 +18,7 @@ const Services: React.FC<transportServicesProps> = ({ data }) => {
             description={service.description}
             imgSrc={service.image.url}
             imageFirst={idx % 2 !== 0}
+            className={idx !== data.length - 1 ? "pb-15" : ""}
           />
         ))}
       </div>

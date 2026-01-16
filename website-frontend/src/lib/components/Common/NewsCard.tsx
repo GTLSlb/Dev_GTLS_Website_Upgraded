@@ -13,8 +13,8 @@ const NewsCard: React.FC<NewsCardProps> = ({
 }) => {
   return (
     <Link href={`/all-news/${documentId}`} className="w-full">
-      <Card className="p-5 pb-5 rounded-3xl min-h-[450px] h-[450px]">
-        <div className="relative h-64 w-full rounded-t-2xl rounded-br-2xl overflow-hidden">
+      <Card className="p-5 pb-5 rounded-3xl min-h-[450px] h-[500px] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col gap-6">
+        <div className="relative min-h-64 w-full rounded-t-2xl rounded-br-2xl overflow-hidden">
           <Image
             src={imageSrc}
             alt={title}
