@@ -42,7 +42,6 @@ export default function SearchPageLayout() {
       setCurrentPage(1); // Reset to first page on new search
       search(query)
         .then((data) => {
-          console.log("Search Results: ", data);
           setSearchResults(data as SearchResult);
           setIsLoadingResults(false);
         })
@@ -65,7 +64,6 @@ export default function SearchPageLayout() {
       setCurrentPage(1); // Reset to first page on new search
       search(query)
         .then((data) => {
-          console.log("Search Results: ", data);
           setSearchResults(data as SearchResult);
           setIsLoadingResults(false);
         })

@@ -16,7 +16,6 @@ type PostsAndNewsProps = {
 const PostsAndNews = ({posts,news,NewsLetter}:PostsAndNewsProps) => {
   return (
     <SectionContainer className="flex flex-col gap-8">
-      {/* <SearchBar data={posts} onSelect={()=>{console.log()}} onSearch={()=>{}} onSearchClick={()=>{}} /> */}
       <div className="flex flex-col md:flex-row gap-8">
         <RecentPosts NewsletterData={NewsLetter} postsData={posts} />
         <RecentNews {...news} />

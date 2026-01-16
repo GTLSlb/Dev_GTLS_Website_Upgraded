@@ -3,23 +3,20 @@ import { transportServicesType } from "@/lib/types";
 import { StrapiLink } from "@/lib/services/media";
 import ImageAndText from "@/lib/components/Common/ImageAndText";
 
-type transportServicesProps = {
-  data: transportServicesType[];
+type solutionsProps = {
+  data: transportServicesType;
 };
 
-const Services: React.FC<transportServicesProps> = ({ data }) => {
+const Services: React.FC<solutionsProps> = ({ data }) => {
   return (
-    <SectionContainer>
+    <SectionContainer parentClassName="bg-gray-100">
       <div className="space-y-20 divide-y divide-gray-200">
-        {data.map((service, idx) => (
           <ImageAndText
-            key={idx}
-            title={service.title}
-            description={service.description}
-            imgSrc={service.image.url}
-            imageFirst={idx % 2 !== 0}
+            title={data.title}
+            description={data.description}
+            imgSrc={data.image.url}
+            imageFirst={false}
           />
-        ))}
       </div>
     </SectionContainer>
   );
