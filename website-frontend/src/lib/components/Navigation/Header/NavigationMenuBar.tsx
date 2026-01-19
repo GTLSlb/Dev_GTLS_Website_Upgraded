@@ -28,6 +28,7 @@ import { Separator } from "@/lib/ui/separator";
 import SearchContainer from "@/lib/components/WebsiteSearch/Container";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/lib/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
+import { URLs } from "@/lib/utils/constants";
 
 type NavigationMenuBarProps = {
   data: NavbarContent;
@@ -103,11 +104,11 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                     "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
                     currentPath.includes(link.href ?? "") &&
                       "bg-accent !text-gold",
-                    currentPath.includes("b-triple") &&
-                      link.href == "/transport" &&
+                    currentPath.includes(URLs.bTriple) &&
+                      link.href == URLs.bTriple &&
                       "bg-accent !text-gold",
-                    currentPath.includes("all-news") &&
-                      link.href == "/news" &&
+                    currentPath.includes(URLs.allnews) &&
+                      link.href == URLs.news &&
                       "bg-accent !text-gold"
                   )}
                 >
@@ -204,7 +205,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                     />
                   </Link>
                 ))}
-                <Link href={"/contactus"} onClick={() => setOpen(false)}>
+                <Link href={URLs.contact} onClick={() => setOpen(false)}>
                   <TextWrapper
                     text={"Contact Us"}
                     fontFamily="dmSans"
