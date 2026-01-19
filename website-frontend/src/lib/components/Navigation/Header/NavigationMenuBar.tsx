@@ -103,13 +103,16 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                     "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
                     currentPath.includes(link.href ?? "") &&
                       "bg-accent !text-gold",
-                      currentPath.includes("b-triple") && link.href == "/transport" && "bg-accent !text-gold",
-                      currentPath.includes("all-news") && link.href == "/news" && "bg-accent !text-gold"
+                    currentPath.includes("b-triple") &&
+                      link.href == "/transport" &&
+                      "bg-accent !text-gold",
+                    currentPath.includes("all-news") &&
+                      link.href == "/news" &&
+                      "bg-accent !text-gold"
                   )}
                 >
                   <Link href={link.href ?? "#"}>{link.label}</Link>
                 </NavigationMenuLink>
-                {/* )} */}
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
@@ -188,22 +191,26 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             <Separator />
             <div className="flex flex-col gap-4 p-4 justify-between h-full">
               <div className="flex flex-col space-y-4 mt-0">
-                {
-                  data?.NavItems.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href ?? "#"}
-                      onClick={() => setOpen(false)}
-                    >
-                      <TextWrapper
-                        text={link.label}
-                        fontFamily="dmSans"
-                        styleType="link"
-                      />
-                    </Link>
-                  ))
-                  // )
-                }
+                {data?.NavItems.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href ?? "#"}
+                    onClick={() => setOpen(false)}
+                  >
+                    <TextWrapper
+                      text={link.label}
+                      fontFamily="dmSans"
+                      styleType="body"
+                    />
+                  </Link>
+                ))}
+                <Link href={"/contactus"} onClick={() => setOpen(false)}>
+                  <TextWrapper
+                    text={"Contact Us"}
+                    fontFamily="dmSans"
+                    styleType="body"
+                  />
+                </Link>
               </div>
               <Button
                 variant="outline"
