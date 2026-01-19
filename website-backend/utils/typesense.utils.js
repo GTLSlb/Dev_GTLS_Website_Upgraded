@@ -1,7 +1,7 @@
-const connection = require("../database/strapi.connection");
 const logger = require("../shared-utils/logging");
 const typesense_client = require("./typesense.client");
-const enrich_collection_with_urls = require("./strapi_constants.utils").enrich_collection_with_urls;
+const { runQuery } = require("../utils/auth.utils");
+const { enrich_collection_with_urls } = require("./strapi_constants.utils");
 
 const exactExclusions = [
   "action_events",
@@ -21,7 +21,6 @@ const exactExclusions = [
   "search_indices",
 ];
 const patternExclusions = [
-  "%_cmps%",
   "%_Ink%",
   "%_lnk%",
   "admin_%",
@@ -34,20 +33,7 @@ const patternExclusions = [
   "up_%",
   "upload_%",
   "files_%",
-  "components_layout_%",
 ];
-
-const runQuery = (sql) => {
-  return new Promise((resolve, reject) => {
-    connection.query(sql, (error, results) => {
-      if (error) {
-        return reject(error);
-      }
-      resolve(results);
-    });
-  });
-};
-
 
 const get_filtered_db_tables = async () => {
   try {
@@ -77,15 +63,15 @@ const get_filtered_db_tables = async () => {
     // Handle case where no tables are found
     if (tableNames.length === 0) {
       logger.info(
-        "📢 No tables found to index after applying exclusion filters."
+        "📢 No tables found to index after applying exclusion filters.",
       );
       return { success: true, tables: [] };
     }
 
     logger.info(
       `✅ Found ${tableNames.length} tables to process: ${tableNames.join(
-        ", "
-      )}`
+        ", ",
+      )}`,
     );
 
     // ---  Fetch Data from Each Filtered Table ---
@@ -102,7 +88,7 @@ const get_filtered_db_tables = async () => {
         });
       } catch (innerError) {
         logger.error(
-          `🛑 Failed to fetch data from table '${tableName}': ${innerError.message}`
+          `🛑 Failed to fetch data from table '${tableName}': ${innerError.message}`,
         );
       }
     }
@@ -111,12 +97,12 @@ const get_filtered_db_tables = async () => {
   } catch (error) {
     // Log fatal error for table list retrieval
     logger.error(
-      "🛑 Failed to retrieve and fetch data from DB tables: " + error.message
+      "🛑 Failed to retrieve and fetch data from DB tables: " + error.message,
     );
     // Rethrow a clear error
     throw new Error(
       "🛑 Indexing setup failed: Could not retrieve table list or data.",
-      { cause: error }
+      { cause: error },
     );
   }
 };
@@ -160,7 +146,7 @@ const index_table_in_typesense = async (tableName, tableData) => {
   try {
     await typesense_client.collections(tableName).retrieve();
     logger.info(
-      `Collection '${tableName}' already exists. Skipping schema creation.`
+      `Collection '${tableName}' already exists. Skipping schema creation.`,
     );
   } catch (error) {
     if (error.httpStatus === 404) {
@@ -171,7 +157,7 @@ const index_table_in_typesense = async (tableName, tableData) => {
       await typesense_client.collections().create(schema);
 
       logger.info(
-        `✅ Typesense collection '${tableName}' created successfully.`
+        `✅ Typesense collection '${tableName}' created successfully.`,
       );
     } else {
       // Re-throw other errors (e.g., connection, permissions)
@@ -183,7 +169,7 @@ const index_table_in_typesense = async (tableName, tableData) => {
   // Prepare and Import documents
   if (tableData.length > 0) {
     console.log(
-      `⏳ Indexing ${tableData.length} documents into '${tableName}'...`
+      `⏳ Indexing ${tableData.length} documents into '${tableName}'...`,
     );
 
     // Convert the id field to a string if it's a number, as Typesense recommends string IDs.
@@ -204,7 +190,7 @@ const index_table_in_typesense = async (tableName, tableData) => {
     const failures = importResult.filter((r) => !r.success);
 
     logger.info(
-      `✅ Successfully indexed ${successes} records in '${tableName}'. ${failures.length} failed.`
+      `✅ Successfully indexed ${successes} records in '${tableName}'. ${failures.length} failed.`,
     );
     if (failures.length > 0) {
       logger.warn("Sample document import failures:", JSON.stringify(failures));
@@ -244,7 +230,7 @@ const perform_search = async (searches) => {
     console.log(
       '⏳ Searching in Typesense collection "',
       search.collection,
-      '"...'
+      '"...',
     );
     console.log("⏳", search);
     try {
@@ -316,11 +302,11 @@ const search_typesense_collections = async (query) => {
             })
             .map((field) => field.name),
         };
-      }
+      },
     );
   } catch (e) {
     logger.error(
-      `🛑 Failed to retrieve collection list from Typesense: ${e.message}`
+      `🛑 Failed to retrieve collection list from Typesense: ${e.message}`,
     );
     throw new Error("Failed to get collection list for search.", { cause: e });
   }
@@ -348,7 +334,7 @@ const search_typesense_collections = async (query) => {
   try {
     // Filter out null results and perform search
     const search_results = await perform_search(
-      searches.filter((s) => s !== null)
+      searches.filter((s) => s !== null),
     );
 
     return search_results;
@@ -371,28 +357,27 @@ async function format_search_results(search_results) {
 
       // Format basic hit data
       const hits = collection_result.hits.map((hit) => ({
-        id: hit.document.id,
+        id: hit.id,
         // Assign a generic name/title field for easier consumption by the client
-        title: hit.document.title || hit.document.name || "Untitled Document",
+        title: hit.title || hit.name || hit.document.title || hit.document.name || hit.document.label || hit.document.description?.slice(0, 12),
         type: collection_result.collection, // Useful for the client to know the source
         score: hit.text_match,
         document: hit.document, // Include the full document data
       }));
 
-       // Enrich with URLs
+      // Enrich with URLs
       const enrichedHits = await enrich_collection_with_urls(
         collection_result.collection,
-        hits
+        hits,
       );
-
+      // console.log('enrichedHits', enrichedHits)
       results.push({
         collection: collection_result.collection,
         found: collection_result.found,
         hits: enrichedHits,
       });
     }
-    
-  };
+  }
 
   return { total_hits: total_hits, results: results };
 }

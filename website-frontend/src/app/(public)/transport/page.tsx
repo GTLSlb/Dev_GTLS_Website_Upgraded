@@ -11,7 +11,7 @@ const Page = () => {
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
   if (!transport_page_data) return <ErrorMessage error={new Error('No data available')} />;
-console.log('transport_page_data.HeroSection.Media.', transport_page_data.HeroSection.Media);
+
   return (
     <Container>
       <CommonHero

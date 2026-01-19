@@ -1,218 +1,164 @@
 const logger = require("../shared-utils/logging");
-const connection = require("../database/strapi.connection");
-const { link } = require("../routes/typesense.route");
+const {
+  runQuery
+} = require("../utils/auth.utils");
+/**
+ * START OF STATIC URL MAPPINGS
+ */
 
-const COLLECTION_URL_CONFIG = {
-  // Component collections that need page lookups
-  components_elements_why_gtls: {
-    linkTable: "components_elements_why_gtls_cmps",
-    linkField: "entity_id",
-  },
-  components_elements_why_gtls_items: {
-    linkTable: "components_elements_why_gtls_cmps",
-    linkField: "entity_id",
-  },
-  components_elements_uneven_grids: {
-    linkTable: "components_elements_uneven_grids_cmps",
-    linkField: "entity_id",
-  },
-  components_elements_uneven_grid_items: {
-    linkTable: "components_elements_uneven_grids_cmps",
-    linkField: "entity_id",
-  },
-  components_elements_customer_hub_cards: {
-    linkTable: "components_elements_customer_hub_card_cmps",
-    linkField: "customer_hub_card_id",
-  },
-  components_elements_customer_hub_list_items: {
-    linkTable: "components_elements_customer_hub_card_cmps",
-    linkField: "customer_hub_card_id",
-  },
-  components_elements_grid_card_items: {
-    linkTable: "components_elements_grid_cards_cmps",
-    linkField: "grid_card_id",
-  },
-  components_elements_grid_cards: {
-    linkTable: "components_elements_grid_cards_cmps",
-    linkField: "grid_card_id",
-  },
-  components_elements_news_slider_items: {
-    linkTable: "components_elements_news_sliders_slider_items_lnk",
-    linkField: "news_item_id",
-  },
-  components_elements_news_sliders: {
-    linkTable: "components_elements_news_sliders_news_items_lnk",
-    linkField: "news_slider_id",
-  },
-  components_elements_news_sliders_slider_items_lnk: {
-    linkTable: "components_elements_news_slider_items_news_item_lnk",
-    linkField: "news_item_id",
-  },
-  components_layout_core_values: {
-    linkTable: "components_layout_core_values_cmps",
-    linkField: "entity_id",
-  },
-  components_layout_integrated_models: {
-    linkTable: "components_layout_integrated_models_cmps",
-    linkField: "entity_id",
-  },
-  components_layout_menu_sections: {
-    linkTable: "components_layout_menu_sections_cmps",
-    linkField: "entity_id",
-  },
-  components_layout_section_containers: {
-    linkTable: "components_layout_section_containers_cmps",
-    linkField: "entity_id",
-  },
-  components_layout_textand_medias: {
-    linkTable: "components_layout_textand_medias_cmps",
-    linkField: "entity_id",
-  },
-  components_layout_transport_services: {
-    linkTable: "components_layout_transport_services_cmps",
-    linkField: "entity_id",
-  },
+// All Single Types in Strapi - pages in website
+const STATIC_SINGLE_TYPES = {
+  aboutus_pages_cmps: "/about",
+  b_triples_cmps: "/b-triple",
+  contacts_cmps: "/contactus",
+  home_pages_cmps: "/",
+  industries_cmps: "/industries",
+  news_pages_cmps: "/news",
+  sustainabilities_cmps: "/environment&compliance",
+  transports_cmps: "/transport",
+  warehousings_cmps: "/warehousing",
 };
 
-const runQuery = (sql) => {
-  return new Promise((resolve, reject) => {
-    connection.query(sql, (error, results) => {
-      if (error) {
-        return reject(error);
+// Static URL mappings based on component type
+const STATIC_URL_MAPPINGS = {
+  // Navigation/Footer components
+  footer: "/",
+  navbar: "/",
+  nav_bar: "/",
+  nav_items: "/",
+  integrated_solutions: "/",
+  legal: "/",
+  linkitems: "/",
+  links: "/",
+  quick_links: "/",
+  social: "/",
+  customer_hubs: "/",
+
+  // About page components
+  about_us: "/about",
+  aboutus: "/about",
+  core_value_items: "/about",
+  expansions: "/about",
+  location: "/about",
+  meet_teams: "/about",
+  our_services: "/about",
+  services: "/about",
+
+  // Other static pages
+  btriple: "/b-triple",
+  home_page: "/",
+  industries: "/industries",
+  industry: "/industries",
+  transport: "/transport",
+  warehouse: "/warehousing",
+  sustainability: "/environment&compliance",
+  sustainabilities: "/environment&compliance",
+  safetyandcompliances: "/environment&compliance",
+  layout_compliance_sections: "/environment&compliance",
+  news: "/news",
+  posts: "/news",
+  recent_news: "/news",
+  "elements.customer-hub": "/",
+  "elements.transport-services": "/transport",
+  "elements.warehousing-services": "/warehousing",
+  "elements.b-triple-info": "/b-triple",
+};
+/**
+ * END OF STATIC URL MAPPINGS
+ */
+
+/**
+ * START OF UTILITY FUNCTIONS
+ */
+
+async function findParentPageByComponentId(collectionName, hitId) {
+  // Strapi uses dots in component_type (e.g., layout.hero-section)
+  // but underscores in table names (components_layout_hero_sections)
+  const strapiComponentType = collectionName
+    .replace("components_", "")
+    .replace("_", ".")
+    .replace(/s$/, ""); // Basic plural to singular attempt
+
+  // Iterate through all potential parent pages (Single Types)
+  for (const [cmpsTable, url] of Object.entries(STATIC_SINGLE_TYPES)) {
+    try {
+      // Check if this hit.id is registered as a cmp_id in this page's link table
+      const sql = `
+        SELECT entity_id 
+        FROM ${cmpsTable} 
+        WHERE cmp_id = ? 
+        AND (component_type = ? OR component_type = ?)
+        LIMIT 1
+      `;
+
+      // We check both the collection name and the dot-notation name
+      const results = await runQuery(sql, [
+        hitId,
+        collectionName,
+        strapiComponentType,
+      ]);
+
+      if (results.length > 0) {
+        return url; // Found the parent page!
       }
-      resolve(results);
-    });
-  });
-};
-
-async function hero_section_mapping(collectionName, hits) {
-    console.log("Hero Section Mapping Invoked for collection:", collectionName, hits);
+    } catch (err) {
+      // Table might not exist or column naming differs, skip and continue
+      continue;
+    }
+  }
+  return null;
 }
+/**
+ * END OF UTILITY FUNCTIONS
+ */
 
-// Fetch URLs for all hits in a collection
+/**
+ * Main function to enrich collections with URLs
+ */
 async function enrich_collection_with_urls(collectionName, hits) {
-  // Handle Hero Section mapping
-  if (collectionName == "components_layout_hero_sections") {
-    hero_section_mapping(collectionName, hits);
-  }
-  if (
-    collectionName?.includes("footer") ||
-    collectionName?.includes("navbar") ||
-    collectionName?.includes("nav_bar") ||
-    collectionName?.includes("nav_items") ||
-    collectionName?.includes("integrated_solutions") ||
-    collectionName?.includes("legal") ||
-    collectionName?.includes("linkitems") ||
-    collectionName?.includes("links") ||
-    collectionName?.includes("quick_links") ||
-    collectionName?.includes("social")
-  ) {
-    return hits.map((hit) => ({ ...hit, url: "/", all_pages: [] }));
-  }
-  if (
-    collectionName?.includes("about_us") ||
-    collectionName?.includes("aboutus") ||
-    collectionName?.includes("core_value_items") ||
-    collectionName?.includes("expansions") ||
-    collectionName?.includes("location") ||
-    collectionName?.includes("meet_teams") ||
-    collectionName?.includes("our_services") ||
-    collectionName?.includes("services")
-  ) {
-    return hits.map((hit) => ({ ...hit, url: "/about", all_pages: [] }));
-  }
-  if (collectionName?.includes("btriple")) {
-    return hits.map((hit) => ({ ...hit, url: "/b-triple", all_pages: [] }));
-  }
-  if (collectionName?.includes("home_page")) {
-    return hits.map((hit) => ({ ...hit, url: "/", all_pages: [] }));
-  }
-  if (
-    collectionName?.includes("industries") ||
-    collectionName?.includes("industry")
-  ) {
-    return hits.map((hit) => ({ ...hit, url: "/industries", all_pages: [] }));
-  }
-  if (collectionName?.includes("transport")) {
-    return hits.map((hit) => ({ ...hit, url: "/transport", all_pages: [] }));
-  }
-  if (collectionName?.includes("warehouse")) {
-    return hits.map((hit) => ({ ...hit, url: "/warehousing", all_pages: [] }));
-  }
-  if (
-    collectionName?.includes("sustainability") ||
-    collectionName?.includes("sustainabilities") ||
-    collectionName?.includes("safetyandcompliances") ||
-    collectionName?.includes("layout_compliance_sections")
-  ) {
-    return hits.map((hit) => ({
+  // Skip if no hits
+  if (hits.length === 0) return hits;
+
+  const enrichedHits = await Promise.all(hits.map(async (hit) => {
+    let targetUrl = null;
+    let mappingType = 'default';
+
+    // 1. Check STATIC_URL_MAPPINGS first (Direct overrides)
+    targetUrl = STATIC_URL_MAPPINGS[collectionName] || STATIC_URL_MAPPINGS[hit.type];
+    if (targetUrl) mappingType = 'static_mapping';
+
+    // 2. Deep Reverse Lookup: Find parent via _cmps tables
+    if (!targetUrl) {
+      const parentUrl = await findParentPageByComponentId(collectionName, hit.id);
+      if (parentUrl) {
+        targetUrl = parentUrl;
+        mappingType = 'parent_single_type';
+      }
+    }
+
+    // 3. Keyword Emergency Fallback
+    if (!targetUrl || targetUrl === "/") {
+      const title = (hit.title || "").toLowerCase();
+      if (title.includes("transport")) targetUrl = "/transport";
+      else if (title.includes("warehousing")) targetUrl = "/warehousing";
+      else if (title.includes("b-triple")) targetUrl = "/b-triple";
+      
+      if (targetUrl) mappingType = 'keyword_fallback';
+    }
+
+    const finalUrl = targetUrl || "/";
+
+    return {
       ...hit,
-      url: "/environment&compliance",
-      all_pages: [],
-    }));
-  }
-  if (
-    collectionName?.includes("news") ||
-    collectionName?.includes("posts") ||
-    collectionName?.includes("recent_news")
-  ) {
-    return hits.map((hit) => ({ ...hit, url: "/news", all_pages: [] }));
-  }
+      url: finalUrl,
+      all_pages: [finalUrl],
+      page_count: targetUrl ? 1 : 0,
+      mapping_type: mappingType
+    };
+  }));
 
-  // Fetch pages from database
-//   else {
-//     const config = COLLECTION_URL_CONFIG[collectionName];
-//     const documentIds = hits.map((hit) => hit.document.id);
-
-//     if (documentIds.length === 0) {
-//       return hits;
-//     }
-
-//     try {
-//       // Batch query for all component-page associations
-//       const placeholders = documentIds.map(() => "?").join(",");
-//       const sql = `
-//         SELECT 
-//           l.${config.linkField} as component_id,
-//           p.id as page_id,
-//           p.slug,
-//           p.title
-//         FROM pages AS p
-//         JOIN ${config.linkTable} AS l ON p.id = l.entity_id
-//         WHERE l.${config.linkField} IN (${placeholders})
-//     `;
-//       const pages = await runQuery(sql, documentIds);
-
-//       // Group pages by component ID
-//       const pagesByComponent = {};
-//       pages.forEach((page) => {
-//         if (!pagesByComponent[page.component_id]) {
-//           pagesByComponent[page.component_id] = [];
-//         }
-//         pagesByComponent[page.component_id].push({
-//           page_id: page.page_id,
-//           slug: page.slug,
-//           title: page.title || page.slug,
-//           url: `/${page.slug}`,
-//         });
-//       });
-
-//       // Enrich hits with page data
-//       return hits.map((hit) => {
-//         const componentPages = pagesByComponent[hit.document.id] || [];
-//         return {
-//           ...hit,
-//           url: componentPages[0]?.url || "#",
-//           all_pages: componentPages,
-//         };
-//       });
-//     } catch (error) {
-//       logger.error(`Failed to fetch URLs for ${collectionName}:`, error);
-//       return hits.map((hit) => ({ ...hit, url: "#", all_pages: [] }));
-//     }
-//   }
-
-  return hits;
+  // Return enriched hits
+  return enrichedHits;
 }
 
 module.exports = {

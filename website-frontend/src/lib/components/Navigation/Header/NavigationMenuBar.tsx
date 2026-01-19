@@ -26,8 +26,9 @@ import { NavbarContent } from "@/lib/types/navigation";
 import { StrapiLink } from "@/lib/services/media";
 import { Separator } from "@/lib/ui/separator";
 import SearchContainer from "@/lib/components/WebsiteSearch/Container";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/lib/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
+import { SearchResult } from "@/lib/types/searchResults";
+import { removeQuery } from "@/lib/utils/search.utils";
 
 type NavigationMenuBarProps = {
   data: NavbarContent;
@@ -39,20 +40,40 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
   const [currentPath, setCurrentPath] = React.useState(pathname);
   const [openSearchContainer, setOpenSearchContainer] = React.useState(false);
 
+  //  SEARCH UTILITIES
+  const [query, setQuery] = React.useState("");
+  const [searchResults, setSearchResults] = React.useState<SearchResult>({
+    query: "",
+    total_hits: 0,
+    results: [],
+  });
+
+
   React.useEffect(() => {
     setCurrentPath(pathname);
   }, [pathname]);
 
+  // Remove query and close the search container
+  // when the user scrolls
+  // or clicks outside
   React.useEffect(() => {
     if (openSearchContainer) {
       const handleScroll = () => {
-        setOpenSearchContainer(false);
+        removeQuery(setQuery, setOpenSearchContainer, setSearchResults);
+      };
+
+      const handleClickOutside = (event: MouseEvent) => {
+        if (!(event.target as Element).closest("#Search-Container")) {
+          removeQuery(setQuery, setOpenSearchContainer, setSearchResults);
+        }
       };
 
       window.addEventListener("scroll", handleScroll);
+      document.addEventListener("click", handleClickOutside);
 
       return () => {
         window.removeEventListener("scroll", handleScroll);
+        document.removeEventListener("click", handleClickOutside);
       };
     }
   }, [openSearchContainer]);
@@ -90,7 +111,13 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             backgroundColor: "white",
           }}
         >
-          <SearchContainer setOpenSearchContainer={setOpenSearchContainer} />
+          <SearchContainer
+            setOpenSearchContainer={setOpenSearchContainer}
+            query={query}
+            setQuery={setQuery}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+          />
         </div>
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
@@ -103,8 +130,12 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                     "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
                     currentPath.includes(link.href ?? "") &&
                       "bg-accent !text-gold",
-                      currentPath.includes("b-triple") && link.href == "/transport" && "bg-accent !text-gold",
-                      currentPath.includes("all-news") && link.href == "/news" && "bg-accent !text-gold"
+                    currentPath.includes("b-triple") &&
+                      link.href == "/transport" &&
+                      "bg-accent !text-gold",
+                    currentPath.includes("all-news") &&
+                      link.href == "/news" &&
+                      "bg-accent !text-gold"
                   )}
                 >
                   <Link href={link.href ?? "#"}>{link.label}</Link>
