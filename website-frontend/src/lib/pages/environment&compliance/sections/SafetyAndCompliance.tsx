@@ -19,8 +19,8 @@ export default function SafetyAndCompliance({ data }: SafetyComplianceProps) {
           styleType="title1"
           className="text-gold"
         />
-        <div className="flex flex-row gap-3">
-          <Separator className="bg-gold" orientation="vertical" />
+        <div className="flex flex-row gap-3 mt-2">
+          <Separator className="bg-gold hidden md:block" orientation="vertical" />
           <TextWrapper
             text={data.description}
             fontFamily="dmSans"

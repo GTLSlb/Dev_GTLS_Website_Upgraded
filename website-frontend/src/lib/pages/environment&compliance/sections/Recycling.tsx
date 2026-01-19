@@ -13,17 +13,18 @@ const Recycling = ({ data }: RecyclingProps) => {
     <SectionContainer>
       <div className="flex flex-col md:flex-row gap-10">
         {/* Text Section */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2 order-2 md:order-1">
           <CenterTitle
             title={data.title}
             titleColor="text-gold"
             placement="left"
+            className="!mt-0"
             description={data.description}
           />
         </div>
 
         {/* Image Section */}
-        <div className="relative w-full md:w-1/2 min-h-96">
+        <div className="relative w-full md:w-1/2 min-h-96 order-1 md:order-2">
           <Image
             src={StrapiLink(data.ImgSrc.url)}
             placeholder="blur"

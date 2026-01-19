@@ -9,7 +9,7 @@ type PartnersProps = {
 const Partners = ({ data }: PartnersProps) => {
   return (
     <SectionContainer>
-      <ImageAndText title={data.title} description={data.description} imgSrc={data.ImgSrc.url} imageFirst={false} />
+      <ImageAndText title={data.title} description={data.description} imgSrc={data.ImgSrc.url} imageFirst={false} imageClassName="!object-contain" />
     </SectionContainer>
   );
 };

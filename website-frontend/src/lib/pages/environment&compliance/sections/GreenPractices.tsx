@@ -29,6 +29,7 @@ const GreenPractices = ({ data }: GreenPracticesProps) => {
           <CenterTitle
             title={data.title}
             titleColor="text-green"
+            className="!mt-0"
             placement="left"
             description={data.description}
           />

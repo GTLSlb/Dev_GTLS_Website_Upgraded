@@ -136,12 +136,6 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
           className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 !px-3"
         >
           <Search className="size-4" />
-          <TextWrapper
-            text="Search"
-            fontFamily="dmSans"
-            styleType="body"
-            className="block lg:hidden"
-          />
         </Button>
 
         {/* LOGIN BUTTON */}

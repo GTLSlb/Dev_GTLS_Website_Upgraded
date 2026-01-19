@@ -11,7 +11,7 @@ const Services = ({ data }: ServicesProps) => {
   return (
     <SectionContainer>
       <CenterTitle title={data.title} className="!mt-0" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6">
         {data.ServicesGrid.GridCard.map((service: ServiceItem) => (
           <GridCard key={service.id} {...service} />
         ))}
