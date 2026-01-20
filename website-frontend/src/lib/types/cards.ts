@@ -35,8 +35,7 @@ export type CustomerHubCardProps = {
 export type NewsCardProps = {
   title: string;
   description: string;
-  imageSrc: string;
-  coverImg?: StrapiMediaFile;
+  coverImg: StrapiMediaFile;
   category: string;
   documentId: string;
   newsDate?: string;
@@ -45,7 +44,7 @@ export type NewsCardProps = {
 export type ProfileCardProps = {
   name: string;
   position: string;
-  imageSrc: string;
+  imageSrc: StrapiMediaFile;
 };
 
 export type RecentNewsCardProps = {

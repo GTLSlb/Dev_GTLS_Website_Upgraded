@@ -20,7 +20,7 @@ export default function NewsCard({
           src={StrapiLink(coverImg.url)}
           placeholder="blur"
           blurDataURL="/Logos/logo-transparent.svg"
-          alt={title}
+          alt={coverImg.alternativeText}
           fill
           className="object-cover"
         />

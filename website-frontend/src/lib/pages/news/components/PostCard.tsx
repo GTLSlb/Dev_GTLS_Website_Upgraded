@@ -41,7 +41,7 @@ export default function PostCard({
           src={StrapiLink(image.url)}
           placeholder="blur"
           blurDataURL="/Logos/logo-transparent.svg"
-          alt={title}
+          alt={image.alternativeText}
           fill
           className="object-cover"
         />

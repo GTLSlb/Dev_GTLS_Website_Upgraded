@@ -38,7 +38,7 @@ const ProfileSlider: React.FC<OurTeamProps> = ({items} : OurTeamProps) => {
             <ProfileCard
               name={item.name}
               position={item.position}
-              imageSrc={StrapiLink(item.ImgSrc.url)}
+              imageSrc={item.ImgSrc}
             />
           </SwiperSlide>
         ))}

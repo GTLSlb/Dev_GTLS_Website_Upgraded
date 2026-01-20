@@ -2,6 +2,7 @@ import { UnevenGridProps, WhyGtlsItem } from "@/lib/types";
 import { Card, CardContent } from "@/lib/ui/card";
 import Image from "next/image";
 import TextWrapper from "./TextWrapper";
+import { StrapiLink } from "@/lib/services/media";
 
 const UnevenGrid = ({ items }: UnevenGridProps) => {
   return (
@@ -15,11 +16,9 @@ const UnevenGrid = ({ items }: UnevenGridProps) => {
                 <div className="relative h-20 w-20 ">
                   <Image
                     src={
-                      process.env.NEXT_PUBLIC_STRAPI_URL
-                        ? process.env.NEXT_PUBLIC_STRAPI_URL + item?.icon.url
-                        : ""
+                      StrapiLink(item?.icon?.url || "")
                     }
-                    alt={item.title}
+                    alt={item.icon.alternativeText}
                     placeholder="blur"
                     blurDataURL="/Logos/logo-transparent.svg"
                     fill

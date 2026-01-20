@@ -21,7 +21,7 @@ const Gtrs = ({ data }: GtrsProps) => {
             <div className="relative w-16 h-16 rounded-3xl group-hover:shadow-xl bg-creamy">
               <Image
                 src={StrapiLink(item.icon.url)}
-                alt={item.label}
+                alt={item.icon.alternativeText}
                 fill
                 className="object-cover p-4"
               />

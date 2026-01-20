@@ -7,6 +7,7 @@ import TextWrapper from "./TextWrapper";
 import { Button } from "@/lib/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { StrapiLink } from "@/lib/services/media";
 
 const CenterTitle: React.FC<CenterTitleProps> = ({
   title,
@@ -65,8 +66,8 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
             <li key={idx} className={`flex items-center gap-4 ${textColor}`}>
               {item.icon && (
                 <Image
-                  src={process.env.NEXT_PUBLIC_STRAPI_URL + item.icon.url}
-                  alt={item.icon.name}
+                  src={StrapiLink(item.icon.url)}
+                  alt={item.icon.alternativeText}
                   placeholder="blur"
                   blurDataURL="/Logos/logo-transparent.svg"
                   width={24}

@@ -3,12 +3,13 @@ import Image from "next/image";
 import TextWrapper from "./TextWrapper";
 import { NewsCardProps } from "@/lib/types/cards";
 import Link from "next/link";
+import { StrapiLink } from "@/lib/services/media";
 
 const NewsCard: React.FC<NewsCardProps> = ({
   title,
   description,
   documentId,
-  imageSrc,
+  coverImg,
   newsDate,
 }) => {
   return (
@@ -16,8 +17,8 @@ const NewsCard: React.FC<NewsCardProps> = ({
       <Card className="p-5 pb-5 rounded-3xl min-h-[450px] h-[500px] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col gap-6">
         <div className="relative min-h-64 w-full rounded-t-2xl rounded-br-2xl overflow-hidden">
           <Image
-            src={imageSrc}
-            alt={title}
+            src={StrapiLink(coverImg?.url)}
+            alt={coverImg?.alternativeText || "News Image"}
             placeholder="blur"
             blurDataURL="/Logos/logo-transparent.svg"
             fill

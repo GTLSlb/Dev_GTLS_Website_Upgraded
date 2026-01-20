@@ -18,7 +18,7 @@ const GridCard: React.FC<GridCardProps> = ({ title, content, icon }) => {
       <CardHeader>
         <Image
           src={StrapiLink(icon.url)}
-          alt={title}
+          alt={icon.alternativeText || title}
           width={80}
           placeholder="blur"
           blurDataURL="/Logos/logo-transparent.svg"

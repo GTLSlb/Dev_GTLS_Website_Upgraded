@@ -39,7 +39,7 @@ const Banner: React.FC<BannerProps> = ({ data }: BannerProps) => {
       <div className="relative mx-auto">
         <Image
           src={StrapiLink(data.ImgSrc.url)}
-          alt={data.title}
+          alt={data.ImgSrc.alternativeText}
           width={400}
           height={400}
           className="object-cover"

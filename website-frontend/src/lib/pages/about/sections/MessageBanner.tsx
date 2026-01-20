@@ -45,7 +45,7 @@ const MessageBanner: React.FC<MessageBannerProps> = ({ data }) => {
           <div className="relative  w-full lg:w-1/3 rounded-4xl ">
             <Image
               src={StrapiLink(data.ImgSrc.url)}
-              alt="Director"
+              alt={data.ImgSrc.alternativeText}
               height={100}
               width={600}
               className="object-cover lg:hidden rounded-4xl"

@@ -32,7 +32,7 @@ const Page = ({ params }: PageProps) => {
           src={StrapiLink(news_item_data.coverImg.url)}
           placeholder="blur"
           blurDataURL="/Logos/logo-transparent.svg"
-          alt={news_item_data.title}
+          alt={news_item_data.coverImg.alternativeText}
           fill
           className="object-cover"
         />

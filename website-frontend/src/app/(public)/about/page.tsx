@@ -31,7 +31,7 @@ const Page = () => {
         title={HeroSection.Title}
         subtitle={HeroSection.Subtitle}
         description={HeroSection.Description}
-        imageSrc={StrapiLink(HeroSection.Media.url) || "/pages/about-hero.png"}
+        imageSrc={HeroSection.Media}
         link={HeroSection.link}
         cornerText={HeroSection.cornerText}
       />

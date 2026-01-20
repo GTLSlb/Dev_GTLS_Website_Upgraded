@@ -38,7 +38,7 @@ const Facilities = ({ data }: FacilitiesProps) => {
                       src={StrapiLink(item.icon.url)}
                       placeholder="blur"
                       blurDataURL="/Logos/logo-transparent.svg"
-                      alt={item.title}
+                      alt={item.icon.alternativeText}
                       fill
                     />
                   </div>

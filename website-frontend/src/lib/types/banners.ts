@@ -10,7 +10,7 @@ export type HeroProps = {
   title?: string;
   subtitle?: string;
   description?: string;
-  imageSrc?: string;
+  imageSrc?: StrapiMediaFile;
   className?: string;
   cornerText?: string;
   contain?: boolean;

@@ -38,7 +38,7 @@ const KeyBenefits = ({ data }: BTripleProps) => {
                   <div className="bg-white relative p-10 md:p-14 rounded-xl">
                     <Image
                       src={StrapiLink(item.icon.url)}
-                      alt={item.title}
+                      alt={item.icon.alternativeText}
                       fill
                       className="object-contain p-6"
                     />

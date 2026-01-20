@@ -14,7 +14,7 @@ const Services: React.FC<solutionsProps> = ({ data }) => {
           <ImageAndText
             title={data.title}
             description={data.description}
-            imgSrc={data.image.url}
+            imgSrc={data.image}
             imageFirst={false}
             imageClassName="p-4 !object-contain"
           />

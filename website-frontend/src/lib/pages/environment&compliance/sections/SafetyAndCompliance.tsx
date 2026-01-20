@@ -38,7 +38,7 @@ export default function SafetyAndCompliance({ data }: SafetyComplianceProps) {
                     src={StrapiLink(section.ImgSrc.url)}
                     placeholder="blur"
                     blurDataURL="/Logos/logo-transparent.svg"
-                    alt={section.title}
+                    alt={section.ImgSrc.alternativeText}
                     width={70}
                     height={70}
                     className="object-contain"

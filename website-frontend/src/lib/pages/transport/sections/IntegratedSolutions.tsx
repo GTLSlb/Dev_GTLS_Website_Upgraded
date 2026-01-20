@@ -32,7 +32,7 @@ const IntegratedSolutions: React.FC<IntegratedSolutionsProps> = ({ data }) => {
                 src={StrapiLink(item.img.url)}
                 placeholder="blur"
                 blurDataURL="/Logos/logo-transparent.svg"
-                alt={item.title}
+                alt={item.img.alternativeText}
                 fill
                 className="object-cover"
               />
