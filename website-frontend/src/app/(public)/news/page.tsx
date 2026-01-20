@@ -19,7 +19,7 @@ const Page = () => {
         title={news_page_data.HeroSection.Title}
         subtitle={news_page_data.HeroSection.Subtitle}
         description={news_page_data.HeroSection.Description}
-        imageSrc={news_page_data.HeroSection.HeroImage}
+        imageSrc={news_page_data.HeroSection.Media}
         cornerText={news_page_data.HeroSection.cornerText}
       />
       {/* <SearchBar /> */}

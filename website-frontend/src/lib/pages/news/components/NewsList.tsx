@@ -112,7 +112,7 @@ export default function NewsList({ NewsList }: Props) {
         {displayedNews.map((news, index) => (
           <NewsCard
             key={index}
-            imageSrc={StrapiLink(news.coverImg?.url ?? "/placeholder.jpg")}
+            coverImg={news.coverImg}
             title={news.title}
             category={news.category}
             description={news.description}

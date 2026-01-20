@@ -23,7 +23,7 @@ const Page = () => {
       <CommonHero
         title={warehousing_page_data.HeroSection.Title}
         description={warehousing_page_data.HeroSection.Description}
-        imageSrc={warehousing_page_data.HeroSection.HeroImage}
+        imageSrc={warehousing_page_data.HeroSection.Media}
         cornerText={warehousing_page_data.HeroSection.cornerText}
       />
       <Facilities data={warehousing_page_data.WhyChooseGtls} />

@@ -23,7 +23,7 @@ const Page = () => {
       <CommonHero
         title={HeroSection.Title}
         description={HeroSection.Description}
-        imageSrc={HeroSection.Image} 
+        imageSrc={HeroSection.Media} 
         contain
         cornerText={HeroSection.cornerText}
       />

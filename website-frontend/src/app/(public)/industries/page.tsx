@@ -23,7 +23,7 @@ const Page = () => {
         title={HeroSection.Title}
         subtitle={HeroSection.Subtitle}
         description={HeroSection.Description}
-        imageSrc={HeroSection.HeroImage}
+        imageSrc={HeroSection.Media}
         cornerText={HeroSection.cornerText}
       />
       <Industries data={Services} />
