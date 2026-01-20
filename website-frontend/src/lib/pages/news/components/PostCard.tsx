@@ -34,9 +34,9 @@ export default function PostCard({
   };
 
   return (
-    <div className="flex p-2 flex-row gap-4 bg-white">
+    <div className="flex p-2 flex-col sm:flex-row gap-4 bg-white">
       {/* Image */}
-      <div className="relative overflow-hidden w-1/3 h-[150px] rounded-4xl ">
+      <div className="relative overflow-hidden sm:w-1/3 h-[150px] rounded-4xl ">
         <Image
           src={StrapiLink(image.url)}
           placeholder="blur"
@@ -48,7 +48,7 @@ export default function PostCard({
       </div>
 
       {/* Content */}
-      <div className="flex flex-col gap-0 h-[150px]  w-2/3 ">
+      <div className="flex flex-col gap-0 h-[150px] sm:w-2/3 ">
         <TextWrapper
           text={title}
           fontFamily="funnel"

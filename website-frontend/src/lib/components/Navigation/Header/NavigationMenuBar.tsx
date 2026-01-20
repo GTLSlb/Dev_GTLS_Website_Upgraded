@@ -29,6 +29,7 @@ import SearchContainer from "@/lib/components/WebsiteSearch/Container";
 import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
 import { SearchResult } from "@/lib/types/searchResults";
 import { removeQuery } from "@/lib/utils/search.utils";
+import { URLs } from "@/lib/utils/constants";
 
 type NavigationMenuBarProps = {
   data: NavbarContent;
@@ -130,17 +131,16 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                     "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
                     currentPath.includes(link.href ?? "") &&
                       "bg-accent !text-gold",
-                    currentPath.includes("b-triple") &&
-                      link.href == "/transport" &&
+                    currentPath.includes(URLs.bTriple) &&
+                      link.href == URLs.bTriple &&
                       "bg-accent !text-gold",
-                    currentPath.includes("all-news") &&
-                      link.href == "/news" &&
+                    currentPath.includes(URLs.allnews) &&
+                      link.href == URLs.news &&
                       "bg-accent !text-gold"
                   )}
                 >
                   <Link href={link.href ?? "#"}>{link.label}</Link>
                 </NavigationMenuLink>
-                {/* )} */}
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
@@ -167,12 +167,6 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
           className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 !px-3"
         >
           <Search className="size-4" />
-          <TextWrapper
-            text="Search"
-            fontFamily="dmSans"
-            styleType="body"
-            className="block lg:hidden"
-          />
         </Button>
 
         {/* LOGIN BUTTON */}
@@ -225,22 +219,26 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             <Separator />
             <div className="flex flex-col gap-4 p-4 justify-between h-full">
               <div className="flex flex-col space-y-4 mt-0">
-                {
-                  data?.NavItems.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href ?? "#"}
-                      onClick={() => setOpen(false)}
-                    >
-                      <TextWrapper
-                        text={link.label}
-                        fontFamily="dmSans"
-                        styleType="link"
-                      />
-                    </Link>
-                  ))
-                  // )
-                }
+                {data?.NavItems.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href ?? "#"}
+                    onClick={() => setOpen(false)}
+                  >
+                    <TextWrapper
+                      text={link.label}
+                      fontFamily="dmSans"
+                      styleType="body"
+                    />
+                  </Link>
+                ))}
+                <Link href={URLs.contact} onClick={() => setOpen(false)}>
+                  <TextWrapper
+                    text={"Contact Us"}
+                    fontFamily="dmSans"
+                    styleType="body"
+                  />
+                </Link>
               </div>
               <Button
                 variant="outline"

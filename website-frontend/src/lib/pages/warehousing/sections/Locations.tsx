@@ -15,7 +15,7 @@ const Locations = ({ data }: LocationsProps) => {
       parentClassName="bg-gray-100 overflow-hidden relative"
     >
       {/* Map Section */}
-      <div className="relative lg:absolute lg:-top-120 lg:-right-30 xl:-top-90 xl:right-70">
+      <div className="relative lg:absolute lg:-top-100 lg:-right-30 xl:-top-90 xl:right-40">
         <div className="relative">
           <Image
             src="/svgs/map.svg"

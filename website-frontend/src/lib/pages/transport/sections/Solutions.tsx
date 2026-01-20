@@ -16,7 +16,7 @@ const Services: React.FC<solutionsProps> = ({ data }) => {
             description={data.description}
             imgSrc={data.image.url}
             imageFirst={false}
-            imageClassName="p-4"
+            imageClassName="p-4 !object-contain"
           />
       </div>
     </SectionContainer>
