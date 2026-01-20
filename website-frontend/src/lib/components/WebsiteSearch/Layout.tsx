@@ -2,13 +2,13 @@
 import React from "react";
 
 import { useSearchParams } from "next/navigation";
-import { search } from "@/lib/services/search";
 import {
   Search,
   Loader,
   ChevronLeft,
   ChevronRight,
   FileX2Icon,
+  SearchXIcon,
 } from "lucide-react";
 
 import { SearchResult } from "@/lib/types/searchResults";
@@ -18,61 +18,50 @@ import AnimatedLoading from "../Loader/AnimatedLoading";
 import SectionContainer from "../Containers/sectionContainer";
 
 import HighlightedSearchResultsList from "./HighlightedSearchResultsList";
+import { performSearch, debounceQuery } from "@/lib/utils/search.utils";
 
 export default function SearchPageLayout() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query");
 
-  const [query, setQuery] = React.useState("");
-  const [isLoadingResults, setIsLoadingResults] = React.useState(true);
+  const [query, setQuery] = React.useState(searchQuery || "");
+  const [isLoadingResults, setIsLoadingResults] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
   const [searchResults, setSearchResults] = React.useState<SearchResult>({
     query: "",
     total_hits: 0,
     results: [],
   });
 
+  // Handle debouncing: Only perform search after 500ms of no input
+  const [debouncedQuery, setDebouncedQuery] = React.useState(query);
+  React.useEffect(() => {
+    debounceQuery(query, setDebouncedQuery);
+  }, [query]);
+
+  // 2. Perform the Search: Triggered only when debouncedQuery changes
+  React.useEffect(() => {
+    // Only search if there's a real query
+    if (debouncedQuery.trim() !== "") {
+      setIsLoadingResults(true);
+      setErrorMessage(""); // Clear previous errors
+
+      performSearch(
+        debouncedQuery,
+        setIsLoadingResults,
+        setSearchResults,
+        setErrorMessage,
+      );
+    } else {
+      // Reset if user clears the input
+      setSearchResults({ query: "", total_hits: 0, results: [] });
+      setIsLoadingResults(false);
+    }
+  }, [debouncedQuery]);
+
   // Pagination state
   const [currentPage, setCurrentPage] = React.useState(1);
   const resultsPerPage = 10;
-
-  React.useEffect(() => {
-    if (searchQuery) {
-      setQuery(searchQuery);
-      setIsLoadingResults(true);
-      setCurrentPage(1); // Reset to first page on new search
-      search(query)
-        .then((data) => {
-          setSearchResults(data as SearchResult);
-          setIsLoadingResults(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching search results:", error);
-          setIsLoadingResults(false);
-        });
-    } else {
-      setIsLoadingResults(false);
-      setSearchResults({
-        query: "",
-        total_hits: 0,
-        results: [],
-      });
-    }
-  }, [searchQuery]);
-  React.useEffect(() => {
-    if (query != "") {
-      setIsLoadingResults(true);
-      setCurrentPage(1); // Reset to first page on new search
-      search(query)
-        .then((data) => {
-          setSearchResults(data as SearchResult);
-          setIsLoadingResults(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching search results:", error);
-          setIsLoadingResults(false);
-        });
-    }
-  }, [query]);
 
   // Flatten all hits from all collections
   const allHits = React.useMemo(() => {
@@ -81,7 +70,7 @@ export default function SearchPageLayout() {
       result.hits.map((hit) => ({
         ...hit,
         collection: result.collection,
-      }))
+      })),
     );
   }, [searchResults]);
 
@@ -97,12 +86,14 @@ export default function SearchPageLayout() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Go to previous page
   const goToPrevPage = () => {
     if (currentPage > 1) {
       goToPage(currentPage - 1);
     }
   };
 
+  // Go to next page
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       goToPage(currentPage + 1);
@@ -145,65 +136,82 @@ export default function SearchPageLayout() {
     return pages;
   };
 
-  return (
-      <div className="h-full w-full">
+  // Search Section
+  const searchSection = () => {
+    return (
+      <div className="w-full h-full flex flex-col gap-4 py-4">
         <SectionContainer
-          className=""
-          parentClassName="relative py-4 overflow-hidden"
+          className="flex items-center justify-center"
+          parentClassName="py-4 overflow-hidden bg-gold text-white font-bold text-xl pt-10"
         >
-          {isLoadingResults && allHits.length == 0 ? (
-            <div className="min-h-[60vh] w-full">
-              <AnimatedLoading />
-            </div>
-          ) : (
-            <div className="w-full h-full flex flex-col gap-4 py-4">
-              {/* Search Query Text */}
-              <SectionContainer
-                className="flex items-center justify-center"
-                parentClassName="py-4 overflow-hidden bg-gold text-white font-bold text-xl pt-10"
-              >
-                <div>Search Results for: {query}</div>
-              </SectionContainer>
-              {/* Search Input */}
-              <div className="w-full relative">
-                <input
-                  className="w-full border border-gray-300 rounded-lg py-3 px-10"
-                  type="text"
-                  placeholder="Search"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-                <Search className="absolute size-4 left-4 top-[17px]" />
-                <Loader
-                  className={`${
-                    isLoadingResults ? "block" : "hidden"
-                  } absolute size-4 right-7 top-7 animate-spin`}
-                />
+          {/* Use 'query' here for immediate UI feedback, or 'debouncedQuery' for stability */}
+          <div>{query === "" ? "Search" : `Search Results for: ${query}`}</div>
+        </SectionContainer>
+
+        <div className="w-full relative">
+          <input
+            className="w-full border border-gray-300 rounded-lg py-3 px-10 focus:ring-2 focus:ring-gold outline-none"
+            type="text"
+            placeholder="Search our services, locations..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <Search className="absolute size-4 left-4 top-[17px] text-gray-400" />
+
+          {/* Loading indicator is now non-intrusive inside the bar */}
+          {isLoadingResults && (
+            <Loader className="absolute size-4 right-4 top-[17px] animate-spin text-gold" />
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="h-full w-full">
+      <SectionContainer
+        className=""
+        parentClassName="relative py-4 overflow-hidden"
+      >
+        {/* Default Search */}
+        {searchSection()}
+
+        {/* If the input is empty, show the "Start Searching" prompt */}
+        {query.trim() === "" ? (
+          <div className="min-h-[40vh] w-full flex flex-col items-center justify-center gap-y-2 text-center py-12 text-gray-500">
+            <Search size="48" strokeWidth={1} />
+            <p>Start searching by typing in the search bar above</p>
+          </div>
+        ) : (
+          <>
+            {/* Error handling */}
+            {errorMessage ? (
+              <div className="flex flex-col items-center justify-center gap-y-2 text-center py-12 text-red-600 min-h-[30vh]">
+                <SearchXIcon size="56" />
+                <p className="font-semibold">{errorMessage}</p>
               </div>
-              {/* Search Results */}
-              <div>
-                <TextWrapper
-                  text={`${allHits.length} results found ${
-                    currentPage > 1
-                      ? `(Page ${currentPage} of ${totalPages})`
-                      : ""
-                  }`}
-                  fontFamily="dmSans"
-                  styleType="body"
-                  className={`text-gray-600 text-sm mb-4 ${
-                    query == "" ? "hidden" : ""
-                  }`}
-                />
-                {allHits.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center gap-y-2 text-center py-12 text-gray-500 min-h-[30vh] w-full">
-                    <div>
-                      <FileX2Icon size="64" />
-                    </div>
-                    <div>
-                      No results found {query == "" ? "" : `for "${query}"`}
-                    </div>
-                  </div>
-                ) : (
+            ) : allHits.length === 0 ? (
+              /* No Results found */
+              <div className="flex flex-col items-center justify-center gap-y-2 text-center py-12 text-gray-500 min-h-[30vh]">
+                <FileX2Icon size="64" strokeWidth={1} />
+                <p>No results found for "{debouncedQuery}"</p>
+              </div>
+            ) : (
+              <div className="w-full h-full flex flex-col gap-4 py-4">
+                {/* Search Results */}
+                <div>
+                  <TextWrapper
+                    text={`${allHits.length} results found ${
+                      currentPage > 1
+                        ? `(Page ${currentPage} of ${totalPages})`
+                        : ""
+                    }`}
+                    fontFamily="dmSans"
+                    styleType="body"
+                    className={`text-gray-600 text-sm mb-4 ${
+                      query == "" ? "hidden" : ""
+                    }`}
+                  />
                   <>
                     <HighlightedSearchResultsList
                       maxScore={
@@ -260,11 +268,12 @@ export default function SearchPageLayout() {
                       </div>
                     )}
                   </>
-                )}
+                </div>
               </div>
-            </div>
-          )}
-        </SectionContainer>
-      </div>
+            )}
+          </>
+        )}
+      </SectionContainer>
+    </div>
   );
 }

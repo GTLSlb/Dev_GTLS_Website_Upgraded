@@ -54,7 +54,7 @@ export async function search(query: string) {
     return response.data as SearchResult;
   } catch (error) {
     const axiosError = error as AxiosError;
-    console.error("Error fetching B-Triple page data:", axiosError.message);
-    return null;
+    console.error("Error performing search:", axiosError.message);
+    throw axiosError;
   }
 }
