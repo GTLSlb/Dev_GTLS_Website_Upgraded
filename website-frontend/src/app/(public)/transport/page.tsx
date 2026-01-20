@@ -21,7 +21,7 @@ const Page = () => {
         description={transport_page_data.HeroSection.Description}
         imageSrc={transport_page_data.HeroSection.Media}
         cornerText={transport_page_data.HeroSection.cornerText}
-        link={URLs.bTriple}
+        link={transport_page_data.HeroSection.link}
       />
       <Solutions data={transport_page_data.TransportSolutions} />
       {/* <IntegratedSolutions data={transport_page_data.IntegratedSolutions} /> */}
