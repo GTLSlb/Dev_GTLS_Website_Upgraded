@@ -3,6 +3,7 @@
 import Image from "next/image";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import { StrapiLink } from "@/lib/services/media";
+import { StrapiMediaFile } from "@/lib/types/media";
 
 export interface ImageAndTextProps {
   /** Section title */
@@ -10,7 +11,7 @@ export interface ImageAndTextProps {
   /** Description text */
   description: string;
   /** Image source */
-  imgSrc: string;
+  imgSrc: StrapiMediaFile;
   /** If true, places image first (left on desktop) */
   imageFirst?: boolean;
   /** Optional additional styling */
@@ -39,8 +40,8 @@ export default function ImageAndText({
         }`}
       >
         <Image
-          src={StrapiLink(imgSrc)}
-          alt={title}
+          src={StrapiLink(imgSrc.url)}
+          alt={imgSrc.alternativeText}
           placeholder="blur"
           blurDataURL="/Logos/logo-transparent.svg"
           fill

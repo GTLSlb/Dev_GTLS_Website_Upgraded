@@ -8,20 +8,22 @@ import LoadingSpinner from "@/lib/components/Common/LoadingSpinner";
 import ErrorMessage from "@/lib/components/Common/ErrorMessage";
 
 const Page = () => {
-  const { data: warehousing_page_data, loading, error } = useWarehousingPageData();
+  const {
+    data: warehousing_page_data,
+    loading,
+    error,
+  } = useWarehousingPageData();
 
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
-  if (!warehousing_page_data) return <ErrorMessage error={new Error('No data available')} />;
+  if (!warehousing_page_data)
+    return <ErrorMessage error={new Error("No data available")} />;
   return (
     <Container>
       <CommonHero
         title={warehousing_page_data.HeroSection.Title}
         description={warehousing_page_data.HeroSection.Description}
-        imageSrc={
-          process.env.NEXT_PUBLIC_STRAPI_URL +
-          warehousing_page_data.HeroSection.Media.url
-        }
+        imageSrc={warehousing_page_data.HeroSection.HeroImage}
         cornerText={warehousing_page_data.HeroSection.cornerText}
       />
       <Facilities data={warehousing_page_data.WhyChooseGtls} />

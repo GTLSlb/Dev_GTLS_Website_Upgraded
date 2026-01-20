@@ -18,7 +18,7 @@ const Page = () => {
         title={transport_page_data.HeroSection.Title}
         subtitle={transport_page_data.HeroSection.Subtitle}
         description={transport_page_data.HeroSection.Description}
-        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+transport_page_data.HeroSection.Media.url}
+        imageSrc={transport_page_data.HeroSection.HeroImage}
         cornerText={transport_page_data.HeroSection.cornerText}
         link="/b-triple"
       />

@@ -2,6 +2,7 @@ import { Card, CardDescription, CardTitle } from "@/lib/ui/card";
 import Image from "next/image";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 import { ProfileCardProps } from "@/lib/types/cards";
+import { StrapiLink } from "@/lib/services/media";
 
 const ProfileCard: React.FC<ProfileCardProps> = ({
   name,
@@ -12,10 +13,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     <Card className="p-5 pb-15 rounded-3xl profile-card">
       <div className="relative h-64 w-full rounded-t-2xl overflow-hidden">
         <Image
-          src={imageSrc}
+          src={StrapiLink(imageSrc.url)}
           placeholder="blur"
           blurDataURL="/Logos/logo-transparent.svg"
-          alt={name}
+          alt={imageSrc.alternativeText}
           fill
           className="object-cover"
         />

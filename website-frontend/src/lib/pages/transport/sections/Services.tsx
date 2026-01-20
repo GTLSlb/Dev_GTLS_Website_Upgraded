@@ -16,7 +16,7 @@ const Services: React.FC<transportServicesProps> = ({ data }) => {
             key={idx}
             title={service.title}
             description={service.description}
-            imgSrc={service.image.url}
+            imgSrc={service.image}
             imageFirst={idx % 2 !== 0}
             className={idx !== data.length - 1 ? "pb-15" : ""}
           />

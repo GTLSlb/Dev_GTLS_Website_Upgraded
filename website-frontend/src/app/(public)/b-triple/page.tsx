@@ -23,7 +23,7 @@ const Page = () => {
       <CommonHero
         title={HeroSection.Title}
         description={HeroSection.Description}
-        imageSrc={StrapiLink(HeroSection.Media.url) || "/webp/btriple.png"} 
+        imageSrc={HeroSection.Image} 
         contain
         cornerText={HeroSection.cornerText}
       />

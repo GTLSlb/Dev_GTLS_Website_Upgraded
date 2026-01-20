@@ -24,7 +24,7 @@ const Page = () => {
         title={sustainability_page_data.HeroSection.Title}
         subtitle={sustainability_page_data.HeroSection.Subtitle}
         description={sustainability_page_data.HeroSection.Description}
-        imageSrc={StrapiLink(sustainability_page_data.HeroSection.Media.url)}
+        imageSrc={sustainability_page_data.HeroSection.HeroImage}
         cornerText={sustainability_page_data.HeroSection.cornerText}
       />
       <Recycling data={sustainability_page_data.RecyclingPrograms} />

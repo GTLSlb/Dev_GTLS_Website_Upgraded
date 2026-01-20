@@ -20,7 +20,7 @@ const Page = () => {
         title={contact_page_data.HeroSection.Title}
         subtitle={contact_page_data.HeroSection.Subtitle}
         description={contact_page_data.HeroSection.Description}
-        imageSrc={StrapiLink(contact_page_data.HeroSection.Media.url)}
+        imageSrc={contact_page_data.HeroSection.HeroImage}
         cornerText={contact_page_data.HeroSection.cornerText}
         link={contact_page_data.HeroSection.link || "contactus"}
       />

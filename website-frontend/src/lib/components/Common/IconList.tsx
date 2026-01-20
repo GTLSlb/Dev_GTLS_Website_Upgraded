@@ -1,6 +1,7 @@
 import { IconListItem, IconListProps } from "@/lib/types";
 import React from "react";// optional, if you use react-icons
 import Image from "next/image";
+import { StrapiLink } from "@/lib/services/media";
 
 const IconList: React.FC<IconListProps> = ({ items }) => {
   return (
@@ -9,8 +10,8 @@ const IconList: React.FC<IconListProps> = ({ items }) => {
         <li key={index} className="flex justify-start items-center gap-2">
           {/* Icon */}
           <Image
-                src={item.icon?.url ? process.env.NEXT_PUBLIC_STRAPI_URL+item.icon?.url : ''}
-                alt={item.icon?.name}
+                src={StrapiLink(item.icon?.url || "")}
+                alt={item.icon?.alternativeText}
                 width={24}
                 height={24}
               />

@@ -19,7 +19,7 @@ const Page = () => {
         title={news_page_data.HeroSection.Title}
         subtitle={news_page_data.HeroSection.Subtitle}
         description={news_page_data.HeroSection.Description}
-        imageSrc={StrapiLink(news_page_data.HeroSection.Media.url)}
+        imageSrc={news_page_data.HeroSection.HeroImage}
         cornerText={news_page_data.HeroSection.cornerText}
       />
       {/* <SearchBar /> */}

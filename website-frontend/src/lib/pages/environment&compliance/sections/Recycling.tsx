@@ -29,7 +29,7 @@ const Recycling = ({ data }: RecyclingProps) => {
             src={StrapiLink(data.ImgSrc.url)}
             placeholder="blur"
             blurDataURL="/Logos/logo-transparent.svg"
-            alt={data.title}
+            alt={data.ImgSrc.alternativeText}
             fill
             className="object-contain"
           />

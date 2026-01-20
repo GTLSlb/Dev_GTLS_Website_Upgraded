@@ -4,12 +4,13 @@ import SectionContainer from "@/lib/components/Containers/sectionContainer";
 import { MoveUpRight } from "lucide-react";
 import Link from "next/link";
 import { HeroProps } from "@/lib/types/banners";
+import { StrapiLink } from "@/lib/services/media";
 
 const CommonHero = ({
   title = "Global Transport & Logistics Solutions",
   subtitle = "",
   description = "We provide end-to-end logistics solutions across Australia, with a focus on efficiency, safety, and sustainability. From local freight to long-haul BTriple operations, GTLS keeps your business moving.",
-  imageSrc = "/webp/3movers.webp", // ✅ fallback image
+  imageSrc, // ✅ fallback image
   cornerText = "Talk with an expert",
   className,
   contain = false,
@@ -60,8 +61,8 @@ const CommonHero = ({
       {/* Hero Image instead of Video */}
       <div className="relative w-full h-[400px] rounded-4xl overflow-hidden">
         <Image
-          src={imageSrc}
-          alt={title}
+          src={StrapiLink(imageSrc?.url ?? "")}
+          alt={imageSrc?.alternativeText || "Hero Image"}
           fill
           priority
           placeholder="blur"

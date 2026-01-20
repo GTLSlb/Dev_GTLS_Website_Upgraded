@@ -23,7 +23,7 @@ const Page = () => {
         title={HeroSection.Title}
         subtitle={HeroSection.Subtitle}
         description={HeroSection.Description}
-        imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+HeroSection.Media?.url}
+        imageSrc={HeroSection.HeroImage}
         cornerText={HeroSection.cornerText}
       />
       <Industries data={Services} />

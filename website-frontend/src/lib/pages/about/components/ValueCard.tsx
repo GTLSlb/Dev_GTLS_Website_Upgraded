@@ -20,7 +20,7 @@ const ValueCard: React.FC<{ value: CoreValue; index: number }> = ({
     >
       <div className="relative">
         <Image
-          alt={value.title}
+          alt={value.icon?.alternativeText}
           width={48}
           height={48}
           src={StrapiLink(value.icon?.url)}
