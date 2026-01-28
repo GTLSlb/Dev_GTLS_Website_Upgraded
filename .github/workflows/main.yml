@@ -13,13 +13,16 @@ jobs:
     steps:
       - name: 📋 Check Network Connectivity
         run: |
-          echo "Testing DNS resolution..."
-          nslookup ${{ secrets.SSH_HOST }}
+          HOST="${{ secrets.SSH_HOST }}"
+          PORT="${{ secrets.SSH_PORT }}"
+          
+          echo "Target Host: $HOST"
+          echo "Target Port: $PORT"
           echo ""
-          echo "Testing TCP connection..."
-          timeout 10 bash -c "echo > /dev/tcp/${{ secrets.SSH_HOST }}/${{ secrets.SSH_PORT }}" && echo "Port is open" || echo "Port is NOT reachable"
+          echo "Testing TCP connection to $HOST:$PORT..."
+          timeout 10 bash -c "echo > /dev/tcp/$HOST/$PORT" && echo "✅ Port IS reachable" || echo "❌ Port is NOT reachable"
           echo ""
-          echo "GitHub runner IP info..."
+          echo "GitHub runner IP..."
           curl -s https://api.ipify.org?format=json
 
       - name: 🚀 Execute Deployment Script
