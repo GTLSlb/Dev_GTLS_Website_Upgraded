@@ -1,7 +1,12 @@
 const connection = require("../database/connection");
 const STATUS = require("../shared-utils/status-code");
 
-const { is_token_valid, get_user_info } = require("../utils/auth.utils");
+const {
+  is_token_valid,
+  get_user_info,
+  validate_access_token,
+} = require("../utils/auth.utils");
+const Cookies = require("js-cookie");
 
 const auth_routes = [
   "/login",
@@ -12,68 +17,71 @@ const auth_routes = [
   "/logout-without-request",
 ];
 
-const get_user_and_token = async (user_id, token) => {
-  const table_name = process.env.DB_TABLE || "custom_sessions";
-  return new Promise((resolve, reject) => {
-    connection.query(
-      "SELECT * from " + table_name + " WHERE payload = ? AND user_id = ?",
-      [token, user_id],
-      function (error, results, fields) {
-        if (error) {
-          console.error("❌ Query failed in Auth Middleware: ", error);
-          return reject(error); // Reject the promise on error
-        }
-
-        // 2. Check if any session was found
-        const isValid = results && results.length > 0;
-
-        // 3. Resolve the promise with the boolean result
-        resolve(isValid);
-      }
-    );
-  });
-};
-
 const authenticate = async (req, res, next) => {
   const path = req.path;
-  const jwt_token = req.headers["authorization"]?.split(" ")[1];
+  const is_accessing_auth_route = auth_routes.includes(path) ? true : false;
 
-  const hasSession = is_token_valid(jwt_token);
-  const decoded_info = get_user_info(jwt_token);
+  // 1. LOGIC: Determine Auth Status
+  // 1.a. Get the jwt token's value
+  const jwt_token =
+    req.headers["authorization"]?.split(" ")[1] ||
+    Cookies.get("jwt_token") ||
+    "";
 
-  const token = decoded_info.token ?? null;
-  const user_id = decoded_info.userId ?? null;
+  const is_valid_JWT =
+    jwt_token == "" ||
+    jwt_token == "undefined" ||
+    jwt_token == "null" ||
+    jwt_token == null
+      ? false
+      : is_token_valid(jwt_token);
 
-  // Allow access to base url
+  // EXCEPTION: Allow access to base url
   if (path == "") {
     return next();
-  } else if (hasSession) {
-    const is_valid_token = await get_user_and_token(user_id, token);
+  } else if (is_valid_JWT) {
+    // 1.b. If the token is valid, populate the user info
+    const decoded_info = get_user_info(jwt_token);
 
+    const token = decoded_info.token;
+    const user_id = decoded_info.userId;
+
+    const is_authenticated =
+      token != null && user_id != null
+        ? await validate_access_token(token, user_id)
+        : false;
     // Allow access to specific routes without session
-    const is_accessing_auth_route = auth_routes.includes(path) ? true : false;
+    const trimmedPath = path.replace("/", "");
 
-    // Check if token is valid
-    if (is_accessing_auth_route) {
-      return next();
-    } 
-    // TODO: Temporary disabled since if the user is logged in from Laravel
-    // this will always be false
-    
-    // else if (!is_valid_token) {
-    //   return res
-    //     .status(STATUS.UNAUTHORIZED)
-    //     .json({ status: STATUS.UNAUTHORIZED, message: "Unauthorized" });
-    // }
+    // 2. LOGIC: If Authenticated and trying to access Auth pages -> Redirect to Main Page
+    if (
+      is_authenticated &&
+      is_accessing_auth_route &&
+      trimmedPath != '/gtrr'
+    ) {
+      return res
+        .status(STATUS.OK)
+        .json({ status: STATUS.OK, message: "User is authenticated", redirect: "/gtrr", user: decoded_info.user, token: decoded_info.token, jwt_token: jwt_token });
+    }
+
+    // 3. LOGIC: If NOT Authenticated and trying to access Protected pages -> Redirect to Login
+    if (
+      !is_authenticated &&
+      !is_accessing_auth_route &&
+      trimmedPath != "login"
+    ) {
+      return res
+        .status(STATUS.UNAUTHORIZED)
+        .json({ status: STATUS.UNAUTHORIZED, message: "Unauthorized", redirect: "/login", user: decoded_info.user, token: decoded_info.token, jwt_token: jwt_token });
+    }
   } else {
     // Allow access to specific routes without session
-    const is_accessing_auth_route = auth_routes.includes(path) ? true : false;
     if (is_accessing_auth_route) {
       return next();
     } else {
       return res
         .status(STATUS.UNAUTHORIZED)
-        .json({ status: STATUS.UNAUTHORIZED, message: "Unauthorized" });
+        .json({ status: STATUS.UNAUTHORIZED, message: "Unauthorized", redirect: "/login", user: decoded_info.user, token: decoded_info.token, jwt_token: jwt_token });
     }
   }
 
