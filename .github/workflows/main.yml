@@ -20,4 +20,4 @@ jobs:
           debug: true
           script: |
             cd /www/wwwroot/website_upgraded
-            bash ./deploy_script.sh
+            bash deploy_script.sh
