@@ -4,12 +4,24 @@ on:
     branches:
       - store
   workflow_dispatch:
+
 jobs:
   deploy:
-    name: Deploy to  Server
+    name: Deploy to Server
     runs-on: ubuntu-latest
     
     steps:
+      - name: 📋 Check Network Connectivity
+        run: |
+          echo "Testing DNS resolution..."
+          nslookup ${{ secrets.SSH_HOST }}
+          echo ""
+          echo "Testing TCP connection..."
+          timeout 10 bash -c "echo > /dev/tcp/${{ secrets.SSH_HOST }}/${{ secrets.SSH_PORT }}" && echo "Port is open" || echo "Port is NOT reachable"
+          echo ""
+          echo "GitHub runner IP info..."
+          curl -s https://api.ipify.org?format=json
+
       - name: 🚀 Execute Deployment Script
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -19,5 +31,11 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           debug: true
           script: |
+            echo "=== Connection Successful ==="
+            whoami
+            hostname
+            pwd
+            echo ""
+            echo "=== Starting Deployment ==="
             cd /www/wwwroot/website_upgraded
             bash deploy_script.sh
