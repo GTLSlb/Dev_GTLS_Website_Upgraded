@@ -71,7 +71,7 @@ async function initializeConnection(connection) {
   
   try{
     // Initialize connection with retry
-      connectWithRetry(connection);
+    connectWithRetry(connection);
   }catch(err){
     console.error("\n🔴 Application Startup Failed Due to DB Connection.");
 

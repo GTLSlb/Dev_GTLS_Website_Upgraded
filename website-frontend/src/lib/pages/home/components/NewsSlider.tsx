@@ -7,6 +7,7 @@ import NewsCard from "@/lib/components/Common/NewsCard";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { Swiper as SwiperType } from "swiper";
 import { RecentNewsDataType } from "@/lib/types/news";
+import { StrapiLink } from "@/lib/services/media";
 
 const NewsSlider: React.FC<{ news: RecentNewsDataType[] }> = ({ news }) => {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -36,7 +37,7 @@ const NewsSlider: React.FC<{ news: RecentNewsDataType[] }> = ({ news }) => {
               description={item.description}
               newsDate={item.newsDate}
               documentId={item.documentId}
-              imageSrc={process.env.NEXT_PUBLIC_STRAPI_URL+item.coverImg.url}
+              imageSrc={StrapiLink(item.coverImg.url)}
             />
           </SwiperSlide>
         ))}

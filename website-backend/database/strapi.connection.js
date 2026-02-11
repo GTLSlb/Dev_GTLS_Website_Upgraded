@@ -1,11 +1,12 @@
 require('dotenv').config({ path: '../.env' })
 
-const mysql = require('mysql')
+const mysql = require('mysql2')
 
 const db_user = process.env.STRAPI_DB_USER
 const db_password = process.env.STRAPI_DB_PASSWORD
 const db_host = process.env.STRAPI_DB_HOST
 const db_name = process.env.STRAPI_DB_NAME
+const db_port = process.env.STRAPI_DB_PORT || 3307;
 
 const strapi_pool = mysql.createPool({
   connectionLimit: 100, // Adjust based on your needs
@@ -13,6 +14,7 @@ const strapi_pool = mysql.createPool({
   user: db_user,
   password: db_password,
   database: db_name,
+  port: db_port,
   waitForConnections: true,
   queueLimit: 0,
   connectTimeout: 10000,

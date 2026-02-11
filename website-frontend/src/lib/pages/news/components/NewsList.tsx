@@ -47,24 +47,30 @@ export default function NewsList({ NewsList }: Props) {
       ? window.innerWidth >= 1024
         ? 9
         : window.innerWidth >= 768
-        ? 6
-        : 3
+          ? 6
+          : 3
       : 9; // default (SSR)
 
   // Filter the list
   const filtered = useMemo(() => {
+    // Sort the list based on newsDate (newest first)
+    const sortedNewsList = NewsList.sort((a, b) => {
+      const dateA = a.newsDate ? new Date(a.newsDate).getTime() : NaN;
+      const dateB = b.newsDate ? new Date(b.newsDate).getTime() : NaN;
+      return dateB - dateA;
+    });
     const s = search.toLowerCase();
-    return NewsList?.filter(
+    return sortedNewsList?.filter(
       (item) =>
         item.title.toLowerCase().includes(s) ||
-        item.description.toLowerCase().includes(s)
+        item.description.toLowerCase().includes(s),
     );
   }, [search, NewsList]);
 
   const totalPages = Math.ceil(filtered.length / pageSize);
 
   const [displayedNews, setDisplayedNews] = useState(
-    filtered.slice((page - 1) * pageSize, page * pageSize)
+    filtered.slice((page - 1) * pageSize, page * pageSize),
   );
 
   const handleSearchNews = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +81,7 @@ export default function NewsList({ NewsList }: Props) {
       const filtered = NewsList?.filter(
         (item) =>
           item.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.description.toLowerCase().includes(e.target.value.toLowerCase())
+          item.description.toLowerCase().includes(e.target.value.toLowerCase()),
       );
       setDisplayedNews(filtered);
     }
@@ -89,12 +95,15 @@ export default function NewsList({ NewsList }: Props) {
     }
   };
 
-  const categories = NewsList?.reduce((acc, item) => {
-    if (!acc.find((cat) => cat.value === item.category)) {
-      acc.push({ label: item.category, value: item.category });
-    }
-    return acc;
-  }, [] as { label: string; value: string }[]);
+  const categories = NewsList?.reduce(
+    (acc, item) => {
+      if (!acc.find((cat) => cat.value === item.category)) {
+        acc.push({ label: item.category, value: item.category });
+      }
+      return acc;
+    },
+    [] as { label: string; value: string }[],
+  );
 
   return (
     <div className="flex flex-col gap-6">

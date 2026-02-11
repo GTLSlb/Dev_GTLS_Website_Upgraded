@@ -2,7 +2,6 @@
 require("dotenv").config({ path: "./.env" });
 const express = require("express");
 const cors = require("cors");
-const csurf = require("csurf");
 
 const connection = require("./database/connection");
 const strapi_connection = require("./database/strapi.connection");
@@ -57,11 +56,11 @@ app.use((req, res, next) => {
 });
 
 // 5- Set up CSRF protection
-// const generateCsrfToken = (req, res, next) => {
-//   req.csrfToken = () => res.locals.csrfToken;
-//   next();
-// };
-// app.use(generateCsrfToken);
+const generateCsrfToken = (req, res, next) => {
+  req.csrfToken = () => res.locals.csrfToken;
+  next();
+}
+app.use(generateCsrfToken);
 
 // Routes
 app.use(authRoutes);
