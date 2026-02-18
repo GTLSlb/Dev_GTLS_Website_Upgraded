@@ -69,7 +69,7 @@ app.use(authenticate, uploadRoutes);
 
 // Start the server
 app.listen(port, () => {
-  console.log(`server is running on port ${port}...`);
+  logger.info(`server is running on port ${port}...`);
 });
 
 // Collect Errors

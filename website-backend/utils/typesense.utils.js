@@ -1,12 +1,11 @@
 const logger = require("../shared-utils/logging");
 const typesense_client = require("./typesense.client");
-const { runQuery } = require("../utils/auth.utils");
+const { runStrapiQuery } = require("../utils/auth.utils");
 const { enrich_collection_with_urls } = require("./strapi_constants.utils");
 
 const exactExclusions = [
   "action_events",
   "careers",
-  "contact_uses",
   "home_pages",
   "i18n_locale",
   "links",
@@ -21,8 +20,6 @@ const exactExclusions = [
   "search_indices",
 ];
 const patternExclusions = [
-  "%_Ink%",
-  "%_lnk%",
   "admin_%",
   "files_%",
   "footers_%",
@@ -38,8 +35,9 @@ const patternExclusions = [
 const get_filtered_db_tables = async () => {
   try {
     // --- Get Filtered Table Names ---
-
     const database_name = process.env.STRAPI_DB_NAME;
+
+    // Construct exclusion lists for SQL query
     const exactExclusionList = exactExclusions
       .map((table) => `'${table}'`)
       .join(", ");
@@ -57,8 +55,11 @@ const get_filtered_db_tables = async () => {
           AND (${patternExclusionConditions})
     `;
 
-    const tableListResult = await runQuery(tableListSql);
-    const tableNames = tableListResult.map((row) => row.TABLE_NAME);
+    const tableListResult = await runStrapiQuery(tableListSql);
+
+    // Extract the main key (table_name) dynamically to handle different database schemas
+    const main_key = Object.keys(tableListResult[0] || {})[0];
+    const tableNames = tableListResult.map((row) => row[main_key]);
 
     // Handle case where no tables are found
     if (tableNames.length === 0) {
@@ -68,19 +69,14 @@ const get_filtered_db_tables = async () => {
       return { success: true, tables: [] };
     }
 
-    logger.info(
-      `✅ Found ${tableNames.length} tables to process: ${tableNames.join(
-        ", ",
-      )}`,
-    );
+    logger.info(`✅ Found ${tableNames.length} tables to process.`);
 
     // ---  Fetch Data from Each Filtered Table ---
     const allTableData = [];
-
     for (const tableName of tableNames) {
       try {
         const dataSql = `SELECT * FROM \`${tableName}\``;
-        const tableData = await runQuery(dataSql);
+        const tableData = await runStrapiQuery(dataSql);
 
         allTableData.push({
           table_name: tableName,
@@ -143,6 +139,9 @@ const generate_collection_schema = (collectionName, data) => {
 
 const index_table_in_typesense = async (tableName, tableData) => {
   // Check if collection exists and create if it doesn't
+  // Adding a small delay to ensure Typesense is ready before we check/create collections
+  await new Promise((r) => setTimeout(r, 100));
+  logger.info(`🔍 Checking if Typesense collection '${tableName}' exists...`);
   try {
     await typesense_client.collections(tableName).retrieve();
     logger.info(
@@ -150,7 +149,7 @@ const index_table_in_typesense = async (tableName, tableData) => {
     );
   } catch (error) {
     if (error.httpStatus === 404) {
-      console.log(`⏳ Creating Typesense collection: '${tableName}'`);
+      logger.info(`⏳ Creating Typesense collection: '${tableName}'`);
 
       // Generate schema from the data
       const schema = generate_collection_schema(tableName, tableData);
@@ -161,14 +160,14 @@ const index_table_in_typesense = async (tableName, tableData) => {
       );
     } else {
       // Re-throw other errors (e.g., connection, permissions)
-      console.log("🛑 Error creating Typesense collection:", error);
+      logger.error("🛑 Error creating Typesense collection:", error);
       throw error;
     }
   }
 
   // Prepare and Import documents
   if (tableData.length > 0) {
-    console.log(
+    logger.info(
       `⏳ Indexing ${tableData.length} documents into '${tableName}'...`,
     );
 
@@ -201,19 +200,22 @@ const index_table_in_typesense = async (tableName, tableData) => {
 };
 
 const index_data = async () => {
-  console.log("⏳ Fetching tables to be indexed and their data...");
+  logger.info("⏳ Fetching tables to be indexed and their data...");
   const { tables } = await get_filtered_db_tables();
+  logger.info(`📊 Starting indexing process for ${tables.length} tables...`);
   let failures = [];
+
   for (const tableObject of tables) {
+    logger.info(`📊 ${JSON.stringify(tableObject, null, 2)}`);
     const tableName = tableObject.table_name;
     const tableData = tableObject.data;
+
     try {
       // Create collection and index data
       tableData.length > 0 &&
         (await index_table_in_typesense(tableName, tableData));
     } catch (e) {
       logger.error(`🛑 Failed to process table '${tableName}': ${e.message}`);
-      console.log(`🛑 Failed to process table '${tableName}': ${e.message}`);
       failures.push({ table: tableName, error: e.message });
     }
   }
@@ -227,12 +229,9 @@ const index_data = async () => {
 const perform_search = async (searches) => {
   const search_results = [];
   for (const search of searches) {
-    console.log(
-      '⏳ Searching in Typesense collection "',
-      search.collection,
-      '"...',
+    logger.info(
+      `⏳ Searching in Typesense collection ${search.collection} ...`,
     );
-    console.log("⏳", search);
     try {
       // Correct way to search in Typesense
       const result = await typesense_client
@@ -359,7 +358,13 @@ async function format_search_results(search_results) {
       const hits = collection_result.hits.map((hit) => ({
         id: hit.id,
         // Assign a generic name/title field for easier consumption by the client
-        title: hit.title || hit.name || hit.document.title || hit.document.name || hit.document.label || hit.document.description?.slice(0, 12),
+        title:
+          hit.title ||
+          hit.name ||
+          hit.document.title ||
+          hit.document.name ||
+          hit.document.label ||
+          hit.document.description?.slice(0, 12),
         type: collection_result.collection, // Useful for the client to know the source
         score: hit.text_match,
         document: hit.document, // Include the full document data
@@ -370,7 +375,7 @@ async function format_search_results(search_results) {
         collection_result.collection,
         hits,
       );
-      // console.log('enrichedHits', enrichedHits)
+      // logger.info('enrichedHits', enrichedHits)
       results.push({
         collection: collection_result.collection,
         found: collection_result.found,
@@ -387,16 +392,16 @@ const delete_all_typesense_collections = async () => {
     // Retrieve all collections
     const collections = await typesense_client.collections().retrieve();
 
-    console.log(`Found ${collections.length} collections to delete`);
+    logger.info(`Found ${collections.length} collections to delete`);
 
     // Delete each collection
     for (const collection of collections) {
-      console.log(`Deleting collection: ${collection.name}`);
+      logger.info(`Deleting collection: ${collection.name}`);
       await typesense_client.collections(collection.name).delete();
-      console.log(`✅ Deleted collection: ${collection.name}`);
+      logger.info(`✅ Deleted collection: ${collection.name}`);
     }
 
-    console.log("All collections deleted successfully");
+    logger.info("All collections deleted successfully");
   } catch (error) {
     console.error("Error deleting collections:", error.message);
     throw error;
@@ -404,7 +409,7 @@ const delete_all_typesense_collections = async () => {
 };
 
 module.exports = {
-  runQuery,
+  runStrapiQuery,
   index_data,
   delete_all_typesense_collections,
   format_search_results,

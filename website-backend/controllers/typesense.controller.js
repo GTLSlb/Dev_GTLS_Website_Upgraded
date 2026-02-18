@@ -1,6 +1,5 @@
 const {
   index_data,
-  runQuerySlug,
   format_search_results,
   search_typesense_collections,
   delete_all_typesense_collections,
@@ -44,7 +43,6 @@ class TypesenseController {
         .json({ message: "Data indexed successfully", status: STATUS.OK });
     } catch (err) {
       logger.error(`🛑 Failed to index data: ${err}`);
-      console.log(`🛑 Failed to index data: ${err}`);
       if (err.toString().trim().includes("ECONNREFUSED"))
         return res.status(STATUS.SERVICE_UNAVAILABLE).json({
           error: "Failed to index data: Typesense server is not running",

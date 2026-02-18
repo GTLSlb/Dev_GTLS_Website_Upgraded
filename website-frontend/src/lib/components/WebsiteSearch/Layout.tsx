@@ -9,6 +9,7 @@ import {
   ChevronRight,
   FileX2Icon,
   SearchXIcon,
+  HourglassIcon,
 } from "lucide-react";
 
 import { SearchResult } from "@/lib/types/searchResults";
@@ -177,7 +178,14 @@ export default function SearchPageLayout() {
         {searchSection()}
 
         {/* If the input is empty, show the "Start Searching" prompt */}
-        {query.trim() === "" ? (
+        {isLoadingResults ? (
+          <div className="flex justify-center items-center h-40 gap-2 text-gray-600 text-xl italic">
+            <span className="animate-pulse">Fetching results </span>
+            <span className="inline-block animate-hourglass text-gold">
+              <HourglassIcon size={16} />
+            </span>
+          </div>
+        ) : query.trim() === "" ? (
           <div className="min-h-[40vh] w-full flex flex-col items-center justify-center gap-y-2 text-center py-12 text-gray-500">
             <Search size="48" strokeWidth={1} />
             <p>Start searching by typing in the search bar above</p>

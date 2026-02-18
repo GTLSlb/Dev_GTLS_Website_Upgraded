@@ -13,6 +13,7 @@ const {
   get_user_info,
   fill_user_model,
   is_session_valid,
+  generate_deterministic_id,
 } = require("../utils/auth.utils");
 
 class AuthController {
@@ -77,7 +78,7 @@ class AuthController {
             expires_in: expiresIn,
             user: Array.isArray(userObject) ? userObject[0] : userObject,
           });
-        }
+        },
       );
     } else {
       const errorMessage = "Something went wrong, try again later";
@@ -134,7 +135,7 @@ class AuthController {
             status: STATUS.OK,
             message: "Login successful",
           });
-        }
+        },
       );
     } else {
       const errorMessage = "Something went wrong, try again later";
@@ -235,61 +236,67 @@ class AuthController {
           try {
             const cookieConfig = {
               httpOnly: false,
-              domain: process.env.COOKIE_DOMAIN || ".gtls.com.lb", // ✅ Must match frontend
-              sameSite: process.env.COOKIE_SAMESITE || "lax", // ⚠️ "none" requires secure: true
+              domain: process.env.COOKIE_DOMAIN || ".gtls.com.au",
+              sameSite: process.env.COOKIE_SAMESITE || "none", // "none" for cross-site, requires secure: true
               secure: process.env.COOKIE_SECURE === "true",
               maxAge: parseInt(process.env.COOKIE_MAX_AGE || "86400000"),
               path: "/",
             };
 
+            // Set the cookie with the generated JWT token
             res.cookie("jwt_token", jwt_token, cookieConfig);
           } catch (cookieError) {
-            console.error("❌ Failed to set cookie!");
-            console.error("Cookie Error:", cookieError);
-            logger.error("Cookie setting failed: " + cookieError.message);
-
             // Don't fail the entire request, just log it
             // The JWT token will still be in the response body
+            console.error("Cookie Set Error:", cookieError);
+            logger.error("❌ Cookie setting failed: " + cookieError.message);
           }
 
           const lastActivity = Date.now() / 1000;
+          const db_table = process.env.DB_TABLE;
+          const deterministic_id = generate_deterministic_id(userId, token);
 
-          const query = `INSERT INTO custom_sessions (id, user_id, payload, user, last_activity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())`;
+          const query = `
+            INSERT INTO \`${db_table}\` 
+            (\`id\`, \`user_id\`, \`payload\`, \`user\`, \`last_activity\`, \`created_at\`, \`updated_at\`) 
+            VALUES (?, ?, ?, ?, ?, NOW(), NOW())
+          `;
+          // Prepare the user object safely
+          const userPayload = Array.isArray(userObject)
+            ? JSON.stringify(userObject[0])
+            : JSON.stringify(userObject);
 
-          connection.query(
-            query,
-            [
-              token,
-              userId,
-              token,
-              Array.isArray(userObject)
-                ? JSON.stringify(userObject[0])
-                : JSON.stringify(userObject),
-              lastActivity,
-            ],
-            (err, results) => {
-              if (err) {
-                console.error("❌ Database error:", err);
-                logger.error("Database INSERT failed: " + err.message);
-                return res.status(500).send({
-                  status: STATUS.INTERNAL_SERVER_ERROR,
-                  message: "Database error",
-                  error: err.message,
-                });
-              }
+          // The array has exactly 4 items, matching the 4 '?' in the query
+          const values = [
+            deterministic_id, // matches id
+            userId, // matches user_id
+            token, // matches payload
+            userPayload, // matches user
+            lastActivity, // matches last_activity
+          ];
 
-              const expiresIn = 24 * 60 * 60;
-              res.send({
-                status: STATUS.OK,
-                message: "Login successful",
-                access_token: token,
-                token_type: "Bearer",
-                jwt_token: jwt_token,
-                expires_in: expiresIn,
-                user: Array.isArray(userObject) ? userObject[0] : userObject,
+          connection.query(query, values, (err, result) => {
+            if (err) {
+              console.error("❌ Database error:", err);
+              logger.error("Database INSERT failed: " + err.message);
+              return res.status(500).send({
+                status: STATUS.INTERNAL_SERVER_ERROR,
+                message: "Database error",
+                error: err.message,
               });
             }
-          );
+
+            const expiresIn = 24 * 60 * 60;
+            res.send({
+              status: STATUS.OK,
+              message: "Login successful",
+              access_token: token,
+              token_type: "Bearer",
+              jwt_token: jwt_token,
+              expires_in: expiresIn,
+              user: Array.isArray(userObject) ? userObject[0] : userObject,
+            });
+          });
         } else {
           // Handle error cases...
           const errorMessage = response.data.Message || "Authentication error";
@@ -355,10 +362,11 @@ class AuthController {
       return res.status(STATUS.BAD_REQUEST).json({ errors: errors.array() });
     }
 
-    if(!req.body.jwt_token) return res.status(STATUS.BAD_REQUEST).json({ status: STATUS.BAD_REQUEST, message: "JWT Token is required" });
+    if (!req.body.jwt_token)
+      return res
+        .status(STATUS.BAD_REQUEST)
+        .json({ status: STATUS.BAD_REQUEST, message: "JWT Token is required" });
 
-    console.log('📢 jwt_token:', req.body.jwt_token);
-    console.log('📢 jwt_token valid:', is_token_valid(req.body.jwt_token));
     if (is_token_valid(req.body.jwt_token) === false)
       return res
         .status(STATUS.UNAUTHORIZED)
@@ -370,12 +378,9 @@ class AuthController {
 
     if (user_info.user) {
       // Use parameterized query to prevent SQL injection
-      //const query = `SELECT * FROM ?? WHERE payload=? AND user_id=?`;
-      //const params = [table_name, user_info.token, user_info.user.UserId];
-      
       const query = `SELECT * FROM ?? WHERE user_id=?`;
       const params = [table_name, user_info.user.UserId];
-      
+
       connection.query(query, params, async (error, results) => {
         if (error) {
           logger.error("Database error: ", error);
@@ -385,14 +390,14 @@ class AuthController {
             data: null,
           });
         }
-        //TODO: Change this after fixing SQL insert in Laravel projects
+
         if (results.length > 0 || Object.keys(user_info?.user).length !== 0) {
           const user = results.length > 0 ? results[0] : user_info?.user;
 
           // Parse the JSON string from the database
           let parsedUser;
           try {
-             const user_obj = user.hasOwnProperty('user') ? user.user : user;
+            const user_obj = user.hasOwnProperty("user") ? user.user : user;
             parsedUser =
               typeof user_obj === "string" ? JSON.parse(user_obj) : user_obj;
           } catch (parseError) {
@@ -401,45 +406,14 @@ class AuthController {
               message: "Error parsing user data",
             });
           }
-          console.log('Parsed User', parsedUser);
+
           const logged_in_user = fill_user_model(parsedUser);
 
           if (logged_in_user) {
-            let response = { data: {gtls_session: null} };
-            try {
-              const gtamUrl = process.env.GTAM_APP_URL || "";
-
-              const body = {
-                user: parsedUser,
-                token: user_info.token,
-                jwt_token: req.body.jwt_token,
-                gtls_session: null,
-                gtam_url: process.env.GTAM_API_URL || "",
-              };
-              console.log("🗣️ Req body:", body);
-              console.log("🗣️gtamUrs:", gtamUrl);
-              console.log('⛔URL', `${gtamUrl}exchange-token`)
-              response = await axios.post(
-              `${gtamUrl}exchange-token`,
-              body,
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-                }
-              }
-            );
-            } catch (err) {
-              console.log("⛔ Error sharing session:", err.message);
-              logger.error("Error sharing session: " + err.message);
-            }
-            console.log('res', response.data)
-            console.log('gtls session', response.data.data)
             return res.status(STATUS.OK).json({
               token: user_info.token,
               user: logged_in_user,
               jwt_token: req.body.jwt_token,
-              gtls_session: response.data.gtls_session,
             });
           } else {
             return res.status(STATUS.NOTFOUND).json({
@@ -462,9 +436,13 @@ class AuthController {
   async exchangeToken(req, res) {
     try {
       const { user, token, gtls_session, jwt_token } = req.body;
-      const user_obj = typeof user === "string" ?  JSON.parse(user) : user;
+      const user_obj = typeof user === "string" ? JSON.parse(user) : user;
 
-      console.log("📢 Valid Session from Laravel:", user_obj?.UserId, gtls_session);
+      console.log(
+        "📢 Valid Session from Laravel:",
+        user_obj?.UserId,
+        gtls_session,
+      );
       if (!user_obj || !token || !gtls_session) {
         return res.status(STATUS.BAD_REQUEST).json({
           error: "User and token are required",
@@ -479,13 +457,10 @@ class AuthController {
         });
       }
 
-      console.log("📢 Session is valid:", isValidSession);
-      console.log("🗼 gtls_session:", gtls_session, "jwt_token:", jwt_token);
       if (gtls_session && !jwt_token) {
         // Session is valid, from another app
         // Generate JWT token
         const jwt_token_new = generate_token(user_obj, token);
-        console.log("🗼 new jwt token:", jwt_token_new);
         return res.status(STATUS.OK).json({
           token: token,
           user: user_obj,

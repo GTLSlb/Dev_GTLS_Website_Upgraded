@@ -2,7 +2,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-import { Search, Loader, SearchXIcon } from "lucide-react";
+import { Search, Loader, SearchXIcon, HourglassIcon } from "lucide-react";
 
 import { SearchResult } from "@/lib/types/searchResults";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
@@ -25,14 +25,31 @@ export default function SearchContainer({
   const [isLoadingResults, setIsLoadingResults] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  // Handle debouncing: Only perform search after 500ms of no input
-  const [debouncedQuery, setDebouncedQuery] = React.useState(query);
+  // 1. Handle debouncing: Only update debouncedQuery after 500ms of silence
   React.useEffect(() => {
-    debounceQuery(query, setDebouncedQuery);
+    // Set a timer to update the debounced value
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 500);
+
+    // Cleanup function runs every time 'query' changes.
+    // It clears the previous timer, so 'setDebouncedQuery' only fires
+    // if the user stops typing for 500ms.
+    return () => {
+      clearTimeout(handler);
+    };
   }, [query]);
 
-  // 2. Perform the Search: Triggered only when debouncedQuery changes
+  // Handle debouncing: Only perform search after 500ms of no input
+  const [debouncedQuery, setDebouncedQuery] = React.useState(query);
+  // 2. Perform the Search: This will now only fire once debouncedQuery updates
   React.useEffect(() => {
+    // Prevent searching on empty strings or initial load if desired
+    if (!debouncedQuery.trim()) {
+      setSearchResults({ query: debouncedQuery, total_hits: 0, results: [] });
+      return;
+    }
+
     performSearch(
       debouncedQuery,
       setIsLoadingResults,
@@ -48,6 +65,8 @@ export default function SearchContainer({
       setOpenSearchContainer(false);
       setSearchResults({ query: "", total_hits: 0, results: [] });
       setQuery("");
+      setIsLoadingResults(false);
+      setErrorMessage("");
     }
   };
 
@@ -69,7 +88,17 @@ export default function SearchContainer({
           isLoadingResults ? "block" : "hidden"
         } absolute size-4 right-7 top-7 animate-spin`}
       />
-      {searchResults?.results?.length == 0 && query == "" ? (
+      {/*  Render Search Results or suggestions */}
+      {/* Loading State */}
+      {isLoadingResults ? (
+        <div className="flex items-center justify-center gap-2 text-gray-600 italic h-20">
+          <span className="animate-pulse">Fetching results </span>
+          <span className="inline-block animate-hourglass text-gold">
+            <HourglassIcon size={16} />
+          </span>
+        </div>
+      ) : searchResults?.results?.length == 0 && query == "" ? (
+        // No query entered - show popular searches
         <div>
           <TextWrapper
             text="Popular Searches"
@@ -106,6 +135,7 @@ export default function SearchContainer({
         </div>
       ) : (
         <div>
+          {/* Search Results */}
           <TextWrapper
             text="Search Results"
             fontFamily="dmSans"
@@ -113,6 +143,7 @@ export default function SearchContainer({
             className="text-gray-600 text-sm"
           />
           {errorMessage && errorMessage != "" ? (
+            // Error State
             <div className="my-4 flex items-center justify-baseline gap-x-2 text-red-600">
               <SearchXIcon className="size-4" />
               <TextWrapper

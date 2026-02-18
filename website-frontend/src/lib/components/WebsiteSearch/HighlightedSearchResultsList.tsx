@@ -95,13 +95,13 @@ const HighlightedText: React.FC<{
 
   // Use a regex with 'g' (global) and 'i' (case-insensitive) flags
   // Ensure we escape special characters in the query to prevent regex errors
-  const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const parts = text.split(new RegExp(`(${escapedQuery})`, "gi"));
+  const escapedQuery = query?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const parts = text?.split(new RegExp(`(${escapedQuery})`, "gi"));
 
   return (
     <div key={text?.substring(0, 2)} className="inline">
-      {parts.map((part, index) =>
-        part.toLowerCase() === query.toLowerCase() ? (
+      {parts?.map((part, index) =>
+        part?.toLowerCase() === query?.toLowerCase() ? (
           <mark key={index} className="bg-yellow-300 px-1 rounded font-medium inline">
             {part}
           </mark>
@@ -127,9 +127,10 @@ const HighlightedSearchResultsList: React.FC<
       </div>
     );
   }
+
   return (
     <ul className="flex flex-col gap-3 my-2 mb-6">
-      {hits.map((hit, index) => {
+      {hits?.map((hit, index) => {
         const textPreview = extractTextPreview(hit.document, query);
         const { snippet } = getHighlightedSnippet(textPreview, query);
 

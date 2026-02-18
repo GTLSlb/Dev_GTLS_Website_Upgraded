@@ -1,4 +1,3 @@
-const connection = require("../database/connection");
 const STATUS = require("../shared-utils/status-code");
 
 const {
@@ -42,7 +41,8 @@ const authenticate = async (req, res, next) => {
   } else if (is_valid_JWT) {
     // 1.b. If the token is valid, populate the user info
     const decoded_info = get_user_info(jwt_token);
-
+    console.log("jwt_token", jwt_token)
+console.log("decoded_info", decoded_info)
     const token = decoded_info.token;
     const user_id = decoded_info.userId;
 
@@ -81,7 +81,7 @@ const authenticate = async (req, res, next) => {
     } else {
       return res
         .status(STATUS.UNAUTHORIZED)
-        .json({ status: STATUS.UNAUTHORIZED, message: "Unauthorized", redirect: "/login", user: decoded_info.user, token: decoded_info.token, jwt_token: jwt_token });
+        .json({ status: STATUS.UNAUTHORIZED, message: "Unauthorized", redirect: "/login", user: null, token: null, jwt_token: jwt_token });
     }
   }
 

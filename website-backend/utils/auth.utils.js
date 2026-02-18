@@ -1,12 +1,19 @@
 require("dotenv").config({ path: "../.env" });
 
+// External libraries
 const axios = require("axios");
+const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
-const connection = require("../database/connection");
 
+// Database connections
+const connection = require("../database/connection");
+const strapi_connection = require("../database/strapi.connection");
+
+// Utils
 const STATUS = require("../shared-utils/status-code");
 const logger = require("../shared-utils/logging");
 
+// Models
 const Employee = require("../models/Employee");
 const Customer = require("../models/Customer");
 const Driver = require("../models/Driver");
@@ -22,7 +29,6 @@ const validate_access_token = async (token, user_id) => {
       `${root}Validate/Session`,
       { headers }
     );
-    console.log("GTAM Results:", response.status, "with root", root)
     if (response.status === STATUS.OK) {
       return true;
     } else {
@@ -66,6 +72,17 @@ const clear_storage_cookies = async (req, res, session_domain) => {
 const runQuery = (sql) => {
     return new Promise((resolve, reject) => {
         connection.query(sql, (error, results) => {
+            if (error) {
+                return reject(error);
+            }
+            resolve(results);
+        });
+    });
+};
+
+const runStrapiQuery = (sql) => {
+    return new Promise((resolve, reject) => {
+        strapi_connection.query(sql, (error, results) => {
             if (error) {
                 return reject(error);
             }
@@ -203,16 +220,25 @@ const is_session_valid = async (token, userId) => {
 
     const sql = `SELECT * FROM ${table_name} WHERE payload="${token}" AND user_id="${userId}" LIMIT 1`;
     const results = await runQuery(sql);
-    console.log("MySQL Results:", results?.length)
+
     const isValid = validate_access_token(token, userId);
-    console.log("isValid:", isValid, "results length:", results.length, "Valid?", results.length > 0 && isValid)
     return isValid;
   }catch(e){
     return false;
   }
 }
 
+function generate_deterministic_id(userId, token) {
+  // Combine the two inputs into one string
+  const input = `${userId}-${token}`;
+  
+  // Create a SHA-256 hash and return it as a hex string (or slice it for a shorter ID)
+  return crypto.createHash('sha256').update(input).digest('hex').substring(0, 16);
+}
+
 module.exports = {
+  runQuery,
+  runStrapiQuery,
   validate_access_token,
   clear_storage_cookies,
   destroy_session,
@@ -222,4 +248,5 @@ module.exports = {
   get_user_info,
   fill_user_model,
   is_session_valid,
+  generate_deterministic_id,
 };

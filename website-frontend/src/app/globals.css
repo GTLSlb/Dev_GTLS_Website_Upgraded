@@ -136,10 +136,43 @@
   }
 }
 
+@keyframes ring {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  20%, 60% {
+    transform: rotate(15deg);
+  }
+  40%, 80% {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes hourglass-flip {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+}
+
+
 @layer utilities {
   .animate-slide-ping {
     animation: thrust 1s ease-out infinite;
   }
+  .bell-ring {
+    animation: ring 0.5s ease-in-out;
+  }
+  .hourglass {
+    animation: hourglass-flip 1.5s ease-in-out infinite;
+  }
+}
+
+@theme {
+  --animate-ring: ring 2s ease-in-out infinite;
+  --animate-hourglass: hourglass-flip 2s linear infinite;
 }
 
 .funnel-font {
