@@ -158,7 +158,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </Link>
 
         {/* SEARCH BUTTON */}
-        <Button
+        {/* <Button
           size="sm"
           variant="ghost"
           onClick={() => {
@@ -167,7 +167,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
           className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 !px-3"
         >
           <Search className="size-4" />
-        </Button>
+        </Button> */}
 
         {/* LOGIN BUTTON */}
         <Popover>
