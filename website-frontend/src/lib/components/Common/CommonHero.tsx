@@ -23,14 +23,16 @@ const CommonHero = ({
       <div className="flex flex-col md:flex-row gap-4 md:gap-10">
         {/* Left Title/Subtitle */}
         <div className="flex md:flex-col md:w-7/12 gap-2">
-          <TextWrapper
-            text={title}
-            fontFamily="funnel"
-            styleType="title2"
-            className={`${
-              color === "gold" ? "text-dark-gold" : "text-green"
-            } min-w-xs`}
-          />
+          <h1>
+            <TextWrapper
+              text={title}
+              fontFamily="funnel"
+              styleType="title2"
+              className={`${
+                color === "gold" ? "text-dark-gold" : "text-green"
+              } min-w-xs`}
+            />
+          </h1>
           <TextWrapper
             text={subtitle}
             fontFamily="dmSans"

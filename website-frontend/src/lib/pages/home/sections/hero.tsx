@@ -9,12 +9,14 @@ const Hero = ({ data }: HeroProps) => {
     <SectionContainer className="flex flex-col gap-10 md:gap-14 mt-10 !pt-20 sm:!pt-28">
       <div className="flex flex-col md:flex-row gap-4 md:gap-10">
         <div className="flex md:flex-col gap-4">
-          <TextWrapper
-            text={data.Title}
-            fontFamily="funnel"
-            styleType="title2"
-            className="text-dark-gold min-w-xs"
-          />
+          <h1>
+            <TextWrapper
+              text={data.Title}
+              fontFamily="funnel"
+              styleType="title2"
+              className="text-dark-gold min-w-xs"
+            />
+          </h1>
           <TextWrapper
             text={data.Subtitle}
             fontFamily="dmSans"
@@ -35,7 +37,14 @@ const Hero = ({ data }: HeroProps) => {
 
       <div>
         <video autoPlay loop muted playsInline className="rounded-4xl">
-          <source src={process.env.NEXT_PUBLIC_STRAPI_URL ? process.env.NEXT_PUBLIC_STRAPI_URL + data?.Media?.url : ''} type="video/mp4" />
+          <source
+            src={
+              process.env.NEXT_PUBLIC_STRAPI_URL
+                ? process.env.NEXT_PUBLIC_STRAPI_URL + data?.Media?.url
+                : ""
+            }
+            type="video/mp4"
+          />
           Your browser does not support the video tag.
         </video>
       </div>
