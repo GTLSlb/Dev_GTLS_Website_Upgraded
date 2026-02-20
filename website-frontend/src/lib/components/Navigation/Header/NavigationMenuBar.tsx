@@ -30,6 +30,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
 import { SearchResult } from "@/lib/types/searchResults";
 import { removeQuery } from "@/lib/utils/search.utils";
 import { URLs } from "@/lib/utils/constants";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/lib/ui/tooltip";
 
 type NavigationMenuBarProps = {
   data: NavbarContent;
@@ -48,7 +49,6 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
     total_hits: 0,
     results: [],
   });
-
 
   React.useEffect(() => {
     setCurrentPath(pathname);
@@ -136,7 +136,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                       "bg-accent !text-gold",
                     currentPath.includes(URLs.allnews) &&
                       link.href == URLs.news &&
-                      "bg-accent !text-gold"
+                      "bg-accent !text-gold",
                   )}
                 >
                   <Link href={link.href ?? "#"}>{link.label}</Link>
@@ -147,15 +147,26 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-2">
-        <Link href="https://map.gtls.com.au/" className="text-sm font-medium">
-          <Button
-            size="sm"
-            variant="ghost"
-            className="text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 !px-3"
-          >
-            <MapIcon className="size-4" />
-          </Button>
-        </Link>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="https://map.gtls.com.au/"
+              className="text-sm font-medium"
+            >
+              <Button
+                size="sm"
+                variant="ghost"
+                className="text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 !px-3"
+              >
+                <MapIcon className="size-4" />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+
+          <TooltipContent side="bottom">
+            <p>Open Map</p>
+          </TooltipContent>
+        </Tooltip>
 
         {/* SEARCH BUTTON */}
         {/* <Button
@@ -170,39 +181,46 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </Button> */}
 
         {/* LOGIN BUTTON */}
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="border-gold text-gold hover:bg-gold hover:text-creamy rounded-full py-5 !px-3 hover:cursor-pointer"
-            >
-              <User className="size-4" />
-            </Button>
-          </PopoverTrigger>
-
-          <PopoverContent align="end" side="bottom" className="w-48 p-2">
-            <div className="flex flex-col gap-1">
-              <Link href="/login">
+        <Tooltip>
+          <Popover>
+            <TooltipTrigger asChild>
+              <PopoverTrigger asChild>
                 <Button
+                  size="sm"
                   variant="ghost"
-                  className="w-full justify-start hover:cursor-pointer"
+                  className="border-gold text-gold hover:bg-gold hover:text-creamy rounded-full py-5 !px-3 hover:cursor-pointer"
                 >
-                  Login
+                  <User className="size-4" />
                 </Button>
-              </Link>
+              </PopoverTrigger>
+            </TooltipTrigger>
 
-              <Link href="https://jaixwebapps.gtls.com.au/Portal/Account/Login.aspx">
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start hover:cursor-pointer"
-                >
-                  Portal Login
-                </Button>
-              </Link>
-            </div>
-          </PopoverContent>
-        </Popover>
+            <PopoverContent align="end" side="bottom" className="w-48 p-2">
+              <div className="flex flex-col gap-1">
+                <Link href="/login">
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start hover:cursor-pointer"
+                  >
+                    Login
+                  </Button>
+                </Link>
+
+                <Link href="https://jaixwebapps.gtls.com.au/Portal/Account/Login.aspx">
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start hover:cursor-pointer"
+                  >
+                    Portal Login
+                  </Button>
+                </Link>
+              </div>
+            </PopoverContent>
+            <TooltipContent side="bottom">
+              <p>Login</p>
+            </TooltipContent>
+          </Popover>
+        </Tooltip>
       </div>
       {/* Mobile Menu */}
       <div className="lg:hidden">
@@ -240,17 +258,6 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                   />
                 </Link>
               </div>
-              <Button
-                variant="outline"
-                className="w-full mt-6 border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-xl py-5"
-                // onClick={() => setOpen(false)}
-              >
-                <TextWrapper
-                  text="Login"
-                  fontFamily="dmSans"
-                  styleType="body"
-                />
-              </Button>
             </div>
           </SheetContent>
         </Sheet>
