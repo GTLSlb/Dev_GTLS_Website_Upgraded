@@ -20,6 +20,7 @@ const Recycling = ({ data }: RecyclingProps) => {
             placement="left"
             className="!mt-0"
             description={data.description}
+            isDescriptionHTML={true}
           />
         </div>
 

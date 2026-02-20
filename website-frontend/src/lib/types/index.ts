@@ -64,6 +64,7 @@ export interface CenterTitleProps {
     | undefined; // new prop
   listItems?: { icon?: StrapiMediaFile; title: string }[];
   icon?: StrapiMediaFile;
+  isDescriptionHTML?: boolean
 }
 
 export interface WhyGtlsItem {

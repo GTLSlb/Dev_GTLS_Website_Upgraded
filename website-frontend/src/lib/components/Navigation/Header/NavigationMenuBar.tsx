@@ -152,6 +152,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             <Link
               href="https://map.gtls.com.au/"
               className="text-sm font-medium"
+              target="_blank" rel="noopener noreferrer"
             >
               <Button
                 size="sm"
