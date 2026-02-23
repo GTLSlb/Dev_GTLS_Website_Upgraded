@@ -18,6 +18,7 @@ const OurStory = ({ data }: OurStoryProps) => {
           description={data.content}
           titleColor="text-gold"
           className="!my-0"
+          isDescriptionHTML={true}
         />
       </div>
       <div className="relative w-full md:w-4/12 min-h-96 rounded-4xl rounded-bl-none overflow-hidden">

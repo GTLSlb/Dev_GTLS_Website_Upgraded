@@ -7,6 +7,7 @@ import TextWrapper from "./TextWrapper";
 import { Button } from "@/lib/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import DomPurifyWrapper from "./DomPurifyWrapper";
 
 const CenterTitle: React.FC<CenterTitleProps> = ({
   title,
@@ -22,6 +23,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
   placement = "center", // default center
   listItems,
   link = "",
+  isDescriptionHTML= false,
 }) => {
   const router = useRouter();
   const textColor = dark ? "text-white" : "text-black";
@@ -34,6 +36,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
     center: "items-center text-center",
     right: "items-end text-right",
   };
+  const formattedText = description?.replace(/\\n/g, '\n') || "";
   return (
     <div
       className={`flex flex-col gap-4 mt-5 sm:mt-10 mb-5 sm:mb-10 ${alignmentClasses[placement]} ${className}`}
@@ -49,6 +52,18 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
       )}
       {/* Conditionally render the description if it exists */}
       {description && (
+      isDescriptionHTML
+      ? (
+        <DomPurifyWrapper
+          content={formattedText}
+          fontFamily="dmSans"
+          styleType="body"
+          className={`${
+            placement === "center" ? "max-w-3xl" : ""
+          } ${textColor} whitespace-pre-line`}
+        />
+      )
+      : (
         <TextWrapper
           text={description}
           fontFamily="dmSans"
@@ -57,7 +72,7 @@ const CenterTitle: React.FC<CenterTitleProps> = ({
             placement === "center" ? "max-w-3xl" : ""
           } ${textColor} whitespace-pre-line`}
         />
-      )}
+      ))}
       {/* ✅ List with optional icons */}
       {listItems && listItems.length > 0 && (
         <ul className={`space-y-2 ${placement === "center" ? "mx-auto" : ""}`}>

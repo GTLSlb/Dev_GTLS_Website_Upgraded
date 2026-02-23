@@ -32,6 +32,7 @@ const GreenPractices = ({ data }: GreenPracticesProps) => {
             className="!mt-0"
             placement="left"
             description={data.description}
+            isDescriptionHTML={true}
           />
         </div>
       </div>

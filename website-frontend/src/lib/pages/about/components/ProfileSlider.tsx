@@ -43,7 +43,7 @@ const ProfileSlider: React.FC<OurTeamProps> = ({items} : OurTeamProps) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="flex justify-center mb-0 gap-2">
+      <div className="flex justify-between mb-0 gap-2">
               <button
                 onClick={() => swiperRef?.current?.slidePrev()}
                 className="p-2 rounded-full  border-gray-300 hover:bg-gray-100 transition"
