@@ -6,7 +6,7 @@ import { Search, Loader, SearchXIcon, HourglassIcon } from "lucide-react";
 
 import { SearchResult } from "@/lib/types/searchResults";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
-import { performSearch, debounceQuery } from "@/lib/utils/search.utils";
+import { performSearch } from "@/lib/utils/search.utils";
 
 export default function SearchContainer({
   query,
@@ -67,6 +67,7 @@ export default function SearchContainer({
       setQuery("");
       setIsLoadingResults(false);
       setErrorMessage("");
+      localStorage.setItem("searchResults", JSON.stringify(searchResults));
     }
   };
 
@@ -80,7 +81,7 @@ export default function SearchContainer({
         type="text"
         placeholder="Search"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {setQuery(e.target.value); if(e.target.value != "") setIsLoadingResults(true)}}
       />
       <Search className="absolute size-4 left-6 top-7" />
       <Loader

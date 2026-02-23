@@ -15,7 +15,6 @@ import {
 import { SearchResult } from "@/lib/types/searchResults";
 import TextWrapper from "@/lib/components/Common/TextWrapper";
 
-import AnimatedLoading from "../Loader/AnimatedLoading";
 import SectionContainer from "../Containers/sectionContainer";
 
 import HighlightedSearchResultsList from "./HighlightedSearchResultsList";
@@ -46,13 +45,19 @@ export default function SearchPageLayout() {
     if (debouncedQuery.trim() !== "") {
       setIsLoadingResults(true);
       setErrorMessage(""); // Clear previous errors
-
-      performSearch(
-        debouncedQuery,
-        setIsLoadingResults,
-        setSearchResults,
-        setErrorMessage,
-      );
+      const previousSearchResults = localStorage.getItem("searchResults") || "";
+      if (previousSearchResults !== "") {
+        setSearchResults(JSON.parse(previousSearchResults) as SearchResult);
+        setIsLoadingResults(false);
+        localStorage.removeItem("searchResults");
+      } else {
+        performSearch(
+          debouncedQuery,
+          setIsLoadingResults,
+          setSearchResults,
+          setErrorMessage,
+        );
+      }
     } else {
       // Reset if user clears the input
       setSearchResults({ query: "", total_hits: 0, results: [] });
@@ -60,6 +65,11 @@ export default function SearchPageLayout() {
     }
   }, [debouncedQuery]);
 
+  React.useEffect(() => {
+    if(searchResults.results.length > 0) {
+      localStorage.setItem("searchResults", JSON.stringify(searchResults));
+    }
+  },[searchResults])
   // Pagination state
   const [currentPage, setCurrentPage] = React.useState(1);
   const resultsPerPage = 10;

@@ -326,6 +326,8 @@ const search_typesense_collections = async (query) => {
       q: query,
       query_by: fields.join(", "),
       drop_tokens_threshold: 1,
+      infix: false,
+      prioritize_exact_match: true
     };
   });
 
@@ -346,45 +348,100 @@ const search_typesense_collections = async (query) => {
   }
 };
 
+// async function format_search_results(search_results) {
+//   const results = [];
+//   let total_hits = 0;
+
+//   for (const collection_result of search_results) {
+//     if (collection_result.found > 0) {
+//       total_hits += collection_result.found;
+
+//       // Format basic hit data
+//       const hits = collection_result.hits.map((hit) => ({
+//         id: hit.id,
+//         // Assign a generic name/title field for easier consumption by the client
+//         title:
+//           hit.title ||
+//           hit.name ||
+//           hit.document.title ||
+//           hit.document.name ||
+//           hit.document.label ||
+//           hit.document.description?.slice(0, 12),
+//         type: collection_result.collection, // Useful for the client to know the source
+//         score: hit.text_match,
+//         document: hit.document, // Include the full document data
+//       }));
+
+//       // If hits are empty, continue to the next collection
+//       if (hits.length === 0) continue;
+
+//       // if a hit doesn't have a title, disregarding it for now.
+//       if (hits.some((hit) => !hit.title)) continue;
+
+//       // Enrich with URLs
+//       const enrichedHits = await enrich_collection_with_urls(
+//         collection_result.collection,
+//         hits,
+//       );
+      
+//       logger.info('✅ Found ', enrichedHits.length, ' hits for collection ', collection_result.collection);
+
+//       results.push({
+//         collection: collection_result.collection,
+//         found: collection_result.found,
+//         hits: enrichedHits,
+//       });
+//     }
+//   }
+
+//   return { total_hits: total_hits, results: results };
+// }
+
 async function format_search_results(search_results) {
   const results = [];
-  let total_hits = 0;
+  let global_total = 0;
 
   for (const collection_result of search_results) {
     if (collection_result.found > 0) {
-      total_hits += collection_result.found;
+      
+      // Filter out only true duplicates within THIS specific collection
+      const seenInThisCollection = new Set();
 
-      // Format basic hit data
-      const hits = collection_result.hits.map((hit) => ({
-        id: hit.id,
-        // Assign a generic name/title field for easier consumption by the client
-        title:
-          hit.title ||
-          hit.name ||
-          hit.document.title ||
-          hit.document.name ||
-          hit.document.label ||
-          hit.document.description?.slice(0, 12),
-        type: collection_result.collection, // Useful for the client to know the source
-        score: hit.text_match,
-        document: hit.document, // Include the full document data
-      }));
+      const hits = collection_result.hits
+        .map((hit) => ({
+          id: hit.id,
+          title: hit.title || hit.name || hit.document.title || hit.document.name || hit.document.label || hit.document.description?.slice(0, 12),
+          type: collection_result.collection,
+          score: hit.text_match,
+          document: hit.document,
+        }))
+        .filter((hit) => {
+          // 1. Must have a title
+          if (!hit.title) return false;
+          
+          // 2. Check for duplicates using ID + Title to be safe
+          const uniqueKey = `${hit.id}_${hit.title}`;
+          if (seenInThisCollection.has(uniqueKey)) return false;
+          
+          seenInThisCollection.add(uniqueKey);
+          return true;
+        });
 
-      // Enrich with URLs
-      const enrichedHits = await enrich_collection_with_urls(
-        collection_result.collection,
-        hits,
-      );
-      // logger.info('enrichedHits', enrichedHits)
+      if (hits.length === 0) continue;
+
+      const enrichedHits = await enrich_collection_with_urls(collection_result.collection, hits);
+      
+      global_total += enrichedHits.length;
+
       results.push({
         collection: collection_result.collection,
-        found: collection_result.found,
+        found: enrichedHits.length,
         hits: enrichedHits,
       });
     }
   }
 
-  return { total_hits: total_hits, results: results };
+  return { total_hits: global_total, results: results };
 }
 
 const delete_all_typesense_collections = async () => {
