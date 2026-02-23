@@ -147,39 +147,41 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </NavigationMenu>
       </div>
       <div className="flex items-center space-x-2">
+        {/* MAP BUTTON */}
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
               href="https://map.gtls.com.au/"
-              className="text-sm font-medium"
-              target="_blank" rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View National Road Alerts Map" // A11y fix
+              className="flex items-center justify-center size-10 text-gold hover:bg-gold hover:text-creamy transition-colors rounded-full border border-transparent hover:border-gold"
             >
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 !px-3"
-              >
-                <MapIcon className="size-4" />
-              </Button>
+              <MapIcon className="size-4" />
             </Link>
           </TooltipTrigger>
-
           <TooltipContent side="bottom">
-            <p>Open Map</p>
+            <p>National Road Alerts</p>
           </TooltipContent>
         </Tooltip>
 
         {/* SEARCH BUTTON */}
-        <Button
-          size="sm"
-          variant="ghost"
-          onClick={() => {
-            setOpenSearchContainer(!openSearchContainer);
-          }}
-          className="border-gold text-gold hover:bg-gold hover:text-creamy hover:cursor-pointer rounded-full py-5 !px-3"
-        >
-          <Search className="size-4" />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size="sm"
+              variant="ghost"
+              aria-label="Open Search" // A11y fix
+              onClick={() => setOpenSearchContainer(!openSearchContainer)}
+              className="border-gold text-gold hover:bg-gold hover:text-creamy rounded-full py-5 !px-3"
+            >
+              <Search className="size-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            <p>Search</p>
+          </TooltipContent>
+        </Tooltip>
 
         {/* LOGIN BUTTON */}
         <Tooltip>
@@ -189,31 +191,28 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
                 <Button
                   size="sm"
                   variant="ghost"
-                  className="border-gold text-gold hover:bg-gold hover:text-creamy rounded-full py-5 !px-3 hover:cursor-pointer"
+                  aria-label="Login Options" // A11y fix
+                  className="border-gold text-gold hover:bg-gold hover:text-creamy rounded-full py-5 !px-3"
                 >
                   <User className="size-4" />
                 </Button>
               </PopoverTrigger>
             </TooltipTrigger>
-
             <PopoverContent align="end" side="bottom" className="w-48 p-2">
               <div className="flex flex-col gap-1">
-                <Link href="/login">
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start hover:cursor-pointer"
-                  >
-                    Login
-                  </Button>
+                <Link
+                  href="/login"
+                  className="flex w-full items-center px-3 py-2 text-sm hover:bg-accent rounded-md transition-colors"
+                >
+                  Login
                 </Link>
-
-                <Link href="https://jaixwebapps.gtls.com.au/Portal/Account/Login.aspx">
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start hover:cursor-pointer"
-                  >
-                    Portal Login
-                  </Button>
+                <Link
+                  href="https://jaixwebapps.gtls.com.au/Portal/Account/Login.aspx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center px-3 py-2 text-sm hover:bg-accent rounded-md transition-colors"
+                >
+                  Portal Login
                 </Link>
               </div>
             </PopoverContent>
