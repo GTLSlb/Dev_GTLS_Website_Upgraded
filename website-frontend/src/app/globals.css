@@ -236,3 +236,37 @@
 .swiper-button-prev {
   color: #a37100 !important; /* your gold color */
 }
+
+@media print {
+  @page {
+    size: auto;
+    margin: 1cm;
+  }
+
+
+
+  /* Force lg: breakpoint classes too */
+  .lg\:flex { display: flex !important; }
+  .lg\:hidden { display: none !important; }
+  .lg\:block { display: block !important; }
+  .lg\:grid { display: grid !important; }
+  .lg\:flex-row { flex-direction: row !important; }
+  .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .lg\:w-full { width: 100% !important; }
+  .lg\:w-1\/2 { width: 50% !important; }
+  .lg\:items-center { align-items: center !important; }
+  .lg\:justify-between { justify-content: space-between !important; }
+  .lg\:gap-4 { gap: 1rem !important; }
+  .lg\:gap-6 { gap: 1.5rem !important; }
+  .lg\:gap-8 { gap: 2rem !important; }
+  .lg\:px-6 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+  .lg\:px-8 { padding-left: 2rem !important; padding-right: 2rem !important; }
+  .lg\:py-6 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+  .lg\:text-lg { font-size: 1.125rem !important; }
+  .lg\:text-xl { font-size: 1.25rem !important; }
+  .lg\:text-2xl { font-size: 1.5rem !important; }
+  .lg\:text-3xl { font-size: 1.875rem !important; }
+  .lg\:text-4xl { font-size: 2.25rem !important; }
+}
