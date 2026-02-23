@@ -12,12 +12,12 @@ const Gtrs = ({ data }: GtrsProps) => {
   return (
     <SectionContainer parentClassName="bg-gray-50">
       <CenterTitle title={data.title} description={data.description} />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-        {data.GtrsFeatures.map((item, index) => (
-          <div
-            key={index}
-            className="group flex flex-col bg-white text-center p-6 border border-gray-100 rounded-2xl gap-3 transition-all hover:bg-creamy duration-300 hover:shadow-xl hover:-translate-y-2"
-          >
+      <div className="flex flex-wrap justify-center gap-8 mt-10">
+  {data.GtrsFeatures.map((item, index) => (
+    <div
+      key={index}
+      className="group flex flex-col bg-white text-center p-6 border border-gray-100 rounded-2xl gap-3 transition-all hover:bg-creamy duration-300 hover:shadow-xl hover:-translate-y-2 w-full md:w-[30%]"
+    >
             <div className="relative w-16 h-16 rounded-3xl group-hover:shadow-xl bg-creamy">
               <Image
                 src={StrapiLink(item.icon.url)}

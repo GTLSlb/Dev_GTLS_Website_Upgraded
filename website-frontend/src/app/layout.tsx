@@ -26,7 +26,7 @@ export async function generateMetadata() {
   const metadataBase = new URL("https://fmcshops.com");
 
   return {
-    title: "Gold Tiger Logistics Solutions X",
+    title: "Gold Tiger Logistics Solutions",
     description: "SMARTER SUPPLY CHAIN MANAGEMENT",
     applicationName: "GTLS",
     referrer: "origin-when-cross-origin",

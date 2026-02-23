@@ -19,6 +19,7 @@ const News = ({ data }: NewsProps) => {
         buttonVariant={"default"}
         className="!mt-0 !mb-5"
         link={"/news"}
+        isDescriptionHTML={true}
         onButtonClick={() => {}}
       />
       <NewsSlider news={data.SliderItems} />

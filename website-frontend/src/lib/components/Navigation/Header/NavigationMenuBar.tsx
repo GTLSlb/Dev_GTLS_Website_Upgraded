@@ -166,7 +166,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
         </Tooltip>
 
         {/* SEARCH BUTTON */}
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger asChild>
             <Button
               size="sm"
@@ -181,7 +181,7 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
           <TooltipContent side="bottom">
             <p>Search</p>
           </TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
 
         {/* LOGIN BUTTON */}
         <Tooltip>
@@ -202,6 +202,8 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
               <div className="flex flex-col gap-1">
                 <Link
                   href="/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex w-full items-center px-3 py-2 text-sm hover:bg-accent rounded-md transition-colors"
                 >
                   Login
