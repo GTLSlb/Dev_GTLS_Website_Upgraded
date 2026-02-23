@@ -44,16 +44,21 @@ const NewsSlider: React.FC<{ news: RecentNewsDataType[] }> = ({ news }) => {
       </Swiper>
       <div className="flex justify-center mb-0 gap-2">
         <button
+          type="button"
           onClick={() => swiperRef?.current?.slidePrev()}
-          className="p-2 rounded-full  border-gray-300 hover:bg-gray-100 transition"
+          aria-label="Previous slide" // A11y fix
+          className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-gold"
         >
-          <MoveLeft className="w-4 h-4 text-gold" />
+          <MoveLeft className="w-4 h-4 text-gold" aria-hidden="true" />
         </button>
+
         <button
+          type="button"
           onClick={() => swiperRef?.current?.slideNext()}
-          className="p-2 rounded-full  border-gray-300 hover:bg-gray-100 transition"
+          aria-label="Next slide" // A11y fix
+          className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-gold"
         >
-          <MoveRight className="w-4 h-4 text-gold" />
+          <MoveRight className="w-4 h-4 text-gold" aria-hidden="true" />
         </button>
       </div>
     </div>
