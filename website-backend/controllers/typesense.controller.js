@@ -46,19 +46,6 @@ class TypesenseController {
         // 1. Fetch a large batch per collection so pagination works correctly
         const results = await search_typesense_collections(query, 100);
 
-        console.log(
-          "Raw Typesense results:",
-          JSON.stringify(
-            results.map((r) => ({
-              collection: r.collection || r.request_params?.collection_name,
-              found: r.found,
-              hits_returned: r.hits?.length,
-            })),
-            null,
-            2,
-          ),
-        );
-
         // 3. Format and enrich results
         const formatted_results = await format_search_results(results);
 
@@ -74,9 +61,6 @@ class TypesenseController {
 
         // 2. Get grand total from Typesense's 'found' field (true total in index)
         grandTotal = all_hits.length;
-
-        console.log("Total fetched and formatted:", all_hits.length);
-        console.log("Grand total across all collections:", grandTotal);
 
         // 5. Cache results
         searchCache.set(cacheKey, {
@@ -95,11 +79,10 @@ class TypesenseController {
       // 6. Apply pagination to sorted all_hits
       const startIndex = (page - 1) * limit;
       const endIndex = startIndex + limit;
-      console.log("Index", startIndex, endIndex);
 
       const paginatedHits = all_hits.slice(startIndex, endIndex);
 
-      console.log(
+      logger.info(
         `Page ${page}: Returning hits ${startIndex}-${endIndex} (${paginatedHits.length} results)`,
       );
 

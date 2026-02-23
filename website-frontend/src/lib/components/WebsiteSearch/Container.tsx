@@ -30,11 +30,11 @@ export default function SearchContainer({
     // Set a timer to update the debounced value
     const handler = setTimeout(() => {
       setDebouncedQuery(query);
-    }, 500);
+    }, 1000);
 
     // Cleanup function runs every time 'query' changes.
     // It clears the previous timer, so 'setDebouncedQuery' only fires
-    // if the user stops typing for 500ms.
+    // if the user stops typing for 1000ms.
     return () => {
       clearTimeout(handler);
     };

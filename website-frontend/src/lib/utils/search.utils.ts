@@ -44,9 +44,9 @@ export async function debounceQuery(
   setDebouncedQuery: (query: string) => void,
 ) {
   const handler = setTimeout(() => {
-    // 500ms delay
+    // 1000ms delay
     setDebouncedQuery(query);
-  }, 500);
+  }, 1000);
 
   return () => {
     // Cancel the timeout if the user types again
