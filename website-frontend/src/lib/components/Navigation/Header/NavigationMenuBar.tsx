@@ -47,6 +47,10 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
   const [searchResults, setSearchResults] = React.useState<SearchResult>({
     query: "",
     total_hits: 0,
+    pagination: {
+      current_page: 1,
+      per_page: 10,
+    },
     results: [],
   });
 
@@ -152,7 +156,8 @@ export function NavigationMenuBar({ data }: NavigationMenuBarProps) {
             <Link
               href="https://map.gtls.com.au/"
               className="text-sm font-medium"
-              target="_blank" rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Button
                 size="sm"

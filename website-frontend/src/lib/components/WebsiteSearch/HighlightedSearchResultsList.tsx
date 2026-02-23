@@ -2,28 +2,18 @@
 import React from "react";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {
+  HighlightedSearchResultsListProps,
+  SearchResultHit,
+} from "@/lib/types/searchResults";
 
 // Define the expected structure of a single hit object from your formatted search results
-interface SearchHit {
-  id: string;
-  title: string;
-  type: string; // The collection name (used as 'collection' in your original map)
-  document: any;
-  score: number;
-  url: string;
-}
-
-interface HighlightedSearchResultsListProps {
-  maxScore: number;
-  hits: SearchHit[];
-  query: string;
-}
 
 // Utility function to extract text preview from any document structure
 const extractTextPreview = (
   doc: any,
   query: string,
-  maxLength = 200
+  maxLength = 200,
 ): string => {
   const searchableFields = [
     "text_content",
@@ -62,7 +52,7 @@ const extractTextPreview = (
 const getHighlightedSnippet = (
   text: string,
   query: string,
-  maxLength = 200
+  maxLength = 200,
 ): { snippet: string; hasMatch: boolean } => {
   if (!query || !text)
     return { snippet: text.substring(0, maxLength) + "...", hasMatch: false };
@@ -102,12 +92,15 @@ const HighlightedText: React.FC<{
     <div key={text?.substring(0, 2)} className="inline">
       {parts?.map((part, index) =>
         part?.toLowerCase() === query?.toLowerCase() ? (
-          <mark key={index} className="bg-yellow-300 px-1 rounded font-medium inline">
+          <mark
+            key={index}
+            className="bg-yellow-300 px-1 rounded font-medium inline"
+          >
             {part}
           </mark>
         ) : (
           <span key={index}>{part}</span>
-        )
+        ),
       )}
     </div>
   );
@@ -115,7 +108,7 @@ const HighlightedText: React.FC<{
 
 const HighlightedSearchResultsList: React.FC<
   HighlightedSearchResultsListProps
-> = ({ maxScore, hits, query }) => {
+> = ({ hits, query }) => {
   const router = useRouter();
   const handleClick = (href: string) => {
     router.push(href);
@@ -145,12 +138,12 @@ const HighlightedSearchResultsList: React.FC<
                     <h3 className="font-semibold text-lg mb-1">
                       <HighlightedText text={hit.title} query={query} />
                     </h3>
-                    <p className="flex text-sm text-gray-600 mb-2 line-clamp-2">
+                    <div className="flex text-sm text-gray-600 mb-2 line-clamp-2">
                       <HighlightedText text={snippet} query={query} />
-                    </p>
+                    </div>
                     <div className="flex justify-start items-start gap-2 text-xs text-gray-500">
                       <span className="bg-gray-100 px-2 py-1 rounded">
-                        {((hit.score / maxScore) * 100).toFixed(2)}% match
+                        {hit.relative_score.toFixed(2)}% match
                       </span>
                     </div>
                   </div>

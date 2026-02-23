@@ -4,6 +4,8 @@ import { SearchResult } from "@/lib/types/searchResults";
 // Function to perform the search: Triggered only when debouncedQuery changes
 export async function performSearch(
   debouncedQuery: string,
+  page: number,
+  limit: number,
   setIsLoadingResults: (isLoading: boolean) => void,
   setSearchResults: (results: SearchResult) => void,
   setError: (error: string) => void,
@@ -11,20 +13,26 @@ export async function performSearch(
   setError("");
   if (debouncedQuery.trim() !== "") {
     setIsLoadingResults(true);
-    search(debouncedQuery)
-    .then((data) => {
-      setSearchResults(data as SearchResult);
-      setIsLoadingResults(false);
-    })
-    .catch((error) => {
-      const errorData = error.response.data;
-      setError(errorData.error);
-      setIsLoadingResults(false);
-    })
+    search(debouncedQuery, page, limit)
+      .then((data) => {
+        setSearchResults(data as SearchResult);
+        setIsLoadingResults(false);
+      })
+      .catch((error) => {
+        const errorData = error.response.data;
+        setError(errorData.error);
+        setIsLoadingResults(false);
+      });
   } else {
     setSearchResults({
       query: "",
       total_hits: 0,
+      pagination: {
+        current_page: 1,
+        per_page: 10,
+        total_pages: 1,
+        has_more: false,
+      },
       results: [],
     });
     setIsLoadingResults(false);
@@ -57,6 +65,12 @@ export async function removeQuery(
   setSearchResults({
     query: "",
     total_hits: 0,
+    pagination: {
+      current_page: 1,
+      per_page: 10,
+      total_pages: 1,
+      has_more: false,
+    },
     results: [],
   });
 }

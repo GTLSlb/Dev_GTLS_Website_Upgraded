@@ -38,10 +38,12 @@ export async function delete_all_collections() {
   }
 }
 
-export async function search(query: string) {
+export async function search(query: string, page: number, limit: number) {
   try {
     const params = {
       q: query,
+      page: page,
+      limit: limit
     };
     const response = await api_client.get("/search", {
       params,

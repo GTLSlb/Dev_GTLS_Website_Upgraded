@@ -30,6 +30,12 @@ export default function SearchPageLayout() {
   const [searchResults, setSearchResults] = React.useState<SearchResult>({
     query: "",
     total_hits: 0,
+    pagination: {
+      current_page: 1,
+      per_page: 10,
+      total_pages: 1,
+      has_more: false,
+    },
     results: [],
   });
 
@@ -46,13 +52,21 @@ export default function SearchPageLayout() {
       setIsLoadingResults(true);
       setErrorMessage(""); // Clear previous errors
       const previousSearchResults = localStorage.getItem("searchResults") || "";
-      if (previousSearchResults !== "") {
+      const previousSearchQuery = localStorage.getItem("searchQuery") || "";
+
+      // If there are previous search results and the query hasn't changed, use them
+      if (
+        previousSearchResults !== "" &&
+        previousSearchQuery === debouncedQuery
+      ) {
         setSearchResults(JSON.parse(previousSearchResults) as SearchResult);
         setIsLoadingResults(false);
         localStorage.removeItem("searchResults");
       } else {
         performSearch(
           debouncedQuery,
+          currentPage,
+          resultsPerPage,
           setIsLoadingResults,
           setSearchResults,
           setErrorMessage,
@@ -60,16 +74,27 @@ export default function SearchPageLayout() {
       }
     } else {
       // Reset if user clears the input
-      setSearchResults({ query: "", total_hits: 0, results: [] });
+      setSearchResults({
+        query: "",
+        total_hits: 0,
+        pagination: {
+          current_page: 1,
+          per_page: 10,
+          total_pages: 1,
+          has_more: false,
+        },
+        results: [],
+      });
       setIsLoadingResults(false);
     }
   }, [debouncedQuery]);
 
   React.useEffect(() => {
-    if(searchResults.results.length > 0) {
+    if (searchResults.results.length > 0) {
       localStorage.setItem("searchResults", JSON.stringify(searchResults));
+      localStorage.setItem("searchQuery", debouncedQuery);
     }
-  },[searchResults])
+  }, [searchResults]);
   // Pagination state
   const [currentPage, setCurrentPage] = React.useState(1);
   const resultsPerPage = 10;
@@ -86,28 +111,39 @@ export default function SearchPageLayout() {
   }, [searchResults]);
 
   // Calculate pagination
-  const totalPages = Math.ceil(allHits.length / resultsPerPage);
-  const startIndex = (currentPage - 1) * resultsPerPage;
-  const endIndex = startIndex + resultsPerPage;
-  const currentHits = allHits.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(searchResults.total_hits / resultsPerPage);
+  //const startIndex = (currentPage - 1) * resultsPerPage;
+  //const endIndex = startIndex + resultsPerPage;
+  // const currentHits = allHits.slice(startIndex, endIndex);
 
   // Pagination handlers
-  const goToPage = (page: number) => {
+  const goToPage = async (page: number) => {
     setCurrentPage(page);
+    setIsLoadingResults(true);
+    await performSearch(
+        debouncedQuery,
+        page,
+        resultsPerPage,
+        setIsLoadingResults,
+        setSearchResults,
+        setErrorMessage,
+      );
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Go to previous page
-  const goToPrevPage = () => {
+  const goToPrevPage = async () => {
     if (currentPage > 1) {
       goToPage(currentPage - 1);
     }
   };
 
   // Go to next page
-  const goToNextPage = () => {
+  const goToNextPage = async () => {
     if (currentPage < totalPages) {
       goToPage(currentPage + 1);
+      
     }
   };
 
@@ -165,6 +201,7 @@ export default function SearchPageLayout() {
             type="text"
             placeholder="Search our services, locations..."
             value={query}
+            disabled={isLoadingResults}
             onChange={(e) => setQuery(e.target.value)}
           />
           <Search className="absolute size-4 left-4 top-[17px] text-gray-400" />
@@ -219,11 +256,7 @@ export default function SearchPageLayout() {
                 {/* Search Results */}
                 <div>
                   <TextWrapper
-                    text={`${allHits.length} results found ${
-                      currentPage > 1
-                        ? `(Page ${currentPage} of ${totalPages})`
-                        : ""
-                    }`}
+                    text={`${searchResults.total_hits} results found`}
                     fontFamily="dmSans"
                     styleType="body"
                     className={`text-gray-600 text-sm mb-4 ${
@@ -232,11 +265,7 @@ export default function SearchPageLayout() {
                   />
                   <>
                     <HighlightedSearchResultsList
-                      maxScore={
-                        (searchResults.results[0]?.hits[0].score as number) ||
-                        578730123365189800
-                      }
-                      hits={currentHits}
+                      hits={allHits}
                       query={query}
                     />
 

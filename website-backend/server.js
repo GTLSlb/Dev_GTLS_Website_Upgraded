@@ -20,6 +20,7 @@ const app = express();
 
 // Configuration
 const logger = require("./shared-utils/logging");
+const { getSearchableFields } = require("./utils/typesense.utils");
 const port = process.env.PORT || 3000;
 
 // Connect to MySQL
@@ -68,7 +69,11 @@ app.use(typesenseRoutes);
 app.use(authenticate, uploadRoutes);
 
 // Start the server
-app.listen(port, () => {
+app.listen(port, async () => {
+  // Warm up the Typesense cache before the server even accepts requests
+  logger.info("Warming up Typesense schema cache...");
+  await getSearchableFields();
+
   logger.info(`server is running on port ${port}...`);
 });
 

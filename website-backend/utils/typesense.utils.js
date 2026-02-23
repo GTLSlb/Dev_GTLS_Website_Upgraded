@@ -18,6 +18,20 @@ const exactExclusions = [
   "footers",
   "heared_froms",
   "search_indices",
+  "components_elements_footer_menus",
+	"components_elements_footer_menus_cmps",
+	"components_elements_footer_menu_items",
+	"components_layout_footers",
+	"components_layout_footers_cmps",
+	"footers",
+	"footers_cmps",
+  "components_layout_nav_bars",
+	"components_layout_nav_bars_cmps",
+	"components_layout_nav_items",
+	"components_layout_nav_items_children",
+	"components_layout_nav_items_cmps",
+	"navbars",
+	"navbars_cmps",
 ];
 const patternExclusions = [
   "admin_%",
@@ -30,6 +44,7 @@ const patternExclusions = [
   "up_%",
   "upload_%",
   "files_%",
+  "%_cmps"
 ];
 
 const get_filtered_db_tables = async () => {
@@ -227,221 +242,179 @@ const index_data = async () => {
 };
 
 const perform_search = async (searches) => {
-  const search_results = [];
-  for (const search of searches) {
-    logger.info(
-      `⏳ Searching in Typesense collection ${search.collection} ...`,
-    );
-    try {
-      // Correct way to search in Typesense
-      const result = await typesense_client
+  try {
+    // 1. Create an array of search promises immediately
+    const searchPromises = searches.map(search =>
+      typesense_client
         .collections(search.collection)
         .documents()
         .search({
           q: search.q,
+          per_page: 100,
           query_by: search.query_by,
           drop_tokens_threshold: search.drop_tokens_threshold,
-        });
-
-      search_results.push({
-        collection: search.collection,
-        found: result.found,
-        hits: result.hits,
-      });
-    } catch (error) {
-      logger.error(`🛑 Typesense search failed: ${error.message}`);
-      if (error.response && error.response.data) {
-        logger.error("Typesense error details:", error.response.data);
-      }
-      throw new Error("Failed to execute search query.", { cause: error });
-    }
-  }
-
-  return search_results;
-};
-
-const search_typesense_collections = async (query) => {
-  if (!query || query.trim() === "") {
-    return { error: "Search query cannot be empty." };
-  }
-
-  // --- Fetch All Collection Names ---
-  let collectionNames = [],
-    collectionsFields = [];
-  try {
-    const collectionsResult = await typesense_client.collections().retrieve();
-
-    // Extract collection names
-    collectionNames = collectionsResult.map((c) => c.name);
-
-    // Fetch schema details for each collection
-    const collectionSchemas = {};
-
-    for (const collection of collectionsResult) {
-      const schema = await typesense_client
-        .collections(collection.name)
-        .retrieve();
-
-      collectionSchemas[collection.name] = schema.fields;
-    }
-
-    collectionsFields = Object.entries(collectionSchemas).map(
-      ([name, fields]) => {
-        return {
-          name: name,
-          fields: fields
-            .filter((field) => {
-              // Only include fields that are explicitly indexed AND
-              // are not the special Typesense wildcard field.
-              return (
-                field.index === true &&
-                field.name !== ".*" &&
-                field.type == "string"
-              );
-            })
-            .map((field) => field.name),
-        };
-      },
-    );
-  } catch (e) {
-    logger.error(
-      `🛑 Failed to retrieve collection list from Typesense: ${e.message}`,
-    );
-    throw new Error("Failed to get collection list for search.", { cause: e });
-  }
-
-  if (collectionNames.length === 0) {
-    logger.warn("⚠️ No collections found in Typesense to search.");
-    return { results: [] };
-  }
-
-  // --- Define Search Fields ---
-  const searches = collectionsFields.map((collection) => {
-    const { name, fields } = collection;
-    if (fields?.length == 0) {
-      return null;
-    }
-    return {
-      collection: name,
-      q: query,
-      query_by: fields.join(", "),
-      drop_tokens_threshold: 1,
-      infix: false,
-      prioritize_exact_match: true
-    };
-  });
-
-  // --- Execute Multi-Search ---
-  try {
-    // Filter out null results and perform search
-    const search_results = await perform_search(
-      searches.filter((s) => s !== null),
+        })
+        .then(result => ({
+          collection: search.collection,
+          found: result.found,
+          hits: result.hits,
+        }))
     );
 
+    // 2. Wait for all of them to resolve in parallel
+    const search_results = await Promise.all(searchPromises);
     return search_results;
+
   } catch (error) {
     logger.error(`🛑 Typesense search failed: ${error.message}`);
-    if (error.response && error.response.data) {
-      logger.error("Typesense error details:", error.response.data);
-    }
     throw new Error("Failed to execute search query.", { cause: error });
   }
 };
 
-// async function format_search_results(search_results) {
-//   const results = [];
-//   let total_hits = 0;
 
-//   for (const collection_result of search_results) {
-//     if (collection_result.found > 0) {
-//       total_hits += collection_result.found;
+let cachedCollectionFields = null;
+let lastCacheUpdate = 0;
+const CACHE_TTL = 1000 * 60 * 10; // 10 minutes
 
-//       // Format basic hit data
-//       const hits = collection_result.hits.map((hit) => ({
-//         id: hit.id,
-//         // Assign a generic name/title field for easier consumption by the client
-//         title:
-//           hit.title ||
-//           hit.name ||
-//           hit.document.title ||
-//           hit.document.name ||
-//           hit.document.label ||
-//           hit.document.description?.slice(0, 12),
-//         type: collection_result.collection, // Useful for the client to know the source
-//         score: hit.text_match,
-//         document: hit.document, // Include the full document data
-//       }));
+// Cache collection fields
+// Add this to your cache function
+const getSearchableFields = async () => {
+  const now = Date.now();
+  if (cachedCollectionFields && (now - lastCacheUpdate < CACHE_TTL)) {
+    return cachedCollectionFields;
+  }
 
-//       // If hits are empty, continue to the next collection
-//       if (hits.length === 0) continue;
+  const collectionsResult = await typesense_client.collections().retrieve();
+  
+  // Get document counts in parallel
+  const collectionStats = await Promise.all(
+    collectionsResult.map(async (col) => {
+      try {
+        const stats = await typesense_client.collections(col.name).retrieve();
+        return { name: col.name, num_documents: stats.num_documents, fields: col.fields };
+      } catch (err) {
+        return null;
+      }
+    })
+  );
 
-//       // if a hit doesn't have a title, disregarding it for now.
-//       if (hits.some((hit) => !hit.title)) continue;
+  cachedCollectionFields = collectionStats
+    .filter(col => col && col.num_documents > 0) // Skip empty collections
+    .filter(col => !col.name.includes('_cmps')) // Skip linking tables
+    .filter(col => !col.name.startsWith('admin_')) // Skip admin tables
+    .map(col => ({
+      name: col.name,
+      fields: col.fields
+        .filter(f => f.index && f.name !== ".*" && f.type === "string")
+        .map(f => f.name)
+    }))
+    .filter(col => col.fields.length > 0);
 
-//       // Enrich with URLs
-//       const enrichedHits = await enrich_collection_with_urls(
-//         collection_result.collection,
-//         hits,
-//       );
-      
-//       logger.info('✅ Found ', enrichedHits.length, ' hits for collection ', collection_result.collection);
+  lastCacheUpdate = now;
+  logger.info(`📊 Updated cache: ${cachedCollectionFields.length} searchable collections.`);
+  return cachedCollectionFields;
+};
 
-//       results.push({
-//         collection: collection_result.collection,
-//         found: collection_result.found,
-//         hits: enrichedHits,
-//       });
-//     }
-//   }
+const search_typesense_collections = async (query, page = 1, perPage = 10) => {
+  if (!query?.trim()) return { error: "Search query cannot be empty." };
 
-//   return { total_hits: total_hits, results: results };
-// }
+  try {
+    // 1. Get fields from cache (Instant after the first run)
+    const collectionsFields = await getSearchableFields();
+
+    if (collectionsFields.length === 0) return { results: [] };
+
+    // 2. Map directly to search objects
+    const searches = collectionsFields.map(col => ({
+      collection: col.name,
+      q: query,
+      query_by: col.fields.join(","),
+      drop_tokens_threshold: 1,
+      infix: false,
+      prioritize_exact_match: true,
+      per_page: perPage
+    }));
+
+    // 3. Execute Multi-Search
+    return await perform_search(searches);
+
+  } catch (error) {
+    logger.error(`🛑 Search failed: ${error.message}`);
+    throw new Error("Failed to execute search query.");
+  }
+};
 
 async function format_search_results(search_results) {
-  const results = [];
-  let global_total = 0;
+  // Early exit if no results
+  if (!search_results || search_results.length === 0) {
+    return { total_hits: 0, results: [] };
+  }
 
+  // 1. Filter and prepare in a single pass (avoid double iteration)
+  const collectionTasks = [];
+  
   for (const collection_result of search_results) {
-    if (collection_result.found > 0) {
-      
-      // Filter out only true duplicates within THIS specific collection
-      const seenInThisCollection = new Set();
+    if (collection_result.found === 0) continue;
 
-      const hits = collection_result.hits
-        .map((hit) => ({
-          id: hit.id,
-          title: hit.title || hit.name || hit.document.title || hit.document.name || hit.document.label || hit.document.description?.slice(0, 12),
-          type: collection_result.collection,
-          score: hit.text_match,
-          document: hit.document,
-        }))
-        .filter((hit) => {
-          // 1. Must have a title
-          if (!hit.title) return false;
-          
-          // 2. Check for duplicates using ID + Title to be safe
-          const uniqueKey = `${hit.id}_${hit.title}`;
-          if (seenInThisCollection.has(uniqueKey)) return false;
-          
-          seenInThisCollection.add(uniqueKey);
-          return true;
-        });
+    const seenInThisCollection = new Set();
+    const cleanedHits = [];
 
-      if (hits.length === 0) continue;
+    for (const hit of collection_result.hits) {
+      // Extract title once
+      const title = hit.title 
+        || hit.name 
+        || hit.document?.title 
+        || hit.document?.name 
+        || hit.document?.label 
+        || hit.document?.description?.slice(0, 12);
 
-      const enrichedHits = await enrich_collection_with_urls(collection_result.collection, hits);
-      
-      global_total += enrichedHits.length;
+      if (!title) continue;
 
-      results.push({
-        collection: collection_result.collection,
-        found: enrichedHits.length,
-        hits: enrichedHits,
+      // Check for duplicates
+      const uniqueKey = `${hit.id}_${title}`;
+      if (seenInThisCollection.has(uniqueKey)) continue;
+      seenInThisCollection.add(uniqueKey);
+
+      // Add cleaned hit
+      cleanedHits.push({
+        id: hit.id,
+        title: title,
+        type: collection_result.collection,
+        score: hit.text_match,
+        document: hit.document,
+      });
+    }
+
+    if (cleanedHits.length > 0) {
+      collectionTasks.push({
+        collectionName: collection_result.collection,
+        hits: cleanedHits
       });
     }
   }
 
-  return { total_hits: global_total, results: results };
+  // Early exit if no valid hits after filtering
+  if (collectionTasks.length === 0) {
+    return { total_hits: 0, results: [] };
+  }
+
+  // 2. Parallel Enrichment (Already optimal with Promise.all)
+  const enrichedResults = await Promise.all(
+    collectionTasks.map(async (task) => {
+      const enrichedHits = await enrich_collection_with_urls(task.collectionName, task.hits);
+      
+      return {
+        collection: task.collectionName,
+        found: enrichedHits.length,
+        hits: enrichedHits,
+      };
+    })
+  );
+
+  // 3. Calculate global total (single pass)
+  const global_total = enrichedResults.reduce((sum, res) => sum + res.found, 0);
+
+  return { total_hits: global_total, results: enrichedResults };
 }
 
 const delete_all_typesense_collections = async () => {
@@ -466,9 +439,10 @@ const delete_all_typesense_collections = async () => {
 };
 
 module.exports = {
-  runStrapiQuery,
   index_data,
-  delete_all_typesense_collections,
+  runStrapiQuery,
+  getSearchableFields,
   format_search_results,
   search_typesense_collections,
+  delete_all_typesense_collections,
 };

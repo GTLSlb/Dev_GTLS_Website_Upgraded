@@ -46,12 +46,26 @@ export default function SearchContainer({
   React.useEffect(() => {
     // Prevent searching on empty strings or initial load if desired
     if (!debouncedQuery.trim()) {
-      setSearchResults({ query: debouncedQuery, total_hits: 0, results: [] });
+      setSearchResults({
+        query: debouncedQuery,
+        total_hits: 0,
+        pagination: {
+          current_page: 1,
+          per_page: 10,
+          total_pages: 1,
+          has_more: false,
+        },
+        results: [],
+      });
       return;
     }
 
     performSearch(
       debouncedQuery,
+      // search in page 1
+      1,
+      // limit to 10
+      10,
       setIsLoadingResults,
       setSearchResults,
       setErrorMessage,
@@ -63,11 +77,22 @@ export default function SearchContainer({
     router.push(href);
     if (setOpenSearchContainer) {
       setOpenSearchContainer(false);
-      setSearchResults({ query: "", total_hits: 0, results: [] });
+      setSearchResults({
+        query: "",
+        total_hits: 0,
+        pagination: {
+          current_page: 1,
+          per_page: 10,
+          total_pages: 1,
+          has_more: false,
+        },
+        results: [],
+      });
       setQuery("");
       setIsLoadingResults(false);
       setErrorMessage("");
       localStorage.setItem("searchResults", JSON.stringify(searchResults));
+      localStorage.setItem("searchQuery", debouncedQuery);
     }
   };
 
@@ -81,7 +106,11 @@ export default function SearchContainer({
         type="text"
         placeholder="Search"
         value={query}
-        onChange={(e) => {setQuery(e.target.value); if(e.target.value != "") setIsLoadingResults(true)}}
+        disabled={isLoadingResults}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          if (e.target.value != "") setIsLoadingResults(true);
+        }}
       />
       <Search className="absolute size-4 left-6 top-7" />
       <Loader

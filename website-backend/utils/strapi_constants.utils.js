@@ -89,7 +89,7 @@ const STATIC_URL_MAPPINGS = {
  * START OF UTILITY FUNCTIONS
  */
 
-// async function findParentPageByComponentId(collectionName, hitId) {
+// async function findParentsBatch(collectionName, hitId) {
 //   // Strapi uses dots in component_type (e.g., layout.hero-section)
 //   // but underscores in table names (components_layout_hero_sections)
 //   const strapiComponentType = collectionName
@@ -126,153 +126,130 @@ const STATIC_URL_MAPPINGS = {
 //   return null;
 // }
 
-async function findParentPageByComponentId(collectionName, hit) {
-  const hitId = hit.document.id;
-  let targetUrl = "/";
-  
-  // --- 1. SPECIAL CASE: Hero Sections ---
-  if (collectionName === "components_layout_hero_sections") {
-    try {
-      const heroResult = await runStrapiQuery(
-        `SELECT link, title FROM components_layout_hero_sections WHERE id = ${hitId} LIMIT 1`,
-      );
+const HERO_TITLE_MAP = {
+  "Let's Connect & Collaborate": "/contactus",
+  "Our Story": "/about",
+  "Services": "/services",
+  "News": "/news",
+  "Sustainability & Compliance": "/sustainability",
+  "B-Triple": "/b-triple",
+  "Warehousing Facilities": "/warehousing",
+  "Industries We Serve": "/industries",
+  "Gold Tiger Logistics Solutions": "/about",
+  "Global Transport & Logistics Solutions": "/",
+};
 
-      if (heroResult.length > 0) {
-        const { link, title } = heroResult[0];
-        // If link exists, use it. Otherwise, map the title to a URL.
-        if (link && link.trim() !== "") targetUrl = link;
+// Pre-compile regex for better performance
+const KEYWORD_PATTERNS = [
+  { regex: /transport/i, url: "/transport" },
+  { regex: /warehous(?:ing|e)/i, url: "/warehousing" },
+  { regex: /b-triple/i, url: "/b-triple" },
+  { regex: /about[_.]?us|about/i, url: "/about" },
+];
 
-        const titleMap = {
-          "Let’s Connect & Collaborate": "/contactus",
-          "Our Story": "/about",
-          Services: "/services",
-          News: "/news",
-          "Global Transport & Logistics Solutions": "",
-          "Sustainability & Compliance": "/sustainability",
-          "B-Triple": "/b-triple",
-          "Global Transport & Logistics Solutions": "/",
-          "Warehousing Facilities": "/warehousing",
-          "Industries We Serve": "/industries",
-          "Gold Tiger Logistics Solutions": "/about",
-        };
-        targetUrl = titleMap[title] || "/";
-      }
-    } catch (e) {
-      console.error("Hero table error", e);
-    }
+function getKeywordFallbackUrl(title) {
+  if (!title) return null;
+  for (const { regex, url } of KEYWORD_PATTERNS) {
+    if (regex.test(title)) return url;
   }
-
-  // --- 2. SPECIAL CASE: News Posts ---
-  if (collectionName == "news_items") {
-    // For news items, we want to return /news/[slug]
-    try {
-      const slug = hit.document.document_id;
-      targetUrl = `/all-news/${slug}`;
-    } catch (e) {
-      console.error("News items table error", e);
-    }
-  }
-
-  // --- 3. FLOW B: Search STATIC_SINGLE_TYPES first ---
-  if (!targetUrl || targetUrl === "/") {
-    const entries = Object.entries(STATIC_SINGLE_TYPES);
-
-    // Check if the collectionName is in the entries object, and if so, return the corresponding value
-    for (const [key, value] of entries) {
-      if (collectionName === key) {
-        targetUrl = value;
-        break;
-      }
-    }
-
-    // --- 4. FLOW C: Keyword Fallback ---
-    const title = (hit.title || "").toLowerCase();
-
-    if (title.includes("transport")) targetUrl = "/transport";
-    else if (title.includes("warehousing") || title.includes("warehouse"))
-      targetUrl = "/warehousing";
-    else if (title.includes("b-triple")) targetUrl = "/b-triple";
-    else if (
-      title.includes("about_us") ||
-      title.includes("about") ||
-      title.includes("about.us")
-    )
-      targetUrl = "/about";
-
-    if (targetUrl) mappingType = "keyword_fallback";
-  }
-
-  return targetUrl;
+  return null;
 }
-/**
- * END OF UTILITY FUNCTIONS
- */
+
+async function findParentsBatch(collectionName, hits) {
+  const urlMap = new Map();
+
+  // --- 1. Handle News Items (No DB) ---
+  if (collectionName === "news_items") {
+    for (const hit of hits) {
+      const slug = hit.document.document_id || hit.id;
+      urlMap.set(hit.id, `/all-news/${slug}`);
+    }
+    return urlMap;
+  }
+
+  // --- 2. Handle Hero Sections (No DB) ---
+  if (collectionName === "components_layout_hero_sections") {
+    for (const hit of hits) {
+      const title = hit.document?.title;
+      const url = HERO_TITLE_MAP[title] || "/";
+      urlMap.set(hit.document.id.toString(), url);
+    }
+    return urlMap;
+  }
+
+  // --- 3. Handle Static Single Types & Keyword Fallback (No DB) ---
+  const staticUrl = STATIC_SINGLE_TYPES[collectionName];
+  
+  for (const hit of hits) {
+    let url = staticUrl || getKeywordFallbackUrl(hit.title) || "/";
+    urlMap.set(hit.id, url);
+  }
+
+  return urlMap;
+}
 
 /**
  * Main function to enrich collections with URLs
  */
 async function enrich_collection_with_urls(collectionName, hits) {
-  // Skip if no hits
-  if (hits.length === 0) return hits;
-  const enrichedHits = await Promise.all(
-    hits.map(async (hit) => {
-      let targetUrl = null;
-      let mappingType = "default";
+  const len = hits.length;
+  if (len === 0) return hits;
 
-      // 1. Check STATIC_URL_MAPPINGS first (Direct overrides)
-      targetUrl =
-        STATIC_URL_MAPPINGS[collectionName] || STATIC_URL_MAPPINGS[hit.type];
-      if (targetUrl) mappingType = "static_mapping";
+  // Cache max_score calculation
+  let totalScore = 0;
+  for (let i = 0; i < len; i++) totalScore += hits[i].score;
 
-      // 2. If no static mapping, check if it's a Single Type component with a known URL
-      // 2. Deep Reverse Lookup: Find parent via _cmps tables
-      if (!targetUrl || targetUrl === undefined) {
-        logger.info(
-          "🔴 No static mapping found for",
-          collectionName,
-          "checking for parent page..., hit:",
-          hit,
-        );
-        const parentUrl = await findParentPageByComponentId(
-          collectionName,
-          hit,
-        );
+  // Step 1: Filter and Batch in one pass? (Not needed unless hits > 1000)
+  const needsLookup = hits.filter(h => !(STATIC_URL_MAPPINGS[collectionName] || STATIC_URL_MAPPINGS[h.type]));
 
-        if (parentUrl) {
-          targetUrl = parentUrl;
-          mappingType = "parent_single_type";
-        }
+  let urlMap = new Map();
+  if (needsLookup.length > 0) {
+    urlMap = await findParentsBatch(collectionName, needsLookup);
+  }
+
+  // Step 2: Pre-compile fallback logic
+  const aboutRegex = /about[_.]?us|about/;
+
+  // Step 3: Final Map (Pre-allocating array size can be faster for large sets)
+  return hits.map((hit) => {
+    // 1. Check static mappings first
+    let targetUrl = STATIC_URL_MAPPINGS[collectionName] || STATIC_URL_MAPPINGS[hit.type];
+    let mappingType = targetUrl ? "static_mapping" : "default";
+
+    // 2. Lookup from our batch results
+    if (!targetUrl) {
+      const parentUrl = urlMap.get(hit.document.id.toString());
+      if (parentUrl && parentUrl !== "/") {
+        targetUrl = parentUrl;
+        mappingType = "parent_single_type";
       }
+    }
 
-      // 3. Keyword Emergency Fallback
-      if (!targetUrl || targetUrl === "/") {
-        const title = (hit.title || "").toLowerCase();
+    // 3. Keyword Fallback (Only if we still don't have a valid URL)
+    if (!targetUrl || targetUrl === "/") {
+      const title = (hit.title || "").toLowerCase();
+      if (title.includes("transport")) targetUrl = "/transport";
+      else if (title.includes("warehous")) targetUrl = "/warehousing";
+      else if (title.includes("b-triple")) targetUrl = "/b-triple";
+      else if (aboutRegex.test(title)) targetUrl = "/about";
 
-        if (title.includes("transport")) targetUrl = "/transport";
-        else if (title.includes("warehousing") || title.includes("warehouse"))
-          targetUrl = "/warehousing";
-        else if (title.includes("b-triple")) targetUrl = "/b-triple";
-        else if (title.includes("about_us") || title.includes("about"))
-          targetUrl = "/about";
+      if (targetUrl && targetUrl !== "/") mappingType = "keyword_fallback";
+    }
 
-        if (targetUrl) mappingType = "keyword_fallback";
-      }
-
-      const finalUrl = targetUrl;
-
-      return {
-        ...hit,
-        url: finalUrl,
-        all_pages: [finalUrl],
-        page_count: targetUrl ? 1 : 0,
-        mapping_type: mappingType,
-      };
-    }),
-  );
-
-  // Return enriched hits
-  return enrichedHits;
+    const finalUrl = targetUrl || "/";
+    
+    // Result object construction
+    return {
+      ...hit,
+      url: finalUrl,
+      all_pages: [finalUrl],
+      page_count: finalUrl === "/" ? 0 : 1,
+      mapping_type: mappingType,
+      relative_score: totalScore > 0 ? (hit.score / totalScore) * 100 : 0,
+    };
+  });
 }
+
 
 module.exports = {
   enrich_collection_with_urls,
