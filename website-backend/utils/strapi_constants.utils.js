@@ -28,7 +28,9 @@ const STATIC_SINGLE_TYPES = {
   components_elements_integrated_solutions_cmps: "/",
   components_elements_items_cmps: "/warehousing",
   components_elements_legals_cmps: "/",
-  components_layout_textand_medias: "/industries"
+  components_layout_textand_medias: "/industries",
+  components_elements_news_letters: "/news",
+  components_layout_transport_services: "/transport",
 };
 
 // Static URL mappings based on component type
