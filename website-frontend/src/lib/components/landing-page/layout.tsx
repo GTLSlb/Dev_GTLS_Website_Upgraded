@@ -103,23 +103,15 @@ export default function Layout() {
                   <a
                     href="https://support.gtls.com.au/help/2703577665"
                     target="_blank"
-                    className="flex justify-center"
+                    rel="noopener noreferrer" // Security best practice
+                    aria-label="Support Center" // Ensures a discernible name
+                    className="flex justify-center items-center text-warm-brown hover:text-gold group w-auto p-3 rounded-md text-xs font-medium transition-colors"
                   >
-                    {" "}
-                    <button
-                      className={
-                        "text-warm-brown hover:text-gold hover:cursor-pointer group w-auto p-3 rounded-md flex flex-row items-center text-xs font-medium"
-                      }
-                    >
-                      <MessageCircleMore
-                        className={
-                          "text-warm-brown group-hover:text-gold h-6 w-6"
-                        }
-                        aria-hidden="true"
-                      />
-
-                      <span className="hidden sm:block ml-2">Support</span>
-                    </button>
+                    <MessageCircleMore
+                      className="text-warm-brown group-hover:text-gold h-6 w-6"
+                      aria-hidden="true"
+                    />
+                    <span className="hidden sm:block ml-2">Support</span>
                   </a>
 
                   <button
@@ -197,7 +189,7 @@ export default function Layout() {
                                 <div className="rounded-full text-warm-brown bg-ligh-gold border-2 border-gold flex items-center justify-center h-14 w-14">
                                   {app.AppAbv.substring(
                                     2,
-                                    app.AppAbv.length
+                                    app.AppAbv.length,
                                   ).toUpperCase()}
                                 </div>
                               ) : (
@@ -227,7 +219,7 @@ export default function Layout() {
                                   <span className="">
                                     {app.AppAbv.substring(
                                       1,
-                                      app.AppAbv.length
+                                      app.AppAbv.length,
                                     ).toUpperCase()}
                                   </span>
                                 </h1>{" "}
